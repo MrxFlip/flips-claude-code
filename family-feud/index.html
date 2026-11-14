@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BellaFox Feud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Fixed 1920x1080 broadcast stage, scaled to fit the viewport. -->
+  <div id="stage-wrap">
+    <div id="stage">
+      <div class="backdrop" aria-hidden="true">
+        <div class="backdrop-glow"></div>
+        <div class="backdrop-rays"></div>
+      </div>
+
+      <header class="question-banner">
+        <div class="survey-mark">Simulated survey &middot; 100 people asked</div>
+        <h1 class="question" id="question">&nbsp;</h1>
+      </header>
+
+      <main class="board" id="board" aria-live="polite"></main>
+
+      <footer class="hud">
+        <div class="hud-block">
+          <span class="hud-label">Round pot</span>
+          <span class="hud-value" id="pot">0</span>
+        </div>
+        <div class="hud-block hud-phase">
+          <span class="hud-label">Phase 0 &middot; board harness</span>
+          <span class="hud-hint" id="hint">1&ndash;8 reveal &middot; R reveal all &middot; N next question &middot; C reset</span>
+        </div>
+        <div class="hud-block hud-right">
+          <span class="hud-label">Question</span>
+          <span class="hud-value" id="qcount">&ndash;/&ndash;</span>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <noscript><p style="color:#fff;font:600 18px system-ui;padding:24px">This game needs JavaScript enabled.</p></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

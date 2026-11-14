@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "note": "Simulated survey data. Point values are authored, not collected.",
+  "main": [
+    {
+      "id": "q001",
+      "prompt": "Name something people do the moment they wake up.",
+      "readAs": "Name something people do the moment they wake up.",
+      "answers": [
+        { "text": "Check their phone", "points": 38, "aliases": ["phone", "check phone", "look at phone", "scroll phone", "check messages", "check notifications"] },
+        { "text": "Hit snooze", "points": 21, "aliases": ["snooze", "snooze button", "go back to sleep", "hit the snooze"] },
+        { "text": "Stretch", "points": 14, "aliases": ["stretching", "have a stretch"] },
+        { "text": "Go to the bathroom", "points": 11, "aliases": ["bathroom", "pee", "toilet", "restroom", "use the bathroom"] },
+        { "text": "Drink water", "points": 9, "aliases": ["water", "have a drink", "glass of water"] },
+        { "text": "Turn on a light", "points": 7, "aliases": ["light", "lights", "lamp", "turn the light on"] }
+      ]
+    },
+    {
+      "id": "q002",
+      "prompt": "Name a reason someone might be late to work.",
+      "readAs": "Name a reason someone might be late to work.",
+      "answers": [
+        { "text": "Traffic", "points": 31, "aliases": ["traffic jam", "stuck in traffic", "roadworks", "accident on the road"] },
+        { "text": "Overslept", "points": 27, "aliases": ["slept in", "alarm didn't go off", "woke up late", "sleeping in"] },
+        { "text": "Car trouble", "points": 14, "aliases": ["car broke down", "flat tire", "flat tyre", "dead battery", "car wouldn't start"] },
+        { "text": "Bad weather", "points": 11, "aliases": ["weather", "snow", "rain", "storm", "ice"] },
+        { "text": "The kids", "points": 10, "aliases": ["kids", "children", "school run", "dropping kids off", "kid was sick"] },
+        { "text": "Lost their keys", "points": 7, "aliases": ["keys", "lost keys", "couldn't find keys", "misplaced keys"] }
+      ]
+    },
+    {
+      "id": "q003",
+      "prompt": "Name something you'd find in a teenager's bedroom.",
+      "readAs": "Name something you'd find in a teenager's bedroom.",
+      "answers": [
+        { "text": "Clothes on the floor", "points": 26, "aliases": ["clothes", "dirty clothes", "laundry", "washing", "clothes everywhere"] },
+        { "text": "Phone charger", "points": 22, "aliases": ["charger", "charging cable", "cable", "phone cable"] },
+        { "text": "Posters", "points": 18, "aliases": ["poster", "wall posters", "band posters"] },
+        { "text": "Game console", "points": 14, "aliases": ["console", "xbox", "playstation", "ps5", "nintendo", "switch", "games"] },
+        { "text": "Dirty dishes", "points": 12, "aliases": ["dishes", "plates", "cups", "old plates", "mugs"] },
+        { "text": "Headphones", "points": 8, "aliases": ["headset", "earbuds", "airpods", "earphones"] }
+      ]
+    },
+    {
+      "id": "q004",
+      "prompt": "Name a food that tastes better the next day.",
+      "readAs": "Name a food that tastes better the next day.",
+      "answers": [
+        { "text": "Pizza", "points": 34, "aliases": ["cold pizza", "leftover pizza"] },
+        { "text": "Lasagna", "points": 20, "aliases": ["lasagne", "pasta bake"] },
+        { "text": "Chili", "points": 16, "aliases": ["chilli", "chili con carne"] },
+        { "text": "Curry", "points": 13, "aliases": ["indian food", "takeaway curry"] },
+        { "text": "Spaghetti", "points": 10, "aliases": ["pasta", "spaghetti bolognese", "bolognese"] },
+        { "text": "Soup", "points": 7, "aliases": ["stew", "broth"] }
+      ]
+    },
+    {
+      "id": "q005",
+      "prompt": "Name something people pretend to like.",
+      "readAs": "Name something people pretend to like.",
+      "answers": [
+        { "text": "A bad gift", "points": 25, "aliases": ["gift", "present", "a present", "bad present", "ugly sweater"] },
+        { "text": "Someone's cooking", "points": 23, "aliases": ["cooking", "food", "someones food", "a meal", "moms cooking"] },
+        { "text": "Their job", "points": 19, "aliases": ["job", "work", "their work", "my job"] },
+        { "text": "A coworker", "points": 15, "aliases": ["coworker", "colleague", "work colleague", "boss"] },
+        { "text": "Reality TV", "points": 10, "aliases": ["reality television", "reality shows", "a tv show"] },
+        { "text": "Exercise", "points": 8, "aliases": ["the gym", "gym", "working out", "running"] }
+      ]
+    }
+  ],
+  "fastMoney": [
+    {
+      "id": "f001",
+      "prompt": "Name a food people eat straight out of the container.",
+      "readAs": "Name a food people eat straight out of the container.",
+      "answers": [
+        { "text": "Ice cream", "points": 41, "aliases": ["icecream", "ice-cream", "tub of ice cream"] },
+        { "text": "Peanut butter", "points": 19, "aliases": ["pb", "jar of peanut butter"] },
+        { "text": "Yogurt", "points": 14, "aliases": ["yoghurt"] },
+        { "text": "Cereal", "points": 11, "aliases": ["box of cereal"] },
+        { "text": "Chinese takeout", "points": 8, "aliases": ["takeout", "takeaway", "noodles", "chinese food"] }
+      ]
+    },
+    {
+      "id": "f002",
+      "prompt": "Name something people lose on a regular basis.",
+      "readAs": "Name something people lose on a regular basis.",
+      "answers": [
+        { "text": "Keys", "points": 36, "aliases": ["car keys", "house keys", "my keys"] },
+        { "text": "Phone", "points": 24, "aliases": ["cell phone", "mobile", "cellphone"] },
+        { "text": "Remote control", "points": 15, "aliases": ["remote", "tv remote", "the remote"] },
+        { "text": "Socks", "points": 12, "aliases": ["a sock", "one sock"] },
+        { "text": "Glasses", "points": 9, "aliases": ["sunglasses", "spectacles", "specs"] }
+      ]
+    }
+  ]
+}

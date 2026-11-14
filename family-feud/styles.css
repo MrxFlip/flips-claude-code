@@ -1,0 +1,330 @@
+/* ===========================================================
+   BELLAFOX FEUD — Phase 0
+   Everything is authored against a fixed 1920x1080 stage.
+   #stage is scaled to the viewport by src/stage.js, so all
+   sizes below are literal broadcast pixels, never responsive.
+   =========================================================== */
+
+:root {
+  --stage-deep:    #050a24;
+  --stage-blue:    #0d2a6b;
+  --stage-blue-lt: #1c4ab0;
+  --board-face:    #0a1f52;
+  --board-reveal:  #f2f6ff;
+  --board-text:    #0a1f52;
+  --gold:          #ffc83d;
+  --gold-deep:     #c88a12;
+  --strike-red:    #e01b1b;
+  --glow-cyan:     #49d5ff;
+  --ink:           #ffffff;
+
+  --font-display: 'Anton', 'Haettenschweiler', 'Arial Narrow', Impact, sans-serif;
+  --font-board:   'Archivo Black', 'Arial Black', Impact, sans-serif;
+  --font-ui:      'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --stage-w: 1920px;
+  --stage-h: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--stage-deep);
+  font-family: var(--font-ui);
+  color: var(--ink);
+}
+
+/* Letterbox field behind the scaled stage. */
+#stage-wrap {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 40%, #0a1640 0%, var(--stage-deep) 70%);
+}
+
+#stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--stage-w);
+  height: var(--stage-h);
+  transform-origin: center center;
+  transform: translate(-50%, -50%) scale(1);
+  overflow: hidden;
+}
+
+/* ---------- backdrop ---------- */
+.backdrop { position: absolute; inset: 0; z-index: 0; }
+
+.backdrop::before {
+  /* set floor */
+  content: '';
+  position: absolute;
+  inset: 68% 0 0 0;
+  background: linear-gradient(180deg, #071233 0%, #02060f 100%);
+  box-shadow: inset 0 2px 0 rgba(73, 213, 255, .18);
+}
+
+.backdrop-glow {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 2200px;
+  height: 1400px;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(ellipse 48% 42% at 50% 50%, rgba(28, 74, 176, .95) 0%, rgba(13, 42, 107, .55) 42%, rgba(5, 10, 36, 0) 72%);
+}
+
+.backdrop-rays {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  width: 2400px;
+  height: 2400px;
+  transform: translate(-50%, -50%);
+  opacity: .22;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(255, 200, 61, .85) 0deg 2.2deg,
+    rgba(255, 200, 61, 0) 2.2deg 15deg
+  );
+  mask-image: radial-gradient(circle at 50% 50%, #000 12%, transparent 58%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 12%, transparent 58%);
+}
+
+/* ---------- question banner ---------- */
+.question-banner {
+  position: absolute;
+  z-index: 2;
+  left: 210px;
+  top: 64px;
+  width: 1500px;
+  min-height: 176px;
+  padding: 22px 48px 26px;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(28, 74, 176, .96) 0%, rgba(10, 31, 82, .96) 100%);
+  border: 4px solid var(--gold);
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 2px rgba(5, 10, 36, .9),
+    0 18px 60px rgba(0, 0, 0, .55),
+    inset 0 2px 0 rgba(255, 255, 255, .22);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.survey-mark {
+  font: 600 18px/1 var(--font-ui);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(255, 200, 61, .78);
+  margin-bottom: 14px;
+}
+
+.question {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 58px;
+  line-height: 1.06;
+  font-weight: 400;
+  letter-spacing: .005em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 0 rgba(5, 10, 36, .6), 0 0 34px rgba(73, 213, 255, .3);
+}
+
+/* ---------- board ---------- */
+.board {
+  position: absolute;
+  z-index: 2;
+  left: 210px;
+  top: 292px;
+  width: 1500px;
+  height: 564px;
+  display: grid;
+  /* Column-major: ranks fill the LEFT column top-to-bottom, then the right.
+     --rows is set by src/board.js from the answer count (5-8 answers => 3-4 rows).
+     Explicit rows are required: with auto-flow column and no row track list,
+     the grid creates implicit COLUMNS and the board spills sideways. */
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(var(--rows, 3), 1fr);
+  grid-auto-flow: column;
+  gap: 14px 24px;
+  padding: 22px;
+  background: linear-gradient(180deg, #0a1a44 0%, #050d28 100%);
+  border-radius: 20px;
+}
+
+.tile {
+  position: relative;
+  perspective: 1400px;
+}
+
+.tile-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 420ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.tile.revealed .tile-inner { transform: rotateY(180deg); }
+
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* unrevealed */
+.face-back {
+  justify-content: center;
+  background: linear-gradient(180deg, #123473 0%, var(--board-face) 55%, #061536 100%);
+  border: 3px solid rgba(73, 213, 255, .28);
+  box-shadow:
+    inset 0 3px 0 rgba(255, 255, 255, .14),
+    inset 0 -4px 10px rgba(0, 0, 0, .5),
+    0 8px 22px rgba(0, 0, 0, .45);
+}
+
+.face-back .rank-ghost {
+  font-family: var(--font-display);
+  font-size: 74px;
+  color: rgba(255, 255, 255, .13);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .4);
+  user-select: none;
+}
+
+/* revealed */
+.face-front {
+  transform: rotateY(180deg);
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 18px 0 16px;
+  background: linear-gradient(180deg, #ffffff 0%, var(--board-reveal) 48%, #cfdcf5 100%);
+  border: 3px solid var(--gold);
+  box-shadow:
+    inset 0 3px 0 rgba(255, 255, 255, .9),
+    0 8px 22px rgba(0, 0, 0, .45);
+}
+
+.rank-badge {
+  flex: 0 0 auto;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 38% 32%, #ffe08a 0%, var(--gold) 46%, var(--gold-deep) 100%);
+  color: #3a2300;
+  font-family: var(--font-display);
+  font-size: 38px;
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, .3), 0 3px 8px rgba(0, 0, 0, .35);
+}
+
+.answer-text {
+  flex: 1 1 auto;
+  text-align: center;
+  font-family: var(--font-board);
+  font-size: 40px;
+  line-height: 1.04;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: var(--board-text);
+  /* Long answers shrink rather than wrap out of the tile. */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.answer-text.is-long  { font-size: 34px; }
+.answer-text.is-xlong { font-size: 28px; }
+
+.points-box {
+  flex: 0 0 auto;
+  min-width: 108px;
+  height: 78px;
+  padding: 0 14px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #1c4ab0 0%, #0a1f52 100%);
+  border: 3px solid rgba(255, 200, 61, .9);
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-size: 46px;
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, .18), 0 3px 8px rgba(0, 0, 0, .4);
+}
+
+/* ---------- HUD ---------- */
+.hud {
+  position: absolute;
+  z-index: 2;
+  left: 210px;
+  top: 888px;
+  width: 1500px;
+  height: 118px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
+  padding: 0 34px;
+  background: linear-gradient(180deg, rgba(13, 42, 107, .92), rgba(5, 10, 36, .92));
+  border: 3px solid rgba(73, 213, 255, .3);
+  border-radius: 16px;
+}
+
+.hud-block { display: flex; flex-direction: column; gap: 6px; }
+.hud-phase { text-align: center; align-items: center; }
+.hud-right { text-align: right; align-items: flex-end; }
+
+.hud-label {
+  font: 600 15px/1 var(--font-ui);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .55);
+}
+
+.hud-value {
+  font-family: var(--font-display);
+  font-size: 48px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.hud-hint {
+  font: 600 16px/1 var(--font-ui);
+  color: rgba(255, 255, 255, .72);
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .tile-inner { transition: none; }
+  .tile.revealed .tile-inner { transform: none; }
+  .tile.revealed .face-back { opacity: 0; }
+  .tile.revealed .face-front { transform: none; }
+  .backdrop-rays { display: none; }
+}
+
+/* ---------- mobile fallback (plan 7.1) ---------- */
+@media (max-width: 900px) and (pointer: coarse) {
+  #stage-wrap::after {
+    content: 'Rotate to landscape or open on a larger screen for the full stage.';
+    position: fixed;
+    inset: auto 0 0 0;
+    padding: 10px 16px;
+    font: 600 13px/1.4 var(--font-ui);
+    text-align: center;
+    color: rgba(255, 255, 255, .8);
+    background: rgba(5, 10, 36, .9);
+  }
+}
