@@ -422,6 +422,8 @@ async function handle(e) {
       break;
 
     case 'fmRevealEntry': {
+      // The banner still reads "press space to reveal" once revealing starts.
+      if (e.turn === 0 && e.index === 0) el.fmQuestion.textContent = '\u00a0';
       const cell = fmCell(e.turn, e.index);
       if (cell) {
         cell.textContent = e.text || '—';

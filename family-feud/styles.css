@@ -616,14 +616,17 @@ kbd {
 /* Podium art decorates the setup screen, where "who's playing" fits it. */
 .art-podiums .screen-setup::before {
   content: ''; position: absolute;
-  left: 50%; bottom: -40px; transform: translateX(-50%);
-  width: 1500px; height: 560px;
+  left: 50%; bottom: -210px; transform: translateX(-50%);
+  width: 1560px; height: 560px;
   background: var(--art-podiums) center bottom/contain no-repeat;
-  opacity: .22;
+  opacity: .18;
   pointer-events: none;
 }
 .art-podiums .screen-setup > * { position: relative; z-index: 1; }
 .result-inner { text-align: center; z-index: 2; }
+/* The winner frame puts Bella centre-right and leaves the left third clean,
+   which is where the score belongs rather than across her hands. */
+.art-winner .result-inner { transform: translateX(-24%); }
 .result-kicker {
   font: 800 34px/1 var(--font-ui); letter-spacing: .4em;
   color: var(--glow-cyan); margin-bottom: 18px;

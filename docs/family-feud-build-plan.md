@@ -1,5 +1,6 @@
 # BELLAFOX FEUD — BUILD PLAN
-Status: phases 0-5 BUILT and tested; phase 6 (art drop-in + arcade deploy) outstanding
+Status: phases 0-5 BUILT and tested, all 12 artwork assets in place; phase 6 awaits
+        the question bank, Bella's voice render and the arcade deploy
 Written: 2026-11-14 · Last updated: 2026-11-15
 Target home: bellafox.gg arcade (static bundle served from theflipside)
 Code: `family-feud/` · Image prompts: `codex-image-prompts.md`
@@ -12,9 +13,9 @@ Code: `family-feud/` · Image prompts: `codex-image-prompts.md`
 | 1 Game logic | DONE | Face-off, play/pass, strikes, steal, banking, multipliers, sudden death |
 | 2 Matching + typing | DONE | 123-case fixture suite, host override keys, type-ahead queueing |
 | 3 Audio | DONE | Procedural Web Audio SFX, 3-stage voice fallback, render script |
-| 4 Art integration | DONE (slots) | Probes `img/`, falls back to the CSS stage; awaiting the files |
+| 4 Art integration | DONE | All 12 assets in, 1.8 MB of a 4 MB budget; CSS fallback retained |
 | 5 Fast Money | DONE | Both-players and solo modes, look-away curtain, duplicate + spare |
-| 6 Ship | TODO | Question bank to 40+/20+, art in place, arcade deploy, doc updates |
+| 6 Ship | PARTIAL | Doc entries drafted (`family-feud-library-entries.md`). Outstanding: question bank to 40/20, Bella voice render, arcade deploy |
 
 Tests: `node family-feud/tools/test-all.mjs` (validator + 123 matcher cases + 80 game
 checks). Browser coverage was run with Playwright at 1920x1080, 1366x768 and 2560x1440:
@@ -22,6 +23,11 @@ checks). Browser coverage was run with Playwright at 1920x1080, 1366x768 and 256
 
 Question bank currently holds 12 main and 10 Fast Money questions — playable, but
 below the 40/20 ship minimum below.
+
+Artwork is complete: twelve assets in `family-feud/img/`, 1801 KB as WebP. `src/art.js`
+resolves each by base name across `.webp`/`.png`/`.jpg`, so the extension never matters.
+Library doc entries for the Arcade Reference, Changelog and START HERE map are drafted
+in `codex-image-prompts.md`'s sibling, `family-feud-library-entries.md`, ready to paste.
 
 ---
 

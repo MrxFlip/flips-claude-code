@@ -5,11 +5,11 @@ Hot-seat game show for 2–4 players, built for the BellaFox arcade.
 - Build plan: `../docs/family-feud-build-plan.md`
 - Image prompts: `../docs/codex-image-prompts.md`
 
-**State: phases 0–5 complete and tested.** Full show plays end to end — face-off,
+**State: phases 0–5 complete and tested, all 12 artwork assets in place.** Full show plays end to end — face-off,
 three scoring rounds with multipliers, strikes, steal, sudden death, and Fast
-Money with duplicate handling. Artwork and Bella's rendered voice are optional
-drop-ins; without them the game runs on a CSS-drawn stage with synthesized sound
-effects and the browser's own speech.
+Money with duplicate handling. Artwork is in (1.8 MB of a 4 MB budget).
+Bella's rendered voice is still an optional drop-in; without it the game uses
+synthesized sound effects and the browser's own speech.
 
 ## Run it
 
