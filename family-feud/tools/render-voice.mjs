@@ -27,7 +27,9 @@ const args = new Set(process.argv.slice(2));
 const DRY = args.has('--dry-run');
 const FORCE = args.has('--force');
 
-const MODEL_ID = process.env.ELEVENLABS_MODEL_ID ?? 'eleven_multilingual_v2';
+// eleven_v4 to match the clips already in audio/, which were generated through
+// the ElevenLabs connector rather than this script.
+const MODEL_ID = process.env.ELEVENLABS_MODEL_ID ?? 'eleven_v4';
 const VOICE_ID = process.env.ELEVENLABS_VOICE_ID ?? '';
 const API_KEY = process.env.ELEVENLABS_API_KEY ?? '';
 

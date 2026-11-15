@@ -5,11 +5,11 @@ Hot-seat game show for 2–4 players, built for the BellaFox arcade.
 - Build plan: `../docs/family-feud-build-plan.md`
 - Image prompts: `../docs/codex-image-prompts.md`
 
-**State: phases 0–5 complete and tested, all 12 artwork assets in place.** Full show plays end to end — face-off,
+**State: phases 0–5 complete and tested. All 12 artwork assets and all 71 Bella
+voice clips are in place.** Full show plays end to end — face-off,
 three scoring rounds with multipliers, strikes, steal, sudden death, and Fast
-Money with duplicate handling. Artwork is in (1.8 MB of a 4 MB budget).
-Bella's rendered voice is still an optional drop-in; without it the game uses
-synthesized sound effects and the browser's own speech.
+Money with duplicate handling. Artwork is in (1.8 MB of a 4 MB budget) and so is Bella's
+voice (3.7 MB). Both still degrade gracefully if removed.
 
 ## Run it
 
@@ -98,7 +98,15 @@ nothing to license. Spoken lines use a three-stage fallback: a rendered Bella cl
 then the browser's speech synthesis, then subtitles on a timer. The game never
 waits on audio.
 
-To render Bella:
+**Bella is already recorded.** All 71 lines (22 questions + 49 host takes) are in
+`audio/`, 3.7 MB, voiced by the BellaFox professional clone
+(`OwhTuJJ7sxOWEm5PsdCh`) on `eleven_v4`. `data/voice-manifest.json` maps them.
+They were generated through the ElevenLabs connector, not this script, so
+`tools/render-voice.mjs` has no matching hash file and a plain run would
+re-render everything — only use it when you have added questions, and expect it
+to redo the existing clips too.
+
+To render Bella yourself (new questions, or a different voice):
 
 ```bash
 export ELEVENLABS_API_KEY=...

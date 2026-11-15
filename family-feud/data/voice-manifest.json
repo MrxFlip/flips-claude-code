@@ -1,0 +1,155 @@
+{
+  "q:q001": [
+    "audio/questions/q001.mp3"
+  ],
+  "q:q002": [
+    "audio/questions/q002.mp3"
+  ],
+  "q:q003": [
+    "audio/questions/q003.mp3"
+  ],
+  "q:q004": [
+    "audio/questions/q004.mp3"
+  ],
+  "q:q005": [
+    "audio/questions/q005.mp3"
+  ],
+  "q:q006": [
+    "audio/questions/q006.mp3"
+  ],
+  "q:q007": [
+    "audio/questions/q007.mp3"
+  ],
+  "q:q008": [
+    "audio/questions/q008.mp3"
+  ],
+  "q:q009": [
+    "audio/questions/q009.mp3"
+  ],
+  "q:q010": [
+    "audio/questions/q010.mp3"
+  ],
+  "q:q011": [
+    "audio/questions/q011.mp3"
+  ],
+  "q:q012": [
+    "audio/questions/q012.mp3"
+  ],
+  "q:f001": [
+    "audio/questions/f001.mp3"
+  ],
+  "q:f002": [
+    "audio/questions/f002.mp3"
+  ],
+  "q:f003": [
+    "audio/questions/f003.mp3"
+  ],
+  "q:f004": [
+    "audio/questions/f004.mp3"
+  ],
+  "q:f005": [
+    "audio/questions/f005.mp3"
+  ],
+  "q:f006": [
+    "audio/questions/f006.mp3"
+  ],
+  "q:f007": [
+    "audio/questions/f007.mp3"
+  ],
+  "q:f008": [
+    "audio/questions/f008.mp3"
+  ],
+  "q:f009": [
+    "audio/questions/f009.mp3"
+  ],
+  "q:f010": [
+    "audio/questions/f010.mp3"
+  ],
+  "host:showOpen": [
+    "audio/host/showOpen-01.mp3",
+    "audio/host/showOpen-02.mp3"
+  ],
+  "host:faceoff": [
+    "audio/host/faceoff-01.mp3",
+    "audio/host/faceoff-02.mp3",
+    "audio/host/faceoff-03.mp3"
+  ],
+  "host:goodAnswer": [
+    "audio/host/goodAnswer-01.mp3",
+    "audio/host/goodAnswer-02.mp3",
+    "audio/host/goodAnswer-03.mp3",
+    "audio/host/goodAnswer-04.mp3",
+    "audio/host/goodAnswer-05.mp3",
+    "audio/host/goodAnswer-06.mp3"
+  ],
+  "host:topAnswer": [
+    "audio/host/topAnswer-01.mp3",
+    "audio/host/topAnswer-02.mp3",
+    "audio/host/topAnswer-03.mp3"
+  ],
+  "host:strike": [
+    "audio/host/strike-01.mp3",
+    "audio/host/strike-02.mp3",
+    "audio/host/strike-03.mp3",
+    "audio/host/strike-04.mp3",
+    "audio/host/strike-05.mp3",
+    "audio/host/strike-06.mp3"
+  ],
+  "host:threeStrikes": [
+    "audio/host/threeStrikes-01.mp3",
+    "audio/host/threeStrikes-02.mp3"
+  ],
+  "host:stealWin": [
+    "audio/host/stealWin-01.mp3",
+    "audio/host/stealWin-02.mp3"
+  ],
+  "host:stealFail": [
+    "audio/host/stealFail-01.mp3",
+    "audio/host/stealFail-02.mp3"
+  ],
+  "host:bank": [
+    "audio/host/bank-01.mp3",
+    "audio/host/bank-02.mp3",
+    "audio/host/bank-03.mp3"
+  ],
+  "host:boardCleared": [
+    "audio/host/boardCleared-01.mp3",
+    "audio/host/boardCleared-02.mp3"
+  ],
+  "host:roundOpen": [
+    "audio/host/roundOpen-01.mp3",
+    "audio/host/roundOpen-02.mp3"
+  ],
+  "host:fmIntro": [
+    "audio/host/fmIntro-01.mp3",
+    "audio/host/fmIntro-02.mp3"
+  ],
+  "host:fmLookaway": [
+    "audio/host/fmLookaway-01.mp3",
+    "audio/host/fmLookaway-02.mp3"
+  ],
+  "host:fmGo": [
+    "audio/host/fmGo-01.mp3",
+    "audio/host/fmGo-02.mp3"
+  ],
+  "host:fmTimeUp": [
+    "audio/host/fmTimeUp-01.mp3",
+    "audio/host/fmTimeUp-02.mp3"
+  ],
+  "host:fmDuplicate": [
+    "audio/host/fmDuplicate-01.mp3",
+    "audio/host/fmDuplicate-02.mp3"
+  ],
+  "host:fmWin": [
+    "audio/host/fmWin-01.mp3",
+    "audio/host/fmWin-02.mp3"
+  ],
+  "host:fmLose": [
+    "audio/host/fmLose-01.mp3",
+    "audio/host/fmLose-02.mp3"
+  ],
+  "host:winner": [
+    "audio/host/winner-01.mp3",
+    "audio/host/winner-02.mp3"
+  ]
+}

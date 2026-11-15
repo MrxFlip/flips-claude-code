@@ -1,6 +1,6 @@
 # BELLAFOX FEUD — BUILD PLAN
-Status: phases 0-5 BUILT and tested, all 12 artwork assets in place; phase 6 awaits
-        the question bank, Bella's voice render and the arcade deploy
+Status: phases 0-5 BUILT and tested. All 12 artwork assets and all 71 Bella voice
+        clips in place; phase 6 awaits the question bank and the arcade deploy
 Written: 2026-11-14 · Last updated: 2026-11-15
 Target home: bellafox.gg arcade (static bundle served from theflipside)
 Code: `family-feud/` · Image prompts: `codex-image-prompts.md`
@@ -12,10 +12,10 @@ Code: `family-feud/` · Image prompts: `codex-image-prompts.md`
 | 0 Scaffold | DONE | Fixed 1920x1080 stage, board from JSON, data validator |
 | 1 Game logic | DONE | Face-off, play/pass, strikes, steal, banking, multipliers, sudden death |
 | 2 Matching + typing | DONE | 123-case fixture suite, host override keys, type-ahead queueing |
-| 3 Audio | DONE | Procedural Web Audio SFX, 3-stage voice fallback, render script |
+| 3 Audio | DONE | Procedural Web Audio SFX, 3-stage voice fallback, all 71 Bella clips recorded |
 | 4 Art integration | DONE | All 12 assets in, 1.8 MB of a 4 MB budget; CSS fallback retained |
 | 5 Fast Money | DONE | Both-players and solo modes, look-away curtain, duplicate + spare |
-| 6 Ship | PARTIAL | Doc entries drafted (`family-feud-library-entries.md`). Outstanding: question bank to 40/20, Bella voice render, arcade deploy |
+| 6 Ship | PARTIAL | Doc entries drafted (`family-feud-library-entries.md`). Outstanding: question bank to 40/20, arcade deploy |
 
 Tests: `node family-feud/tools/test-all.mjs` (validator + 123 matcher cases + 80 game
 checks). Browser coverage was run with Playwright at 1920x1080, 1366x768 and 2560x1440:
