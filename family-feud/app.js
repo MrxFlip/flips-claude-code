@@ -12,6 +12,7 @@ import { createAudio } from './src/audio.js';
 import { initArt } from './src/art.js';
 import { confetti } from './src/confetti.js';
 import { hostLine } from './src/host-lines.js';
+import { createNet, resolveRelayUrl, snapshotFor, eventsFor } from './src/net.js';
 
 const $ = (id) => document.getElementById(id);
 const el = {
@@ -33,6 +34,13 @@ const el = {
   curtainSub: $('curtainSub'), curtainCount: $('curtainCount'),
   toast: $('toast'), subtitle: $('subtitle'), keyhelp: $('keyhelp'),
   advanceBtns: [...document.querySelectorAll('.advance-btn')],
+  modeSeg: $('modeSeg'), lobby: $('lobby'), lobbyChoice: $('lobbyChoice'),
+  lobbyRoom: $('lobbyRoom'), lobbyCode: $('lobbyCode'), lobbyHint: $('lobbyHint'),
+  lobbyPlayers: $('lobbyPlayers'), lobbyError: $('lobbyError'),
+  createRoomBtn: $('createRoomBtn'), joinRoomBtn: $('joinRoomBtn'), joinCode: $('joinCode'),
+  leaveRoomBtn: $('leaveRoomBtn'), playerCountRow: $('playerCountRow'),
+  fmModeRow: $('fmModeRow'), targetModeRow: $('targetModeRow'),
+  waitingNote: $('waitingNote'), netBadge: $('netBadge'),
   muteBtn: $('muteBtn'), confetti: $('confetti'),
 };
 
@@ -44,14 +52,30 @@ let surveys = null;
 let game = null;
 let boardView = null;
 let advanceAction = null;      // what Space does right now
-let pendingInput = null;       // { context, who, masked }
+let pendingInput = null;       // { context, who, masked } — THIS screen must type
+let engineAwait = null;        // { context, who } — what the engine is waiting on,
+                               // whoever owns it. Only ever set where the engine is.
 let queuedSubmit = null;       // an answer typed before the box went live
 let awaitingChoice = false;    // true only while PLAY/PASS is actually on screen
+let choiceWho = null;          // which seat the engine is waiting on, ours or not
 let fmTimerHandle = null;
 let stopConfetti = null;
 let artUrls = new Map();
 
 const setup = { count: 2, names: ['Player 1', 'Player 2', 'Player 3', 'Player 4'], fmMode: 'both', target: 'off' };
+
+// ------------------------------------------------------------------ online
+//
+// One browser runs the engine and posts the events it produces; the others
+// render them. See src/net.js. `online` stays false for a hot-seat game and
+// every branch below collapses to what the game did before.
+const net = createNet();
+let relayUrl = null;
+let online = false;
+let mySeat = 0;
+const isHost = () => !online || mySeat === 0;
+/** True when this screen owns the input the engine is currently waiting for. */
+const myTurn = (who) => !online || who === mySeat;
 
 // ------------------------------------------------------------------ screens
 
@@ -116,7 +140,25 @@ function say(bucket, priority = 'queue') {
  * where the game is waiting to be advanced, so the only instruction on screen
  * was invisible and a failed steal looked like a crash.
  */
+function showWaiting(text) {
+  el.waitingNote.textContent = text;
+  el.waitingNote.hidden = false;
+}
+function hideWaiting() {
+  el.waitingNote.hidden = true;
+}
+
 function setAdvance(label, fn) {
+  // In an online match the host moves the show along, the same way a real host
+  // does. Guests are told what is being waited on rather than given a button
+  // that would race the host's.
+  if (online && !isHost()) {
+    advanceAction = null;
+    el.advanceBtns.forEach((btn) => { btn.hidden = true; });
+    showWaiting(`${net.players.find((p) => p.seat === 0)?.name ?? 'The host'} continues the show`);
+    return;
+  }
+  hideWaiting();
   advanceAction = fn;
   // One button per screen, and only the one on the screen in front of the
   // player is shown — so `.advance-btn:not([hidden])` always means the button
@@ -197,6 +239,10 @@ let draining = false;
 const batchQueue = [];
 
 async function run(events) {
+  // The host posts each batch as the engine produces it, with the state that
+  // batch has already left behind. Guests adopt the state and then render the
+  // events, which is the same order the host sees them in.
+  if (online && isHost() && Array.isArray(events) && events.length) broadcast(events);
   batchQueue.push(events);
   if (draining) return;
   draining = true;
@@ -208,6 +254,15 @@ async function run(events) {
   } finally {
     draining = false;
   }
+}
+
+function broadcast(events) {
+  const bySeat = {};
+  for (const p of net.players) {
+    if (p.seat === 0) continue;
+    bySeat[p.seat] = { events: eventsFor(events, p.seat), state: snapshotFor(game.state, p.seat) };
+  }
+  if (Object.keys(bySeat).length) net.relay({ k: 'events', bySeat });
 }
 
 async function handle(e) {
@@ -227,7 +282,8 @@ async function handle(e) {
       audio.sfx('roundStart');
       if (e.roundNumber > 1) say('roundOpen');
       await delay(1500);
-      await run(game.beginFaceoff());
+      // The host drives; a guest just waits for the next batch to arrive.
+      if (isHost()) await run(game.beginFaceoff());
       break;
 
     case 'readQuestion':
@@ -241,7 +297,12 @@ async function handle(e) {
       break;
 
     case 'awaitInput': {
-      pendingInput = { context: e.context, who: e.who, masked: !!e.masked };
+      engineAwait = { context: e.context, who: e.who };
+      // pendingInput means "a person at THIS keyboard owes us an answer", which
+      // is not the same question as "the engine is waiting". Conflating them
+      // left a guest's screen claiming it was ready to type on someone else's
+      // turn, and left submitText a path to answer for another player.
+      pendingInput = myTurn(e.who) ? { context: e.context, who: e.who, masked: !!e.masked } : null;
       awaitingChoice = false;
       clearAdvance();
       const name = s.players[e.who].name;
@@ -249,13 +310,25 @@ async function handle(e) {
         : e.context === 'steal' ? `${name} — one guess to steal`
         : `${name} — your answer`;
       el.choiceRow.hidden = true;
+
+      if (!myTurn(e.who)) {
+        // Online: that player has their own keyboard. This screen watches.
+        setInputEnabled(false, { clear: true });
+        showWaiting(`Waiting for ${name}`);
+        renderPlates();
+        break;
+      }
+      hideWaiting();
       setInputEnabled(true, {
         prompt: label,
-        masked: e.masked,
-        // A face-off always starts from a blank box so the second player can
-        // never see what the first one typed.
-        clear: !!e.masked,
-        placeholder: e.masked ? 'Hidden so the next player can’t copy' : 'Type your answer and press Enter',
+        // Masking exists so the player sitting next to you cannot read your
+        // face-off answer. Online there is nobody sitting next to you, and
+        // hiding your own words from yourself is just annoying.
+        masked: e.masked && !online,
+        clear: true,
+        placeholder: (e.masked && !online)
+          ? 'Hidden so the next player can’t copy'
+          : 'Type your answer and press Enter',
       });
       renderPlates();
       // Impatient players type over the host reading the question. Rather than
@@ -273,7 +346,7 @@ async function handle(e) {
       break;
 
     case 'reveal': {
-      boardView?.reveal(e.rank);
+      boardView?.reveal(e.rank, e.text, e.points);
       const tile = el.board.querySelector(`.tile[data-rank="${e.rank}"]`);
       tile?.classList.add('just-revealed');
       setTimeout(() => tile?.classList.remove('just-revealed'), 700);
@@ -331,9 +404,18 @@ async function handle(e) {
 
     case 'awaitChoice':
       pendingInput = null;
-      awaitingChoice = true;
+      engineAwait = null;
+      choiceWho = e.who;
+      awaitingChoice = myTurn(e.who);
       clearAdvance();
       setInputEnabled(false);
+      if (!awaitingChoice) {
+        el.choiceRow.hidden = true;
+        showWaiting(`${s.players[e.who].name} is choosing play or pass`);
+        renderPlates();
+        break;
+      }
+      hideWaiting();
       el.choiceRow.hidden = false;
       el.answerPrompt.textContent = `${s.players[e.who].name} — play or pass?`;
       el.answerForm.hidden = false;
@@ -393,7 +475,9 @@ async function handle(e) {
     case 'undo':
       toast('Undo', false, 1100);
       boardView = createBoard(el.board, s.question);
-      s.revealed.forEach((on, i) => { if (on) boardView.reveal(i + 1); });
+      s.revealed.forEach((on, i) => {
+        if (on) boardView.reveal(i + 1, s.question.answers[i].text, s.question.answers[i].points);
+      });
       el.question.textContent = s.question?.prompt ?? '';
       renderPlates(); renderStrikes(); renderPot();
       if (s.phase === PHASE.BOARD_PLAY) {
@@ -432,23 +516,25 @@ async function handle(e) {
       setAdvance('START THE CLOCK', () => run(game.fmBeginTurn()));
       break;
 
-    case 'fmTurnStart':
+    case 'fmTurnStart': {
       renderFmRows();
       el.fmTimer.style.visibility = 'visible';
       el.fmWho.textContent = `${s.players[e.player].name} — ${e.seconds}s`;
-      el.fmForm.hidden = false;
-      el.fmInput.disabled = false;
+      const mine = myTurn(e.player);
+      el.fmForm.hidden = !mine;
+      el.fmInput.disabled = !mine;
       el.fmInput.value = '';
-      setTimeout(() => el.fmInput.focus(), 30);
+      if (mine) setTimeout(() => el.fmInput.focus(), 30);
       await say('fmGo');
       startFmTimer(e.seconds);
       break;
+    }
 
     case 'fmQuestion':
       el.fmQuestion.textContent = e.question.prompt;
       markFmCurrent(e.index);
       el.fmInput.value = '';
-      el.fmInput.focus();
+      if (!el.fmInput.disabled) el.fmInput.focus();
       audio.speak(`q:${e.question.id}`, e.question.readAs ?? e.question.prompt);
       break;
 
@@ -500,16 +586,18 @@ async function handle(e) {
       break;
     }
 
-    case 'fmDuplicate':
+    case 'fmDuplicate': {
       await say('fmDuplicate');
       toast('Duplicate answer — one more question', true, 2600);
       el.fmQuestion.textContent = e.question.prompt;
-      el.fmForm.hidden = false;
-      el.fmInput.disabled = false;
+      const mine = myTurn(e.player);
+      el.fmForm.hidden = !mine;
+      el.fmInput.disabled = !mine;
       el.fmInput.value = '';
-      el.fmInput.focus();
+      if (mine) el.fmInput.focus();
       audio.speak(`q:${e.question.id}`, e.question.readAs ?? e.question.prompt);
       break;
+    }
 
     case 'fmSpareResult':
       setFmCell(e.turn, e.index, e.text, { masked: false });
@@ -594,7 +682,9 @@ function startFmTimer(seconds) {
     }
     if (left <= 0) {
       stopFmTimer();
-      // Out of time: bank whatever is left as blanks.
+      // Out of time: bank whatever is left as blanks. A guest's clock is a
+      // display of the host's, so only the host acts on it running out.
+      if (!isHost()) return;
       const fm = game.state.fm;
       const remaining = fm.questions.length - fm.qIndex;
       (async () => {
@@ -642,10 +732,22 @@ function submitText(text) {
   }
   const ctx = pendingInput.context;
   pendingInput = null;
+  engineAwait = null;
   el.answerInput.value = '';
-  if (ctx === 'faceoff') run(game.submitFaceoff(clean));
-  else if (ctx === 'board') run(game.submitBoard(clean));
-  else if (ctx === 'steal') run(game.submitSteal(clean));
+  if (online && !isHost()) {
+    // The guest has no engine. The host validates the turn and runs it.
+    net.relay({ k: 'input', kind: 'answer', ctx, text: clean });
+    setInputEnabled(false, { clear: true });
+    return;
+  }
+  applyAnswer(ctx, clean);
+}
+
+/** Feed an answer to the engine. Only ever runs on the machine that has one. */
+function applyAnswer(ctx, text) {
+  if (ctx === 'faceoff') run(game.submitFaceoff(text));
+  else if (ctx === 'board') run(game.submitBoard(text));
+  else if (ctx === 'steal') run(game.submitSteal(text));
 }
 
 el.answerForm.addEventListener('submit', (ev) => {
@@ -658,14 +760,29 @@ el.fmForm.addEventListener('submit', (ev) => {
   const text = el.fmInput.value.trim();
   if (!text) return;
   el.fmInput.value = '';
+  if (online && !isHost()) {
+    net.relay({ k: 'input', kind: 'fm', text });
+    el.fmInput.disabled = true;
+    return;
+  }
+  applyFm(text);
+});
+
+function applyFm(text) {
   if (game.state.phase === PHASE.FM_DUPLICATE) run(game.fmSubmitSpare(text));
   else if (game.state.phase === PHASE.FM_PLAY) run(game.fmSubmit(text));
-});
+}
 
 function makeChoice(which) {
   if (!awaitingChoice) return;      // ignore keys pressed before the prompt is up
   awaitingChoice = false;
+  choiceWho = null;
   el.choiceRow.hidden = true;
+  if (online && !isHost()) {
+    net.relay({ k: 'input', kind: 'choice', which });
+    showWaiting('Sent');
+    return;
+  }
   run(game.choose(which));
 }
 
@@ -673,6 +790,81 @@ el.choiceRow.addEventListener('click', (ev) => {
   const btn = ev.target.closest('[data-choice]');
   if (btn) makeChoice(btn.dataset.choice);
 });
+
+// ------------------------------------------------------------------ net
+
+/**
+ * A message from another browser in this room.
+ *
+ * Nothing that arrives here is trusted to be in turn. The host checks every
+ * guest input against what the engine is actually waiting for, because the
+ * relay will happily forward a message sent at the wrong moment — by a stale
+ * tab, a double click, or someone poking at the console.
+ */
+net.on('relay', ({ from, body }) => {
+  if (!body || typeof body !== 'object') return;
+  if (isHost()) {
+    if (body.k === 'input') applyGuestInput(from, body);
+    return;
+  }
+  if (body.k !== 'events') return;
+  const mine = body.bySeat?.[mySeat];
+  if (!mine || !game) return;
+  // State first, then the events: that is the order the host sees them in,
+  // because the engine has already finished mutating by the time it hands the
+  // batch over.
+  game.state = mine.state;
+  run(mine.events);
+});
+
+function applyGuestInput(seat, body) {
+  const st = game?.state;
+  if (!st) return;
+  const text = String(body.text ?? '').slice(0, 120);
+
+  if (body.kind === 'answer') {
+    if (!engineAwait || engineAwait.who !== seat || engineAwait.context !== body.ctx) return;
+    const ctx = engineAwait.context;
+    engineAwait = null;
+    pendingInput = null;
+    applyAnswer(ctx, text);
+    return;
+  }
+
+  if (body.kind === 'choice') {
+    if (choiceWho !== seat || st.phase !== PHASE.PLAY_OR_PASS) return;
+    if (body.which !== 'play' && body.which !== 'pass') return;
+    choiceWho = null;
+    run(game.choose(body.which));
+    return;
+  }
+
+  if (body.kind === 'fm') {
+    const fm = st.fm;
+    if (!fm) return;
+    const active = fm.order[fm.turn];
+    if (active !== seat) return;
+    if (st.phase !== PHASE.FM_PLAY && st.phase !== PHASE.FM_DUPLICATE) return;
+    applyFm(text);
+  }
+}
+
+net.on('closed', (reason) => {
+  online = false;
+  toast(reason, true, 6000);
+  showWaiting(`${reason} — press ESC for the menu`);
+  clearAdvance();
+  setInputEnabled(false);
+  renderNetBadge();
+});
+
+function renderNetBadge() {
+  if (!online) { el.netBadge.hidden = true; return; }
+  const me = net.players.find((p) => p.seat === mySeat);
+  el.netBadge.hidden = false;
+  el.netBadge.textContent =
+    `Online · ${net.code} · you are ${me?.name ?? `seat ${mySeat + 1}`}${isHost() ? ' (host)' : ''}`;
+}
 
 // ------------------------------------------------------------------ keys
 
@@ -699,7 +891,12 @@ window.addEventListener('keydown', (ev) => {
 
   if (screen === 'attract' && ev.key === 'Enter') { gotoSetup(); return; }
 
-  if (screen === 'setup' && ev.key === 'Enter' && !typing) { startMatch(); return; }
+  if (screen === 'setup' && ev.key === 'Enter' && !typing) {
+    if (online && !isHost()) return;        // the host starts an online match
+    if (mode === 'online' && !online) return;
+    startMatch();
+    return;
+  }
 
   if (ev.key === 'Escape') {
     if (!el.keyhelp.hidden) { el.keyhelp.hidden = true; return; }
@@ -736,6 +933,10 @@ window.addEventListener('keydown', (ev) => {
     if (ev.key.toLowerCase() === 's') { ev.preventDefault(); makeChoice('pass'); return; }
   }
 
+  // Force-reveal, strike, undo and skip all act on the engine, and in an
+  // online match only one browser has one.
+  if (online && !isHost()) return;
+
   if (ev.key >= '1' && ev.key <= '8') {
     ev.preventDefault();
     run(game.forceReveal(Number(ev.key)));
@@ -757,12 +958,19 @@ el.muteBtn.addEventListener('click', toggleMute);
 
 function renderNameInputs() {
   el.nameGrid.replaceChildren();
-  for (let i = 0; i < setup.count; i++) {
+  // Online you name yourself and nobody else; the rest of the seats introduce
+  // themselves when they join.
+  const count = mode === 'online' ? 1 : setup.count;
+  for (let i = 0; i < count; i++) {
     const input = document.createElement('input');
     input.type = 'text';
     input.maxLength = 18;
     input.value = setup.names[i];
-    input.setAttribute('aria-label', `Player ${i + 1} name`);
+    input.setAttribute('aria-label', mode === 'online' ? 'Your name' : `Player ${i + 1} name`);
+    input.placeholder = mode === 'online' ? 'Your name' : `Player ${i + 1}`;
+    // The name is sent when the room is created or joined, so editing it after
+    // that would only disagree with what everyone else can see.
+    input.disabled = mode === 'online' && online;
     input.addEventListener('input', () => { setup.names[i] = input.value; });
     el.nameGrid.append(input);
   }
@@ -777,10 +985,130 @@ function wireSegment(root, onPick, attr) {
   });
 }
 
+wireSegment(el.modeSeg, (v) => setMode(v), 'v');
 wireSegment(el.playerCount, (n) => { setup.count = Number(n); renderNameInputs(); }, 'n');
 wireSegment(el.fmMode, (v) => { setup.fmMode = v; }, 'v');
 wireSegment(el.targetMode, (v) => { setup.target = v; }, 'v');
 el.startBtn.addEventListener('click', startMatch);
+
+// ------------------------------------------------------------------ lobby
+
+let mode = 'local';
+
+function setMode(value) {
+  mode = value;
+  const isOnline = value === 'online';
+  el.lobby.hidden = !isOnline;
+  // Online seats are filled by whoever joins, so the count is not ours to set.
+  el.playerCountRow.hidden = isOnline;
+  el.startBtn.hidden = isOnline && !online;
+  // Match settings belong to whoever runs the engine.
+  const guest = isOnline && online && !isHost();
+  el.fmModeRow.hidden = guest;
+  el.targetModeRow.hidden = guest;
+  if (!isOnline && online) leaveRoom();
+  renderNameInputs();
+  lobbyError('');
+}
+
+function lobbyError(message) {
+  el.lobbyError.textContent = message ?? '';
+  el.lobbyError.hidden = !message;
+}
+
+function myName() {
+  return (setup.names[0] ?? '').trim() || 'Player 1';
+}
+
+function renderRoster() {
+  el.lobbyPlayers.replaceChildren();
+  for (const p of net.players) {
+    const li = document.createElement('li');
+    li.textContent = p.seat === 0 ? `${p.name} · host` : p.name;
+    if (p.seat === 0) li.classList.add('is-host');
+    if (p.seat === mySeat) li.classList.add('is-you');
+    el.lobbyPlayers.append(li);
+  }
+  const enough = net.players.length >= 2;
+  if (isHost()) {
+    el.startBtn.hidden = !enough;
+    el.startBtn.textContent = 'START THE SHOW';
+    el.lobbyHint.textContent = enough
+      ? 'Everyone is in. Start when you are ready.'
+      : 'Tell the other player this code.';
+  } else {
+    el.startBtn.hidden = true;
+    el.lobbyHint.textContent = 'Waiting for the host to start.';
+  }
+}
+
+net.on('roster', () => { renderRoster(); renderNetBadge(); });
+net.on('error', (message) => lobbyError(message));
+
+async function withRelay(fn) {
+  lobbyError('');
+  try {
+    if (relayUrl === null) relayUrl = await resolveRelayUrl();
+    if (!relayUrl) throw new Error('Online play is not set up for this copy of the game.');
+    if (!net.online) await net.connect(relayUrl);
+    await fn();
+  } catch (err) {
+    lobbyError(err?.message ?? 'Could not reach the game server.');
+    return false;
+  }
+  return true;
+}
+
+el.createRoomBtn.addEventListener('click', () => withRelay(async () => {
+  const { code, seat } = await net.create(myName());
+  enterRoom(code, seat);
+}));
+
+el.joinRoomBtn.addEventListener('click', () => withRelay(async () => {
+  const code = el.joinCode.value.trim().toUpperCase();
+  if (code.length !== 4) throw new Error('A room code is four letters.');
+  const res = await net.join(code, myName());
+  enterRoom(res.code, res.seat);
+}));
+
+el.joinCode.addEventListener('input', () => {
+  el.joinCode.value = el.joinCode.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 4);
+});
+el.joinCode.addEventListener('keydown', (ev) => {
+  if (ev.key === 'Enter') { ev.preventDefault(); el.joinRoomBtn.click(); }
+});
+
+el.leaveRoomBtn.addEventListener('click', leaveRoom);
+
+function enterRoom(code, seat) {
+  online = true;
+  mySeat = seat;
+  el.lobbyChoice.hidden = true;
+  el.lobbyRoom.hidden = false;
+  el.lobbyCode.textContent = code;
+  el.fmModeRow.hidden = !isHost();
+  el.targetModeRow.hidden = !isHost();
+  renderNameInputs();
+  renderRoster();
+  renderNetBadge();
+}
+
+function leaveRoom() {
+  net.disconnect();
+  online = false;
+  mySeat = 0;
+  el.lobbyChoice.hidden = false;
+  el.lobbyRoom.hidden = true;
+  el.startBtn.hidden = mode === 'online';
+  el.fmModeRow.hidden = false;
+  el.targetModeRow.hidden = false;
+  renderNameInputs();
+  renderNetBadge();
+  lobbyError('');
+}
+
+// A guest's match begins when the host says so.
+net.on('start', () => { if (!isHost()) startMatch(); });
 
 function gotoSetup() {
   audio.unlock();
@@ -789,7 +1117,24 @@ function gotoSetup() {
 }
 
 function startMatch() {
-  const names = setup.names.slice(0, setup.count).map((n, i) => n.trim() || `Player ${i + 1}`);
+  el.answerInput.hidden = false;
+  hideWaiting();
+  renderNetBadge();
+
+  if (online && !isHost()) {
+    // A guest has no engine at all. `state` is replaced wholesale by each
+    // batch the host sends; everything in this file reads it through
+    // game.state, so the rest of the UI cannot tell the difference.
+    game = { state: emptyMirror(), guest: true };
+    Object.assign(window.__feud, { game, run });
+    showWaiting('Waiting for the host to start the first round');
+    return;
+  }
+
+  const names = online
+    ? net.players.slice().sort((a, b) => a.seat - b.seat).map((p) => p.name)
+    : setup.names.slice(0, setup.count).map((n, i) => n.trim() || `Player ${i + 1}`);
+
   game = createGame({
     mainQuestions: surveys.main,
     fmQuestions: surveys.fastMoney,
@@ -801,8 +1146,19 @@ function startMatch() {
     },
   });
   Object.assign(window.__feud, { game, run });
-  el.answerInput.hidden = false;
+  if (online) net.start();
   run(game.startRound());
+}
+
+/** Enough shape for the UI to render before the first batch lands. */
+function emptyMirror() {
+  return {
+    phase: PHASE.SETUP,
+    players: net.players.slice().sort((a, b) => a.seat - b.seat)
+      .map((p, i) => ({ id: i, name: p.name, score: 0 })),
+    revealed: [], strikes: 0, pot: 0, round: { multiplier: 1 },
+    controller: null, stealer: null, question: null, fm: null,
+  };
 }
 
 // ------------------------------------------------------------------ boot
@@ -816,7 +1172,7 @@ async function main() {
   // different question from "what phase is the game in". Tests and devtools
   // need the former.
   window.__feud = {
-    audio, game: null, run: null,
+    audio, net, game: null, run: null,
     ui: {
       get pendingInput() { return pendingInput; },
       get awaitingChoice() { return awaitingChoice; },

@@ -36,6 +36,40 @@
       <h2 class="screen-title">WHO&rsquo;S PLAYING?</h2>
 
       <div class="setup-row">
+        <span class="setup-label">Play</span>
+        <div class="seg" id="modeSeg" role="group" aria-label="How to play">
+          <button type="button" data-v="local" class="on">Same screen</button>
+          <button type="button" data-v="online">Online</button>
+        </div>
+      </div>
+
+      <!-- Online lobby. Hidden entirely unless online play is picked, so the
+           hot-seat game looks exactly as it did before. -->
+      <div class="lobby" id="lobby" hidden>
+        <div class="lobby-choice" id="lobbyChoice">
+          <button type="button" class="big-button lobby-btn" id="createRoomBtn">CREATE A GAME</button>
+          <div class="lobby-join">
+            <label class="setup-label" for="joinCode">or join with a code</label>
+            <div class="lobby-join-row">
+              <input class="code-input" id="joinCode" type="text" maxlength="4" inputmode="text"
+                     autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABCD">
+              <button type="button" class="big-button lobby-btn" id="joinRoomBtn">JOIN</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lobby-room" id="lobbyRoom" hidden>
+          <div class="lobby-code-label">Room code</div>
+          <div class="lobby-code" id="lobbyCode">----</div>
+          <p class="lobby-hint" id="lobbyHint">Tell the other player this code.</p>
+          <ul class="lobby-players" id="lobbyPlayers"></ul>
+          <button type="button" class="lobby-leave" id="leaveRoomBtn">LEAVE THIS GAME</button>
+        </div>
+
+        <p class="lobby-error" id="lobbyError" hidden></p>
+      </div>
+
+      <div class="setup-row" id="playerCountRow">
         <span class="setup-label">Players</span>
         <div class="seg" id="playerCount" role="group" aria-label="Number of players">
           <button type="button" data-n="2" class="on">2</button>
@@ -46,7 +80,7 @@
 
       <div class="name-grid" id="nameGrid"></div>
 
-      <div class="setup-row">
+      <div class="setup-row" id="fmModeRow">
         <span class="setup-label">Fast Money</span>
         <div class="seg" id="fmMode" role="group" aria-label="Fast Money mode">
           <button type="button" data-v="both" class="on">Both play</button>
@@ -54,7 +88,7 @@
         </div>
       </div>
 
-      <div class="setup-row">
+      <div class="setup-row" id="targetModeRow">
         <span class="setup-label">End at 300</span>
         <div class="seg" id="targetMode" role="group" aria-label="Target score">
           <button type="button" data-v="off" class="on">Off</button>
@@ -112,6 +146,9 @@
             <button type="button" class="advance-btn" hidden>
               <span class="advance-label">CONTINUE</span> <kbd>SPACE</kbd>
             </button>
+
+            <!-- Online only: whose turn it is, when it is not yours. -->
+            <div class="waiting-note" id="waitingNote" hidden></div>
           </div>
 
           <div class="pot-box">
@@ -205,6 +242,8 @@
         <dt>?</dt><dd>Toggle this list</dd>
       </dl>
     </div>
+
+    <div class="net-badge" id="netBadge" hidden></div>
 
     <button type="button" class="mute-btn" id="muteBtn" aria-label="Mute">&#9835;</button>
   </div>

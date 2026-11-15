@@ -10,11 +10,12 @@ Hot-seat game show for 2–4 players, built for the BellaFox arcade.
 **Not deployed yet.** This runs from a local checkout only; it is not on
 theflipside and not on any PC. See section 4 of the handoff.
 
-**State: complete and playable.** 40 main + 20 Fast Money questions, all 12
-artwork assets, all 109 Bella voice clips. Full show plays end to end — face-off,
-three scoring rounds with multipliers, strikes, steal, sudden death, and Fast
-Money with duplicate handling. Artwork is in (1.8 MB of a 4 MB budget) and so is Bella's
-voice (3.7 MB). Both still degrade gracefully if removed.
+**State: complete and playable, on one screen or over the internet.** 40 main +
+20 Fast Money questions, all 12 artwork assets, all 109 Bella voice clips. Full
+show plays end to end — face-off, three scoring rounds with multipliers, strikes,
+steal, sudden death, and Fast Money with duplicate handling. Artwork is in
+(1.8 MB of a 4 MB budget) and so is Bella's voice (3.7 MB). Both still degrade
+gracefully if removed.
 
 ## Run it
 
@@ -25,6 +26,31 @@ cd family-feud && python3 -m http.server 8080
 ```
 
 Then open <http://localhost:8080/>.
+
+## Playing online
+
+Pick **Online** on the setup screen. One player creates a game and reads out the
+four-letter room code; the others join with it. Everyone plays from their own
+machine, and the box only accepts typing from whoever's turn it is.
+
+That needs one extra process — a relay — because a static page cannot pass
+messages between browsers on its own:
+
+```bash
+node server/feud-server.mjs
+```
+
+No dependencies and nothing to install. `server/README.md` has the nginx block
+and a systemd unit. **Without a relay the game is exactly what it was**: the
+Online option simply reports that it cannot reach a server, and same-screen play
+is untouched.
+
+How it works: one browser runs the engine and posts the events it produces; the
+others render them. `src/game.js` already turns every action into events and
+`app.js` already renders events without deciding anything, so online play reuses
+both rather than keeping a second copy of the rules on a server. The host
+redacts each batch per seat, so a guest is never sent an unrevealed answer or
+the other player's Fast Money.
 
 ## Playing
 
@@ -46,9 +72,15 @@ Judgment calls, for whoever is running the game:
 | `1`–`8` | Force-reveal that answer and award its points |
 | `X` | Force a strike |
 | `Z` | Undo the last action |
+| `N` | Bin the face-off question and read a new one |
 
 These fire when the answer box is empty or unfocused. With text already typed,
-hold `Alt` — otherwise pressing `3` mid-word would reveal an answer.
+hold `Alt` — otherwise pressing `3` mid-word would reveal an answer. In an online
+match they work on the host's machine, which is the one running the engine.
+
+`N` exists because the face-off no longer throws a question away by itself: both
+players keep guessing until someone lands an answer, which is what the room
+expects, and `N` is the way past one nobody can crack.
 
 ## Adding questions
 
@@ -78,6 +110,29 @@ Aliases are where the game is won or lost. Three to six per answer, including th
 bare noun, the plural and the obvious slang. If the matcher still rejects
 something fair, add a fixture to `fixtures/match-cases.json` and a synonym to
 `src/synonyms.js`, then re-run the tests.
+
+## Tests
+
+```bash
+node tools/test-all.mjs            # rules, matcher, aliases, survey data — no browser
+node tools/browser/run-all.mjs     # the screen, in a real Chromium
+```
+
+The first needs nothing but Node. The second needs Playwright somewhere it can
+find (`PLAYWRIGHT_MODULE` points at a copy if it is not a local dependency), and
+starts its own static server and relay, so there is nothing to start or stop by
+hand. Pass a name to run one suite: `node tools/browser/run-all.mjs online`.
+
+| Suite | What it holds the line on |
+|---|---|
+| `main-game` | A full round: face-off, play/pass, strikes, steal, bank, host keys |
+| `fast-money` | Both turns, the look-away curtain, masking, duplicates, the spare |
+| `regressions` | Every fault found in play, so none of them comes back |
+| `audio` | Suspend/resume, and that queued lines do not cut each other off |
+| `online` | Two browsers, one relay, one match — including what a guest is not told |
+| `resolutions` | 1366×768, 1920×1080, 2560×1440 |
+
+Screenshots land in `.feud-shots/` (git-ignored); `FEUD_SHOTS` moves them.
 
 ## Artwork
 
@@ -152,3 +207,11 @@ why a whole match can be played in Node with no browser (`tools/test-game.mjs`).
 Event batches are drained one at a time. The engine mutates state synchronously
 while the screen catches up asynchronously, so without that queue a fast key
 press interleaves two event streams.
+
+That same split is what makes online play small: `src/net.js` sends the batches
+one browser produces to the others, which render them through the code path they
+already use. The relay in `server/` never learns the rules.
+
+`src/board.js` builds blank tiles and fills each one in from its reveal event,
+rather than putting every answer in the page and hiding them with CSS. That is
+what lets a guest be sent a board with the answers stripped out.
