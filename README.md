@@ -28,17 +28,12 @@ deploy; see section 4 of the handoff.
 Run it:
 
 ```bash
-cd family-feud && python3 -m http.server 8080
+cd family-feud && node tools/dev-server.mjs
 ```
 
-Then <http://localhost:8080>. Needs an `http://` origin — ES modules and `fetch`
-are blocked on `file://`.
-
-Play online as well (optional — one extra process, nothing to install):
-
-```bash
-cd family-feud && node server/feud-server.mjs
-```
+Then <http://localhost:8080>. That serves the game and the online relay from one
+port, so both ways of playing work with one command and nothing installed. (It
+needs an `http://` origin — ES modules and `fetch` are blocked on `file://`.)
 
 Test it:
 

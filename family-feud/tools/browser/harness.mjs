@@ -11,7 +11,9 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 
 export const BASE_URL = process.env.FEUD_URL ?? 'http://127.0.0.1:8099/';
-export const RELAY_URL = process.env.FEUD_RELAY ?? 'ws://127.0.0.1:8787/ws';
+// Empty means "let the page work it out from its own origin", which is what a
+// deployed copy does. A value here overrides that, for a relay somewhere else.
+export const RELAY_URL = process.env.FEUD_RELAY ?? '';
 export const SHOTS = process.env.FEUD_SHOTS ?? resolve(here, '../../../.feud-shots');
 export const TIMEOUT = Number(process.env.FEUD_TIMEOUT ?? 25000);
 

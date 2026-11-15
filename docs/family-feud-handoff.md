@@ -41,8 +41,11 @@ git clone -b claude/affectionate-newton-itx827 https://github.com/MrxFlip/flips-
 ```
 
 ```bash
-cd flips-claude-code/family-feud && python3 -m http.server 8080
+cd flips-claude-code/family-feud && node tools/dev-server.mjs
 ```
+
+That serves the game and the online relay from one port — the same shape the
+deployed site has behind nginx — so both ways of playing work immediately.
 
 It is a static bundle: HTML, CSS, ES modules, images, mp3s. No build step, no
 database, no dependencies. Any static host serves it.

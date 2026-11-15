@@ -4,20 +4,21 @@
 //   node tools/browser/run-all.mjs            # all of them
 //   node tools/browser/run-all.mjs online     # just that one
 //
-// Starts its own static server and relay on free-ish ports and shuts both down
-// afterwards, so there is nothing to remember to start or stop.
+// Starts tools/dev-server.mjs — which serves the game and answers /ws from one
+// port, the same shape the deployed site has behind nginx — and shuts it down
+// afterwards. Nothing to start or stop by hand.
 
 import { spawn } from 'node:child_process';
-import { createServer } from 'node:http';
-import { readFile, stat } from 'node:fs/promises';
-import { dirname, extname, join, normalize, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const gameRoot = resolve(here, '../..');
 
+// One process serves the game and answers /ws, exactly as the deployed site
+// does behind nginx — so the online suite exercises the real arrangement
+// instead of a test-only one.
 const PORT = Number(process.env.FEUD_TEST_PORT ?? 8099);
-const RELAY_PORT = Number(process.env.FEUD_TEST_RELAY_PORT ?? 8787);
 
 const SUITES = [
   'main-game.mjs',
@@ -27,34 +28,6 @@ const SUITES = [
   'online.mjs',
   'resolutions.mjs',
 ];
-
-const TYPES = {
-  '.html': 'text/html; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.mjs': 'text/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
-  '.svg': 'image/svg+xml', '.mp3': 'audio/mpeg', '.ico': 'image/x-icon',
-};
-
-const statics = createServer(async (req, res) => {
-  try {
-    const url = new URL(req.url, 'http://localhost');
-    // normalize() then a prefix check: without it, ../ in a request walks out
-    // of the game directory.
-    const rel = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, '');
-    let file = join(gameRoot, rel);
-    if (!file.startsWith(gameRoot)) { res.writeHead(403).end(); return; }
-    const info = await stat(file).catch(() => null);
-    if (info?.isDirectory()) file = join(file, 'index.html');
-    const body = await readFile(file);
-    res.writeHead(200, { 'content-type': TYPES[extname(file)] ?? 'application/octet-stream' });
-    res.end(body);
-  } catch {
-    res.writeHead(404, { 'content-type': 'text/plain' }).end('not found');
-  }
-});
 
 const wanted = process.argv.slice(2);
 const suites = wanted.length
@@ -66,19 +39,23 @@ if (!suites.length) {
   process.exit(2);
 }
 
-await new Promise((r) => statics.listen(PORT, '127.0.0.1', r));
-
-const relay = spawn(process.execPath, [resolve(gameRoot, 'server/feud-server.mjs')], {
-  env: { ...process.env, PORT: String(RELAY_PORT), HOST: '127.0.0.1' },
+const site = spawn(process.execPath, [resolve(gameRoot, 'tools/dev-server.mjs')], {
+  env: { ...process.env, PORT: String(PORT), HOST: '127.0.0.1' },
   stdio: ['ignore', 'ignore', 'inherit'],
 });
-await new Promise((r) => setTimeout(r, 600));
 
-const env = {
-  ...process.env,
-  FEUD_URL: `http://127.0.0.1:${PORT}/`,
-  FEUD_RELAY: `ws://127.0.0.1:${RELAY_PORT}/ws`,
-};
+// Wait for it to actually answer rather than guessing at a delay.
+const base = `http://127.0.0.1:${PORT}/`;
+for (let i = 0; i < 60; i++) {
+  const ok = await fetch(`${base}healthz`).then((r) => r.ok).catch(() => false);
+  if (ok) break;
+  if (i === 59) { console.error('dev server never came up'); process.exit(1); }
+  await new Promise((r) => setTimeout(r, 250));
+}
+
+// No FEUD_RELAY: the suites then use the page's own same-origin resolution,
+// which is the path a deployed copy takes.
+const env = { ...process.env, FEUD_URL: base, FEUD_RELAY: '' };
 
 let failed = 0;
 for (const suite of suites) {
@@ -91,8 +68,7 @@ for (const suite of suites) {
   if (code !== 0) failed += 1;
 }
 
-relay.kill('SIGTERM');
-statics.close();
+site.kill('SIGTERM');
 
 console.log(failed
   ? `\n${failed} of ${suites.length} browser suite(s) FAILED`

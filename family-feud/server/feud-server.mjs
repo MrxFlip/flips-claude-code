@@ -26,6 +26,8 @@
 
 import { createServer } from 'node:http';
 import { createHash, randomInt } from 'node:crypto';
+import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const PORT = Number(process.env.PORT ?? 8787);
 const HOST = process.env.HOST ?? '127.0.0.1';
@@ -354,17 +356,33 @@ function cleanName(value, fallback) {
 
 // ---------------------------------------------------------------- http
 
+/**
+ * Teach an existing http.Server to speak the relay protocol.
+ *
+ * Exported so tools/dev-server.mjs can serve the game and the relay from one
+ * port and one process, which is what makes `?relay=` unnecessary when testing
+ * online play locally.
+ */
+export function attachRelay(target) {
+  target.on('upgrade', onUpgrade);
+  return target;
+}
+
+export function relayStatus() {
+  return { ok: true, rooms: rooms.size, uptime: Math.round(process.uptime()) };
+}
+
 const server = createServer((req, res) => {
   if (req.url === '/healthz') {
     res.writeHead(200, { 'content-type': 'application/json' });
-    res.end(JSON.stringify({ ok: true, rooms: rooms.size, uptime: Math.round(process.uptime()) }));
+    res.end(JSON.stringify(relayStatus()));
     return;
   }
   res.writeHead(426, { 'content-type': 'text/plain' });
   res.end('This endpoint speaks WebSocket only.\n');
 });
 
-server.on('upgrade', (req, socket) => {
+function onUpgrade(req, socket) {
   const path = (req.url ?? '').split('?')[0];
   const key = req.headers['sec-websocket-key'];
   const version = req.headers['sec-websocket-version'];
@@ -394,7 +412,9 @@ server.on('upgrade', (req, socket) => {
   conn.onMessage = (msg) => handle(conn, msg);
   conn.onClose = () => leave(conn);
   conn.send({ t: 'hello', server: 'bellafox-feud-relay/1' });
-});
+}
+
+attachRelay(server);
 
 setInterval(() => {
   const now = Date.now();
@@ -411,17 +431,24 @@ setInterval(() => {
   }
 }, PING_MS).unref();
 
-server.listen(PORT, HOST, () => {
-  log(`feud relay listening on ${HOST}:${PORT}${WS_PATH}`);
-});
+const startedDirectly = process.argv[1]
+  && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 
-for (const sig of ['SIGINT', 'SIGTERM']) {
-  process.on(sig, () => {
-    log(`${sig} — closing`);
-    for (const room of rooms.values()) {
-      for (const c of room.clients.values()) c.close(1001, 'server shutting down');
-    }
-    server.close(() => process.exit(0));
-    setTimeout(() => process.exit(0), 1500).unref();
+if (startedDirectly) {
+  server.listen(PORT, HOST, () => {
+    log(`feud relay listening on ${HOST}:${PORT}${WS_PATH}`);
   });
+}
+
+if (startedDirectly) {
+  for (const sig of ['SIGINT', 'SIGTERM']) {
+    process.on(sig, () => {
+      log(`${sig} — closing`);
+      for (const room of rooms.values()) {
+        for (const c of room.clients.values()) c.close(1001, 'server shutting down');
+      }
+      server.close(() => process.exit(0));
+      setTimeout(() => process.exit(0), 1500).unref();
+    });
+  }
 }

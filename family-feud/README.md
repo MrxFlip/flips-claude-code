@@ -22,10 +22,16 @@ gracefully if removed.
 Needs an `http://` origin — ES modules and `fetch` are blocked on `file://`.
 
 ```bash
-cd family-feud && python3 -m http.server 8080
+node tools/dev-server.mjs
 ```
 
-Then open <http://localhost:8080/>.
+Then open <http://localhost:8080/>. That one command serves the game **and**
+answers `/ws`, so online play works locally with nothing else running. Any
+static server does for same-screen play alone:
+
+```bash
+python3 -m http.server 8080
+```
 
 ## Playing online
 
@@ -33,8 +39,9 @@ Pick **Online** on the setup screen. One player creates a game and reads out the
 four-letter room code; the others join with it. Everyone plays from their own
 machine, and the box only accepts typing from whoever's turn it is.
 
-That needs one extra process — a relay — because a static page cannot pass
-messages between browsers on its own:
+That needs a relay, because a static page cannot pass messages between browsers
+on its own. `tools/dev-server.mjs` already includes one. On a real server, run
+it as its own service and let nginx serve the files:
 
 ```bash
 node server/feud-server.mjs
@@ -120,8 +127,8 @@ node tools/browser/run-all.mjs     # the screen, in a real Chromium
 
 The first needs nothing but Node. The second needs Playwright somewhere it can
 find (`PLAYWRIGHT_MODULE` points at a copy if it is not a local dependency), and
-starts its own static server and relay, so there is nothing to start or stop by
-hand. Pass a name to run one suite: `node tools/browser/run-all.mjs online`.
+starts `tools/dev-server.mjs` itself — so the online suite runs against the same
+one-origin arrangement the deployed site has, rather than a test-only one. Pass a name to run one suite: `node tools/browser/run-all.mjs online`.
 
 | Suite | What it holds the line on |
 |---|---|

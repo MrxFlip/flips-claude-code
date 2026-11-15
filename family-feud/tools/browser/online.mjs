@@ -2,7 +2,9 @@
 import { loadChromium, BASE_URL, RELAY_URL, SHOTS, TIMEOUT } from './harness.mjs';
 const chromium = await loadChromium();
 const OUT = SHOTS;
-const URL = `${BASE_URL}?relay=${encodeURIComponent(RELAY_URL)}`;
+// With no RELAY_URL the page resolves wss://<this host>/ws by itself, which is
+// how it will run behind nginx.
+const URL = RELAY_URL ? `${BASE_URL}?relay=${encodeURIComponent(RELAY_URL)}` : BASE_URL;
 const T = TIMEOUT;
 let fail = 0;
 const check = (label, ok, detail = '') => {
