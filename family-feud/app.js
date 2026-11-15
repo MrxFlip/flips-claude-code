@@ -9,7 +9,7 @@ import { loadSurveys } from './src/data.js';
 import { createBoard } from './src/board.js';
 import { createGame, PHASE, FM_TIME, FM_TARGET } from './src/game.js';
 import { createAudio } from './src/audio.js';
-import { initArt, setCutinSource } from './src/art.js';
+import { initArt } from './src/art.js';
 import { confetti } from './src/confetti.js';
 import { hostLine } from './src/host-lines.js';
 
@@ -48,7 +48,7 @@ let queuedSubmit = null;       // an answer typed before the box went live
 let awaitingChoice = false;    // true only while PLAY/PASS is actually on screen
 let fmTimerHandle = null;
 let stopConfetti = null;
-let cutinAvailable = { win: false, strike: false };
+let artUrls = new Map();
 
 const setup = { count: 2, names: ['Player 1', 'Player 2', 'Player 3', 'Player 4'], fmMode: 'both', target: 'off' };
 
@@ -98,8 +98,9 @@ function say(bucket) {
 }
 
 async function cutIn(kind) {
-  if (!cutinAvailable[kind]) return;
-  el.cutinImg.src = kind === 'win' ? 'img/bella-win.png' : 'img/bella-strike.png';
+  const src = artUrls.get(kind === 'win' ? 'bella-win' : 'bella-strike');
+  if (!src) return;                 // no portrait for this reaction yet
+  el.cutinImg.src = src;
   el.cutin.classList.add('show');
   await delay(1500);
   el.cutin.classList.remove('show');
@@ -740,6 +741,8 @@ function startMatch() {
 
 async function main() {
   initStage();
+  // Published before any await: art probing now spans 12 assets across three
+  // extensions, so anything reading this during boot would otherwise race it.
   // Readiness flags: the engine's phase changes synchronously but the screen
   // catches up asynchronously, so "what is the UI actually waiting for" is a
   // different question from "what phase is the game in". Tests and devtools
@@ -763,10 +766,8 @@ async function main() {
     return;
   }
 
-  const found = await initArt();
-  cutinAvailable.win = found.some((s) => s.includes('bella-win'));
-  cutinAvailable.strike = found.some((s) => s.includes('bella-strike'));
-  console.info(`[art] ${found.length} asset(s) loaded; CSS fallbacks cover the rest`);
+  artUrls = await initArt();
+  console.info(`[art] ${artUrls.size}/12 asset(s) loaded; CSS fallbacks cover the rest`);
 
   // Browsers block audio until a gesture; the attract screen is that gesture.
   const unlock = () => audio.unlock();

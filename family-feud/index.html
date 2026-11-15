@@ -28,7 +28,7 @@
         <p class="tagline">We asked 100 people&hellip;</p>
       </div>
       <p class="press-start">PRESS <kbd>ENTER</kbd> TO PLAY</p>
-      <img class="bella bella-attract" src="img/bella-idle.png" alt="" data-art>
+      <img class="bella bella-attract" alt="" data-art-base="bella-idle">
     </section>
 
     <!-- ============================= SETUP ============================= -->
@@ -91,16 +91,20 @@
             <span class="strike-slot"></span><span class="strike-slot"></span><span class="strike-slot"></span>
           </div>
 
-          <form class="answer-form" id="answerForm" autocomplete="off">
-            <label class="answer-prompt" id="answerPrompt" for="answerInput">&nbsp;</label>
-            <input class="answer-input" id="answerInput" type="text" maxlength="120"
-                   autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
-                   placeholder="Type your answer and press Enter">
-          </form>
+          <!-- One grid cell holds both: the control row has exactly three
+               columns, and a fourth child would wrap the pot box off-stage. -->
+          <div class="answer-slot">
+            <form class="answer-form" id="answerForm" autocomplete="off">
+              <label class="answer-prompt" id="answerPrompt" for="answerInput">&nbsp;</label>
+              <input class="answer-input" id="answerInput" type="text" maxlength="120"
+                     autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+                     placeholder="Type your answer and press Enter">
+            </form>
 
-          <div class="choice-row" id="choiceRow" hidden>
-            <button type="button" class="choice-btn" data-choice="play"><kbd>P</kbd> PLAY</button>
-            <button type="button" class="choice-btn" data-choice="pass"><kbd>S</kbd> PASS</button>
+            <div class="choice-row" id="choiceRow" hidden>
+              <button type="button" class="choice-btn" data-choice="play"><kbd>P</kbd> PLAY</button>
+              <button type="button" class="choice-btn" data-choice="pass"><kbd>S</kbd> PASS</button>
+            </div>
           </div>
 
           <div class="pot-box">
@@ -146,7 +150,7 @@
         <div class="result-detail" id="resultDetail">&nbsp;</div>
         <p class="press-start small">PRESS <kbd>ENTER</kbd> FOR A REMATCH &middot; <kbd>ESC</kbd> FOR THE MENU</p>
       </div>
-      <img class="bella bella-result" src="img/bella-win.png" alt="" data-art>
+      <img class="bella bella-result" alt="" data-art-base="bella-win">
       <canvas class="confetti" id="confetti" width="1920" height="1080" aria-hidden="true"></canvas>
     </section>
 
@@ -155,11 +159,11 @@
       <svg class="strike-x" viewBox="0 0 100 100" aria-hidden="true">
         <path d="M18 18 L82 82 M82 18 L18 82" />
       </svg>
-      <img class="strike-art" src="img/strike-x.png" alt="" data-art>
+      <img class="strike-art" alt="" data-art-base="strike-x">
     </div>
 
     <div class="cutin" id="cutin" aria-hidden="true">
-      <img id="cutinImg" src="" alt="">
+      <img id="cutinImg" alt="">
     </div>
 
     <div class="curtain" id="curtain" aria-hidden="true">

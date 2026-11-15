@@ -1,14 +1,29 @@
-// Optional artwork. Every image is probed; the stage only switches to the
-// generated art once it has actually decoded. A missing or half-filled img/
-// folder leaves the CSS-drawn fallbacks in place instead of showing holes.
+// Optional artwork.
+//
+// Each asset is probed by base name across the accepted extensions, and the
+// stage only switches to it once the image has actually decoded. A missing or
+// half-filled img/ folder leaves the CSS-drawn fallbacks in place rather than
+// showing holes, so the game is playable before any art exists.
+//
+// Resolved URLs are published as CSS custom properties, which is what lets the
+// same stylesheet work whether the file turned up as .webp or .png.
 
-const BACKGROUNDS = [
-  ['img/backdrop.png',     'art-backdrop'],
-  ['img/board-frame.png',  'art-boardframe'],
-  ['img/strike-x.png',     'art-strike'],
-  ['img/round-card.png',   'art-roundcard'],
-  ['img/fastmoney-bg.png', 'art-fastmoney'],
-  ['img/winner.png',       'art-winner'],
+const EXTENSIONS = ['.webp', '.png', '.jpg'];
+
+// base name, class flag on <html>, CSS custom property
+const ASSETS = [
+  ['backdrop',     'art-backdrop',   '--art-backdrop'],
+  ['splash',       'art-splash',     '--art-splash'],
+  ['board-frame',  'art-boardframe', '--art-board-frame'],
+  ['round-card',   'art-roundcard',  '--art-round-card'],
+  ['fastmoney-bg', 'art-fastmoney',  '--art-fastmoney'],
+  ['winner',       'art-winner',     '--art-winner'],
+  ['podiums',      'art-podiums',    '--art-podiums'],
+  ['strike-x',     'art-strike',     '--art-strike'],
+  ['tile',         'art-tile',       '--art-tile'],
+  ['bella-idle',   'art-bella-idle', '--art-bella-idle'],
+  ['bella-win',    'art-bella-win',  '--art-bella-win'],
+  ['bella-strike', 'art-bella-strike', '--art-bella-strike'],
 ];
 
 function probe(src) {
@@ -20,35 +35,46 @@ function probe(src) {
   });
 }
 
-export async function initArt() {
-  const found = [];
-
-  await Promise.all(BACKGROUNDS.map(async ([src, cls]) => {
-    if (await probe(src)) {
-      document.documentElement.classList.add(cls);
-      found.push(src);
-    }
-  }));
-
-  // <img data-art> elements start hidden and reveal themselves on load.
-  for (const el of document.querySelectorAll('img[data-art]')) {
-    if (!el.getAttribute('src')) continue;
-    el.addEventListener('load', () => { el.style.display = 'block'; found.push(el.src); }, { once: true });
-    el.addEventListener('error', () => { el.style.display = 'none'; }, { once: true });
-    if (el.complete) {
-      if (el.naturalWidth > 0) el.style.display = 'block';
-      else el.style.display = 'none';
-    }
+async function resolveAsset(base) {
+  for (const ext of EXTENSIONS) {
+    const src = `img/${base}${ext}`;
+    if (await probe(src)) return src;
   }
-
-  return found;
+  return null;
 }
 
-/** Swap the cut-in portrait. Resolves false if that art isn't present. */
-export function setCutinSource(imgEl, src) {
-  return new Promise((resolve) => {
-    imgEl.onload = () => resolve(true);
-    imgEl.onerror = () => resolve(false);
-    imgEl.src = src;
-  });
+export async function initArt() {
+  const urls = new Map();
+  const root = document.documentElement;
+
+  await Promise.all(ASSETS.map(async ([base, cls, cssVar]) => {
+    const src = await resolveAsset(base);
+    if (!src) return;
+    urls.set(base, src);
+    root.classList.add(cls);
+    root.style.setProperty(cssVar, `url('${src}')`);
+  }));
+
+  // <img data-art-base> elements point at whichever extension turned up.
+  for (const el of document.querySelectorAll('img[data-art-base]')) {
+    const src = urls.get(el.dataset.artBase);
+    if (src) { el.src = src; el.style.display = 'block'; }
+    else el.style.display = 'none';
+  }
+
+  // The splash and winner frames already contain Bella, so the standalone
+  // portrait would put a second one on the same screen.
+  if (urls.has('splash')) root.classList.add('art-splash-has-host');
+  if (urls.has('winner')) root.classList.add('art-winner-has-host');
+
+  // The arcade tile doubles as the favicon.
+  const tile = urls.get('tile');
+  if (tile) {
+    const link = document.querySelector('link[rel="icon"]') ?? document.createElement('link');
+    link.rel = 'icon';
+    link.href = tile;
+    document.head.append(link);
+  }
+
+  return urls;
 }

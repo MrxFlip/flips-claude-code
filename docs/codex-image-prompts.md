@@ -297,6 +297,23 @@ scaled down, low contrast, clutter.
 
 ---
 
+## Where the files go
+
+`family-feud/img/`, named by base name. **Any of `.webp`, `.png` or `.jpg` works** —
+`src/art.js` probes them in that order, so `splash.webp` and `splash.png` are both
+found. WebP is preferred: the first five assets came to 808 KB as WebP against a
+4 MB budget for the whole folder.
+
+```
+splash  backdrop  board-frame  strike-x
+bella-idle  bella-win  bella-strike  podiums
+round-card  fastmoney-bg  winner  tile
+```
+
+Then `node family-feud/tools/check-art.mjs` lists what is present, what is
+missing, and anything in `img/` the game will never load — almost always a
+filename typo.
+
 ## After generating
 
 - Run 03, 04, 05, 06, 07, 08 through background removal if Codex didn't honour transparency.

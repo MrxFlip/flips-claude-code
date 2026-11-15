@@ -68,13 +68,18 @@ something fair, add a fixture to `fixtures/match-cases.json` and a synonym to
 ## Artwork
 
 Generate the twelve images from `../docs/codex-image-prompts.md`, then put them
-in `family-feud/img/` using exactly these names:
+in `family-feud/img/` using these base names. **`.webp`, `.png` and `.jpg` all
+work** — `src/art.js` probes them in that order — and WebP is much the smallest.
 
 ```
-splash.png  backdrop.png  board-frame.png  strike-x.png
-bella-idle.png  bella-win.png  bella-strike.png  podiums.png
-round-card.png  fastmoney-bg.png  winner.png  tile.png
+splash  backdrop  board-frame  strike-x
+bella-idle  bella-win  bella-strike  podiums
+round-card  fastmoney-bg  winner  tile
 ```
+
+`splash` and `winner` already contain Bella, so when either is present the
+standalone portrait steps aside rather than putting two of her on one screen.
+`tile` doubles as the page favicon.
 
 Check what landed:
 

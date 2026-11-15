@@ -5,24 +5,27 @@
 
 import { existsSync, statSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname, resolve, basename } from 'node:path';
+import { dirname, resolve, extname } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const imgDir = resolve(here, '../img');
 
+// Any of these extensions works; src/art.js probes them in this order.
+const EXTENSIONS = ['.webp', '.png', '.jpg'];
+
 const EXPECTED = [
-  ['splash.png',       '01  Title / splash key art',        '1920x1080'],
-  ['backdrop.png',     '02  Stage backdrop',                '2560x1440'],
-  ['board-frame.png',  '03  Answer board bezel',            '1600x900, transparent'],
-  ['strike-x.png',     '04  Strike X',                      '1024x1024, transparent'],
-  ['bella-idle.png',   '05  Bella, neutral',                '1200x1600, transparent'],
-  ['bella-win.png',    '06  Bella celebrating',             '1200x1600, transparent'],
-  ['bella-strike.png', '07  Bella reacting to a strike',    '1200x1600, transparent'],
-  ['podiums.png',      '08  Contestant podiums',            '1920x1080, transparent'],
-  ['round-card.png',   '09  Round transition background',   '1920x1080'],
-  ['fastmoney-bg.png', '10  Fast Money bumper',             '1920x1080'],
-  ['winner.png',       '11  Big winner frame',              '1920x1080'],
-  ['tile.png',         '12  Arcade tile / thumbnail',       '1200x1200'],
+  ['splash',       '01  Title / splash key art',     '1920x1080'],
+  ['backdrop',     '02  Stage backdrop',             '2560x1440'],
+  ['board-frame',  '03  Answer board bezel',         '1600x900, transparent'],
+  ['strike-x',     '04  Strike X',                   '1024x1024, transparent'],
+  ['bella-idle',   '05  Bella, neutral',             '1200x1600, transparent'],
+  ['bella-win',    '06  Bella celebrating',          '1200x1600, transparent'],
+  ['bella-strike', '07  Bella reacting to a strike', '1200x1600, transparent'],
+  ['podiums',      '08  Contestant podiums',         '1920x1080, transparent'],
+  ['round-card',   '09  Round transition background','1920x1080'],
+  ['fastmoney-bg', '10  Fast Money bumper',          '1920x1080'],
+  ['winner',       '11  Big winner frame',           '1920x1080'],
+  ['tile',         '12  Arcade tile / thumbnail',    '1200x1200'],
 ];
 
 const kb = (n) => `${(n / 1024).toFixed(0)} KB`;
@@ -32,26 +35,30 @@ if (!existsSync(imgDir)) {
   process.exit(0);
 }
 
-const present = new Set(readdirSync(imgDir));
-const expectedNames = new Set(EXPECTED.map(([n]) => n));
+const present = readdirSync(imgDir).filter((f) => !f.startsWith('.'));
+const used = new Set();
 
 let found = 0, total = 0;
 console.log('\nExpected files in family-feud/img/\n');
-for (const [name, label, spec] of EXPECTED) {
-  const path = resolve(imgDir, name);
-  if (existsSync(path)) {
-    const size = statSync(path).size;
+for (const [base, label, spec] of EXPECTED) {
+  const hit = EXTENSIONS
+    .map((ext) => base + ext)
+    .find((name) => existsSync(resolve(imgDir, name)));
+
+  if (hit) {
+    const size = statSync(resolve(imgDir, hit)).size;
     total += size;
     found++;
-    console.log(`  OK      ${name.padEnd(18)} ${kb(size).padStart(8)}   ${label}`);
+    used.add(hit);
+    console.log(`  OK      ${hit.padEnd(20)} ${kb(size).padStart(8)}   ${label}`);
   } else {
-    console.log(`  MISSING ${name.padEnd(18)} ${''.padStart(8)}   ${label}  (${spec})`);
+    console.log(`  MISSING ${(base + '.*').padEnd(20)} ${''.padStart(8)}   ${label}  (${spec})`);
   }
 }
 
 // Anything in img/ that the game will never look at is almost always a
 // filename mismatch, which is the single most common way art "doesn't work".
-const strays = [...present].filter((f) => !expectedNames.has(f) && !f.startsWith('.'));
+const strays = present.filter((f) => !used.has(f));
 if (strays.length) {
   console.log('\nFiles in img/ the game does not use (check the spelling):');
   for (const f of strays) console.log(`  ?       ${f}`);

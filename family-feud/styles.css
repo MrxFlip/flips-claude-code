@@ -32,6 +32,11 @@
 
 * { box-sizing: border-box; }
 
+/* A class rule like `.choice-row { display: flex }` outranks the user-agent's
+   `[hidden] { display: none }`, so elements this code hides via the hidden
+   property stayed on screen. Everything that toggles `hidden` needs this. */
+[hidden] { display: none !important; }
+
 html, body {
   margin: 0; padding: 0; height: 100%;
   overflow: hidden;
@@ -93,9 +98,10 @@ kbd {
 }
 @keyframes rayspin { to { transform: translate(-50%, -50%) rotate(360deg); } }
 
-/* Real backdrop art, once it has loaded, sits over the CSS version. */
+/* Real backdrop art, once it has loaded, sits over the CSS version.
+   The URL comes from src/art.js so the file can be .webp or .png. */
 .art-backdrop .backdrop {
-  background: url('img/backdrop.png') center/cover no-repeat;
+  background: var(--art-backdrop) center/cover no-repeat;
 }
 .art-backdrop .backdrop-glow { opacity: .45; }
 .art-backdrop .backdrop-rays { opacity: .1; }
@@ -238,7 +244,7 @@ kbd {
 /* ---------- round card ---------- */
 .screen-roundcard { background: rgba(5, 10, 36, .55); }
 .art-roundcard .screen-roundcard {
-  background: url('img/round-card.png') center/cover no-repeat, rgba(5, 10, 36, .55);
+  background: var(--art-round-card) center/cover no-repeat, rgba(5, 10, 36, .55);
 }
 .rc-inner { text-align: center; animation: rcIn .5s var(--ease-flip) both; }
 @keyframes rcIn {
@@ -301,8 +307,15 @@ kbd {
   border-radius: 20px;
 }
 .art-boardframe .board {
-  border-image: url('img/board-frame.png') 46 fill round;
+  /* No `fill`: the generated frame's middle is transparent, and filling with
+     it would paint over the board's own backing. */
+  border-image: var(--art-board-frame) 46 round;
+  border-image-width: 22px;
+  border-style: solid;
+  border-width: 22px;
+  border-color: transparent;
   background: linear-gradient(180deg, #0a1a44 0%, #050d28 100%);
+  background-clip: padding-box;
 }
 
 .tile { position: relative; perspective: 1400px; }
@@ -434,6 +447,10 @@ kbd {
 .strike-slot.on::before { transform: rotate(45deg); }
 .strike-slot.on::after  { transform: rotate(-45deg); }
 
+.answer-slot {
+  min-width: 0;
+  display: flex; flex-direction: column; gap: 10px; justify-content: center;
+}
 .answer-form { display: flex; flex-direction: column; gap: 8px; }
 .answer-prompt {
   font: 800 19px/1 var(--font-ui);
@@ -487,7 +504,7 @@ kbd {
 /* ---------- fast money ---------- */
 .screen-fm { justify-content: flex-start; padding-top: 44px; }
 .art-fastmoney .screen-fm {
-  background: url('img/fastmoney-bg.png') center/cover no-repeat;
+  background: var(--art-fastmoney) center/cover no-repeat;
 }
 
 .fm-header {
@@ -569,8 +586,32 @@ kbd {
 
 /* ---------- result ---------- */
 .art-winner .screen-result {
-  background: url('img/winner.png') center/cover no-repeat;
+  background: var(--art-winner) center/cover no-repeat;
 }
+
+/* Splash art backs the attract screen; it already contains Bella, so the
+   standalone portrait steps aside rather than doubling her up. */
+.art-splash .screen-attract {
+  background: var(--art-splash) center/cover no-repeat;
+}
+.art-splash .screen-attract::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 50% 42%, rgba(5, 10, 36, .82) 0%, rgba(5, 10, 36, .35) 60%, rgba(5, 10, 36, .55) 100%);
+}
+.art-splash .logo-block, .art-splash .press-start { position: relative; z-index: 1; }
+.art-splash-has-host .bella-attract { display: none !important; }
+.art-winner-has-host .bella-result  { display: none !important; }
+
+/* Podium art decorates the setup screen, where "who's playing" fits it. */
+.art-podiums .screen-setup::before {
+  content: ''; position: absolute;
+  left: 50%; bottom: -40px; transform: translateX(-50%);
+  width: 1500px; height: 560px;
+  background: var(--art-podiums) center bottom/contain no-repeat;
+  opacity: .22;
+  pointer-events: none;
+}
+.art-podiums .screen-setup > * { position: relative; z-index: 1; }
 .result-inner { text-align: center; z-index: 2; }
 .result-kicker {
   font: 800 34px/1 var(--font-ui); letter-spacing: .4em;
