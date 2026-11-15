@@ -5,8 +5,8 @@ Hot-seat game show for 2–4 players, built for the BellaFox arcade.
 - Build plan: `../docs/family-feud-build-plan.md`
 - Image prompts: `../docs/codex-image-prompts.md`
 
-**State: phases 0–5 complete and tested. All 12 artwork assets and all 71 Bella
-voice clips are in place.** Full show plays end to end — face-off,
+**State: complete and playable.** 40 main + 20 Fast Money questions, all 12
+artwork assets, all 109 Bella voice clips. Full show plays end to end — face-off,
 three scoring rounds with multipliers, strikes, steal, sudden death, and Fast
 Money with duplicate handling. Artwork is in (1.8 MB of a 4 MB budget) and so is Bella's
 voice (3.7 MB). Both still degrade gracefully if removed.
@@ -53,6 +53,15 @@ Edit `data/surveys.json`, then:
 node tools/test-all.mjs
 ```
 
+`tools/test-aliases.mjs` is the one to watch when adding questions: it feeds every
+answer's own text and every alias back through the real matcher and insists each
+one resolves to its own answer. The validator catches two answers claiming the
+same alias, but it normalizes without the synonym map, so only this catches an
+alias made unreachable by a synonym collision.
+
+**A new question needs a voice clip** at `audio/questions/<id>.mp3`, or Bella
+falls back to the browser's speech for that one. See the Bella section below.
+
 Rules the validator enforces:
 
 - Main questions: 5–8 answers, ordered highest points first, summing to **exactly 100**.
@@ -98,8 +107,8 @@ nothing to license. Spoken lines use a three-stage fallback: a rendered Bella cl
 then the browser's speech synthesis, then subtitles on a timer. The game never
 waits on audio.
 
-**Bella is already recorded.** All 71 lines (22 questions + 49 host takes) are in
-`audio/`, 3.7 MB, voiced by the BellaFox professional clone
+**Bella is already recorded.** All 109 lines (60 questions + 49 host takes) are in
+`audio/`, 6.1 MB, voiced by the BellaFox professional clone
 (`OwhTuJJ7sxOWEm5PsdCh`) on `eleven_v4`. `data/voice-manifest.json` maps them.
 They were generated through the ElevenLabs connector, not this script, so
 `tools/render-voice.mjs` has no matching hash file and a plain run would

@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const suites = ['validate-surveys.mjs', 'test-match.mjs', 'test-game.mjs'];
+const suites = ['validate-surveys.mjs', 'test-match.mjs', 'test-aliases.mjs', 'test-game.mjs'];
 
 let failed = 0;
 for (const suite of suites) {

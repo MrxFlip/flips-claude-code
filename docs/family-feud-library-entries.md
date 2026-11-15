@@ -84,8 +84,9 @@ runtime, no database. Source: LLM Build Library `Website/family-feud/`
   Naming: shipped as "BellaFox Feud". The show name, logo and set design are
   Fremantle trademarks; the art is original and the questions are our own.
 
-  NOT YET DEPLOYED as of this entry. Question bank stands at 12 main and 10 Fast
-  Money against a 40/20 ship minimum, and Bella's voice is not yet rendered.
+  Question bank is at the 40/20 ship minimum. Bella's voice is fully recorded:
+  109 clips (60 questions + 49 host takes) generated through the ElevenLabs
+  connector on the BellaFox professional clone. NOT YET DEPLOYED as of this entry.
 ```
 
 ---
@@ -101,12 +102,9 @@ runtime, no database. Source: LLM Build Library `Website/family-feud/`
 
 ## 4. Deploy checklist (phase 6)
 
-1. Question bank to 40 main / 20 Fast Money minimum. `node tools/validate-surveys.mjs`
-   enforces the 100-point sums and the Fast Money floor of 6.
-2. Render Bella: `ELEVENLABS_API_KEY` and `ELEVENLABS_VOICE_ID` in the shell, then
-   `node tools/render-voice.mjs --dry-run` before the real run.
-3. `node tools/check-art.mjs` — expect 12/12, under 4096 KB.
-4. `node tools/test-all.mjs` — all suites green.
+1. Question bank is at 40/20. Adding more needs a voice clip per question.
+2. `node tools/check-art.mjs` — expect 12/12, under 4096 KB.
+3. `node tools/test-all.mjs` — all suites green.
 5. Copy `family-feud/` to the arcade's static root; confirm the slug.
 6. Play one full match from a different machine before calling it done. The
    2026-08-13 Tools/ incident is the precedent: tested in a way that bypassed

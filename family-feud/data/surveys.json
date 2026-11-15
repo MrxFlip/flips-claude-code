@@ -756,6 +756,1667 @@
           ]
         }
       ]
+    },
+    {
+      "id": "q013",
+      "prompt": "Name something people do while waiting in line.",
+      "readAs": "Name something people do while waiting in line.",
+      "answers": [
+        {
+          "text": "Scroll their phone",
+          "points": 35,
+          "aliases": [
+            "phone",
+            "scroll",
+            "on their phone",
+            "social media"
+          ]
+        },
+        {
+          "text": "Talk to someone",
+          "points": 19,
+          "aliases": [
+            "chat",
+            "talk",
+            "make conversation",
+            "talk to a friend"
+          ]
+        },
+        {
+          "text": "People watch",
+          "points": 16,
+          "aliases": [
+            "watch people",
+            "stare at people",
+            "look around"
+          ]
+        },
+        {
+          "text": "Get impatient",
+          "points": 13,
+          "aliases": [
+            "sigh",
+            "complain",
+            "huff",
+            "tap their foot"
+          ]
+        },
+        {
+          "text": "Read the labels",
+          "points": 10,
+          "aliases": [
+            "read",
+            "look at magazines",
+            "read signs"
+          ]
+        },
+        {
+          "text": "Check the time",
+          "points": 7,
+          "aliases": [
+            "look at their watch",
+            "check their watch"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q014",
+      "prompt": "Name a food that is hard to eat neatly.",
+      "readAs": "Name a food that is hard to eat neatly.",
+      "answers": [
+        {
+          "text": "Spaghetti",
+          "points": 26,
+          "aliases": [
+            "pasta",
+            "noodles",
+            "spaghetti bolognese"
+          ]
+        },
+        {
+          "text": "Ribs",
+          "points": 21,
+          "aliases": [
+            "barbecue ribs",
+            "bbq",
+            "wings"
+          ]
+        },
+        {
+          "text": "Tacos",
+          "points": 18,
+          "aliases": [
+            "a taco",
+            "burrito"
+          ]
+        },
+        {
+          "text": "A burger",
+          "points": 15,
+          "aliases": [
+            "burger",
+            "hamburger",
+            "cheeseburger"
+          ]
+        },
+        {
+          "text": "An ice cream cone",
+          "points": 12,
+          "aliases": [
+            "ice cream",
+            "cone",
+            "icecream"
+          ]
+        },
+        {
+          "text": "Soup",
+          "points": 8,
+          "aliases": [
+            "broth",
+            "noodle soup"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q015",
+      "prompt": "Name something you would find in a junk drawer.",
+      "readAs": "Name something you would find in a junk drawer.",
+      "answers": [
+        {
+          "text": "Batteries",
+          "points": 27,
+          "aliases": [
+            "a battery",
+            "dead batteries",
+            "aa batteries"
+          ]
+        },
+        {
+          "text": "Rubber bands",
+          "points": 20,
+          "aliases": [
+            "elastic bands",
+            "hair ties",
+            "rubber band"
+          ]
+        },
+        {
+          "text": "Old keys",
+          "points": 17,
+          "aliases": [
+            "keys",
+            "a key",
+            "mystery keys"
+          ]
+        },
+        {
+          "text": "Takeout menus",
+          "points": 14,
+          "aliases": [
+            "menus",
+            "takeaway menus",
+            "coupons"
+          ]
+        },
+        {
+          "text": "Dead pens",
+          "points": 13,
+          "aliases": [
+            "pens",
+            "a pen",
+            "pencils"
+          ]
+        },
+        {
+          "text": "Scissors",
+          "points": 9,
+          "aliases": [
+            "a pair of scissors",
+            "tape"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q016",
+      "prompt": "Name a reason people pull out their phone at dinner.",
+      "readAs": "Name a reason people pull out their phone at dinner.",
+      "answers": [
+        {
+          "text": "To take a photo",
+          "points": 29,
+          "aliases": [
+            "photo",
+            "take a picture",
+            "photograph the food",
+            "instagram"
+          ]
+        },
+        {
+          "text": "To check a message",
+          "points": 24,
+          "aliases": [
+            "text",
+            "messages",
+            "check texts",
+            "notifications"
+          ]
+        },
+        {
+          "text": "To settle an argument",
+          "points": 17,
+          "aliases": [
+            "google something",
+            "look it up",
+            "settle a bet",
+            "prove a point"
+          ]
+        },
+        {
+          "text": "To avoid talking",
+          "points": 15,
+          "aliases": [
+            "awkward silence",
+            "ignore everyone",
+            "boredom"
+          ]
+        },
+        {
+          "text": "To show someone something",
+          "points": 9,
+          "aliases": [
+            "show a video",
+            "show a photo",
+            "share a meme"
+          ]
+        },
+        {
+          "text": "To check the time",
+          "points": 6,
+          "aliases": [
+            "the time",
+            "how late it is"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q017",
+      "prompt": "Name something people do to avoid doing work.",
+      "readAs": "Name something people do to avoid doing work.",
+      "answers": [
+        {
+          "text": "Scroll social media",
+          "points": 31,
+          "aliases": [
+            "social media",
+            "phone",
+            "scroll",
+            "tiktok",
+            "instagram"
+          ]
+        },
+        {
+          "text": "Make coffee",
+          "points": 21,
+          "aliases": [
+            "get a coffee",
+            "tea break",
+            "coffee break"
+          ]
+        },
+        {
+          "text": "Tidy their desk",
+          "points": 16,
+          "aliases": [
+            "clean",
+            "organize",
+            "tidy up"
+          ]
+        },
+        {
+          "text": "Go to the bathroom",
+          "points": 13,
+          "aliases": [
+            "bathroom",
+            "toilet",
+            "restroom"
+          ]
+        },
+        {
+          "text": "Chat with coworkers",
+          "points": 12,
+          "aliases": [
+            "talk to coworkers",
+            "gossip",
+            "chat"
+          ]
+        },
+        {
+          "text": "Reorganize their email",
+          "points": 7,
+          "aliases": [
+            "check email",
+            "sort email",
+            "inbox"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q018",
+      "prompt": "Name something that makes a terrible gift.",
+      "readAs": "Name something that makes a terrible gift.",
+      "answers": [
+        {
+          "text": "Socks",
+          "points": 24,
+          "aliases": [
+            "a pair of socks",
+            "underwear"
+          ]
+        },
+        {
+          "text": "Cleaning supplies",
+          "points": 21,
+          "aliases": [
+            "a vacuum",
+            "cleaning products",
+            "a mop"
+          ]
+        },
+        {
+          "text": "A gym membership",
+          "points": 19,
+          "aliases": [
+            "gym",
+            "exercise equipment",
+            "a scale"
+          ]
+        },
+        {
+          "text": "A candle",
+          "points": 15,
+          "aliases": [
+            "candles",
+            "scented candle"
+          ]
+        },
+        {
+          "text": "A diet book",
+          "points": 12,
+          "aliases": [
+            "diet books",
+            "self help book",
+            "a book about dieting"
+          ]
+        },
+        {
+          "text": "Cash in a card",
+          "points": 9,
+          "aliases": [
+            "money",
+            "a gift card",
+            "cash"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q019",
+      "prompt": "Name something people lie about on a first date.",
+      "readAs": "Name something people lie about on a first date.",
+      "answers": [
+        {
+          "text": "Their age",
+          "points": 27,
+          "aliases": [
+            "age",
+            "how old they are"
+          ]
+        },
+        {
+          "text": "Their job",
+          "points": 22,
+          "aliases": [
+            "job",
+            "work",
+            "career",
+            "what they do"
+          ]
+        },
+        {
+          "text": "Their hobbies",
+          "points": 18,
+          "aliases": [
+            "hobbies",
+            "interests",
+            "what they like"
+          ]
+        },
+        {
+          "text": "How much they drink",
+          "points": 14,
+          "aliases": [
+            "drinking",
+            "alcohol",
+            "how much they party"
+          ]
+        },
+        {
+          "text": "Their height",
+          "points": 11,
+          "aliases": [
+            "height",
+            "how tall they are"
+          ]
+        },
+        {
+          "text": "Their ex",
+          "points": 8,
+          "aliases": [
+            "relationships",
+            "their past",
+            "exes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q020",
+      "prompt": "Name a sound that wakes people up instantly.",
+      "readAs": "Name a sound that wakes people up instantly.",
+      "answers": [
+        {
+          "text": "An alarm",
+          "points": 30,
+          "aliases": [
+            "alarm clock",
+            "alarm",
+            "phone alarm"
+          ]
+        },
+        {
+          "text": "A baby crying",
+          "points": 23,
+          "aliases": [
+            "baby",
+            "crying",
+            "a child screaming"
+          ]
+        },
+        {
+          "text": "Breaking glass",
+          "points": 18,
+          "aliases": [
+            "glass smashing",
+            "something breaking",
+            "a crash"
+          ]
+        },
+        {
+          "text": "A smoke alarm",
+          "points": 14,
+          "aliases": [
+            "fire alarm",
+            "smoke detector",
+            "beeping"
+          ]
+        },
+        {
+          "text": "A dog barking",
+          "points": 9,
+          "aliases": [
+            "dog",
+            "barking",
+            "a pet"
+          ]
+        },
+        {
+          "text": "Thunder",
+          "points": 6,
+          "aliases": [
+            "a storm",
+            "lightning"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q021",
+      "prompt": "Name something people keep way past its expiration date.",
+      "readAs": "Name something people keep way past its expiration date.",
+      "answers": [
+        {
+          "text": "Condiments",
+          "points": 28,
+          "aliases": [
+            "ketchup",
+            "sauce",
+            "mustard",
+            "mayonnaise"
+          ]
+        },
+        {
+          "text": "Milk",
+          "points": 22,
+          "aliases": [
+            "cream",
+            "dairy"
+          ]
+        },
+        {
+          "text": "Medicine",
+          "points": 18,
+          "aliases": [
+            "pills",
+            "medication",
+            "painkillers"
+          ]
+        },
+        {
+          "text": "Spices",
+          "points": 14,
+          "aliases": [
+            "herbs",
+            "seasoning",
+            "spice rack"
+          ]
+        },
+        {
+          "text": "Bread",
+          "points": 10,
+          "aliases": [
+            "a loaf",
+            "buns"
+          ]
+        },
+        {
+          "text": "Yogurt",
+          "points": 8,
+          "aliases": [
+            "yoghurt",
+            "a yogurt"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q022",
+      "prompt": "Name a chore kids try to get out of.",
+      "readAs": "Name a chore kids try to get out of.",
+      "answers": [
+        {
+          "text": "Taking out the trash",
+          "points": 26,
+          "aliases": [
+            "trash",
+            "garbage",
+            "bins",
+            "rubbish"
+          ]
+        },
+        {
+          "text": "Doing the dishes",
+          "points": 22,
+          "aliases": [
+            "dishes",
+            "washing up",
+            "the washing up"
+          ]
+        },
+        {
+          "text": "Cleaning their room",
+          "points": 20,
+          "aliases": [
+            "tidy their room",
+            "their bedroom",
+            "cleaning up"
+          ]
+        },
+        {
+          "text": "Mowing the lawn",
+          "points": 15,
+          "aliases": [
+            "lawn",
+            "yard work",
+            "cutting the grass"
+          ]
+        },
+        {
+          "text": "Laundry",
+          "points": 11,
+          "aliases": [
+            "washing",
+            "folding clothes"
+          ]
+        },
+        {
+          "text": "Vacuuming",
+          "points": 6,
+          "aliases": [
+            "hoovering",
+            "vacuum",
+            "hoover"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q023",
+      "prompt": "Name something people do when nobody is watching.",
+      "readAs": "Name something people do when nobody is watching.",
+      "answers": [
+        {
+          "text": "Dance",
+          "points": 29,
+          "aliases": [
+            "dancing",
+            "dance around"
+          ]
+        },
+        {
+          "text": "Sing",
+          "points": 23,
+          "aliases": [
+            "singing",
+            "sing loudly"
+          ]
+        },
+        {
+          "text": "Talk to themselves",
+          "points": 18,
+          "aliases": [
+            "talking to themself",
+            "argue with themselves",
+            "narrate"
+          ]
+        },
+        {
+          "text": "Pick their nose",
+          "points": 14,
+          "aliases": [
+            "nose picking",
+            "pick at themselves"
+          ]
+        },
+        {
+          "text": "Eat junk food",
+          "points": 10,
+          "aliases": [
+            "snack",
+            "eat straight from the fridge",
+            "binge eat"
+          ]
+        },
+        {
+          "text": "Check themselves out",
+          "points": 6,
+          "aliases": [
+            "look in the mirror",
+            "pose in the mirror",
+            "flex"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q024",
+      "prompt": "Name a place you would hate to run out of gas.",
+      "readAs": "Name a place you would hate to run out of gas.",
+      "answers": [
+        {
+          "text": "The highway",
+          "points": 33,
+          "aliases": [
+            "freeway",
+            "motorway",
+            "interstate"
+          ]
+        },
+        {
+          "text": "The middle of nowhere",
+          "points": 24,
+          "aliases": [
+            "nowhere",
+            "a desert",
+            "the countryside",
+            "the woods"
+          ]
+        },
+        {
+          "text": "A bridge",
+          "points": 16,
+          "aliases": [
+            "on a bridge",
+            "a big bridge",
+            "crossing a bridge"
+          ]
+        },
+        {
+          "text": "A tunnel",
+          "points": 13,
+          "aliases": [
+            "in a tunnel",
+            "underground",
+            "a long tunnel"
+          ]
+        },
+        {
+          "text": "In traffic",
+          "points": 9,
+          "aliases": [
+            "a traffic jam",
+            "rush hour"
+          ]
+        },
+        {
+          "text": "A bad neighborhood",
+          "points": 5,
+          "aliases": [
+            "somewhere dangerous",
+            "a rough area"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q025",
+      "prompt": "Name something people pack but never use on vacation.",
+      "readAs": "Name something people pack but never use on vacation.",
+      "answers": [
+        {
+          "text": "Books",
+          "points": 25,
+          "aliases": [
+            "a book",
+            "a novel",
+            "reading material"
+          ]
+        },
+        {
+          "text": "Workout clothes",
+          "points": 23,
+          "aliases": [
+            "gym clothes",
+            "running shoes",
+            "exercise gear"
+          ]
+        },
+        {
+          "text": "Extra shoes",
+          "points": 18,
+          "aliases": [
+            "too many shoes",
+            "a second pair of shoes"
+          ]
+        },
+        {
+          "text": "A first aid kit",
+          "points": 14,
+          "aliases": [
+            "medicine",
+            "band aids",
+            "plasters"
+          ]
+        },
+        {
+          "text": "Formal clothes",
+          "points": 12,
+          "aliases": [
+            "a suit",
+            "a dress",
+            "nice clothes"
+          ]
+        },
+        {
+          "text": "A hairdryer",
+          "points": 8,
+          "aliases": [
+            "hair dryer",
+            "straighteners"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q026",
+      "prompt": "Name something people say when they get caught lying.",
+      "readAs": "Name something people say when they get caught lying.",
+      "answers": [
+        {
+          "text": "I was joking",
+          "points": 28,
+          "aliases": [
+            "it was a joke",
+            "im kidding",
+            "just kidding"
+          ]
+        },
+        {
+          "text": "I forgot",
+          "points": 22,
+          "aliases": [
+            "i forgot about that",
+            "it slipped my mind"
+          ]
+        },
+        {
+          "text": "That is not what I meant",
+          "points": 19,
+          "aliases": [
+            "you took it wrong",
+            "i meant something else"
+          ]
+        },
+        {
+          "text": "You misheard me",
+          "points": 15,
+          "aliases": [
+            "you misunderstood",
+            "thats not what i said"
+          ]
+        },
+        {
+          "text": "I can explain",
+          "points": 10,
+          "aliases": [
+            "let me explain",
+            "hear me out"
+          ]
+        },
+        {
+          "text": "Nothing",
+          "points": 6,
+          "aliases": [
+            "they go silent",
+            "say nothing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q027",
+      "prompt": "Name an animal people are irrationally afraid of.",
+      "readAs": "Name an animal people are irrationally afraid of.",
+      "answers": [
+        {
+          "text": "Spiders",
+          "points": 32,
+          "aliases": [
+            "a spider",
+            "tarantula"
+          ]
+        },
+        {
+          "text": "Snakes",
+          "points": 26,
+          "aliases": [
+            "a snake",
+            "python"
+          ]
+        },
+        {
+          "text": "Mice",
+          "points": 15,
+          "aliases": [
+            "a mouse",
+            "rats",
+            "a rat"
+          ]
+        },
+        {
+          "text": "Bees",
+          "points": 13,
+          "aliases": [
+            "a bee",
+            "wasps",
+            "hornets"
+          ]
+        },
+        {
+          "text": "Moths",
+          "points": 8,
+          "aliases": [
+            "a moth",
+            "butterflies"
+          ]
+        },
+        {
+          "text": "Birds",
+          "points": 6,
+          "aliases": [
+            "a bird",
+            "pigeons"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q028",
+      "prompt": "Name something that always goes wrong on a video call.",
+      "readAs": "Name something that always goes wrong on a video call.",
+      "answers": [
+        {
+          "text": "The audio cuts out",
+          "points": 30,
+          "aliases": [
+            "audio",
+            "sound",
+            "the sound breaks up",
+            "bad audio"
+          ]
+        },
+        {
+          "text": "The video freezes",
+          "points": 24,
+          "aliases": [
+            "freezing",
+            "frozen screen",
+            "lag"
+          ]
+        },
+        {
+          "text": "Someone forgets to unmute",
+          "points": 18,
+          "aliases": [
+            "muted",
+            "youre on mute",
+            "mute"
+          ]
+        },
+        {
+          "text": "A pet walks in",
+          "points": 13,
+          "aliases": [
+            "a cat",
+            "the dog",
+            "a kid walks in",
+            "children interrupt"
+          ]
+        },
+        {
+          "text": "The internet drops",
+          "points": 10,
+          "aliases": [
+            "wifi",
+            "connection drops",
+            "bad connection"
+          ]
+        },
+        {
+          "text": "Echo",
+          "points": 5,
+          "aliases": [
+            "feedback",
+            "screeching"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q029",
+      "prompt": "Name something people do the second they get home.",
+      "readAs": "Name something people do the second they get home.",
+      "answers": [
+        {
+          "text": "Take their shoes off",
+          "points": 31,
+          "aliases": [
+            "shoes off",
+            "kick off their shoes"
+          ]
+        },
+        {
+          "text": "Put their keys down",
+          "points": 21,
+          "aliases": [
+            "drop their keys",
+            "put their bag down"
+          ]
+        },
+        {
+          "text": "Change clothes",
+          "points": 17,
+          "aliases": [
+            "get comfortable",
+            "put on pajamas",
+            "change into sweatpants"
+          ]
+        },
+        {
+          "text": "Open the fridge",
+          "points": 15,
+          "aliases": [
+            "get a snack",
+            "look in the fridge",
+            "get a drink"
+          ]
+        },
+        {
+          "text": "Turn on the TV",
+          "points": 10,
+          "aliases": [
+            "tv",
+            "television",
+            "put something on"
+          ]
+        },
+        {
+          "text": "Check the mail",
+          "points": 6,
+          "aliases": [
+            "the post",
+            "get the mail"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q030",
+      "prompt": "Name a smell that reminds people of childhood.",
+      "readAs": "Name a smell that reminds people of childhood.",
+      "answers": [
+        {
+          "text": "Baking cookies",
+          "points": 27,
+          "aliases": [
+            "cookies",
+            "baking",
+            "fresh bread",
+            "grandmas kitchen"
+          ]
+        },
+        {
+          "text": "Fresh cut grass",
+          "points": 22,
+          "aliases": [
+            "grass",
+            "cut grass",
+            "mowed lawn"
+          ]
+        },
+        {
+          "text": "Crayons",
+          "points": 17,
+          "aliases": [
+            "a crayon",
+            "colouring pencils"
+          ]
+        },
+        {
+          "text": "Sunscreen",
+          "points": 14,
+          "aliases": [
+            "sun cream",
+            "suntan lotion",
+            "the pool"
+          ]
+        },
+        {
+          "text": "Play-doh",
+          "points": 12,
+          "aliases": [
+            "playdough",
+            "modelling clay"
+          ]
+        },
+        {
+          "text": "A school cafeteria",
+          "points": 8,
+          "aliases": [
+            "school lunch",
+            "the school hallway"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q031",
+      "prompt": "Name something people argue about on a road trip.",
+      "readAs": "Name something people argue about on a road trip.",
+      "answers": [
+        {
+          "text": "Directions",
+          "points": 29,
+          "aliases": [
+            "the map",
+            "gps",
+            "which way to go",
+            "being lost"
+          ]
+        },
+        {
+          "text": "The music",
+          "points": 23,
+          "aliases": [
+            "music",
+            "what to listen to",
+            "the radio",
+            "aux"
+          ]
+        },
+        {
+          "text": "Where to stop",
+          "points": 19,
+          "aliases": [
+            "bathroom breaks",
+            "where to eat",
+            "stopping"
+          ]
+        },
+        {
+          "text": "How fast to drive",
+          "points": 14,
+          "aliases": [
+            "speeding",
+            "driving too slow",
+            "the speed"
+          ]
+        },
+        {
+          "text": "The temperature",
+          "points": 9,
+          "aliases": [
+            "the air conditioning",
+            "too hot",
+            "too cold"
+          ]
+        },
+        {
+          "text": "Who drives",
+          "points": 6,
+          "aliases": [
+            "whose turn to drive",
+            "driving"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q032",
+      "prompt": "Name a job that looks fun until you actually do it.",
+      "readAs": "Name a job that looks fun until you actually do it.",
+      "answers": [
+        {
+          "text": "Food critic",
+          "points": 23,
+          "aliases": [
+            "restaurant critic",
+            "food taster"
+          ]
+        },
+        {
+          "text": "Pilot",
+          "points": 20,
+          "aliases": [
+            "airline pilot",
+            "flying planes"
+          ]
+        },
+        {
+          "text": "Video game tester",
+          "points": 19,
+          "aliases": [
+            "game tester",
+            "testing games"
+          ]
+        },
+        {
+          "text": "Zookeeper",
+          "points": 15,
+          "aliases": [
+            "working at a zoo",
+            "animal keeper"
+          ]
+        },
+        {
+          "text": "Travel blogger",
+          "points": 13,
+          "aliases": [
+            "influencer",
+            "travel influencer",
+            "youtuber"
+          ]
+        },
+        {
+          "text": "Actor",
+          "points": 10,
+          "aliases": [
+            "actress",
+            "acting",
+            "movie star"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q033",
+      "prompt": "Name something people buy and immediately regret.",
+      "readAs": "Name something people buy and immediately regret.",
+      "answers": [
+        {
+          "text": "Exercise equipment",
+          "points": 27,
+          "aliases": [
+            "a treadmill",
+            "an exercise bike",
+            "gym equipment",
+            "a peloton"
+          ]
+        },
+        {
+          "text": "A gadget",
+          "points": 21,
+          "aliases": [
+            "gadgets",
+            "a kitchen gadget",
+            "an as seen on tv thing"
+          ]
+        },
+        {
+          "text": "Clothes that do not fit",
+          "points": 19,
+          "aliases": [
+            "clothes",
+            "a shirt too small",
+            "wrong size clothes"
+          ]
+        },
+        {
+          "text": "A timeshare",
+          "points": 13,
+          "aliases": [
+            "time share",
+            "a vacation package"
+          ]
+        },
+        {
+          "text": "A pet",
+          "points": 11,
+          "aliases": [
+            "a puppy",
+            "a dog",
+            "a kitten"
+          ]
+        },
+        {
+          "text": "Fast food",
+          "points": 9,
+          "aliases": [
+            "junk food",
+            "a late night takeaway"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q034",
+      "prompt": "Name something you should never put in a microwave.",
+      "readAs": "Name something you should never put in a microwave.",
+      "answers": [
+        {
+          "text": "Metal",
+          "points": 34,
+          "aliases": [
+            "foil",
+            "tin foil",
+            "a fork",
+            "aluminum"
+          ]
+        },
+        {
+          "text": "Eggs",
+          "points": 22,
+          "aliases": [
+            "an egg",
+            "a boiled egg"
+          ]
+        },
+        {
+          "text": "Fish",
+          "points": 17,
+          "aliases": [
+            "seafood",
+            "leftover fish"
+          ]
+        },
+        {
+          "text": "Grapes",
+          "points": 12,
+          "aliases": [
+            "a grape",
+            "fruit",
+            "green grapes"
+          ]
+        },
+        {
+          "text": "Styrofoam",
+          "points": 9,
+          "aliases": [
+            "plastic",
+            "a plastic container"
+          ]
+        },
+        {
+          "text": "A phone",
+          "points": 6,
+          "aliases": [
+            "electronics",
+            "a laptop"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q035",
+      "prompt": "Name something people do badly but think they are great at.",
+      "readAs": "Name something people do badly but think they are great at.",
+      "answers": [
+        {
+          "text": "Singing",
+          "points": 28,
+          "aliases": [
+            "sing",
+            "karaoke"
+          ]
+        },
+        {
+          "text": "Driving",
+          "points": 24,
+          "aliases": [
+            "drive",
+            "their driving"
+          ]
+        },
+        {
+          "text": "Dancing",
+          "points": 18,
+          "aliases": [
+            "dance",
+            "their dance moves"
+          ]
+        },
+        {
+          "text": "Telling jokes",
+          "points": 14,
+          "aliases": [
+            "being funny",
+            "comedy",
+            "humor"
+          ]
+        },
+        {
+          "text": "Parking",
+          "points": 10,
+          "aliases": [
+            "parallel parking",
+            "reversing"
+          ]
+        },
+        {
+          "text": "Cooking",
+          "points": 6,
+          "aliases": [
+            "baking",
+            "their cooking"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q036",
+      "prompt": "Name a reason someone leaves a bad review.",
+      "readAs": "Name a reason someone leaves a bad review.",
+      "answers": [
+        {
+          "text": "Slow service",
+          "points": 27,
+          "aliases": [
+            "it took forever",
+            "waiting too long",
+            "slow"
+          ]
+        },
+        {
+          "text": "Rude staff",
+          "points": 24,
+          "aliases": [
+            "rude service",
+            "bad attitude",
+            "the waiter was rude"
+          ]
+        },
+        {
+          "text": "Cold food",
+          "points": 19,
+          "aliases": [
+            "the food was bad",
+            "bad food",
+            "undercooked"
+          ]
+        },
+        {
+          "text": "It was dirty",
+          "points": 14,
+          "aliases": [
+            "dirty",
+            "unclean",
+            "the bathroom was gross"
+          ]
+        },
+        {
+          "text": "Wrong order",
+          "points": 10,
+          "aliases": [
+            "they got it wrong",
+            "missing items"
+          ]
+        },
+        {
+          "text": "The price",
+          "points": 6,
+          "aliases": [
+            "too expensive",
+            "overpriced"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q037",
+      "prompt": "Name something that always seems to be sticky.",
+      "readAs": "Name something that always seems to be sticky.",
+      "answers": [
+        {
+          "text": "A movie theater floor",
+          "points": 26,
+          "aliases": [
+            "the cinema floor",
+            "theater floor",
+            "movie theatre"
+          ]
+        },
+        {
+          "text": "A bar counter",
+          "points": 21,
+          "aliases": [
+            "the bar",
+            "a pub table",
+            "a sticky table"
+          ]
+        },
+        {
+          "text": "A honey jar",
+          "points": 18,
+          "aliases": [
+            "honey",
+            "the honey"
+          ]
+        },
+        {
+          "text": "A toddler",
+          "points": 17,
+          "aliases": [
+            "a child",
+            "kids hands",
+            "a baby"
+          ]
+        },
+        {
+          "text": "A syrup bottle",
+          "points": 11,
+          "aliases": [
+            "syrup",
+            "maple syrup"
+          ]
+        },
+        {
+          "text": "Door handles",
+          "points": 7,
+          "aliases": [
+            "a door handle",
+            "a doorknob"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q038",
+      "prompt": "Name something people pretend to understand.",
+      "readAs": "Name something people pretend to understand.",
+      "answers": [
+        {
+          "text": "Taxes",
+          "points": 26,
+          "aliases": [
+            "tax",
+            "doing taxes",
+            "the tax code"
+          ]
+        },
+        {
+          "text": "Cryptocurrency",
+          "points": 22,
+          "aliases": [
+            "crypto",
+            "bitcoin",
+            "nfts"
+          ]
+        },
+        {
+          "text": "Wine",
+          "points": 18,
+          "aliases": [
+            "wine tasting",
+            "which wine is good"
+          ]
+        },
+        {
+          "text": "Modern art",
+          "points": 15,
+          "aliases": [
+            "art",
+            "abstract art"
+          ]
+        },
+        {
+          "text": "Insurance",
+          "points": 12,
+          "aliases": [
+            "their insurance policy",
+            "health insurance"
+          ]
+        },
+        {
+          "text": "Politics",
+          "points": 7,
+          "aliases": [
+            "the news",
+            "current events"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q039",
+      "prompt": "Name something you would grab first in a fire.",
+      "readAs": "Name something you would grab first in a fire.",
+      "answers": [
+        {
+          "text": "Their phone",
+          "points": 29,
+          "aliases": [
+            "phone",
+            "cell phone",
+            "mobile"
+          ]
+        },
+        {
+          "text": "Their pets",
+          "points": 25,
+          "aliases": [
+            "pets",
+            "the dog",
+            "the cat",
+            "an animal"
+          ]
+        },
+        {
+          "text": "Their wallet",
+          "points": 18,
+          "aliases": [
+            "wallet",
+            "purse",
+            "money"
+          ]
+        },
+        {
+          "text": "Photos",
+          "points": 13,
+          "aliases": [
+            "photo albums",
+            "pictures",
+            "memories"
+          ]
+        },
+        {
+          "text": "Their laptop",
+          "points": 10,
+          "aliases": [
+            "laptop",
+            "computer"
+          ]
+        },
+        {
+          "text": "Their keys",
+          "points": 5,
+          "aliases": [
+            "keys",
+            "car keys"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q040",
+      "prompt": "Name something people never return after borrowing.",
+      "readAs": "Name something people never return after borrowing.",
+      "answers": [
+        {
+          "text": "Pens",
+          "points": 27,
+          "aliases": [
+            "a pen",
+            "pencils"
+          ]
+        },
+        {
+          "text": "Books",
+          "points": 23,
+          "aliases": [
+            "a book",
+            "a novel"
+          ]
+        },
+        {
+          "text": "Tupperware",
+          "points": 20,
+          "aliases": [
+            "containers",
+            "a dish",
+            "a plate"
+          ]
+        },
+        {
+          "text": "Phone chargers",
+          "points": 14,
+          "aliases": [
+            "a charger",
+            "a cable",
+            "charging cable"
+          ]
+        },
+        {
+          "text": "Money",
+          "points": 11,
+          "aliases": [
+            "cash",
+            "a loan",
+            "twenty bucks"
+          ]
+        },
+        {
+          "text": "Tools",
+          "points": 5,
+          "aliases": [
+            "a drill",
+            "a ladder"
+          ]
+        }
+      ]
     }
   ],
   "fastMoney": [
@@ -1263,6 +2924,499 @@
           "aliases": [
             "icecream",
             "ice-cream"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f011",
+      "prompt": "Name something people do at a red light.",
+      "readAs": "Name something people do at a red light.",
+      "answers": [
+        {
+          "text": "Check their phone",
+          "points": 36,
+          "aliases": [
+            "phone",
+            "look at their phone",
+            "text"
+          ]
+        },
+        {
+          "text": "Change the music",
+          "points": 22,
+          "aliases": [
+            "music",
+            "change the song",
+            "radio"
+          ]
+        },
+        {
+          "text": "Fix their hair",
+          "points": 17,
+          "aliases": [
+            "check the mirror",
+            "makeup",
+            "look in the mirror"
+          ]
+        },
+        {
+          "text": "Drum on the wheel",
+          "points": 14,
+          "aliases": [
+            "tap the steering wheel",
+            "drum their fingers"
+          ]
+        },
+        {
+          "text": "Eat",
+          "points": 11,
+          "aliases": [
+            "eat food",
+            "snack",
+            "drink coffee"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f012",
+      "prompt": "Name a drink people order to look sophisticated.",
+      "readAs": "Name a drink people order to look sophisticated.",
+      "answers": [
+        {
+          "text": "Wine",
+          "points": 34,
+          "aliases": [
+            "red wine",
+            "a glass of wine",
+            "white wine"
+          ]
+        },
+        {
+          "text": "Whiskey",
+          "points": 25,
+          "aliases": [
+            "scotch",
+            "bourbon",
+            "whisky"
+          ]
+        },
+        {
+          "text": "A martini",
+          "points": 19,
+          "aliases": [
+            "martini",
+            "a cocktail"
+          ]
+        },
+        {
+          "text": "Espresso",
+          "points": 13,
+          "aliases": [
+            "a coffee",
+            "an espresso martini"
+          ]
+        },
+        {
+          "text": "Champagne",
+          "points": 9,
+          "aliases": [
+            "prosecco",
+            "bubbly"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f013",
+      "prompt": "Name something that is always cold in a house.",
+      "readAs": "Name something that is always cold in a house.",
+      "answers": [
+        {
+          "text": "The bathroom floor",
+          "points": 31,
+          "aliases": [
+            "bathroom tile",
+            "the bathroom",
+            "tiles"
+          ]
+        },
+        {
+          "text": "The basement",
+          "points": 24,
+          "aliases": [
+            "the cellar",
+            "downstairs"
+          ]
+        },
+        {
+          "text": "By a window",
+          "points": 18,
+          "aliases": [
+            "the window",
+            "a draft",
+            "window seat"
+          ]
+        },
+        {
+          "text": "The garage",
+          "points": 15,
+          "aliases": [
+            "the shed",
+            "garage",
+            "the carport"
+          ]
+        },
+        {
+          "text": "The kitchen floor",
+          "points": 12,
+          "aliases": [
+            "kitchen tile",
+            "the kitchen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f014",
+      "prompt": "Name something people constantly forget the name of.",
+      "readAs": "Name something people constantly forget the name of.",
+      "answers": [
+        {
+          "text": "People",
+          "points": 38,
+          "aliases": [
+            "a persons name",
+            "names",
+            "someone they just met"
+          ]
+        },
+        {
+          "text": "Movies",
+          "points": 23,
+          "aliases": [
+            "a film",
+            "a movie title"
+          ]
+        },
+        {
+          "text": "Songs",
+          "points": 18,
+          "aliases": [
+            "a song",
+            "music"
+          ]
+        },
+        {
+          "text": "Streets",
+          "points": 12,
+          "aliases": [
+            "a road",
+            "where they parked"
+          ]
+        },
+        {
+          "text": "Medications",
+          "points": 9,
+          "aliases": [
+            "a pill",
+            "their prescription"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f015",
+      "prompt": "Name a reason people stay up too late.",
+      "readAs": "Name a reason people stay up too late.",
+      "answers": [
+        {
+          "text": "Watching TV",
+          "points": 32,
+          "aliases": [
+            "tv",
+            "netflix",
+            "binge watching",
+            "a show"
+          ]
+        },
+        {
+          "text": "Scrolling their phone",
+          "points": 27,
+          "aliases": [
+            "phone",
+            "social media",
+            "tiktok"
+          ]
+        },
+        {
+          "text": "Gaming",
+          "points": 17,
+          "aliases": [
+            "video games",
+            "playing games"
+          ]
+        },
+        {
+          "text": "Reading",
+          "points": 13,
+          "aliases": [
+            "a book",
+            "reading a book"
+          ]
+        },
+        {
+          "text": "Working",
+          "points": 11,
+          "aliases": [
+            "work",
+            "finishing work"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f016",
+      "prompt": "Name something you need two people to do.",
+      "readAs": "Name something you need two people to do.",
+      "answers": [
+        {
+          "text": "Move a couch",
+          "points": 33,
+          "aliases": [
+            "move furniture",
+            "lift something heavy",
+            "move a sofa"
+          ]
+        },
+        {
+          "text": "Jump a car",
+          "points": 23,
+          "aliases": [
+            "jump start a car",
+            "push a car"
+          ]
+        },
+        {
+          "text": "Play catch",
+          "points": 19,
+          "aliases": [
+            "throw a ball",
+            "tennis"
+          ]
+        },
+        {
+          "text": "Fold a sheet",
+          "points": 15,
+          "aliases": [
+            "fold a fitted sheet",
+            "fold laundry"
+          ]
+        },
+        {
+          "text": "Dance",
+          "points": 10,
+          "aliases": [
+            "slow dance",
+            "ballroom dancing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f017",
+      "prompt": "Name something people hoard.",
+      "readAs": "Name something people hoard.",
+      "answers": [
+        {
+          "text": "Plastic bags",
+          "points": 29,
+          "aliases": [
+            "bags",
+            "carrier bags",
+            "grocery bags"
+          ]
+        },
+        {
+          "text": "Takeout containers",
+          "points": 24,
+          "aliases": [
+            "tupperware",
+            "plastic containers",
+            "old containers"
+          ]
+        },
+        {
+          "text": "Cables",
+          "points": 20,
+          "aliases": [
+            "cords",
+            "chargers",
+            "wires"
+          ]
+        },
+        {
+          "text": "Clothes",
+          "points": 16,
+          "aliases": [
+            "old clothes",
+            "shoes"
+          ]
+        },
+        {
+          "text": "Mugs",
+          "points": 11,
+          "aliases": [
+            "cups",
+            "coffee mugs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f018",
+      "prompt": "Name a body part people complain about.",
+      "readAs": "Name a body part people complain about.",
+      "answers": [
+        {
+          "text": "Their back",
+          "points": 34,
+          "aliases": [
+            "back",
+            "lower back",
+            "back pain"
+          ]
+        },
+        {
+          "text": "Their knees",
+          "points": 24,
+          "aliases": [
+            "knee",
+            "knee pain"
+          ]
+        },
+        {
+          "text": "Their feet",
+          "points": 18,
+          "aliases": [
+            "foot",
+            "their feet hurt"
+          ]
+        },
+        {
+          "text": "Their neck",
+          "points": 15,
+          "aliases": [
+            "neck pain",
+            "a stiff neck"
+          ]
+        },
+        {
+          "text": "Their shoulders",
+          "points": 9,
+          "aliases": [
+            "shoulder",
+            "a sore shoulder"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f019",
+      "prompt": "Name something that ruins a photo.",
+      "readAs": "Name something that ruins a photo.",
+      "answers": [
+        {
+          "text": "Someone blinking",
+          "points": 31,
+          "aliases": [
+            "blinking",
+            "closed eyes",
+            "eyes shut"
+          ]
+        },
+        {
+          "text": "Bad lighting",
+          "points": 25,
+          "aliases": [
+            "the lighting",
+            "too dark",
+            "glare"
+          ]
+        },
+        {
+          "text": "A photobomber",
+          "points": 20,
+          "aliases": [
+            "someone in the background",
+            "a photobomb"
+          ]
+        },
+        {
+          "text": "A thumb over the lens",
+          "points": 14,
+          "aliases": [
+            "a finger in the shot",
+            "blurry thumb"
+          ]
+        },
+        {
+          "text": "Red eye",
+          "points": 10,
+          "aliases": [
+            "the flash",
+            "flash"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f020",
+      "prompt": "Name something people say to end a phone call.",
+      "readAs": "Name something people say to end a phone call.",
+      "answers": [
+        {
+          "text": "Alright then",
+          "points": 30,
+          "aliases": [
+            "ok then",
+            "well alright",
+            "anyway"
+          ]
+        },
+        {
+          "text": "I will let you go",
+          "points": 26,
+          "aliases": [
+            "ill let you go",
+            "let you go",
+            "i should go"
+          ]
+        },
+        {
+          "text": "Talk soon",
+          "points": 20,
+          "aliases": [
+            "talk to you later",
+            "speak soon",
+            "catch you later"
+          ]
+        },
+        {
+          "text": "Love you",
+          "points": 14,
+          "aliases": [
+            "love you bye",
+            "i love you"
+          ]
+        },
+        {
+          "text": "Bye",
+          "points": 10,
+          "aliases": [
+            "goodbye",
+            "bye bye"
           ]
         }
       ]
