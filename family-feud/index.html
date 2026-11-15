@@ -105,6 +105,13 @@
               <button type="button" class="choice-btn" data-choice="play"><kbd>P</kbd> PLAY</button>
               <button type="button" class="choice-btn" data-choice="pass"><kbd>S</kbd> PASS</button>
             </div>
+
+            <!-- Outside the form on purpose. The form gets hidden whenever the
+                 game is not taking an answer, and this has to stay on screen at
+                 exactly those moments — it is how the round moves on. -->
+            <button type="button" class="advance-btn" hidden>
+              <span class="advance-label">CONTINUE</span> <kbd>SPACE</kbd>
+            </button>
           </div>
 
           <div class="pot-box">
@@ -128,6 +135,10 @@
 
       <div class="fm-rows" id="fmRows"></div>
 
+      <button type="button" class="advance-btn" hidden>
+          <span class="advance-label">CONTINUE</span> <kbd>SPACE</kbd>
+        </button>
+
       <div class="fm-bottom">
         <form class="answer-form fm-form" id="fmForm" autocomplete="off">
           <input class="answer-input" id="fmInput" type="text" maxlength="120"
@@ -148,6 +159,9 @@
         <div class="result-kicker" id="resultKicker">WINNER</div>
         <div class="result-name" id="resultName">&nbsp;</div>
         <div class="result-detail" id="resultDetail">&nbsp;</div>
+        <button type="button" class="advance-btn" hidden>
+          <span class="advance-label">CONTINUE</span> <kbd>SPACE</kbd>
+        </button>
         <p class="press-start small">PRESS <kbd>ENTER</kbd> FOR A REMATCH &middot; <kbd>ESC</kbd> FOR THE MENU</p>
       </div>
       <img class="bella bella-result" alt="" data-art-base="bella-win">
@@ -183,6 +197,7 @@
         <dt>1&ndash;8</dt><dd>Force-reveal that answer</dd>
         <dt>X</dt><dd>Force a strike</dd>
         <dt>Z</dt><dd>Undo the last action</dd>
+        <dt>N</dt><dd>New face-off question</dd>
         <dt>Space</dt><dd>Advance</dd>
         <dt>P / S</dt><dd>Play / Pass</dd>
         <dt>M</dt><dd>Mute</dd>

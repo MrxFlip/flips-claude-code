@@ -5,7 +5,7 @@
 // rejection with the number keys and cannot take back a bad reveal. So the
 // cascade is generous about spelling and phrasing, strict about meaning.
 
-import { SYNONYMS, PHRASES } from './synonyms.js';
+import { SYNONYMS, PHRASES, WEAK_WORDS } from './synonyms.js';
 
 const ARTICLES = /^(a|an|the)\s+/;
 const FILLER = /^(my|your|his|her|their|our|some|any|going to|gonna|wanna|want to|like)\s+/;
@@ -48,12 +48,19 @@ export function normalize(input) {
     s = s.replace(ARTICLES, '').replace(FILLER, '');
   } while (s !== prev && s.length);
 
-  return s
+  const mapped = s
     .split(' ')
     .filter(Boolean)
-    .map((t) => SYNONYMS.get(singular(t)) ?? singular(t))
-    .join(' ')
-    .trim();
+    .map((t) => SYNONYMS.get(singular(t)) ?? singular(t));
+
+  // Collapse an adjacent repeat. Two different words can map to the same
+  // canonical token — "nintendo switch" becomes "gameconsole gameconsole" —
+  // and that doubling is an artefact of the synonym map, not something the
+  // player typed. Leaving it in made the token counts disagree with the
+  // answer's own form.
+  const out = mapped.filter((t, i) => t !== mapped[i - 1]);
+
+  return out.join(' ').trim();
 }
 
 function tokens(s) {
@@ -78,26 +85,58 @@ export function dice(a, b) {
   return (2 * hits) / (a.length + b.length - 2);
 }
 
-/** Levenshtein distance, early-exit above `max`. */
+/**
+ * Edit distance with transposition (optimal string alignment), early-exit
+ * above `max`.
+ *
+ * Swapping two adjacent characters is the commonest typing mistake there is,
+ * and plain Levenshtein charges two edits for it. That put "spidres" two away
+ * from "spiders" — outside the budget for a word that length — so an obvious
+ * typo was scored as a wrong answer and cost a strike.
+ */
 export function levenshtein(a, b, max = Infinity) {
   if (a === b) return 0;
   if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev2 = null;
   let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
   for (let i = 1; i <= a.length; i++) {
     const cur = [i];
     let best = i;
     for (let j = 1; j <= b.length; j++) {
       const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
-      if (cur[j] < best) best = cur[j];
+      let v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        v = Math.min(v, prev2[j - 2] + 1);
+      }
+      cur[j] = v;
+      if (v < best) best = v;
     }
     if (best > max) return max + 1;
+    prev2 = prev;
     prev = cur;
   }
   return prev[b.length];
 }
 
 export const FUZZY_THRESHOLD = 0.86;
+
+/**
+ * True when every token of `inner` appears in `outer` and each `outer` token
+ * left unaccounted for is a non-content word.
+ *
+ * Multiset, not set: tokens are consumed as they are matched, so "dog dog"
+ * needs two of them in `outer` rather than one.
+ */
+function subsetModuloWeak(inner, outer) {
+  if (!inner.length || inner.length > outer.length) return false;
+  const pool = [...outer];
+  for (const t of inner) {
+    const i = pool.indexOf(t);
+    if (i === -1) return false;
+    pool.splice(i, 1);
+  }
+  return pool.every((t) => WEAK_WORDS.has(t));
+}
 
 /** All normalized forms that should resolve to a given answer. */
 function formsFor(answer) {
@@ -130,19 +169,21 @@ export function matchAnswer(input, question, revealed = []) {
     if (c.forms.includes(normalized)) return decide(c, 'exact', 1);
   }
 
-  // 2 — token-set containment, for short aliases only.
-  //     "check phone" vs "check their phone"; "phone" vs "check phone".
+  // 2 — token-set containment, for phrasing differences:
+  //     "check phone" vs "check their phone"; "scissors" vs "the scissors".
+  //
+  // Containment is only safe while the words left over are noise. The old rule
+  // accepted any input that merely CONTAINED a short form, so the one-word
+  // alias "tape" swallowed "measuring tape" — a different object, scored as
+  // the alias's answer. Every leftover token now has to be a non-content word
+  // (see WEAK_WORDS); a real word left over means a real difference in meaning
+  // and the decision passes on to the fuzzy stage.
   const inputTokens = tokens(normalized);
   for (const c of candidates) {
     for (const form of c.forms) {
       const formTokens = tokens(form);
-      const short = formTokens.length <= 3 ? formTokens : null;
-      if (short && short.every((t) => inputTokens.includes(t))) {
-        return decide(c, 'contains-alias', 0.95);
-      }
-      if (inputTokens.length <= 3 && inputTokens.every((t) => formTokens.includes(t))) {
-        return decide(c, 'alias-contains', 0.93);
-      }
+      if (subsetModuloWeak(formTokens, inputTokens)) return decide(c, 'contains-alias', 0.95);
+      if (subsetModuloWeak(inputTokens, formTokens)) return decide(c, 'alias-contains', 0.93);
     }
   }
 
@@ -150,6 +191,7 @@ export function matchAnswer(input, question, revealed = []) {
   let best = null;
   for (const c of candidates) {
     for (const form of c.forms) {
+      const formTokens = tokens(form);
       const d = dice(normalized, form);
       if (d >= FUZZY_THRESHOLD && (!best || d > best.score)) {
         best = { c, score: d, via: 'dice' };
@@ -159,7 +201,12 @@ export function matchAnswer(input, question, revealed = []) {
       // budget only widens once the string is long enough for a typo to be the
       // likelier explanation than a different word.
       const minLen = Math.min(normalized.length, form.length);
-      const budget = minLen >= 9 ? 2 : minLen >= 6 ? 1 : 0;
+      let budget = minLen >= 9 ? 2 : minLen >= 6 ? 1 : 0;
+      // One edit less across a phrase. Two edits inside a long single word is
+      // a typo; two edits spread over several words is usually a different
+      // word doing the same job — "back pain" reaches "neck pain" in exactly
+      // two, and they are different answers on the same board.
+      if (budget > 1 && (inputTokens.length > 1 || formTokens.length > 1)) budget -= 1;
       if (budget > 0 && Math.abs(normalized.length - form.length) <= budget) {
         const lev = levenshtein(normalized, form, budget);
         if (lev <= budget && (!best || best.score < 0.9)) {

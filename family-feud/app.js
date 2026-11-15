@@ -32,6 +32,7 @@ const el = {
   curtain: $('curtain'), curtainTitle: $('curtainTitle'),
   curtainSub: $('curtainSub'), curtainCount: $('curtainCount'),
   toast: $('toast'), subtitle: $('subtitle'), keyhelp: $('keyhelp'),
+  advanceBtns: [...document.querySelectorAll('.advance-btn')],
   muteBtn: $('muteBtn'), confetti: $('confetti'),
 };
 
@@ -92,10 +93,54 @@ audio.onSubtitle((text) => {
   el.subtitle.classList.toggle('show', !!text);
 });
 
-function say(bucket) {
-  const { key, text } = hostLine(bucket);
-  return audio.speak(key, text);
+/**
+ * Speak one of Bella's lines.
+ *
+ * `priority` is passed straight through to the audio layer: 'chatter' for
+ * reactions, which are dropped rather than allowed to talk over her, and
+ * 'interrupt' for a question read, which should cut off whatever is still
+ * going. See src/audio.js.
+ */
+function say(bucket, priority = 'queue') {
+  const { key, text, index } = hostLine(bucket);
+  return audio.speak(key, text, { index, priority });
 }
+
+// ------------------------------------------------------------ advance button
+
+/**
+ * Arm the "what happens next" action, and show the button that does it.
+ *
+ * Both halves matter. The label used to be written into el.answerPrompt, which
+ * lives inside the answer form — and the form is hidden at every single point
+ * where the game is waiting to be advanced, so the only instruction on screen
+ * was invisible and a failed steal looked like a crash.
+ */
+function setAdvance(label, fn) {
+  advanceAction = fn;
+  // One button per screen, and only the one on the screen in front of the
+  // player is shown — so `.advance-btn:not([hidden])` always means the button
+  // a person can actually press.
+  const active = el.stage.dataset.screen;
+  el.advanceBtns.forEach((btn) => {
+    btn.querySelector('.advance-label').textContent = label;
+    btn.hidden = btn.closest('.screen')?.dataset.for !== active;
+  });
+}
+
+function clearAdvance() {
+  advanceAction = null;
+  el.advanceBtns.forEach((btn) => { btn.hidden = true; });
+}
+
+function fireAdvance() {
+  if (!advanceAction) return;
+  const fn = advanceAction;
+  clearAdvance();
+  fn();
+}
+
+el.advanceBtns.forEach((btn) => btn.addEventListener('click', fireAdvance));
 
 async function cutIn(kind) {
   const src = artUrls.get(kind === 'win' ? 'bella-win' : 'bella-strike');
@@ -180,6 +225,7 @@ async function handle(e) {
       el.rcLabel.textContent = e.round.label;
       el.rcSub.textContent = e.round.sub;
       audio.sfx('roundStart');
+      if (e.roundNumber > 1) say('roundOpen');
       await delay(1500);
       await run(game.beginFaceoff());
       break;
@@ -189,12 +235,15 @@ async function handle(e) {
       el.question.textContent = e.question.prompt;
       renderPot();
       renderStrikes();
-      await audio.speak(`q:${e.question.id}`, e.question.readAs ?? e.question.prompt);
+      if (e.lead) await say('faceoff');
+      await audio.speak(`q:${e.question.id}`, e.question.readAs ?? e.question.prompt,
+        { priority: 'interrupt' });
       break;
 
     case 'awaitInput': {
       pendingInput = { context: e.context, who: e.who, masked: !!e.masked };
       awaitingChoice = false;
+      clearAdvance();
       const name = s.players[e.who].name;
       const label = e.context === 'faceoff' ? `${name} — face-off`
         : e.context === 'steal' ? `${name} — one guess to steal`
@@ -232,8 +281,8 @@ async function handle(e) {
       setTimeout(() => audio.sfx('ding'), 120);
       renderPot();
       if (e.awarded) {
-        if (e.rank === 1) { say('topAnswer'); cutIn('win'); }
-        else if (Math.random() < 0.45) say('goodAnswer');
+        if (e.rank === 1) { say('topAnswer', 'chatter'); cutIn('win'); }
+        else if (Math.random() < 0.85) say('goodAnswer', 'chatter');
       }
       await delay(e.awarded ? 620 : 300);
       break;
@@ -241,7 +290,9 @@ async function handle(e) {
 
     case 'already':
       audio.sfx('nudge');
-      toast(`Already on the board — no strike`, false, 1600);
+      // Name it. "Already on the board" on its own is baffling when the
+      // matcher resolved your words to something you would not have guessed.
+      toast(`“${e.text}” is already up (row ${e.rank}) — no strike`, false, 2400);
       await delay(400);
       break;
 
@@ -255,14 +306,22 @@ async function handle(e) {
       el.answerForm.classList.add('shake');
       setTimeout(() => el.answerForm.classList.remove('shake'), 450);
       renderStrikes();
-      if (e.type === 'strike') { say('strike'); cutIn('strike'); }
+      if (e.type === 'strike') { say('strike', 'chatter'); cutIn('strike'); }
       await delay(820);
       break;
     }
 
-    case 'faceoffFailed':
-      toast('Nobody found one — new question', true, 2000);
-      await delay(900);
+    case 'faceoffRetry':
+      // The question stays up. Both players guess again, as many times as it
+      // takes — there are no strikes in the face-off.
+      toast(`Nothing on the board — ${s.players[e.pair[0]].name} again`, true, 2200);
+      await say('faceoff');
+      await delay(300);
+      break;
+
+    case 'questionSkipped':
+      toast('New question', false, 1600);
+      await delay(500);
       break;
 
     case 'faceoffWon':
@@ -273,6 +332,7 @@ async function handle(e) {
     case 'awaitChoice':
       pendingInput = null;
       awaitingChoice = true;
+      clearAdvance();
       setInputEnabled(false);
       el.choiceRow.hidden = false;
       el.answerPrompt.textContent = `${s.players[e.who].name} — play or pass?`;
@@ -322,8 +382,7 @@ async function handle(e) {
       toast(`${who} banks ${e.pot} × ${e.multiplier} = ${e.awarded}`, false, 3200);
       if (e.reason === 'cleared') say('boardCleared'); else say('bank');
       await delay(1400);
-      el.answerPrompt.textContent = 'Press SPACE to continue';
-      advanceAction = () => run(game.advanceRound());
+      setAdvance('NEXT ROUND', () => run(game.advanceRound()));
       break;
     }
 
@@ -354,8 +413,7 @@ async function handle(e) {
       say('winner');
       if (!reduceMotion) stopConfetti = confetti(el.confetti, { duration: 5000 });
       await delay(1800);
-      advanceAction = () => run(game.startFastMoney());
-      el.resultKicker.textContent = 'MAIN GAME WINNER · SPACE FOR FAST MONEY';
+      setAdvance('FAST MONEY', () => run(game.startFastMoney()));
       break;
     }
 
@@ -367,11 +425,11 @@ async function handle(e) {
       el.fmWho.textContent = e.mode === 'solo'
         ? `${s.players[e.order[0]].name} plays for ${e.target}`
         : `${e.order.map((i) => s.players[i].name).join(' + ')} — target ${e.target}`;
-      el.fmQuestion.textContent = 'Press SPACE when the first player is ready';
+      el.fmQuestion.textContent = '\u00a0';
       el.fmForm.hidden = true;
       audio.sfx('bell');
       await say('fmIntro');
-      advanceAction = () => run(game.fmBeginTurn());
+      setAdvance('START THE CLOCK', () => run(game.fmBeginTurn()));
       break;
 
     case 'fmTurnStart':
@@ -402,13 +460,14 @@ async function handle(e) {
       stopFmTimer();
       el.fmForm.hidden = true;
       await say('fmTimeUp');
+      say('fmLookaway');
       await showCurtain(
         'LOOK AWAY',
         `${s.players[e.nextPlayer].name} steps up — everyone else, eyes off the screen`,
         5
       );
-      advanceAction = () => run(game.fmBeginTurn());
-      el.fmQuestion.textContent = 'Press SPACE when ready';
+      el.fmQuestion.textContent = '\u00a0';
+      setAdvance('START THE CLOCK', () => run(game.fmBeginTurn()));
       break;
 
     case 'fmRevealReady':
@@ -416,9 +475,9 @@ async function handle(e) {
       el.fmTimer.style.visibility = 'hidden';
       el.fmWho.textContent = 'Revealing the answers';
       el.fmForm.hidden = true;
-      el.fmQuestion.textContent = 'Press SPACE to reveal the answers';
+      el.fmQuestion.textContent = '\u00a0';
       await say('fmTimeUp');
-      advanceAction = () => run(game.fmReveal());
+      setAdvance('REVEAL THE ANSWERS', () => run(game.fmReveal()));
       break;
 
     case 'fmRevealEntry': {
@@ -470,7 +529,7 @@ async function handle(e) {
       say(e.won ? 'fmWin' : 'fmLose');
       if (e.won && !reduceMotion) stopConfetti = confetti(el.confetti, { duration: 7000 });
       await delay(1500);
-      advanceAction = () => location.reload();
+      setAdvance('PLAY AGAIN', () => location.reload());
       break;
     }
 
@@ -651,10 +710,16 @@ window.addEventListener('keydown', (ev) => {
   if (ev.key === ' ' || ev.code === 'Space') {
     if (advanceAction && !hasText) {
       ev.preventDefault();
-      const fn = advanceAction;
-      advanceAction = null;
-      fn();
+      fireAdvance();
     }
+    return;
+  }
+
+  // The result screen offers a rematch on Enter. It said so on screen from the
+  // start and did nothing at all, because only the attract screen read Enter.
+  if (ev.key === 'Enter' && screen === 'result' && !typing) {
+    ev.preventDefault();
+    location.reload();
     return;
   }
 
@@ -676,6 +741,7 @@ window.addEventListener('keydown', (ev) => {
     run(game.forceReveal(Number(ev.key)));
     return;
   }
+  if (ev.key.toLowerCase() === 'n') { ev.preventDefault(); run(game.skipQuestion()); return; }
   if (ev.key.toLowerCase() === 'x') { ev.preventDefault(); run(game.forceStrike()); return; }
   if (ev.key.toLowerCase() === 'z') { ev.preventDefault(); run(game.undo()); return; }
 });

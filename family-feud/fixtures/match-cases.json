@@ -1,132 +1,762 @@
 {
   "note": "expect = board rank (1-based) the input must resolve to, or \"MISS\". Cases marked revealed:[ranks] test the ALREADY path.",
   "cases": [
-    { "q": "q001", "in": "check their phone", "expect": 1 },
-    { "q": "q001", "in": "Check Their Phone", "expect": 1 },
-    { "q": "q001", "in": "phone", "expect": 1 },
-    { "q": "q001", "in": "the phone", "expect": 1 },
-    { "q": "q001", "in": "check phone", "expect": 1 },
-    { "q": "q001", "in": "look at their phone", "expect": 1 },
-    { "q": "q001", "in": "check my phone!!", "expect": 1 },
-    { "q": "q001", "in": "scroll phone", "expect": 1 },
-    { "q": "q001", "in": "check messages", "expect": 1 },
-    { "q": "q001", "in": "   phone   ", "expect": 1 },
-    { "q": "q001", "in": "hit snooze", "expect": 2 },
-    { "q": "q001", "in": "snooze", "expect": 2 },
-    { "q": "q001", "in": "snoze", "expect": 2 },
-    { "q": "q001", "in": "hit the snooze", "expect": 2 },
-    { "q": "q001", "in": "go back to sleep", "expect": 2 },
-    { "q": "q001", "in": "stretch", "expect": 3 },
-    { "q": "q001", "in": "stretching", "expect": 3 },
-    { "q": "q001", "in": "streach", "expect": 3 },
-    { "q": "q001", "in": "go to the bathroom", "expect": 4 },
-    { "q": "q001", "in": "bathroom", "expect": 4 },
-    { "q": "q001", "in": "bathrom", "expect": 4 },
-    { "q": "q001", "in": "toilet", "expect": 4 },
-    { "q": "q001", "in": "the loo", "expect": 4 },
-    { "q": "q001", "in": "restroom", "expect": 4 },
-    { "q": "q001", "in": "drink water", "expect": 5 },
-    { "q": "q001", "in": "water", "expect": 5 },
-    { "q": "q001", "in": "glass of water", "expect": 5 },
-    { "q": "q001", "in": "turn on a light", "expect": 6 },
-    { "q": "q001", "in": "lights", "expect": 6 },
-    { "q": "q001", "in": "lamp", "expect": 6 },
-    { "q": "q001", "in": "make coffee", "expect": "MISS" },
-    { "q": "q001", "in": "brush their teeth", "expect": "MISS" },
-    { "q": "q001", "in": "eat breakfast", "expect": "MISS" },
-    { "q": "q001", "in": "feed the dog", "expect": "MISS" },
-    { "q": "q001", "in": "", "expect": "MISS" },
-    { "q": "q001", "in": "     ", "expect": "MISS" },
-    { "q": "q001", "in": "!!!", "expect": "MISS" },
-    { "q": "q001", "in": "phone", "revealed": [1], "expect": "ALREADY" },
-    { "q": "q001", "in": "snooze", "revealed": [1, 2], "expect": "ALREADY" },
-    { "q": "q001", "in": "water", "revealed": [1, 2], "expect": 5 },
-
-    { "q": "q002", "in": "traffic", "expect": 1 },
-    { "q": "q002", "in": "trafic", "expect": 1 },
-    { "q": "q002", "in": "stuck in traffic", "expect": 1 },
-    { "q": "q002", "in": "a traffic jam", "expect": 1 },
-    { "q": "q002", "in": "overslept", "expect": 2 },
-    { "q": "q002", "in": "over slept", "expect": 2 },
-    { "q": "q002", "in": "slept in", "expect": 2 },
-    { "q": "q002", "in": "woke up late", "expect": 2 },
-    { "q": "q002", "in": "car trouble", "expect": 3 },
-    { "q": "q002", "in": "flat tyre", "expect": 3 },
-    { "q": "q002", "in": "flat tire", "expect": 3 },
-    { "q": "q002", "in": "car broke down", "expect": 3 },
-    { "q": "q002", "in": "bad weather", "expect": 4 },
-    { "q": "q002", "in": "snow", "expect": 4 },
-    { "q": "q002", "in": "the weather", "expect": 4 },
-    { "q": "q002", "in": "kids", "expect": 5 },
-    { "q": "q002", "in": "children", "expect": 5 },
-    { "q": "q002", "in": "the kids", "expect": 5 },
-    { "q": "q002", "in": "school run", "expect": 5 },
-    { "q": "q002", "in": "lost their keys", "expect": 6 },
-    { "q": "q002", "in": "keys", "expect": 6 },
-    { "q": "q002", "in": "lost keys", "expect": 6 },
-    { "q": "q002", "in": "hangover", "expect": "MISS" },
-    { "q": "q002", "in": "missed the bus", "expect": "MISS" },
-    { "q": "q002", "in": "dentist appointment", "expect": "MISS" },
-
-    { "q": "q003", "in": "clothes on the floor", "expect": 1 },
-    { "q": "q003", "in": "clothes", "expect": 1 },
-    { "q": "q003", "in": "dirty clothes", "expect": 1 },
-    { "q": "q003", "in": "laundry", "expect": 1 },
-    { "q": "q003", "in": "phone charger", "expect": 2 },
-    { "q": "q003", "in": "charger", "expect": 2 },
-    { "q": "q003", "in": "a charging cable", "expect": 2 },
-    { "q": "q003", "in": "posters", "expect": 3 },
-    { "q": "q003", "in": "poster", "expect": 3 },
-    { "q": "q003", "in": "game console", "expect": 4 },
-    { "q": "q003", "in": "xbox", "expect": 4 },
-    { "q": "q003", "in": "playstation", "expect": 4 },
-    { "q": "q003", "in": "ps5", "expect": 4 },
-    { "q": "q003", "in": "a nintendo switch", "expect": 4 },
-    { "q": "q003", "in": "dirty dishes", "expect": 5 },
-    { "q": "q003", "in": "plates", "expect": 5 },
-    { "q": "q003", "in": "headphones", "expect": 6 },
-    { "q": "q003", "in": "airpods", "expect": 6 },
-    { "q": "q003", "in": "earbuds", "expect": 6 },
-    { "q": "q003", "in": "a headset", "expect": 6 },
-    { "q": "q003", "in": "a bed", "expect": "MISS" },
-    { "q": "q003", "in": "homework", "expect": "MISS" },
-
-    { "q": "q004", "in": "pizza", "expect": 1 },
-    { "q": "q004", "in": "pizzza", "expect": 1 },
-    { "q": "q004", "in": "cold pizza", "expect": 1 },
-    { "q": "q004", "in": "leftover pizza", "expect": 1 },
-    { "q": "q004", "in": "lasagna", "expect": 2 },
-    { "q": "q004", "in": "lasagne", "expect": 2 },
-    { "q": "q004", "in": "chili", "expect": 3 },
-    { "q": "q004", "in": "chilli", "expect": 3 },
-    { "q": "q004", "in": "chili con carne", "expect": 3 },
-    { "q": "q004", "in": "curry", "expect": 4 },
-    { "q": "q004", "in": "indian food", "expect": 4 },
-    { "q": "q004", "in": "spaghetti", "expect": 5 },
-    { "q": "q004", "in": "soup", "expect": 6 },
-    { "q": "q004", "in": "stew", "expect": 6 },
-    { "q": "q004", "in": "soap", "expect": "MISS" },
-    { "q": "q004", "in": "a burger", "expect": "MISS" },
-    { "q": "q004", "in": "salad", "expect": "MISS" },
-    { "q": "q004", "in": "sushi", "expect": "MISS" },
-
-    { "q": "q005", "in": "a bad gift", "expect": 1 },
-    { "q": "q005", "in": "a gift", "expect": 1 },
-    { "q": "q005", "in": "presents", "expect": 1 },
-    { "q": "q005", "in": "someone's cooking", "expect": 2 },
-    { "q": "q005", "in": "cooking", "expect": 2 },
-    { "q": "q005", "in": "their job", "expect": 3 },
-    { "q": "q005", "in": "my job", "expect": 3 },
-    { "q": "q005", "in": "work", "expect": 3 },
-    { "q": "q005", "in": "a coworker", "expect": 4 },
-    { "q": "q005", "in": "colleague", "expect": 4 },
-    { "q": "q005", "in": "their boss", "expect": 4 },
-    { "q": "q005", "in": "reality tv", "expect": 5 },
-    { "q": "q005", "in": "reality television", "expect": 5 },
-    { "q": "q005", "in": "exercise", "expect": 6 },
-    { "q": "q005", "in": "the gym", "expect": 6 },
-    { "q": "q005", "in": "working out", "expect": 6 },
-    { "q": "q005", "in": "their family", "expect": "MISS" },
-    { "q": "q005", "in": "jazz music", "expect": "MISS" }
+    {
+      "q": "q001",
+      "in": "check their phone",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "Check Their Phone",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "phone",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "the phone",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "check phone",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "look at their phone",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "check my phone!!",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "scroll phone",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "check messages",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "   phone   ",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "hit snooze",
+      "expect": 2
+    },
+    {
+      "q": "q001",
+      "in": "snooze",
+      "expect": 2
+    },
+    {
+      "q": "q001",
+      "in": "snoze",
+      "expect": 2
+    },
+    {
+      "q": "q001",
+      "in": "hit the snooze",
+      "expect": 2
+    },
+    {
+      "q": "q001",
+      "in": "go back to sleep",
+      "expect": 2
+    },
+    {
+      "q": "q001",
+      "in": "stretch",
+      "expect": 3
+    },
+    {
+      "q": "q001",
+      "in": "stretching",
+      "expect": 3
+    },
+    {
+      "q": "q001",
+      "in": "streach",
+      "expect": 3
+    },
+    {
+      "q": "q001",
+      "in": "go to the bathroom",
+      "expect": 4
+    },
+    {
+      "q": "q001",
+      "in": "bathroom",
+      "expect": 4
+    },
+    {
+      "q": "q001",
+      "in": "bathrom",
+      "expect": 4
+    },
+    {
+      "q": "q001",
+      "in": "toilet",
+      "expect": 4
+    },
+    {
+      "q": "q001",
+      "in": "the loo",
+      "expect": 4
+    },
+    {
+      "q": "q001",
+      "in": "restroom",
+      "expect": 4
+    },
+    {
+      "q": "q001",
+      "in": "drink water",
+      "expect": 5
+    },
+    {
+      "q": "q001",
+      "in": "water",
+      "expect": 5
+    },
+    {
+      "q": "q001",
+      "in": "glass of water",
+      "expect": 5
+    },
+    {
+      "q": "q001",
+      "in": "turn on a light",
+      "expect": 6
+    },
+    {
+      "q": "q001",
+      "in": "lights",
+      "expect": 6
+    },
+    {
+      "q": "q001",
+      "in": "lamp",
+      "expect": 6
+    },
+    {
+      "q": "q001",
+      "in": "make coffee",
+      "expect": "MISS"
+    },
+    {
+      "q": "q001",
+      "in": "brush their teeth",
+      "expect": "MISS"
+    },
+    {
+      "q": "q001",
+      "in": "eat breakfast",
+      "expect": "MISS"
+    },
+    {
+      "q": "q001",
+      "in": "feed the dog",
+      "expect": "MISS"
+    },
+    {
+      "q": "q001",
+      "in": "",
+      "expect": "MISS"
+    },
+    {
+      "q": "q001",
+      "in": "     ",
+      "expect": "MISS"
+    },
+    {
+      "q": "q001",
+      "in": "!!!",
+      "expect": "MISS"
+    },
+    {
+      "q": "q001",
+      "in": "phone",
+      "revealed": [
+        1
+      ],
+      "expect": "ALREADY"
+    },
+    {
+      "q": "q001",
+      "in": "snooze",
+      "revealed": [
+        1,
+        2
+      ],
+      "expect": "ALREADY"
+    },
+    {
+      "q": "q001",
+      "in": "water",
+      "revealed": [
+        1,
+        2
+      ],
+      "expect": 5
+    },
+    {
+      "q": "q002",
+      "in": "traffic",
+      "expect": 1
+    },
+    {
+      "q": "q002",
+      "in": "trafic",
+      "expect": 1
+    },
+    {
+      "q": "q002",
+      "in": "stuck in traffic",
+      "expect": 1
+    },
+    {
+      "q": "q002",
+      "in": "a traffic jam",
+      "expect": 1
+    },
+    {
+      "q": "q002",
+      "in": "overslept",
+      "expect": 2
+    },
+    {
+      "q": "q002",
+      "in": "over slept",
+      "expect": 2
+    },
+    {
+      "q": "q002",
+      "in": "slept in",
+      "expect": 2
+    },
+    {
+      "q": "q002",
+      "in": "woke up late",
+      "expect": 2
+    },
+    {
+      "q": "q002",
+      "in": "car trouble",
+      "expect": 3
+    },
+    {
+      "q": "q002",
+      "in": "flat tyre",
+      "expect": 3
+    },
+    {
+      "q": "q002",
+      "in": "flat tire",
+      "expect": 3
+    },
+    {
+      "q": "q002",
+      "in": "car broke down",
+      "expect": 3
+    },
+    {
+      "q": "q002",
+      "in": "bad weather",
+      "expect": 4
+    },
+    {
+      "q": "q002",
+      "in": "snow",
+      "expect": 4
+    },
+    {
+      "q": "q002",
+      "in": "the weather",
+      "expect": 4
+    },
+    {
+      "q": "q002",
+      "in": "kids",
+      "expect": 5
+    },
+    {
+      "q": "q002",
+      "in": "children",
+      "expect": 5
+    },
+    {
+      "q": "q002",
+      "in": "the kids",
+      "expect": 5
+    },
+    {
+      "q": "q002",
+      "in": "school run",
+      "expect": 5
+    },
+    {
+      "q": "q002",
+      "in": "lost their keys",
+      "expect": 6
+    },
+    {
+      "q": "q002",
+      "in": "keys",
+      "expect": 6
+    },
+    {
+      "q": "q002",
+      "in": "lost keys",
+      "expect": 6
+    },
+    {
+      "q": "q002",
+      "in": "hangover",
+      "expect": "MISS"
+    },
+    {
+      "q": "q002",
+      "in": "missed the bus",
+      "expect": "MISS"
+    },
+    {
+      "q": "q002",
+      "in": "dentist appointment",
+      "expect": "MISS"
+    },
+    {
+      "q": "q003",
+      "in": "clothes on the floor",
+      "expect": 1
+    },
+    {
+      "q": "q003",
+      "in": "clothes",
+      "expect": 1
+    },
+    {
+      "q": "q003",
+      "in": "dirty clothes",
+      "expect": 1
+    },
+    {
+      "q": "q003",
+      "in": "laundry",
+      "expect": 1
+    },
+    {
+      "q": "q003",
+      "in": "phone charger",
+      "expect": 2
+    },
+    {
+      "q": "q003",
+      "in": "charger",
+      "expect": 2
+    },
+    {
+      "q": "q003",
+      "in": "a charging cable",
+      "expect": 2
+    },
+    {
+      "q": "q003",
+      "in": "posters",
+      "expect": 3
+    },
+    {
+      "q": "q003",
+      "in": "poster",
+      "expect": 3
+    },
+    {
+      "q": "q003",
+      "in": "game console",
+      "expect": 4
+    },
+    {
+      "q": "q003",
+      "in": "xbox",
+      "expect": 4
+    },
+    {
+      "q": "q003",
+      "in": "playstation",
+      "expect": 4
+    },
+    {
+      "q": "q003",
+      "in": "ps5",
+      "expect": 4
+    },
+    {
+      "q": "q003",
+      "in": "a nintendo switch",
+      "expect": 4
+    },
+    {
+      "q": "q003",
+      "in": "dirty dishes",
+      "expect": 5
+    },
+    {
+      "q": "q003",
+      "in": "plates",
+      "expect": 5
+    },
+    {
+      "q": "q003",
+      "in": "headphones",
+      "expect": 6
+    },
+    {
+      "q": "q003",
+      "in": "airpods",
+      "expect": 6
+    },
+    {
+      "q": "q003",
+      "in": "earbuds",
+      "expect": 6
+    },
+    {
+      "q": "q003",
+      "in": "a headset",
+      "expect": 6
+    },
+    {
+      "q": "q003",
+      "in": "a bed",
+      "expect": "MISS"
+    },
+    {
+      "q": "q003",
+      "in": "homework",
+      "expect": "MISS"
+    },
+    {
+      "q": "q004",
+      "in": "pizza",
+      "expect": 1
+    },
+    {
+      "q": "q004",
+      "in": "pizzza",
+      "expect": 1
+    },
+    {
+      "q": "q004",
+      "in": "cold pizza",
+      "expect": 1
+    },
+    {
+      "q": "q004",
+      "in": "leftover pizza",
+      "expect": 1
+    },
+    {
+      "q": "q004",
+      "in": "lasagna",
+      "expect": 2
+    },
+    {
+      "q": "q004",
+      "in": "lasagne",
+      "expect": 2
+    },
+    {
+      "q": "q004",
+      "in": "chili",
+      "expect": 3
+    },
+    {
+      "q": "q004",
+      "in": "chilli",
+      "expect": 3
+    },
+    {
+      "q": "q004",
+      "in": "chili con carne",
+      "expect": 3
+    },
+    {
+      "q": "q004",
+      "in": "curry",
+      "expect": 4
+    },
+    {
+      "q": "q004",
+      "in": "indian food",
+      "expect": 4
+    },
+    {
+      "q": "q004",
+      "in": "spaghetti",
+      "expect": 5
+    },
+    {
+      "q": "q004",
+      "in": "soup",
+      "expect": 6
+    },
+    {
+      "q": "q004",
+      "in": "stew",
+      "expect": 6
+    },
+    {
+      "q": "q004",
+      "in": "soap",
+      "expect": "MISS"
+    },
+    {
+      "q": "q004",
+      "in": "a burger",
+      "expect": "MISS"
+    },
+    {
+      "q": "q004",
+      "in": "salad",
+      "expect": "MISS"
+    },
+    {
+      "q": "q004",
+      "in": "sushi",
+      "expect": "MISS"
+    },
+    {
+      "q": "q005",
+      "in": "a bad gift",
+      "expect": 1
+    },
+    {
+      "q": "q005",
+      "in": "a gift",
+      "expect": 1
+    },
+    {
+      "q": "q005",
+      "in": "presents",
+      "expect": 1
+    },
+    {
+      "q": "q005",
+      "in": "someone's cooking",
+      "expect": 2
+    },
+    {
+      "q": "q005",
+      "in": "cooking",
+      "expect": 2
+    },
+    {
+      "q": "q005",
+      "in": "their job",
+      "expect": 3
+    },
+    {
+      "q": "q005",
+      "in": "my job",
+      "expect": 3
+    },
+    {
+      "q": "q005",
+      "in": "work",
+      "expect": 3
+    },
+    {
+      "q": "q005",
+      "in": "a coworker",
+      "expect": 4
+    },
+    {
+      "q": "q005",
+      "in": "colleague",
+      "expect": 4
+    },
+    {
+      "q": "q005",
+      "in": "their boss",
+      "expect": 4
+    },
+    {
+      "q": "q005",
+      "in": "reality tv",
+      "expect": 5
+    },
+    {
+      "q": "q005",
+      "in": "reality television",
+      "expect": 5
+    },
+    {
+      "q": "q005",
+      "in": "exercise",
+      "expect": 6
+    },
+    {
+      "q": "q005",
+      "in": "the gym",
+      "expect": 6
+    },
+    {
+      "q": "q005",
+      "in": "working out",
+      "expect": 6
+    },
+    {
+      "q": "q005",
+      "in": "their family",
+      "expect": "MISS"
+    },
+    {
+      "q": "q005",
+      "in": "jazz music",
+      "expect": "MISS"
+    },
+    {
+      "q": "q015",
+      "in": "measuring tape",
+      "expect": "MISS"
+    },
+    {
+      "q": "q015",
+      "in": "measuring tape",
+      "revealed": [
+        9
+      ],
+      "expect": "MISS"
+    },
+    {
+      "q": "q015",
+      "in": "tape",
+      "expect": "MISS"
+    },
+    {
+      "q": "q015",
+      "in": "scissors",
+      "expect": 6
+    },
+    {
+      "q": "q015",
+      "in": "a pair of scissors",
+      "expect": 6
+    },
+    {
+      "q": "q015",
+      "in": "old batteries",
+      "expect": 1
+    },
+    {
+      "q": "q021",
+      "in": "breadcrumbs",
+      "expect": "MISS"
+    },
+    {
+      "q": "q034",
+      "in": "metal detector",
+      "expect": "MISS"
+    },
+    {
+      "q": "q027",
+      "in": "spider plant",
+      "expect": "MISS"
+    },
+    {
+      "q": "f007",
+      "in": "coffee table",
+      "expect": "MISS"
+    },
+    {
+      "q": "q015",
+      "in": "the scissors",
+      "expect": 6
+    },
+    {
+      "q": "q015",
+      "in": "some old keys",
+      "expect": 3
+    },
+    {
+      "q": "q034",
+      "in": "a bit of metal",
+      "expect": 1
+    },
+    {
+      "q": "q022",
+      "in": "washing up",
+      "expect": 2
+    },
+    {
+      "q": "q022",
+      "in": "the washing up",
+      "expect": 2
+    },
+    {
+      "q": "q022",
+      "in": "washing",
+      "expect": 5
+    },
+    {
+      "q": "q022",
+      "in": "laundry",
+      "expect": 5
+    },
+    {
+      "q": "f006",
+      "in": "washing up",
+      "expect": 2
+    },
+    {
+      "q": "f006",
+      "in": "laundry",
+      "expect": 1
+    },
+    {
+      "q": "f018",
+      "in": "back pain",
+      "expect": 1
+    },
+    {
+      "q": "f018",
+      "in": "neck pain",
+      "expect": 4
+    },
+    {
+      "q": "f018",
+      "in": "back pain",
+      "revealed": [
+        1
+      ],
+      "expect": "ALREADY"
+    },
+    {
+      "q": "q027",
+      "in": "spidres",
+      "expect": 1
+    },
+    {
+      "q": "q022",
+      "in": "vacuming",
+      "expect": 6
+    },
+    {
+      "q": "q034",
+      "in": "styrofoem",
+      "expect": 5
+    }
   ]
 }

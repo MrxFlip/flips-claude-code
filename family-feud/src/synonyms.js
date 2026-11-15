@@ -120,4 +120,50 @@ export const PHRASES = [
   [/\bmobile phone\b/g, 'phone'],
   [/\balarm clock\b/g, 'alarmclock'],
   [/\bair pod\b/g, 'headphone'],
+  // "washing up" is the dishes, but "washing" on its own is laundry, and the
+  // synonym map turns every "washing" into clothes. Both chore questions carry
+  // Laundry AND the dishes on the same board, so without this the British
+  // phrasing landed on the wrong tile.
+  [/\bwashing up\b/g, 'dishes'],
 ];
+
+/**
+ * Words that can sit in a phrase without changing what thing is being named.
+ *
+ * This list is what keeps token-set containment honest. Containment says "one
+ * answer's words are a subset of what was typed", which only means the same
+ * thing when the leftover words are noise: "check their phone" is "check
+ * phone" plus a possessive. It is NOT the same thing when a leftover word
+ * carries meaning — "measuring tape" is not "tape", "hot dog" is not "dog",
+ * "ice bath" is not "bath". So anything absent from this list blocks the match
+ * and leaves the decision to the fuzzy pass.
+ *
+ * Err towards leaving a word OUT. A word wrongly listed here accepts wrong
+ * answers; a word wrongly missing only sends a near miss to the fuzzy pass.
+ */
+export const WEAK_WORDS = new Set([
+  // articles, determiners, possessives — these survive mid-phrase, where the
+  // leading-filler strip in normalize() cannot reach them
+  'a', 'an', 'the', 'my', 'your', 'his', 'her', 'their', 'our', 'its',
+  'some', 'any', 'other', 'another', 'own', 'same', 'that', 'this', 'these', 'those',
+  // adjectives that describe the thing without naming a different one:
+  // "old batteries" is the Batteries answer
+  'old', 'new', 'dead', 'spare', 'extra', 'broken',
+  // vague subjects and objects
+  'people', 'person', 'someone', 'somebody', 'something', 'anything', 'everything',
+  'everyone', 'everybody', 'thing', 'stuff', 'one', 'it', 'them', 'they', 'you',
+  'guy', 'lot', 'bit', 'kind', 'sort', 'type', 'pair',
+  // light verbs and auxiliaries that pad a phrase rather than name an action
+  'be', 'being', 'is', 'am', 'are', 'was', 'were', 'do', 'doing', 'doe', 'did',
+  'have', 'having', 'ha', 'had', 'get', 'getting', 'go', 'going', 'gone',
+  'make', 'making', 'take', 'taking', 'let', 'letting', 'try', 'trying',
+  'want', 'wanting', 'need', 'needing', 'can', 'will', 'would', 'should',
+  // prepositions and conjunctions
+  'of', 'to', 'in', 'on', 'at', 'for', 'with', 'from', 'by', 'about',
+  'into', 'onto', 'over', 'under', 'out', 'up', 'off', 'down', 'away', 'back',
+  'and', 'or', 'but', 'so', 'than', 'then', 'when', 'while', 'as', 'if',
+  // intensifiers and vague quantity
+  'very', 'really', 'just', 'too', 'quite', 'pretty', 'much', 'many', 'more',
+  'most', 'less', 'least', 'all', 'always', 'never', 'often', 'usually',
+  'already', 'still', 'again', 'even', 'also',
+]);
