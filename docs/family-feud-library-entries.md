@@ -72,9 +72,10 @@ runtime, no database. Source: LLM Build Library `Website/family-feud/`
   so a missing or partial img/ degrades to the CSS-drawn stage instead of
   showing holes.
 
-  Tests: tools/test-all.mjs runs the data validator, 123 matcher cases and 80
-  game checks. Browser coverage via Playwright at 1920x1080, 1366x768 and
-  2560x1440: 48 end-to-end checks on the main game and 22 on Fast Money.
+  Tests: tools/test-all.mjs runs the data validator, 123 matcher cases, 1297
+  answer/alias round-trips and 80 game checks. Browser coverage via Playwright at
+  1920x1080: 45 end-to-end checks on the main game and 22 on Fast Money, with the
+  layout separately verified at 1366x768, 1920x1080 and 2560x1440.
 
   Gotcha worth remembering: all 203 headless checks passed while the page was
   completely broken by a dead import that threw on module load. Engine tests do

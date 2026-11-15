@@ -2,8 +2,13 @@
 
 Hot-seat game show for 2–4 players, built for the BellaFox arcade.
 
-- Build plan: `../docs/family-feud-build-plan.md`
+- **Current state and outstanding work: `../docs/family-feud-handoff.md` — read first**
+- Build plan (design): `../docs/family-feud-build-plan.md`
 - Image prompts: `../docs/codex-image-prompts.md`
+- Library doc blocks + deploy checklist: `../docs/family-feud-library-entries.md`
+
+**Not deployed yet.** This runs from a local checkout only; it is not on
+theflipside and not on any PC. See section 4 of the handoff.
 
 **State: complete and playable.** 40 main + 20 Fast Money questions, all 12
 artwork assets, all 109 Bella voice clips. Full show plays end to end — face-off,

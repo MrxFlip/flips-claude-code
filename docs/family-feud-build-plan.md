@@ -1,4 +1,8 @@
 # BELLAFOX FEUD — BUILD PLAN
+
+> **This is the design document.** For current state and what is left to do,
+> read `family-feud-handoff.md` first — it supersedes this file on every
+> conflict, the same way the Server Reference supersedes the Changelog.
 Status: COMPLETE and playable. 40 main + 20 Fast Money questions, all 12 artwork
         assets, all 109 Bella voice clips. Only the arcade deploy remains.
 Written: 2026-11-14 · Last updated: 2026-11-15
@@ -18,9 +22,9 @@ Code: `family-feud/` · Image prompts: `codex-image-prompts.md`
 | 6 Ship | PARTIAL | Question bank at the 40/20 ship minimum, voice complete, doc entries drafted (`family-feud-library-entries.md`). Outstanding: the arcade deploy itself |
 
 Tests: `node family-feud/tools/test-all.mjs` (validator + 123 matcher cases + 1297
-answer/alias round-trips + 80 game checks). Browser coverage via Playwright at
-1920x1080, 1366x768 and 2560x1440: 48 end-to-end checks on the main game and 22 on
-Fast Money, all passing.
+answer/alias round-trips + 80 game checks). Browser coverage via Playwright at 1920x1080:
+45 end-to-end checks on the main game and 22 on Fast Money, plus a 12-screen visual
+tour. Layout separately verified at 1366x768, 1920x1080 and 2560x1440. All passing.
 
 Question bank holds 40 main and 20 Fast Money questions — the ship minimum. The
 80/40 target below is still worth growing into, but nothing is blocked on it.
