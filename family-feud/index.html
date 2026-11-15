@@ -4,20 +4,78 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BellaFox Feud</title>
+<meta name="description" content="Hot-seat game show for 2-4 players.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Fixed 1920x1080 broadcast stage, scaled to fit the viewport. -->
-  <div id="stage-wrap">
-    <div id="stage">
-      <div class="backdrop" aria-hidden="true">
-        <div class="backdrop-glow"></div>
-        <div class="backdrop-rays"></div>
+<div id="stage-wrap">
+  <div id="stage" data-screen="attract">
+
+    <div class="backdrop" aria-hidden="true">
+      <div class="backdrop-glow"></div>
+      <div class="backdrop-rays"></div>
+    </div>
+
+    <!-- ============================ ATTRACT ============================ -->
+    <section class="screen screen-attract" data-for="attract">
+      <div class="logo-block">
+        <div class="logo-top">BELLAFOX</div>
+        <div class="logo-bottom">FEUD</div>
+        <div class="logo-rule"></div>
+        <p class="tagline">We asked 100 people&hellip;</p>
+      </div>
+      <p class="press-start">PRESS <kbd>ENTER</kbd> TO PLAY</p>
+      <img class="bella bella-attract" src="img/bella-idle.png" alt="" data-art>
+    </section>
+
+    <!-- ============================= SETUP ============================= -->
+    <section class="screen screen-setup" data-for="setup">
+      <h2 class="screen-title">WHO&rsquo;S PLAYING?</h2>
+
+      <div class="setup-row">
+        <span class="setup-label">Players</span>
+        <div class="seg" id="playerCount" role="group" aria-label="Number of players">
+          <button type="button" data-n="2" class="on">2</button>
+          <button type="button" data-n="3">3</button>
+          <button type="button" data-n="4">4</button>
+        </div>
       </div>
 
+      <div class="name-grid" id="nameGrid"></div>
+
+      <div class="setup-row">
+        <span class="setup-label">Fast Money</span>
+        <div class="seg" id="fmMode" role="group" aria-label="Fast Money mode">
+          <button type="button" data-v="both" class="on">Both play</button>
+          <button type="button" data-v="solo">Winner only</button>
+        </div>
+      </div>
+
+      <div class="setup-row">
+        <span class="setup-label">End at 300</span>
+        <div class="seg" id="targetMode" role="group" aria-label="Target score">
+          <button type="button" data-v="off" class="on">Off</button>
+          <button type="button" data-v="on">On</button>
+        </div>
+      </div>
+
+      <button type="button" class="big-button" id="startBtn">START THE SHOW</button>
+      <p class="setup-hint">Enter to start &middot; <kbd>?</kbd> for host keys at any time</p>
+    </section>
+
+    <!-- =========================== ROUND CARD ========================== -->
+    <section class="screen screen-roundcard" data-for="roundcard">
+      <div class="rc-inner">
+        <div class="rc-label" id="rcLabel">ROUND 1</div>
+        <div class="rc-sub" id="rcSub">SINGLE POINTS</div>
+      </div>
+    </section>
+
+    <!-- ============================== PLAY ============================= -->
+    <section class="screen screen-play" data-for="play">
       <header class="question-banner">
         <div class="survey-mark">Simulated survey &middot; 100 people asked</div>
         <h1 class="question" id="question">&nbsp;</h1>
@@ -25,24 +83,115 @@
 
       <main class="board" id="board" aria-live="polite"></main>
 
-      <footer class="hud">
-        <div class="hud-block">
-          <span class="hud-label">Round pot</span>
-          <span class="hud-value" id="pot">0</span>
-        </div>
-        <div class="hud-block hud-phase">
-          <span class="hud-label">Phase 0 &middot; board harness</span>
-          <span class="hud-hint" id="hint">1&ndash;8 reveal &middot; R reveal all &middot; N next question &middot; C reset</span>
-        </div>
-        <div class="hud-block hud-right">
-          <span class="hud-label">Question</span>
-          <span class="hud-value" id="qcount">&ndash;/&ndash;</span>
-        </div>
-      </footer>
-    </div>
-  </div>
+      <div class="play-bottom">
+        <div class="player-plates" id="plates"></div>
 
-  <noscript><p style="color:#fff;font:600 18px system-ui;padding:24px">This game needs JavaScript enabled.</p></noscript>
-  <script type="module" src="app.js"></script>
+        <div class="control-row">
+          <div class="strikes" id="strikes" aria-label="Strikes">
+            <span class="strike-slot"></span><span class="strike-slot"></span><span class="strike-slot"></span>
+          </div>
+
+          <form class="answer-form" id="answerForm" autocomplete="off">
+            <label class="answer-prompt" id="answerPrompt" for="answerInput">&nbsp;</label>
+            <input class="answer-input" id="answerInput" type="text" maxlength="120"
+                   autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+                   placeholder="Type your answer and press Enter">
+          </form>
+
+          <div class="choice-row" id="choiceRow" hidden>
+            <button type="button" class="choice-btn" data-choice="play"><kbd>P</kbd> PLAY</button>
+            <button type="button" class="choice-btn" data-choice="pass"><kbd>S</kbd> PASS</button>
+          </div>
+
+          <div class="pot-box">
+            <span class="pot-label">Pot</span>
+            <span class="pot-value" id="pot">0</span>
+            <span class="pot-mult" id="potMult">&times;1</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== FAST MONEY ========================== -->
+    <section class="screen screen-fm" data-for="fm">
+      <header class="fm-header">
+        <div class="fm-title">FAST MONEY</div>
+        <div class="fm-who" id="fmWho">&nbsp;</div>
+        <div class="fm-timer" id="fmTimer"><span id="fmTimerText">20</span></div>
+      </header>
+
+      <div class="fm-question" id="fmQuestion">&nbsp;</div>
+
+      <div class="fm-rows" id="fmRows"></div>
+
+      <div class="fm-bottom">
+        <form class="answer-form fm-form" id="fmForm" autocomplete="off">
+          <input class="answer-input" id="fmInput" type="text" maxlength="120"
+                 autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+                 placeholder="Answer and press Enter">
+        </form>
+        <div class="fm-total">
+          <span class="pot-label">Total</span>
+          <span class="pot-value" id="fmTotal">0</span>
+          <span class="pot-mult">/ 200</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= RESULT ============================ -->
+    <section class="screen screen-result" data-for="result">
+      <div class="result-inner">
+        <div class="result-kicker" id="resultKicker">WINNER</div>
+        <div class="result-name" id="resultName">&nbsp;</div>
+        <div class="result-detail" id="resultDetail">&nbsp;</div>
+        <p class="press-start small">PRESS <kbd>ENTER</kbd> FOR A REMATCH &middot; <kbd>ESC</kbd> FOR THE MENU</p>
+      </div>
+      <img class="bella bella-result" src="img/bella-win.png" alt="" data-art>
+      <canvas class="confetti" id="confetti" width="1920" height="1080" aria-hidden="true"></canvas>
+    </section>
+
+    <!-- =========================== OVERLAYS ============================ -->
+    <div class="strike-overlay" id="strikeOverlay" aria-hidden="true">
+      <svg class="strike-x" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M18 18 L82 82 M82 18 L18 82" />
+      </svg>
+      <img class="strike-art" src="img/strike-x.png" alt="" data-art>
+    </div>
+
+    <div class="cutin" id="cutin" aria-hidden="true">
+      <img id="cutinImg" src="" alt="">
+    </div>
+
+    <div class="curtain" id="curtain" aria-hidden="true">
+      <div class="curtain-inner">
+        <div class="curtain-title" id="curtainTitle">LOOK AWAY</div>
+        <div class="curtain-sub" id="curtainSub">&nbsp;</div>
+        <div class="curtain-count" id="curtainCount"></div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="subtitle" id="subtitle" aria-live="polite"></div>
+
+    <div class="keyhelp" id="keyhelp" hidden>
+      <h3>Host keys</h3>
+      <dl>
+        <dt>1&ndash;8</dt><dd>Force-reveal that answer</dd>
+        <dt>X</dt><dd>Force a strike</dd>
+        <dt>Z</dt><dd>Undo the last action</dd>
+        <dt>Space</dt><dd>Advance</dd>
+        <dt>P / S</dt><dd>Play / Pass</dd>
+        <dt>M</dt><dd>Mute</dd>
+        <dt>Esc</dt><dd>Menu</dd>
+        <dt>?</dt><dd>Toggle this list</dd>
+      </dl>
+    </div>
+
+    <button type="button" class="mute-btn" id="muteBtn" aria-label="Mute">&#9835;</button>
+  </div>
+</div>
+
+<noscript><p style="color:#fff;font:600 18px system-ui;padding:24px">This game needs JavaScript enabled.</p></noscript>
+<script type="module" src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,123 @@
+// Hand-written synonym map, applied token-by-token after normalization.
+// Keep entries lowercase and singular — de-pluralization runs first.
+// This is deliberately small and curated: a huge thesaurus makes the matcher
+// accept wrong answers, which is worse than rejecting a right one (the host
+// can override a rejection with the number keys; they can't un-ring a bell).
+
+export const SYNONYMS = new Map(Object.entries({
+  // devices
+  tv: 'television',
+  telly: 'television',
+  cell: 'phone',
+  cellphone: 'phone',
+  mobile: 'phone',
+  smartphone: 'phone',
+  iphone: 'phone',
+  android: 'phone',
+  pc: 'computer',
+  laptop: 'computer',
+  console: 'gameconsole',
+  xbox: 'gameconsole',
+  playstation: 'gameconsole',
+  ps4: 'gameconsole',
+  ps5: 'gameconsole',
+  nintendo: 'gameconsole',
+  switch: 'gameconsole',
+  earbud: 'headphone',
+  airpod: 'headphone',
+  earphone: 'headphone',
+  headset: 'headphone',
+
+  // home
+  fridge: 'refrigerator',
+  freezer: 'refrigerator',
+  couch: 'sofa',
+  settee: 'sofa',
+  restroom: 'bathroom',
+  toilet: 'bathroom',
+  loo: 'bathroom',
+  washroom: 'bathroom',
+  lavatory: 'bathroom',
+  lamp: 'light',
+  bin: 'trash',
+  garbage: 'trash',
+  rubbish: 'trash',
+  laundry: 'clothe',
+  washing: 'clothe',
+  dish: 'plate',
+  mug: 'cup',
+
+  // people
+  kid: 'child',
+  children: 'child',
+  mum: 'mom',
+  mother: 'mom',
+  mommy: 'mom',
+  father: 'dad',
+  daddy: 'dad',
+  spouse: 'partner',
+  colleague: 'coworker',
+  workmate: 'coworker',
+
+  // food
+  soda: 'softdrink',
+  pop: 'softdrink',
+  coke: 'softdrink',
+  fries: 'frenchfry',
+  chips: 'frenchfry',
+  icecream: 'icecream',
+  yoghurt: 'yogurt',
+  takeaway: 'takeout',
+  spaghetti: 'pasta',
+  bolognese: 'pasta',
+  lasagne: 'lasagna',
+  chilli: 'chili',
+
+  // transport
+  auto: 'car',
+  automobile: 'car',
+  vehicle: 'car',
+  tyre: 'tire',
+  petrol: 'gas',
+  gasoline: 'gas',
+  lorry: 'truck',
+
+  // misc
+  cash: 'money',
+  buck: 'money',
+  dollar: 'money',
+  quid: 'money',
+  job: 'work',
+  employment: 'work',
+  gym: 'exercise',
+  workout: 'exercise',
+  jogging: 'running',
+  vacation: 'holiday',
+  film: 'movie',
+  sneaker: 'shoe',
+  trainer: 'shoe',
+  jumper: 'sweater',
+  sweatshirt: 'sweater',
+  specs: 'glass',
+  spectacle: 'glass',
+  sunglass: 'glass',
+  remote: 'remotecontrol',
+  clicker: 'remotecontrol',
+}));
+
+// Multi-word phrases collapsed to a single token BEFORE synonym lookup,
+// so "ice cream" and "icecream" land in the same place.
+export const PHRASES = [
+  [/\bice cream\b/g, 'icecream'],
+  [/\bsoft drink\b/g, 'softdrink'],
+  [/\bfrench fry\b/g, 'frenchfry'],
+  [/\bremote control\b/g, 'remotecontrol'],
+  [/\bgame console\b/g, 'gameconsole'],
+  [/\bvideo game\b/g, 'videogame'],
+  [/\bpeanut butter\b/g, 'peanutbutter'],
+  [/\bfast food\b/g, 'fastfood'],
+  [/\bcell phone\b/g, 'phone'],
+  [/\bmobile phone\b/g, 'phone'],
+  [/\balarm clock\b/g, 'alarmclock'],
+  [/\bair pod\b/g, 'headphone'],
+];

@@ -1,7 +1,27 @@
 # BELLAFOX FEUD — BUILD PLAN
-Status: PLAN ONLY — nothing built yet
-Written: 2026-11-14
+Status: phases 0-5 BUILT and tested; phase 6 (art drop-in + arcade deploy) outstanding
+Written: 2026-11-14 · Last updated: 2026-11-15
 Target home: bellafox.gg arcade (static bundle served from theflipside)
+Code: `family-feud/` · Image prompts: `codex-image-prompts.md`
+
+## Build status
+
+| Phase | State | Notes |
+|---|---|---|
+| 0 Scaffold | DONE | Fixed 1920x1080 stage, board from JSON, data validator |
+| 1 Game logic | DONE | Face-off, play/pass, strikes, steal, banking, multipliers, sudden death |
+| 2 Matching + typing | DONE | 123-case fixture suite, host override keys, type-ahead queueing |
+| 3 Audio | DONE | Procedural Web Audio SFX, 3-stage voice fallback, render script |
+| 4 Art integration | DONE (slots) | Probes `img/`, falls back to the CSS stage; awaiting the files |
+| 5 Fast Money | DONE | Both-players and solo modes, look-away curtain, duplicate + spare |
+| 6 Ship | TODO | Question bank to 40+/20+, art in place, arcade deploy, doc updates |
+
+Tests: `node family-feud/tools/test-all.mjs` (validator + 123 matcher cases + 80 game
+checks). Browser coverage was run with Playwright at 1920x1080, 1366x768 and 2560x1440:
+44 end-to-end checks on the main game and 22 on Fast Money, all passing.
+
+Question bank currently holds 12 main and 10 Fast Money questions — playable, but
+below the 40/20 ship minimum below.
 
 ---
 

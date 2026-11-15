@@ -7,12 +7,66 @@
       "prompt": "Name something people do the moment they wake up.",
       "readAs": "Name something people do the moment they wake up.",
       "answers": [
-        { "text": "Check their phone", "points": 38, "aliases": ["phone", "check phone", "look at phone", "scroll phone", "check messages", "check notifications"] },
-        { "text": "Hit snooze", "points": 21, "aliases": ["snooze", "snooze button", "go back to sleep", "hit the snooze"] },
-        { "text": "Stretch", "points": 14, "aliases": ["stretching", "have a stretch"] },
-        { "text": "Go to the bathroom", "points": 11, "aliases": ["bathroom", "pee", "toilet", "restroom", "use the bathroom"] },
-        { "text": "Drink water", "points": 9, "aliases": ["water", "have a drink", "glass of water"] },
-        { "text": "Turn on a light", "points": 7, "aliases": ["light", "lights", "lamp", "turn the light on"] }
+        {
+          "text": "Check their phone",
+          "points": 38,
+          "aliases": [
+            "phone",
+            "check phone",
+            "look at phone",
+            "scroll phone",
+            "check messages",
+            "check notifications"
+          ]
+        },
+        {
+          "text": "Hit snooze",
+          "points": 21,
+          "aliases": [
+            "snooze",
+            "snooze button",
+            "go back to sleep",
+            "hit the snooze"
+          ]
+        },
+        {
+          "text": "Stretch",
+          "points": 14,
+          "aliases": [
+            "stretching",
+            "have a stretch"
+          ]
+        },
+        {
+          "text": "Go to the bathroom",
+          "points": 11,
+          "aliases": [
+            "bathroom",
+            "pee",
+            "toilet",
+            "restroom",
+            "use the bathroom"
+          ]
+        },
+        {
+          "text": "Drink water",
+          "points": 9,
+          "aliases": [
+            "water",
+            "have a drink",
+            "glass of water"
+          ]
+        },
+        {
+          "text": "Turn on a light",
+          "points": 7,
+          "aliases": [
+            "light",
+            "lights",
+            "lamp",
+            "turn the light on"
+          ]
+        }
       ]
     },
     {
@@ -20,12 +74,69 @@
       "prompt": "Name a reason someone might be late to work.",
       "readAs": "Name a reason someone might be late to work.",
       "answers": [
-        { "text": "Traffic", "points": 31, "aliases": ["traffic jam", "stuck in traffic", "roadworks", "accident on the road"] },
-        { "text": "Overslept", "points": 27, "aliases": ["slept in", "alarm didn't go off", "woke up late", "sleeping in"] },
-        { "text": "Car trouble", "points": 14, "aliases": ["car broke down", "flat tire", "flat tyre", "dead battery", "car wouldn't start"] },
-        { "text": "Bad weather", "points": 11, "aliases": ["weather", "snow", "rain", "storm", "ice"] },
-        { "text": "The kids", "points": 10, "aliases": ["kids", "children", "school run", "dropping kids off", "kid was sick"] },
-        { "text": "Lost their keys", "points": 7, "aliases": ["keys", "lost keys", "couldn't find keys", "misplaced keys"] }
+        {
+          "text": "Traffic",
+          "points": 31,
+          "aliases": [
+            "traffic jam",
+            "stuck in traffic",
+            "roadworks",
+            "accident on the road"
+          ]
+        },
+        {
+          "text": "Overslept",
+          "points": 27,
+          "aliases": [
+            "slept in",
+            "alarm didn't go off",
+            "woke up late",
+            "sleeping in"
+          ]
+        },
+        {
+          "text": "Car trouble",
+          "points": 14,
+          "aliases": [
+            "car broke down",
+            "flat tire",
+            "flat tyre",
+            "dead battery",
+            "car wouldn't start"
+          ]
+        },
+        {
+          "text": "Bad weather",
+          "points": 11,
+          "aliases": [
+            "weather",
+            "snow",
+            "rain",
+            "storm",
+            "ice"
+          ]
+        },
+        {
+          "text": "The kids",
+          "points": 10,
+          "aliases": [
+            "kids",
+            "children",
+            "school run",
+            "dropping kids off",
+            "kid was sick"
+          ]
+        },
+        {
+          "text": "Lost their keys",
+          "points": 7,
+          "aliases": [
+            "keys",
+            "lost keys",
+            "couldn't find keys",
+            "misplaced keys"
+          ]
+        }
       ]
     },
     {
@@ -33,12 +144,70 @@
       "prompt": "Name something you'd find in a teenager's bedroom.",
       "readAs": "Name something you'd find in a teenager's bedroom.",
       "answers": [
-        { "text": "Clothes on the floor", "points": 26, "aliases": ["clothes", "dirty clothes", "laundry", "washing", "clothes everywhere"] },
-        { "text": "Phone charger", "points": 22, "aliases": ["charger", "charging cable", "cable", "phone cable"] },
-        { "text": "Posters", "points": 18, "aliases": ["poster", "wall posters", "band posters"] },
-        { "text": "Game console", "points": 14, "aliases": ["console", "xbox", "playstation", "ps5", "nintendo", "switch", "games"] },
-        { "text": "Dirty dishes", "points": 12, "aliases": ["dishes", "plates", "cups", "old plates", "mugs"] },
-        { "text": "Headphones", "points": 8, "aliases": ["headset", "earbuds", "airpods", "earphones"] }
+        {
+          "text": "Clothes on the floor",
+          "points": 26,
+          "aliases": [
+            "clothes",
+            "dirty clothes",
+            "laundry",
+            "washing",
+            "clothes everywhere"
+          ]
+        },
+        {
+          "text": "Phone charger",
+          "points": 22,
+          "aliases": [
+            "charger",
+            "charging cable",
+            "cable",
+            "phone cable"
+          ]
+        },
+        {
+          "text": "Posters",
+          "points": 18,
+          "aliases": [
+            "poster",
+            "wall posters",
+            "band posters"
+          ]
+        },
+        {
+          "text": "Game console",
+          "points": 14,
+          "aliases": [
+            "console",
+            "xbox",
+            "playstation",
+            "ps5",
+            "nintendo",
+            "switch",
+            "games"
+          ]
+        },
+        {
+          "text": "Dirty dishes",
+          "points": 12,
+          "aliases": [
+            "dishes",
+            "plates",
+            "cups",
+            "old plates",
+            "mugs"
+          ]
+        },
+        {
+          "text": "Headphones",
+          "points": 8,
+          "aliases": [
+            "headset",
+            "earbuds",
+            "airpods",
+            "earphones"
+          ]
+        }
       ]
     },
     {
@@ -46,12 +215,55 @@
       "prompt": "Name a food that tastes better the next day.",
       "readAs": "Name a food that tastes better the next day.",
       "answers": [
-        { "text": "Pizza", "points": 34, "aliases": ["cold pizza", "leftover pizza"] },
-        { "text": "Lasagna", "points": 20, "aliases": ["lasagne", "pasta bake"] },
-        { "text": "Chili", "points": 16, "aliases": ["chilli", "chili con carne"] },
-        { "text": "Curry", "points": 13, "aliases": ["indian food", "takeaway curry"] },
-        { "text": "Spaghetti", "points": 10, "aliases": ["pasta", "spaghetti bolognese", "bolognese"] },
-        { "text": "Soup", "points": 7, "aliases": ["stew", "broth"] }
+        {
+          "text": "Pizza",
+          "points": 34,
+          "aliases": [
+            "cold pizza",
+            "leftover pizza"
+          ]
+        },
+        {
+          "text": "Lasagna",
+          "points": 20,
+          "aliases": [
+            "lasagne",
+            "pasta bake"
+          ]
+        },
+        {
+          "text": "Chili",
+          "points": 16,
+          "aliases": [
+            "chilli",
+            "chili con carne"
+          ]
+        },
+        {
+          "text": "Curry",
+          "points": 13,
+          "aliases": [
+            "indian food",
+            "takeaway curry"
+          ]
+        },
+        {
+          "text": "Spaghetti",
+          "points": 10,
+          "aliases": [
+            "pasta",
+            "spaghetti bolognese",
+            "bolognese"
+          ]
+        },
+        {
+          "text": "Soup",
+          "points": 7,
+          "aliases": [
+            "stew",
+            "broth"
+          ]
+        }
       ]
     },
     {
@@ -59,12 +271,490 @@
       "prompt": "Name something people pretend to like.",
       "readAs": "Name something people pretend to like.",
       "answers": [
-        { "text": "A bad gift", "points": 25, "aliases": ["gift", "present", "a present", "bad present", "ugly sweater"] },
-        { "text": "Someone's cooking", "points": 23, "aliases": ["cooking", "food", "someones food", "a meal", "moms cooking"] },
-        { "text": "Their job", "points": 19, "aliases": ["job", "work", "their work", "my job"] },
-        { "text": "A coworker", "points": 15, "aliases": ["coworker", "colleague", "work colleague", "boss"] },
-        { "text": "Reality TV", "points": 10, "aliases": ["reality television", "reality shows", "a tv show"] },
-        { "text": "Exercise", "points": 8, "aliases": ["the gym", "gym", "working out", "running"] }
+        {
+          "text": "A bad gift",
+          "points": 25,
+          "aliases": [
+            "gift",
+            "present",
+            "a present",
+            "bad present",
+            "ugly sweater"
+          ]
+        },
+        {
+          "text": "Someone's cooking",
+          "points": 23,
+          "aliases": [
+            "cooking",
+            "food",
+            "someones food",
+            "a meal",
+            "moms cooking"
+          ]
+        },
+        {
+          "text": "Their job",
+          "points": 19,
+          "aliases": [
+            "job",
+            "work",
+            "their work",
+            "my job"
+          ]
+        },
+        {
+          "text": "A coworker",
+          "points": 15,
+          "aliases": [
+            "coworker",
+            "colleague",
+            "work colleague",
+            "boss"
+          ]
+        },
+        {
+          "text": "Reality TV",
+          "points": 10,
+          "aliases": [
+            "reality television",
+            "reality shows",
+            "a tv show"
+          ]
+        },
+        {
+          "text": "Exercise",
+          "points": 8,
+          "aliases": [
+            "the gym",
+            "gym",
+            "working out",
+            "running"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q006",
+      "prompt": "Name something people do when they're bored.",
+      "readAs": "Name something people do when they're bored.",
+      "answers": [
+        {
+          "text": "Scroll their phone",
+          "points": 33,
+          "aliases": [
+            "phone",
+            "scroll",
+            "social media",
+            "scrolling",
+            "tiktok"
+          ]
+        },
+        {
+          "text": "Watch TV",
+          "points": 22,
+          "aliases": [
+            "tv",
+            "television",
+            "netflix",
+            "watch something"
+          ]
+        },
+        {
+          "text": "Snack",
+          "points": 16,
+          "aliases": [
+            "eat",
+            "eat snacks",
+            "snacking",
+            "raid the fridge"
+          ]
+        },
+        {
+          "text": "Take a nap",
+          "points": 12,
+          "aliases": [
+            "nap",
+            "sleep",
+            "napping"
+          ]
+        },
+        {
+          "text": "Clean",
+          "points": 10,
+          "aliases": [
+            "tidy up",
+            "cleaning",
+            "tidy"
+          ]
+        },
+        {
+          "text": "Call a friend",
+          "points": 7,
+          "aliases": [
+            "call someone",
+            "ring a friend",
+            "text someone"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q007",
+      "prompt": "Name a place where people whisper.",
+      "readAs": "Name a place where people whisper.",
+      "answers": [
+        {
+          "text": "A library",
+          "points": 36,
+          "aliases": [
+            "library",
+            "the library"
+          ]
+        },
+        {
+          "text": "Church",
+          "points": 24,
+          "aliases": [
+            "a church",
+            "chapel",
+            "temple"
+          ]
+        },
+        {
+          "text": "A movie theater",
+          "points": 16,
+          "aliases": [
+            "cinema",
+            "movies",
+            "the movies",
+            "theater"
+          ]
+        },
+        {
+          "text": "A hospital",
+          "points": 12,
+          "aliases": [
+            "hospital",
+            "the hospital"
+          ]
+        },
+        {
+          "text": "A funeral",
+          "points": 8,
+          "aliases": [
+            "funerals",
+            "a wake"
+          ]
+        },
+        {
+          "text": "A classroom",
+          "points": 4,
+          "aliases": [
+            "classroom",
+            "school",
+            "in class"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q008",
+      "prompt": "Name something you always forget to pack.",
+      "readAs": "Name something you always forget to pack.",
+      "answers": [
+        {
+          "text": "Toothbrush",
+          "points": 29,
+          "aliases": [
+            "a toothbrush",
+            "toothpaste",
+            "tooth brush"
+          ]
+        },
+        {
+          "text": "Phone charger",
+          "points": 25,
+          "aliases": [
+            "charger",
+            "charging cable",
+            "cable"
+          ]
+        },
+        {
+          "text": "Socks",
+          "points": 15,
+          "aliases": [
+            "a pair of socks",
+            "clean socks"
+          ]
+        },
+        {
+          "text": "Deodorant",
+          "points": 12,
+          "aliases": [
+            "antiperspirant",
+            "roll on"
+          ]
+        },
+        {
+          "text": "Pajamas",
+          "points": 11,
+          "aliases": [
+            "pyjamas",
+            "pjs",
+            "sleepwear"
+          ]
+        },
+        {
+          "text": "A towel",
+          "points": 8,
+          "aliases": [
+            "towel",
+            "towels"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q009",
+      "prompt": "Name an excuse for not doing the dishes.",
+      "readAs": "Name an excuse for not doing the dishes.",
+      "answers": [
+        {
+          "text": "I'm too tired",
+          "points": 28,
+          "aliases": [
+            "too tired",
+            "tired",
+            "im tired"
+          ]
+        },
+        {
+          "text": "I'll do it later",
+          "points": 23,
+          "aliases": [
+            "later",
+            "do it later",
+            "in a minute"
+          ]
+        },
+        {
+          "text": "I cooked",
+          "points": 19,
+          "aliases": [
+            "i made dinner",
+            "i did the cooking",
+            "i cooked dinner"
+          ]
+        },
+        {
+          "text": "There's no hot water",
+          "points": 12,
+          "aliases": [
+            "no hot water",
+            "the water is cold",
+            "no water"
+          ]
+        },
+        {
+          "text": "They're soaking",
+          "points": 10,
+          "aliases": [
+            "soaking",
+            "theyre soaking",
+            "letting them soak"
+          ]
+        },
+        {
+          "text": "I'm too busy",
+          "points": 8,
+          "aliases": [
+            "too busy",
+            "busy",
+            "no time"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q010",
+      "prompt": "Name something that always runs out at the worst time.",
+      "readAs": "Name something that always runs out at the worst time.",
+      "answers": [
+        {
+          "text": "Toilet paper",
+          "points": 31,
+          "aliases": [
+            "loo roll",
+            "toilet roll",
+            "tp",
+            "bog roll"
+          ]
+        },
+        {
+          "text": "Phone battery",
+          "points": 26,
+          "aliases": [
+            "battery",
+            "charge",
+            "my phone died",
+            "phone"
+          ]
+        },
+        {
+          "text": "Milk",
+          "points": 14,
+          "aliases": [
+            "the milk",
+            "out of milk"
+          ]
+        },
+        {
+          "text": "Gas",
+          "points": 12,
+          "aliases": [
+            "petrol",
+            "fuel",
+            "gasoline"
+          ]
+        },
+        {
+          "text": "Coffee",
+          "points": 10,
+          "aliases": [
+            "the coffee",
+            "coffee beans"
+          ]
+        },
+        {
+          "text": "Shampoo",
+          "points": 7,
+          "aliases": [
+            "soap",
+            "body wash",
+            "conditioner"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q011",
+      "prompt": "Name something people do in the shower besides wash.",
+      "readAs": "Name something people do in the shower besides wash.",
+      "answers": [
+        {
+          "text": "Sing",
+          "points": 38,
+          "aliases": [
+            "singing",
+            "sing songs"
+          ]
+        },
+        {
+          "text": "Think",
+          "points": 21,
+          "aliases": [
+            "thinking",
+            "overthink",
+            "daydream"
+          ]
+        },
+        {
+          "text": "Cry",
+          "points": 14,
+          "aliases": [
+            "crying",
+            "have a cry"
+          ]
+        },
+        {
+          "text": "Talk to themselves",
+          "points": 12,
+          "aliases": [
+            "talk to themself",
+            "talking",
+            "rehearse arguments"
+          ]
+        },
+        {
+          "text": "Brush their teeth",
+          "points": 9,
+          "aliases": [
+            "brush teeth",
+            "teeth",
+            "toothbrush"
+          ]
+        },
+        {
+          "text": "Shave",
+          "points": 6,
+          "aliases": [
+            "shaving",
+            "shave their legs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q012",
+      "prompt": "Name a reason you'd leave a party early.",
+      "readAs": "Name a reason you'd leave a party early.",
+      "answers": [
+        {
+          "text": "I'm tired",
+          "points": 30,
+          "aliases": [
+            "tired",
+            "sleepy",
+            "exhausted"
+          ]
+        },
+        {
+          "text": "Work in the morning",
+          "points": 22,
+          "aliases": [
+            "work tomorrow",
+            "early start",
+            "i have work"
+          ]
+        },
+        {
+          "text": "It's boring",
+          "points": 18,
+          "aliases": [
+            "boring",
+            "its dull",
+            "not fun"
+          ]
+        },
+        {
+          "text": "I don't know anyone",
+          "points": 13,
+          "aliases": [
+            "dont know anyone",
+            "no friends there",
+            "knew nobody"
+          ]
+        },
+        {
+          "text": "The babysitter",
+          "points": 10,
+          "aliases": [
+            "babysitter",
+            "the kids",
+            "sitter"
+          ]
+        },
+        {
+          "text": "I feel sick",
+          "points": 7,
+          "aliases": [
+            "feeling sick",
+            "unwell",
+            "ill"
+          ]
+        }
       ]
     }
   ],
@@ -74,11 +764,51 @@
       "prompt": "Name a food people eat straight out of the container.",
       "readAs": "Name a food people eat straight out of the container.",
       "answers": [
-        { "text": "Ice cream", "points": 41, "aliases": ["icecream", "ice-cream", "tub of ice cream"] },
-        { "text": "Peanut butter", "points": 19, "aliases": ["pb", "jar of peanut butter"] },
-        { "text": "Yogurt", "points": 14, "aliases": ["yoghurt"] },
-        { "text": "Cereal", "points": 11, "aliases": ["box of cereal"] },
-        { "text": "Chinese takeout", "points": 8, "aliases": ["takeout", "takeaway", "noodles", "chinese food"] }
+        {
+          "text": "Ice cream",
+          "points": 41,
+          "aliases": [
+            "icecream",
+            "ice-cream",
+            "tub of ice cream"
+          ]
+        },
+        {
+          "text": "Peanut butter",
+          "points": 19,
+          "aliases": [
+            "pb",
+            "jar of peanut butter"
+          ]
+        },
+        {
+          "text": "Yogurt",
+          "points": 14,
+          "aliases": [
+            "yoghurt",
+            "greek yogurt",
+            "a yogurt"
+          ]
+        },
+        {
+          "text": "Cereal",
+          "points": 11,
+          "aliases": [
+            "box of cereal",
+            "dry cereal",
+            "cornflakes"
+          ]
+        },
+        {
+          "text": "Chinese takeout",
+          "points": 8,
+          "aliases": [
+            "takeout",
+            "takeaway",
+            "noodles",
+            "chinese food"
+          ]
+        }
       ]
     },
     {
@@ -86,11 +816,455 @@
       "prompt": "Name something people lose on a regular basis.",
       "readAs": "Name something people lose on a regular basis.",
       "answers": [
-        { "text": "Keys", "points": 36, "aliases": ["car keys", "house keys", "my keys"] },
-        { "text": "Phone", "points": 24, "aliases": ["cell phone", "mobile", "cellphone"] },
-        { "text": "Remote control", "points": 15, "aliases": ["remote", "tv remote", "the remote"] },
-        { "text": "Socks", "points": 12, "aliases": ["a sock", "one sock"] },
-        { "text": "Glasses", "points": 9, "aliases": ["sunglasses", "spectacles", "specs"] }
+        {
+          "text": "Keys",
+          "points": 36,
+          "aliases": [
+            "car keys",
+            "house keys",
+            "my keys"
+          ]
+        },
+        {
+          "text": "Phone",
+          "points": 24,
+          "aliases": [
+            "cell phone",
+            "mobile",
+            "cellphone"
+          ]
+        },
+        {
+          "text": "Remote control",
+          "points": 15,
+          "aliases": [
+            "remote",
+            "tv remote",
+            "the remote"
+          ]
+        },
+        {
+          "text": "Socks",
+          "points": 12,
+          "aliases": [
+            "a sock",
+            "one sock"
+          ]
+        },
+        {
+          "text": "Glasses",
+          "points": 9,
+          "aliases": [
+            "sunglasses",
+            "spectacles",
+            "specs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f003",
+      "prompt": "Name something people keep in their car.",
+      "readAs": "Name something people keep in their car.",
+      "answers": [
+        {
+          "text": "Sunglasses",
+          "points": 28,
+          "aliases": [
+            "shades",
+            "sun glasses"
+          ]
+        },
+        {
+          "text": "Phone charger",
+          "points": 22,
+          "aliases": [
+            "charger",
+            "charging cable",
+            "cable"
+          ]
+        },
+        {
+          "text": "Napkins",
+          "points": 18,
+          "aliases": [
+            "tissues",
+            "paper towels",
+            "wipes"
+          ]
+        },
+        {
+          "text": "An umbrella",
+          "points": 14,
+          "aliases": [
+            "umbrella",
+            "brolly"
+          ]
+        },
+        {
+          "text": "An ice scraper",
+          "points": 9,
+          "aliases": [
+            "ice scraper",
+            "scraper",
+            "snow brush"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f004",
+      "prompt": "Name an animal you wouldn't want loose in your house.",
+      "readAs": "Name an animal you wouldn't want loose in your house.",
+      "answers": [
+        {
+          "text": "A snake",
+          "points": 34,
+          "aliases": [
+            "snake",
+            "python",
+            "snakes"
+          ]
+        },
+        {
+          "text": "A spider",
+          "points": 24,
+          "aliases": [
+            "spider",
+            "tarantula",
+            "spiders"
+          ]
+        },
+        {
+          "text": "A bear",
+          "points": 16,
+          "aliases": [
+            "bear",
+            "grizzly"
+          ]
+        },
+        {
+          "text": "A skunk",
+          "points": 13,
+          "aliases": [
+            "skunk",
+            "skunks"
+          ]
+        },
+        {
+          "text": "A rat",
+          "points": 8,
+          "aliases": [
+            "rat",
+            "mouse",
+            "rodent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f005",
+      "prompt": "Name something people do right before bed.",
+      "readAs": "Name something people do right before bed.",
+      "answers": [
+        {
+          "text": "Brush their teeth",
+          "points": 39,
+          "aliases": [
+            "brush teeth",
+            "teeth",
+            "toothbrush"
+          ]
+        },
+        {
+          "text": "Check their phone",
+          "points": 26,
+          "aliases": [
+            "phone",
+            "scroll",
+            "look at phone"
+          ]
+        },
+        {
+          "text": "Read",
+          "points": 14,
+          "aliases": [
+            "read a book",
+            "reading",
+            "a book"
+          ]
+        },
+        {
+          "text": "Set an alarm",
+          "points": 11,
+          "aliases": [
+            "alarm",
+            "set alarm",
+            "set the alarm"
+          ]
+        },
+        {
+          "text": "Shower",
+          "points": 7,
+          "aliases": [
+            "take a shower",
+            "bath",
+            "wash"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f006",
+      "prompt": "Name a chore people put off the longest.",
+      "readAs": "Name a chore people put off the longest.",
+      "answers": [
+        {
+          "text": "Laundry",
+          "points": 30,
+          "aliases": [
+            "washing",
+            "the washing",
+            "washing clothes"
+          ]
+        },
+        {
+          "text": "The dishes",
+          "points": 25,
+          "aliases": [
+            "dishes",
+            "washing up",
+            "the washing up"
+          ]
+        },
+        {
+          "text": "Cleaning the bathroom",
+          "points": 18,
+          "aliases": [
+            "bathroom",
+            "clean the bathroom",
+            "scrubbing the toilet"
+          ]
+        },
+        {
+          "text": "Vacuuming",
+          "points": 13,
+          "aliases": [
+            "hoovering",
+            "vacuum",
+            "hoover"
+          ]
+        },
+        {
+          "text": "Ironing",
+          "points": 9,
+          "aliases": [
+            "iron",
+            "the ironing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f007",
+      "prompt": "Name something almost always found on a desk.",
+      "readAs": "Name something almost always found on a desk.",
+      "answers": [
+        {
+          "text": "A computer",
+          "points": 33,
+          "aliases": [
+            "computer",
+            "laptop",
+            "monitor",
+            "pc"
+          ]
+        },
+        {
+          "text": "Pens",
+          "points": 24,
+          "aliases": [
+            "a pen",
+            "pencils",
+            "pen"
+          ]
+        },
+        {
+          "text": "Coffee",
+          "points": 17,
+          "aliases": [
+            "a coffee",
+            "a mug",
+            "coffee cup"
+          ]
+        },
+        {
+          "text": "A lamp",
+          "points": 12,
+          "aliases": [
+            "lamp",
+            "desk lamp",
+            "light"
+          ]
+        },
+        {
+          "text": "A notebook",
+          "points": 9,
+          "aliases": [
+            "notebook",
+            "notepad",
+            "paper"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f008",
+      "prompt": "Name something people say when they stub their toe.",
+      "readAs": "Name something people say when they stub their toe.",
+      "answers": [
+        {
+          "text": "Ow",
+          "points": 36,
+          "aliases": [
+            "oww",
+            "owww"
+          ]
+        },
+        {
+          "text": "A swear word",
+          "points": 30,
+          "aliases": [
+            "swear word",
+            "swearing",
+            "a curse word",
+            "profanity"
+          ]
+        },
+        {
+          "text": "Ouch",
+          "points": 18,
+          "aliases": [
+            "ouchie",
+            "ouuch"
+          ]
+        },
+        {
+          "text": "Oh no",
+          "points": 9,
+          "aliases": [
+            "oh nooo",
+            "no no no"
+          ]
+        },
+        {
+          "text": "Nothing",
+          "points": 5,
+          "aliases": [
+            "silence",
+            "say nothing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f009",
+      "prompt": "Name something people take way too many photos of.",
+      "readAs": "Name something people take way too many photos of.",
+      "answers": [
+        {
+          "text": "Their pet",
+          "points": 34,
+          "aliases": [
+            "pet",
+            "dog",
+            "cat",
+            "their dog"
+          ]
+        },
+        {
+          "text": "Food",
+          "points": 27,
+          "aliases": [
+            "their dinner",
+            "meals",
+            "their food"
+          ]
+        },
+        {
+          "text": "Themselves",
+          "points": 20,
+          "aliases": [
+            "selfies",
+            "selfie",
+            "themself"
+          ]
+        },
+        {
+          "text": "Sunsets",
+          "points": 11,
+          "aliases": [
+            "the sunset",
+            "sunset",
+            "the sky"
+          ]
+        },
+        {
+          "text": "Their kids",
+          "points": 6,
+          "aliases": [
+            "kids",
+            "children",
+            "their children"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f010",
+      "prompt": "Name something that is much better cold.",
+      "readAs": "Name something that is much better cold.",
+      "answers": [
+        {
+          "text": "Beer",
+          "points": 29,
+          "aliases": [
+            "a beer",
+            "cold beer"
+          ]
+        },
+        {
+          "text": "Watermelon",
+          "points": 22,
+          "aliases": [
+            "melon",
+            "fruit"
+          ]
+        },
+        {
+          "text": "Pizza",
+          "points": 17,
+          "aliases": [
+            "cold pizza",
+            "leftover pizza"
+          ]
+        },
+        {
+          "text": "Water",
+          "points": 16,
+          "aliases": [
+            "a drink of water",
+            "iced water"
+          ]
+        },
+        {
+          "text": "Ice cream",
+          "points": 12,
+          "aliases": [
+            "icecream",
+            "ice-cream"
+          ]
+        }
       ]
     }
   ]
