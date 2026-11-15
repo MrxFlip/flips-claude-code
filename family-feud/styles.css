@@ -103,6 +103,15 @@ kbd {
 .art-backdrop .backdrop {
   background: var(--art-backdrop) center/cover no-repeat;
 }
+/* The generated stage is bright, especially the reflective floor, and the
+   board, plates and answer box sit straight on top of it. A scrim keeps the
+   UI readable without flattening the set. */
+.art-backdrop .backdrop::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 42%, rgba(5, 10, 36, .30) 0%, rgba(5, 10, 36, .52) 70%, rgba(5, 10, 36, .66) 100%),
+    linear-gradient(180deg, rgba(5, 10, 36, .30) 0%, rgba(5, 10, 36, .18) 38%, rgba(5, 10, 36, .74) 100%);
+}
 .art-backdrop .backdrop-glow { opacity: .45; }
 .art-backdrop .backdrop-rays { opacity: .1; }
 .art-backdrop .backdrop::before { opacity: .35; }
@@ -307,13 +316,15 @@ kbd {
   border-radius: 20px;
 }
 .art-boardframe .board {
-  /* No `fill`: the generated frame's middle is transparent, and filling with
-     it would paint over the board's own backing. */
-  border-image: var(--art-board-frame) 46 round;
-  border-image-width: 22px;
+  /* Slice 57 = the 14px outer glow plus the 43px bezel measured on the
+     1024px-wide source. No `fill`, so the middle slice is discarded and the
+     board keeps its own backing. Padding drops to keep the tiles their size
+     now that the border eats into the fixed 1500x470 box. */
+  border-image: var(--art-board-frame) 57 round;
   border-style: solid;
-  border-width: 22px;
+  border-width: 28px;
   border-color: transparent;
+  padding: 10px;
   background: linear-gradient(180deg, #0a1a44 0%, #050d28 100%);
   background-clip: padding-box;
 }
