@@ -11,15 +11,15 @@
 // (the console under the board, or a single primary button), so nobody ever
 // has to ask "what do I press now?".
 
-import { initStage } from './src/stage.js?v=20261115-feud3';
-import { loadSurveys } from './src/data.js?v=20261115-feud3';
-import { createBoard } from './src/board.js?v=20261115-feud3';
-import { createGame, PHASE, FM_TIME } from './src/game.js?v=20261115-feud3';
-import { createAudio } from './src/audio.js?v=20261115-feud3';
-import { initArt } from './src/art.js?v=20261115-feud3';
-import { confetti } from './src/confetti.js?v=20261115-feud3';
-import { hostLine } from './src/host-lines.js?v=20261115-feud3';
-import { createNet, resolveRelayUrl, snapshotFor, eventsFor } from './src/net.js?v=20261115-feud3';
+import { initStage } from './src/stage.js?v=20261116-feud4';
+import { loadSurveys } from './src/data.js?v=20261116-feud4';
+import { createBoard } from './src/board.js?v=20261116-feud4';
+import { createGame, PHASE, FM_TIME } from './src/game.js?v=20261116-feud4';
+import { createAudio } from './src/audio.js?v=20261116-feud4';
+import { initArt } from './src/art.js?v=20261116-feud4';
+import { confetti } from './src/confetti.js?v=20261116-feud4';
+import { hostLine } from './src/host-lines.js?v=20261116-feud4';
+import { createNet, resolveRelayUrl, snapshotFor, eventsFor } from './src/net.js?v=20261116-feud4';
 
 const $ = (id) => document.getElementById(id);
 const el = {

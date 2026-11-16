@@ -152,6 +152,10 @@ export const WEAK_WORDS = new Set([
   // vague subjects and objects
   'people', 'person', 'someone', 'somebody', 'something', 'anything', 'everything',
   'everyone', 'everybody', 'thing', 'stuff', 'one', 'it', 'them', 'they', 'you',
+  // first- and third-person subjects: "I check my phone", "we overslept",
+  // "he lost his keys" name the same thing as the bare answer
+  'i', 'im', 'ive', 'id', 'ill', 'we', 'he', 'she', 'me', 'us', 'myself', 'themselves',
+  'yourself', 'themself',
   'guy', 'lot', 'bit', 'kind', 'sort', 'type', 'pair',
   // light verbs and auxiliaries that pad a phrase rather than name an action
   'be', 'being', 'is', 'am', 'are', 'was', 'were', 'do', 'doing', 'doe', 'did',

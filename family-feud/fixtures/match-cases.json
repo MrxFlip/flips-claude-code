@@ -757,6 +757,161 @@
       "q": "q034",
       "in": "styrofoem",
       "expect": 5
+    },
+    {
+      "q": "q003",
+      "in": "video games",
+      "expect": 4
+    },
+    {
+      "q": "q003",
+      "in": "video game",
+      "expect": 4
+    },
+    {
+      "q": "q003",
+      "in": "gaming",
+      "expect": 4
+    },
+    {
+      "q": "q001",
+      "in": "doom scrolling",
+      "expect": 1
+    },
+    {
+      "q": "q001",
+      "in": "doomscrolling",
+      "expect": 1
+    },
+    {
+      "q": "q006",
+      "in": "doom scrolling",
+      "expect": 1
+    },
+    {
+      "q": "q013",
+      "in": "doom scroll",
+      "expect": 1
+    },
+    {
+      "q": "q017",
+      "in": "doomscrolling",
+      "expect": 1
+    },
+    {
+      "q": "f005",
+      "in": "doom scrolling",
+      "expect": 2
+    },
+    {
+      "q": "f015",
+      "in": "doom scrolling",
+      "expect": 2
+    },
+    {
+      "q": "q002",
+      "in": "alarm didn't go off",
+      "expect": 2
+    },
+    {
+      "q": "q002",
+      "in": "alarm didnt go off",
+      "expect": 2
+    },
+    {
+      "q": "q012",
+      "in": "i'm bored",
+      "expect": 3
+    },
+    {
+      "q": "q001",
+      "in": "I check my phone",
+      "expect": 1
+    },
+    {
+      "q": "q002",
+      "in": "they overslept",
+      "expect": 2
+    },
+    {
+      "q": "q001",
+      "in": "doomscrolling on my phone",
+      "expect": 1
+    },
+    {
+      "q": "f018",
+      "in": "lower back pain",
+      "expect": 1
+    },
+    {
+      "q": "q029",
+      "in": "take off my shoes and socks",
+      "expect": 1
+    },
+    {
+      "q": "q027",
+      "in": "hot dog",
+      "expect": "MISS"
+    },
+    {
+      "q": "q010",
+      "in": "phone charger died",
+      "expect": "MISS"
+    },
+    {
+      "q": "q039",
+      "in": "my dog and my phone",
+      "expect": "MISS"
+    },
+    {
+      "q": "q036",
+      "in": "slow rude staff",
+      "expect": "MISS"
+    },
+    {
+      "q": "q012",
+      "in": "tired and bored",
+      "expect": "MISS"
+    },
+    {
+      "q": "q006",
+      "in": "eat my phone",
+      "expect": "MISS"
+    },
+    {
+      "q": "q003",
+      "in": "bed",
+      "expect": "MISS"
+    },
+    {
+      "q": "q010",
+      "in": "wine",
+      "expect": "MISS"
+    },
+    {
+      "q": "q027",
+      "in": "dogs",
+      "expect": "MISS"
+    },
+    {
+      "q": "q034",
+      "in": "water",
+      "expect": "MISS"
+    },
+    {
+      "q": "q022",
+      "in": "homework",
+      "expect": "MISS"
+    },
+    {
+      "q": "q036",
+      "in": "parking",
+      "expect": "MISS"
+    },
+    {
+      "q": "q006",
+      "in": "go for a walk",
+      "expect": "MISS"
     }
   ]
 }

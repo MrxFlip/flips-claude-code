@@ -5,7 +5,7 @@
 // rejection with the number keys and cannot take back a bad reveal. So the
 // cascade is generous about spelling and phrasing, strict about meaning.
 
-import { SYNONYMS, PHRASES, WEAK_WORDS } from './synonyms.js?v=20261115-feud3';
+import { SYNONYMS, PHRASES, WEAK_WORDS } from './synonyms.js?v=20261116-feud4';
 
 const ARTICLES = /^(a|an|the)\s+/;
 const FILLER = /^(my|your|his|her|their|our|some|any|going to|gonna|wanna|want to|like)\s+/;
@@ -16,6 +16,10 @@ function baseNormalize(input) {
     .normalize('NFKD')
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
+    // Apostrophes vanish rather than becoming a space, so "didn't", "didnt"
+    // and "I'm" / "im" are one spelling. As a space, "didn't" became "didn t"
+    // and could never equal the alias a person would naturally type.
+    .replace(/['‘’`]/g, '')
     .replace(/[^a-z0-9\s]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -186,6 +190,35 @@ export function matchAnswer(input, question, revealed = []) {
       if (subsetModuloWeak(inputTokens, formTokens)) return decide(c, 'alias-contains', 0.93);
     }
   }
+
+  // 2b — a known phrasing plus words this answer already owns.
+  //
+  // Stage 2 refuses any leftover content word, which is right in general
+  // ("measuring tape" is not "tape") but rejects answers that only COMBINE two
+  // accepted phrasings: "doomscrolling on my phone" is "doomscrolling" plus
+  // "phone", "lower back pain" is "lower back" plus "pain", and both halves are
+  // already listed for the same answer. So a leftover word is allowed here
+  // when it comes from that answer's own vocabulary — the words used across
+  // all of its accepted phrasings. A word from nowhere still blocks the match,
+  // and so does a tie: if two answers on the board both qualify, the input is
+  // ambiguous and it is left to the fuzzy pass and the host.
+  const owned = [];
+  for (const c of candidates) {
+    const vocab = new Set(c.forms.flatMap(tokens));
+    const covers = c.forms.some((form) => {
+      const formTokens = tokens(form);
+      if (!formTokens.length || formTokens.length > inputTokens.length) return false;
+      const pool = [...inputTokens];
+      for (const t of formTokens) {
+        const i = pool.indexOf(t);
+        if (i === -1) return false;
+        pool.splice(i, 1);
+      }
+      return pool.every((t) => WEAK_WORDS.has(t) || vocab.has(t));
+    });
+    if (covers) owned.push(c);
+  }
+  if (owned.length === 1) return decide(owned[0], 'own-words', 0.92);
 
   // 3 — fuzzy, for typos
   let best = null;
