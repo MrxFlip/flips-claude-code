@@ -54,7 +54,9 @@ export function createAudio(opts = {}) {
   function setVolume(v) {
     volume = Math.max(0, Math.min(1, v));
     if (master && !muted) master.gain.value = volume;
+    if (liveClip) liveClip.volume = muted ? 0 : volume;
   }
+  let liveClip = null;              // the <audio> currently speaking, for live volume
 
   // ---------- synth primitives ----------
 
@@ -148,6 +150,49 @@ export function createAudio(opts = {}) {
       [NOTE.G5, 622.25, NOTE.C5].forEach((f, i) =>
         tone({ freq: f, type: 'triangle', dur: 0.45, gain: 0.2, start: i * 0.16 }));
     },
+    buzzIn() {
+      tone({ freq: 660, type: 'square', dur: 0.09, gain: 0.2 });
+      tone({ freq: 990, type: 'square', dur: 0.22, gain: 0.2, start: 0.08 });
+    },
+    /** Snare-style roll under the "survey says" beat. */
+    drumroll() {
+      const hits = 22;
+      for (let i = 0; i < hits; i++) {
+        noise({
+          start: i * 0.042, dur: 0.07,
+          gain: 0.05 + (i / hits) * 0.13,
+          type: 'bandpass', freq: 1900 + i * 30, q: 0.9,
+        });
+      }
+      tone({ freq: 110, type: 'triangle', dur: 0.95, gain: 0.1, sweepTo: 180 });
+    },
+    whoosh() {
+      noise({ dur: 0.42, gain: 0.16, type: 'bandpass', freq: 900, q: 0.7 });
+      tone({ freq: 240, type: 'sine', dur: 0.4, gain: 0.08, sweepTo: 900 });
+    },
+    count() {
+      tone({ freq: 1320, type: 'triangle', dur: 0.05, gain: 0.1 });
+    },
+    click() {
+      tone({ freq: 700, type: 'triangle', dur: 0.05, gain: 0.1 });
+    },
+    miss() {
+      tone({ freq: 330, type: 'triangle', dur: 0.16, gain: 0.12, sweepTo: 220 });
+    },
+    /** Opening sting: a short brassy fanfare for the title and round cards. */
+    theme() {
+      const seq = [
+        [NOTE.G5, 0.00, 0.16], [NOTE.G5, 0.17, 0.16], [NOTE.G5, 0.34, 0.16],
+        [NOTE.C6, 0.52, 0.34], [NOTE.E6, 0.88, 0.34], [NOTE.G6, 1.24, 0.75],
+      ];
+      for (const [f, at, dur] of seq) {
+        tone({ freq: f, type: 'sawtooth', dur, gain: 0.11, start: at });
+        tone({ freq: f / 2, type: 'triangle', dur, gain: 0.14, start: at });
+      }
+      tone({ freq: NOTE.C5, type: 'triangle', dur: 0.9, gain: 0.14, start: 1.24 });
+      tone({ freq: NOTE.E5, type: 'triangle', dur: 0.9, gain: 0.12, start: 1.24 });
+      SYNTH.applause(1.3);
+    },
     applause(start = 0) {
       for (let i = 0; i < 10; i++) {
         noise({
@@ -203,8 +248,12 @@ export function createAudio(opts = {}) {
     for (const fn of subtitleListeners) { try { fn(text); } catch {} }
   }
 
+  let subtitleTimer = 0;
+  let subtitleSkip = null;
+
   function stopVoice() {
     if (currentVoice) { try { currentVoice.stop(); } catch {} currentVoice = null; }
+    if (subtitleSkip) { clearTimeout(subtitleTimer); const r = subtitleSkip; subtitleSkip = null; r(); }
     try { window.speechSynthesis?.cancel(); } catch {}
   }
 
@@ -218,8 +267,14 @@ export function createAudio(opts = {}) {
     return new Promise((resolve) => {
       const el = new Audio(src);
       el.volume = muted ? 0 : volume;
+      liveClip = el;
       let done = false;
-      const finish = (ok) => { if (!done) { done = true; resolve(ok); } };
+      const finish = (ok) => {
+        if (done) return;
+        done = true;
+        if (liveClip === el) liveClip = null;
+        resolve(ok);
+      };
 
       el.addEventListener('ended', () => finish(true), { once: true });
       el.addEventListener('error', () => finish(false), { once: true });
@@ -289,10 +344,16 @@ export function createAudio(opts = {}) {
       if (await playClip(src, text)) used = 'clip';
     }
 
-    if (used === 'subtitle' && await speakSynth(text)) used = 'synth';
+    // The browser's robot voice only stands in when there is no recorded host
+    // at all. Once Bella exists, a line she has not recorded yet is shown as a
+    // caption instead of being read by a stranger halfway through the show.
+    const hasRecordedHost = Object.keys(m).length > 0;
+    if (used === 'subtitle' && !hasRecordedHost && await speakSynth(text)) used = 'synth';
 
     if (used === 'subtitle') {
-      await new Promise((r) => setTimeout(r, estimateMs(text)));
+      const ms = hasRecordedHost ? Math.min(2200, estimateMs(text)) : estimateMs(text);
+      await new Promise((r) => { subtitleTimer = setTimeout(r, ms); subtitleSkip = r; });
+      subtitleSkip = null;
     }
 
     currentVoice = null;

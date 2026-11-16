@@ -9,11 +9,11 @@ Work built with Claude Code for TheFlipside / BellaFox.
 
 ### BellaFox Feud — `family-feud/`
 
-A hot-seat game show for 2-4 players, built for the BellaFox arcade. Face-off,
+A hot-seat game show for 1-4 players, built for the BellaFox arcade. Face-off,
 three scoring rounds, strikes, steal, sudden death, and Fast Money. Bella hosts
 and reads every question aloud.
 
-**State: complete and playable. Not yet deployed.** It lives only in this repo —
+**State: 2.0 flow/visual rebuild done in the working tree (uncommitted). Not yet deployed.** It lives only in this repo —
 not on the owner's PC, not on theflipside. The remaining work is the arcade
 deploy; see section 4 of the handoff.
 
@@ -44,6 +44,7 @@ cd family-feud && node tools/test-all.mjs
 |---|---|
 | [`docs/family-feud-handoff.md`](docs/family-feud-handoff.md) | **Current state, outstanding work, gotchas. Read first.** |
 | [`docs/family-feud-build-plan.md`](docs/family-feud-build-plan.md) | The original design: show structure, matcher design, visual spec, phases |
+| [`docs/bellafox-feud-2-art-and-voice.md`](docs/bellafox-feud-2-art-and-voice.md) | 2.0 pass: six optional new images (full prompts) and 17 new Bella lines |
 | [`docs/codex-image-prompts.md`](docs/codex-image-prompts.md) | The twelve image prompts, fully expanded and ready to paste |
 | [`docs/family-feud-library-entries.md`](docs/family-feud-library-entries.md) | Ready-to-paste entries for the LLM Build Library, plus the deploy checklist |
 | [`family-feud/README.md`](family-feud/README.md) | How to run it, add questions, add art, render voice |

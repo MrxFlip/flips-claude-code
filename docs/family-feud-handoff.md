@@ -7,6 +7,71 @@ exists, what is done, and what is left. The build plan
 
 ---
 
+## 0. UPDATE 2026-11-15 — the 2.0 flow and visual pass (READ THIS FIRST)
+
+The owner played 1.0 and called it "just ok ... too rough". 2.0 is a rebuild of
+the presentation layer and several rules. **It is in the working tree at
+`Z:\LLM Build Library\Website\BellaFox Feud\repo\` and is NOT committed or
+pushed** — the branch on GitHub is still 1.0. Sections 1-7 below describe 1.0
+and are still right about the repo, voice, deploy blockers and gotchas; where
+they describe how the game plays or looks, this section wins.
+
+### What changed
+
+| Area | 1.0 | 2.0 |
+|---|---|---|
+| Players | 2-4 only | **1-4.** Solo run: no face-off or steal, 3 strikes closes the board, best score saved |
+| Face-off | Typed in a fixed order into a masked box | **Buzz-in race** (keys `A` / `L`, or click). "Take turns" is still a setup option |
+| Answering | Typed answer vanished; tile flipped or X appeared | **"Survey says" beat**: the typed answer is shown big over the board with a drum roll, then resolved |
+| Pressure | None | **Answer clock** (30s default, 15s, or off). Timeout = wrong answer |
+| Match length | Always 3 rounds | Quick 3 / Classic 4 / Long 5 (last two always x2, x3) |
+| Round end | Toast, then "press space" in small type | Score counts up on the podium, missed answers flip one at a time in a dimmed style, one big CONTINUE button saying what comes next |
+| Layout | Board full width, flat score boxes, tiny strike squares | Left/right rails with coloured player podiums, round chip, pot, strike panel; Bella stands in the corner and reacts; her lines appear as a speech bubble |
+| Menus | Bare form; Esc = browser `confirm()`; rematch = page reload; "Enter for rematch" did nothing | Title card, two-panel setup with every option explained, How To Play, pause menu (resume / how to play / host keys / volume / restart / quit), Play Again / Change Players / Main Menu. No reloads |
+| Fast Money | One points column, all answers dumped at once | Per-player points columns, answers then points revealed one at a time, progress bar to target, PASS button (`Tab`), solo target 100 |
+| Motion | Hard cuts | Light-streak wipe on every screen change, moving spotlights, tile entrance and sheen, podium and pot animations, steal "red alert" |
+| Repeat questions | Random every match | Questions this browser has not seen are served first |
+| Persistence | None | Names, options, volume, mute, seen questions and best solo score in `localStorage` (`bfeud.*`) |
+
+### Bugs in 1.0 that 2.0 fixes
+
+- **Answers starting with M, X, Z or a digit could not be typed.** Host keys
+  fired on an empty answer box, so "zebra" triggered Undo and "mouse" toggled
+  mute. Single-letter keys inside a text box now need `Alt`.
+- **"Winner only" Fast Money could not be won.** Five top answers total about
+  165; the target was 200. One-player Fast Money now plays to 100
+  (`FM_TARGET_SOLO`).
+- The result screen advertised "Enter for a rematch" but nothing handled it.
+
+### Engine API added (`src/game.js`)
+
+`settings.rounds`, `settings.buzzIn`, `settings.preshuffled`; `game.buzz(id)`,
+`game.timeout()`; events `awaitBuzz`, `buzzed`, `roundEnd`; `reveal.missed`;
+`roundCard` carries `isFinal`, `totalRounds`, `pair`. `bank` now comes
+**before** the sweep of missed answers. Solo is simply `players.length === 1`.
+Tests: `tools/test-game.mjs` went from 80 to 102 checks; `node tools/test-all.mjs`
+passes.
+
+### Verified / not verified
+
+- Verified in a browser at 1600x900: full 2-player match (buzz, strikes, steal,
+  three rounds, winner, Fast Money with a duplicate, final result), solo run,
+  pause menu, restart mid-match. No console errors.
+- **Not verified:** 3 and 4 player layouts by eye, "take turns" face-off in the
+  browser, sound balance with audio on (testing was muted), other resolutions,
+  touch devices. Play one real match with sound before deploying.
+- Six optional-art probes 404 on load until that art exists (harmless).
+
+### Still to do
+
+1. Owner plays it and gives notes.
+2. Optional art and 17 new Bella lines: `docs/bellafox-feud-2-art-and-voice.md`
+   has every prompt and the line list. The game is complete without them.
+3. Commit and push (not done — nobody asked yet).
+4. Deploy: unchanged from section 4.
+
+---
+
 ## 1. One-line state
 
 The game is **complete and playable**, and is **not deployed anywhere**.

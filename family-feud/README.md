@@ -5,6 +5,7 @@ Hot-seat game show for 2–4 players, built for the BellaFox arcade.
 - **Current state and outstanding work: `../docs/family-feud-handoff.md` — read first**
 - Build plan (design): `../docs/family-feud-build-plan.md`
 - Image prompts: `../docs/codex-image-prompts.md`
+- 2.0 optional art + new voice lines: `../docs/bellafox-feud-2-art-and-voice.md`
 - Library doc blocks + deploy checklist: `../docs/family-feud-library-entries.md`
 
 **Not deployed yet.** This runs from a local checkout only; it is not on
@@ -28,14 +29,18 @@ Then open <http://localhost:8080/>.
 
 ## Playing
 
+1-4 players on one screen. Everything has a button; the keys are shortcuts.
+
 | Key | Effect |
 |---|---|
-| `Enter` | Start / submit an answer / rematch |
+| `Enter` | Start / submit an answer |
+| `A` / `L` | Face-off buzzers (left player / right player) |
 | `P` / `S` | Play or Pass after winning a face-off |
-| `Space` | Advance between rounds, reveals and Fast Money turns |
+| `Space` | The big gold button: continue, next round, reveal |
+| `Tab` | Fast Money: pass on this question |
 | `M` | Mute |
-| `?` | Toggle the host-key list |
-| `Esc` | Back to the menu |
+| `Esc` | Pause menu (resume, how to play, volume, restart, quit) |
+| `?` | Host-key list |
 
 ### Host keys
 
@@ -43,12 +48,12 @@ Judgment calls, for whoever is running the game:
 
 | Key | Effect |
 |---|---|
-| `1`–`8` | Force-reveal that answer and award its points |
+| `1`-`8` | Force-reveal that answer and award its points |
 | `X` | Force a strike |
 | `Z` | Undo the last action |
 
-These fire when the answer box is empty or unfocused. With text already typed,
-hold `Alt` — otherwise pressing `3` mid-word would reveal an answer.
+While the cursor is in the answer box these need `Alt` (`Alt+3`, `Alt+X`) —
+otherwise nobody could type an answer starting with X or Z.
 
 ## Adding questions
 

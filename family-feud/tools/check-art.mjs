@@ -25,7 +25,14 @@ const EXPECTED = [
   ['round-card',   '09  Round transition background','1920x1080'],
   ['fastmoney-bg', '10  Fast Money bumper',          '1920x1080'],
   ['winner',       '11  Big winner frame',           '1920x1080'],
-  ['tile',         '12  Arcade tile / thumbnail',    '1200x1200'],
+  ['tile',         '12  Arcade tile / thumbnail',    '1200x1200'],  // Optional 2.0 extras (docs/bellafox-feud-2-art-and-voice.md). The game
+  // draws a stand-in for each, so these are upgrades rather than requirements.
+  ['bella-think',  '13  Bella thinking (optional)',  '1024x1536, transparent'],
+  ['bella-point',  '14  Bella presenting (optional)','1024x1536, transparent'],
+  ['buzzer',       '15  Buzzer dome (optional)',     '1024x1024, transparent'],
+  ['crowd',        '16  Audience silhouette (optional)', '1920x400, transparent'],
+  ['trophy',       '17  Trophy (optional)',          '1024x1024, transparent'],
+  ['logo-marquee', '18  Title marquee frame (optional)', '1960x1800, transparent'],
 ];
 
 const kb = (n) => `${(n / 1024).toFixed(0)} KB`;

@@ -323,6 +323,89 @@ const has = (evts, type) => evts.some((e) => e.type === type);
   check('O: round 2 pairs players 1 and 2', JSON.stringify(g.state.faceoff.pair) === '[1,2]', JSON.stringify(g.state.faceoff.pair));
 }
 
+// ---------------------------------------------------------------- P: buzz-in face-off
+{
+  const g = newGame({ buzzIn: true });
+  g.startRound();
+  const open = g.beginFaceoff();
+  check('P: buzz mode waits for a buzz, not an answer', has(open, 'awaitBuzz') && !has(open, 'awaitInput'));
+  check('P: answering before a buzz is still accepted in order', g.state.faceoff.buzzed === null);
+  const bz = g.buzz(1);
+  check('P: buzzer answers first', last(bz, 'awaitInput')?.who === 1 && g.state.faceoff.pair[0] === 1);
+  check('P: second buzz is ignored', g.buzz(0)[0].type === 'noop');
+  const answers = g.state.question.answers;
+  g.submitFaceoff(answers[0].text);
+  check('P: buzzer with the top answer takes control', g.state.controller === 1 && g.state.phase === PHASE.PLAY_OR_PASS);
+
+  const g2 = newGame({ buzzIn: true });
+  g2.startRound(); g2.beginFaceoff(); g2.buzz(0);
+  g2.submitFaceoff(GARBAGE[0]);
+  const failed = g2.submitFaceoff(GARBAGE[1]);
+  check('P: double miss re-opens the buzzers', has(failed, 'faceoffFailed') && has(failed, 'awaitBuzz'));
+  check('P: buzz state is cleared for the new question', g2.state.faceoff.buzzed === null);
+}
+
+// ---------------------------------------------------------------- Q: answer clock
+{
+  const g = newGame();
+  g.startRound(); g.beginFaceoff();
+  const answers = g.state.question.answers;
+  g.submitFaceoff(answers[0].text);
+  g.choose('play');
+  const t = g.timeout();
+  check('Q: a timeout on the board is a strike', g.state.strikes === 1 && last(t, 'strike')?.timedOut === true);
+  g.timeout(); g.timeout();
+  check('Q: three timeouts open the steal', g.state.phase === PHASE.STEAL);
+  const st = g.timeout();
+  check('Q: a timeout on the steal fails it', has(st, 'stealFailed') && g.state.phase === PHASE.ROUND_END);
+  check('Q: the pot stays with the controller', g.state.players[0].score === answers[0].points);
+}
+
+// ---------------------------------------------------------------- R: solo run
+{
+  const g = newGame({}, ['Solo']);
+  g.startRound();
+  const open = g.beginFaceoff();
+  check('R: solo skips the face-off', g.state.phase === PHASE.BOARD_PLAY && last(open, 'awaitInput')?.context === 'board');
+  const answers = g.state.question.answers;
+  g.submitBoard(answers[0].text);
+  g.submitBoard(GARBAGE[0]); g.submitBoard(GARBAGE[1]);
+  const out = g.submitBoard(GARBAGE[2]);
+  check('R: three strikes banks what was found', last(out, 'bank')?.reason === 'struckOut' && g.state.players[0].score === answers[0].points);
+  check('R: no steal in solo', g.state.phase === PHASE.ROUND_END);
+  const bankAt = out.findIndex((e) => e.type === 'bank');
+  const missed = out.filter((e) => e.type === 'reveal' && e.missed);
+  check('R: missed answers are swept after the bank', missed.length === answers.length - 1 && out.indexOf(missed[0]) > bankAt);
+  check('R: missed answers add nothing to the pot', g.state.pot === answers[0].points);
+  check('R: roundEnd says another round follows', last(out, 'roundEnd')?.next === 'round');
+  g.advanceRound(); g.beginFaceoff(); g.timeout(); g.timeout(); g.timeout();
+  g.advanceRound(); g.beginFaceoff(); g.timeout(); g.timeout();
+  const fin = g.timeout();
+  check('R: last round points at the result', last(fin, 'roundEnd')?.next === 'result');
+  const res = g.advanceRound();
+  check('R: solo reaches the main result', has(res, 'mainResult') && g.state.winner === 0);
+  const fm = g.startFastMoney();
+  check('R: solo Fast Money has a reachable target', last(fm, 'fmIntro')?.target === 100 && g.state.fm.order.length === 1);
+}
+
+// ---------------------------------------------------------------- S: match length
+{
+  const g = newGame({ rounds: 4 });
+  const mults = [];
+  for (let r = 0; r < 4; r++) {
+    if (r === 0) g.startRound();
+    mults.push(g.state.round.multiplier);
+    g.beginFaceoff();
+    const answers = g.state.question.answers;
+    g.submitFaceoff(answers[0].text);
+    g.choose('play');
+    for (let i = 1; i < answers.length; i++) g.submitBoard(answers[i].text);
+    if (r < 3) g.advanceRound();
+  }
+  check('S: a 4-round match runs x1 x1 x2 x3', mults.join(',') === '1,1,2,3', mults.join(','));
+  check('S: the match ends after round 4', has(g.advanceRound(), 'mainResult'));
+}
+
 for (const f of failures) console.error(`FAIL ${f}`);
 console.log(`\n${failures.length ? 'FAIL' : 'PASS'} — ${passed}/${passed + failures.length} game checks`);
 process.exit(failures.length ? 1 : 0);

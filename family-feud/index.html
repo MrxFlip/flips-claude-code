@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BellaFox Feud</title>
-<meta name="description" content="Hot-seat game show for 2-4 players.">
+<meta name="description" content="The survey game show for 1-4 players. Bella hosts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20261115-feud2">
 </head>
 <body>
 <div id="stage-wrap">
@@ -17,103 +17,190 @@
     <div class="backdrop" aria-hidden="true">
       <div class="backdrop-glow"></div>
       <div class="backdrop-rays"></div>
+      <div class="spot spot-a"></div>
+      <div class="spot spot-b"></div>
+      <div class="spot spot-c"></div>
+      <div class="spot spot-d"></div>
     </div>
 
     <!-- ============================ ATTRACT ============================ -->
     <section class="screen screen-attract" data-for="attract">
-      <div class="logo-block">
-        <div class="logo-top">BELLAFOX</div>
-        <div class="logo-bottom">FEUD</div>
-        <div class="logo-rule"></div>
-        <p class="tagline">We asked 100 people&hellip;</p>
-      </div>
-      <p class="press-start">PRESS <kbd>ENTER</kbd> TO PLAY</p>
       <img class="bella bella-attract" alt="" data-art-base="bella-idle">
+      <div class="title-card">
+        <div class="marquee" aria-hidden="true"></div>
+        <div class="logo-block">
+          <div class="logo-top">BELLAFOX</div>
+          <div class="logo-bottom">FEUD</div>
+          <div class="logo-rule"></div>
+          <p class="tagline">We asked 100 people&hellip;</p>
+        </div>
+        <div class="title-actions">
+          <button type="button" class="big-button" id="playBtn">PLAY <kbd>ENTER</kbd></button>
+          <button type="button" class="ghost-button" id="howBtn">HOW TO PLAY</button>
+        </div>
+        <p class="title-foot" id="titleFoot">1&ndash;4 players &middot; one screen &middot; hosted by Bella</p>
+      </div>
     </section>
 
     <!-- ============================= SETUP ============================= -->
     <section class="screen screen-setup" data-for="setup">
-      <h2 class="screen-title">WHO&rsquo;S PLAYING?</h2>
+      <h2 class="screen-title">SET UP THE SHOW</h2>
 
-      <div class="setup-row">
-        <span class="setup-label">Players</span>
-        <div class="seg" id="playerCount" role="group" aria-label="Number of players">
-          <button type="button" data-n="2" class="on">2</button>
-          <button type="button" data-n="3">3</button>
-          <button type="button" data-n="4">4</button>
+      <div class="setup-panels">
+        <div class="panel">
+          <h3 class="panel-title">Contestants</h3>
+          <div class="seg seg-wide" id="playerCount" role="group" aria-label="Number of players">
+            <button type="button" data-n="1">Solo</button>
+            <button type="button" data-n="2" class="on">2</button>
+            <button type="button" data-n="3">3</button>
+            <button type="button" data-n="4">4</button>
+          </div>
+          <div class="name-list" id="nameGrid"></div>
+          <p class="panel-note" id="countNote">&nbsp;</p>
+        </div>
+
+        <div class="panel">
+          <h3 class="panel-title">Show rules</h3>
+
+          <div class="opt">
+            <div class="opt-head">
+              <span class="opt-label">Match length</span>
+              <div class="seg" id="optRounds" role="group" aria-label="Match length">
+                <button type="button" data-v="3" class="on">Quick &middot; 3</button>
+                <button type="button" data-v="4">Classic &middot; 4</button>
+                <button type="button" data-v="5">Long &middot; 5</button>
+              </div>
+            </div>
+            <p class="opt-note">Rounds before the finale. The last two are always double and triple points.</p>
+          </div>
+
+          <div class="opt" id="optFaceoffRow">
+            <div class="opt-head">
+              <span class="opt-label">Face-off</span>
+              <div class="seg" id="optFaceoff" role="group" aria-label="Face-off style">
+                <button type="button" data-v="buzz" class="on">Buzz in</button>
+                <button type="button" data-v="turns">Take turns</button>
+              </div>
+            </div>
+            <p class="opt-note" data-note-buzz="Two players race to hit their buzzer key. First in answers first."
+               data-note-turns="No race. Players alternate who answers first each round.">&nbsp;</p>
+          </div>
+
+          <div class="opt">
+            <div class="opt-head">
+              <span class="opt-label">Answer clock</span>
+              <div class="seg" id="optClock" role="group" aria-label="Answer clock">
+                <button type="button" data-v="0">Off</button>
+                <button type="button" data-v="30" class="on">30s</button>
+                <button type="button" data-v="15">15s</button>
+              </div>
+            </div>
+            <p class="opt-note">Run out of time and it counts as a wrong answer.</p>
+          </div>
+
+          <div class="opt" id="optFmRow">
+            <div class="opt-head">
+              <span class="opt-label">Fast Money</span>
+              <div class="seg" id="optFm" role="group" aria-label="Fast Money mode">
+                <button type="button" data-v="both" class="on">Top two team up</button>
+                <button type="button" data-v="solo">Winner alone</button>
+              </div>
+            </div>
+            <p class="opt-note" data-note-both="The winner and runner-up answer the same five questions and chase 200 together."
+               data-note-solo="Only the winner plays the bonus round, chasing 100 points.">&nbsp;</p>
+          </div>
         </div>
       </div>
 
-      <div class="name-grid" id="nameGrid"></div>
-
-      <div class="setup-row">
-        <span class="setup-label">Fast Money</span>
-        <div class="seg" id="fmMode" role="group" aria-label="Fast Money mode">
-          <button type="button" data-v="both" class="on">Both play</button>
-          <button type="button" data-v="solo">Winner only</button>
-        </div>
+      <div class="setup-actions">
+        <button type="button" class="ghost-button" id="setupBackBtn">&larr; BACK</button>
+        <button type="button" class="big-button" id="startBtn">START THE SHOW</button>
+        <button type="button" class="ghost-button" id="setupHowBtn">HOW TO PLAY</button>
       </div>
-
-      <div class="setup-row">
-        <span class="setup-label">End at 300</span>
-        <div class="seg" id="targetMode" role="group" aria-label="Target score">
-          <button type="button" data-v="off" class="on">Off</button>
-          <button type="button" data-v="on">On</button>
-        </div>
-      </div>
-
-      <button type="button" class="big-button" id="startBtn">START THE SHOW</button>
-      <p class="setup-hint">Enter to start &middot; <kbd>?</kbd> for host keys at any time</p>
     </section>
 
     <!-- =========================== ROUND CARD ========================== -->
     <section class="screen screen-roundcard" data-for="roundcard">
       <div class="rc-inner">
+        <div class="rc-kicker" id="rcKicker">&nbsp;</div>
         <div class="rc-label" id="rcLabel">ROUND 1</div>
         <div class="rc-sub" id="rcSub">SINGLE POINTS</div>
+        <div class="rc-pips" id="rcPips"></div>
+        <div class="rc-versus" id="rcVersus"></div>
       </div>
     </section>
 
     <!-- ============================== PLAY ============================= -->
     <section class="screen screen-play" data-for="play">
-      <header class="question-banner">
-        <div class="survey-mark">Simulated survey &middot; 100 people asked</div>
+
+      <div class="hud-card round-chip">
+        <span class="hud-label" id="roundChipLabel">ROUND 1 OF 3</span>
+        <span class="round-chip-mult" id="roundChipMult">&times;1</span>
+        <span class="hud-sub" id="roundChipSub">SINGLE POINTS</span>
+      </div>
+
+      <div class="hud-card pot-box" id="potBox">
+        <span class="hud-label">Round pot</span>
+        <span class="pot-value" id="pot">0</span>
+        <span class="hud-sub" id="potSub">up for grabs</span>
+      </div>
+
+      <header class="question-banner" id="questionBanner">
+        <div class="survey-mark">We asked 100 people</div>
         <h1 class="question" id="question">&nbsp;</h1>
       </header>
 
       <main class="board" id="board" aria-live="polite"></main>
 
-      <div class="play-bottom">
-        <div class="player-plates" id="plates"></div>
+      <div class="podium-col podium-left" id="podiumsLeft"></div>
+      <div class="podium-col podium-right" id="podiumsRight"></div>
 
-        <div class="control-row">
-          <div class="strikes" id="strikes" aria-label="Strikes">
-            <span class="strike-slot"></span><span class="strike-slot"></span><span class="strike-slot"></span>
-          </div>
-
-          <!-- One grid cell holds both: the control row has exactly three
-               columns, and a fourth child would wrap the pot box off-stage. -->
-          <div class="answer-slot">
-            <form class="answer-form" id="answerForm" autocomplete="off">
-              <label class="answer-prompt" id="answerPrompt" for="answerInput">&nbsp;</label>
-              <input class="answer-input" id="answerInput" type="text" maxlength="120"
-                     autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
-                     placeholder="Type your answer and press Enter">
-            </form>
-
-            <div class="choice-row" id="choiceRow" hidden>
-              <button type="button" class="choice-btn" data-choice="play"><kbd>P</kbd> PLAY</button>
-              <button type="button" class="choice-btn" data-choice="pass"><kbd>S</kbd> PASS</button>
-            </div>
-          </div>
-
-          <div class="pot-box">
-            <span class="pot-label">Pot</span>
-            <span class="pot-value" id="pot">0</span>
-            <span class="pot-mult" id="potMult">&times;1</span>
-          </div>
+      <div class="strike-panel">
+        <span class="hud-label">Strikes</span>
+        <div class="strikes" id="strikes" aria-label="Strikes">
+          <span class="strike-slot"></span><span class="strike-slot"></span><span class="strike-slot"></span>
         </div>
       </div>
+
+      <!-- The console is the one place the game asks for input. Exactly one
+           of its panes is visible at a time (data-mode on the console). -->
+      <div class="console" id="console" data-mode="idle">
+        <div class="console-status" id="consoleStatus">&nbsp;</div>
+
+        <div class="pane pane-buzz">
+          <button type="button" class="buzzer" id="buzzA" data-slot="0">
+            <kbd id="buzzAKey">A</kbd><span class="buzzer-name" id="buzzAName">Player 1</span>
+          </button>
+          <div class="buzz-mid">BUZZ IN!</div>
+          <button type="button" class="buzzer" id="buzzB" data-slot="1">
+            <kbd id="buzzBKey">L</kbd><span class="buzzer-name" id="buzzBName">Player 2</span>
+          </button>
+        </div>
+
+        <form class="pane pane-input answer-form" id="answerForm" autocomplete="off">
+          <input class="answer-input" id="answerInput" type="text" maxlength="60"
+                 autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+                 aria-label="Your answer" placeholder="Type your answer and press Enter">
+          <div class="clock" id="clock" hidden><span id="clockText">30</span></div>
+        </form>
+
+        <div class="pane pane-choice" id="choiceRow">
+          <button type="button" class="choice-btn" data-choice="play">
+            <span class="choice-main"><kbd>P</kbd> PLAY</span>
+            <span class="choice-note">Clear the board yourself</span>
+          </button>
+          <button type="button" class="choice-btn alt" data-choice="pass">
+            <span class="choice-main"><kbd>S</kbd> PASS</span>
+            <span class="choice-note">Make them do it, then steal</span>
+          </button>
+        </div>
+
+        <div class="pane pane-continue">
+          <button type="button" class="big-button primary-action" id="continueBtn">CONTINUE <kbd>SPACE</kbd></button>
+        </div>
+      </div>
+
+      <img class="host" id="host" alt="" data-art-base="bella-idle">
     </section>
 
     <!-- =========================== FAST MONEY ========================== -->
@@ -126,44 +213,60 @@
 
       <div class="fm-question" id="fmQuestion">&nbsp;</div>
 
+      <div class="fm-cols" id="fmCols">
+        <span></span><span class="fm-col-name" id="fmColA">&nbsp;</span><span></span>
+        <span class="fm-col-name" id="fmColB">&nbsp;</span><span></span>
+      </div>
       <div class="fm-rows" id="fmRows"></div>
 
       <div class="fm-bottom">
-        <form class="answer-form fm-form" id="fmForm" autocomplete="off">
-          <input class="answer-input" id="fmInput" type="text" maxlength="120"
+        <form class="answer-form fm-form" id="fmForm" autocomplete="off" hidden>
+          <input class="answer-input" id="fmInput" type="text" maxlength="60"
                  autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
-                 placeholder="Answer and press Enter">
+                 aria-label="Fast Money answer" placeholder="Answer and press Enter">
+          <button type="button" class="ghost-button" id="fmPassBtn">PASS <kbd>TAB</kbd></button>
         </form>
+        <div class="fm-continue" id="fmContinue" hidden>
+          <button type="button" class="big-button primary-action" id="fmContinueBtn">CONTINUE <kbd>SPACE</kbd></button>
+        </div>
         <div class="fm-total">
-          <span class="pot-label">Total</span>
-          <span class="pot-value" id="fmTotal">0</span>
-          <span class="pot-mult">/ 200</span>
+          <span class="hud-label">Total</span>
+          <span class="fm-total-nums"><span class="pot-value" id="fmTotal">0</span><span class="fm-target" id="fmTarget">/ 200</span></span>
+          <div class="fm-bar"><div class="fm-bar-fill" id="fmBar"></div></div>
         </div>
       </div>
     </section>
 
     <!-- ============================= RESULT ============================ -->
     <section class="screen screen-result" data-for="result">
+      <canvas class="confetti" id="confetti" width="1920" height="1080" aria-hidden="true"></canvas>
       <div class="result-inner">
+        <img class="trophy" alt="" data-art-base="trophy">
         <div class="result-kicker" id="resultKicker">WINNER</div>
         <div class="result-name" id="resultName">&nbsp;</div>
         <div class="result-detail" id="resultDetail">&nbsp;</div>
-        <p class="press-start small">PRESS <kbd>ENTER</kbd> FOR A REMATCH &middot; <kbd>ESC</kbd> FOR THE MENU</p>
+        <div class="standings" id="standings"></div>
+        <div class="result-actions">
+          <button type="button" class="big-button primary-action" id="resultPrimary">CONTINUE <kbd>SPACE</kbd></button>
+          <button type="button" class="ghost-button" id="resultAgain" hidden>PLAY AGAIN</button>
+          <button type="button" class="ghost-button" id="resultSetup" hidden>CHANGE PLAYERS</button>
+          <button type="button" class="ghost-button" id="resultMenu" hidden>MAIN MENU</button>
+        </div>
       </div>
       <img class="bella bella-result" alt="" data-art-base="bella-win">
-      <canvas class="confetti" id="confetti" width="1920" height="1080" aria-hidden="true"></canvas>
     </section>
 
     <!-- =========================== OVERLAYS ============================ -->
-    <div class="strike-overlay" id="strikeOverlay" aria-hidden="true">
-      <svg class="strike-x" viewBox="0 0 100 100" aria-hidden="true">
-        <path d="M18 18 L82 82 M82 18 L18 82" />
-      </svg>
-      <img class="strike-art" alt="" data-art-base="strike-x">
+    <div class="guess" id="guess" aria-hidden="true">
+      <div class="guess-card">
+        <div class="guess-who" id="guessWho">&nbsp;</div>
+        <div class="guess-text" id="guessText">&nbsp;</div>
+        <div class="guess-dots"><i></i><i></i><i></i></div>
+      </div>
     </div>
 
-    <div class="cutin" id="cutin" aria-hidden="true">
-      <img id="cutinImg" alt="">
+    <div class="strike-overlay" id="strikeOverlay" aria-hidden="true">
+      <div class="strike-set" id="strikeSet"></div>
     </div>
 
     <div class="curtain" id="curtain" aria-hidden="true">
@@ -176,26 +279,65 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <div class="subtitle" id="subtitle" aria-live="polite"></div>
+    <div class="wipe" id="wipe" aria-hidden="true"></div>
 
-    <div class="keyhelp" id="keyhelp" hidden>
-      <h3>Host keys</h3>
-      <dl>
-        <dt>1&ndash;8</dt><dd>Force-reveal that answer</dd>
-        <dt>X</dt><dd>Force a strike</dd>
-        <dt>Z</dt><dd>Undo the last action</dd>
-        <dt>Space</dt><dd>Advance</dd>
-        <dt>P / S</dt><dd>Play / Pass</dd>
-        <dt>M</dt><dd>Mute</dd>
-        <dt>Esc</dt><dd>Menu</dd>
-        <dt>?</dt><dd>Toggle this list</dd>
-      </dl>
+    <div class="corner-buttons">
+      <button type="button" class="round-btn" id="menuBtn" aria-label="Menu" title="Menu (Esc)">&#9776;</button>
+      <button type="button" class="round-btn" id="muteBtn" aria-label="Mute" title="Mute (M)">&#9835;</button>
     </div>
 
-    <button type="button" class="mute-btn" id="muteBtn" aria-label="Mute">&#9835;</button>
+    <!-- ============================== MENU ============================= -->
+    <div class="modal" id="menu" hidden>
+      <div class="modal-card menu-card">
+        <h3>PAUSED</h3>
+        <button type="button" class="menu-item" data-menu="resume">Resume <kbd>ESC</kbd></button>
+        <button type="button" class="menu-item" data-menu="how">How to play</button>
+        <button type="button" class="menu-item" data-menu="keys">Host keys</button>
+        <label class="menu-vol">Volume
+          <input type="range" id="volume" min="0" max="100" value="80">
+        </label>
+        <button type="button" class="menu-item" data-menu="restart">Restart match</button>
+        <button type="button" class="menu-item danger" data-menu="quit">Quit to main menu</button>
+      </div>
+    </div>
+
+    <div class="modal" id="howto" hidden>
+      <div class="modal-card how-card">
+        <h3>HOW TO PLAY</h3>
+        <ol class="how-steps">
+          <li><b>The survey.</b> We asked 100 people a question. The most popular answers are hidden on the board. Popular answers are worth more.</li>
+          <li><b>Face-off.</b> Two players race for control: buzz in (keys <kbd>A</kbd> and <kbd>L</kbd>) and type an answer. The higher answer wins and chooses to <b>play</b> or <b>pass</b>.</li>
+          <li><b>Play the board.</b> Whoever plays keeps typing answers. Each one found adds to the round pot. A wrong answer is a strike.</li>
+          <li><b>Three strikes &rarr; steal.</b> The other player gets one guess. Get it right and they take the whole pot. Miss and the pot stays put.</li>
+          <li><b>Later rounds are worth more</b> &mdash; double, then triple. Highest score wins and goes to <b>Fast Money</b>: five quick questions against the clock.</li>
+        </ol>
+        <p class="how-foot">Playing solo? No face-off, no steal &mdash; just you, the board and three strikes.</p>
+        <button type="button" class="big-button" id="howClose">GOT IT</button>
+      </div>
+    </div>
+
+    <div class="modal" id="keyhelp" hidden>
+      <div class="modal-card keys-card">
+        <h3>HOST KEYS</h3>
+        <p class="how-foot">For settling arguments. They work when the answer box is empty, or hold <kbd>Alt</kbd>.</p>
+        <dl>
+          <dt>1&ndash;8</dt><dd>Reveal that answer and award it</dd>
+          <dt>X</dt><dd>Force a strike</dd>
+          <dt>Z</dt><dd>Undo the last action</dd>
+          <dt>Space</dt><dd>Continue</dd>
+          <dt>P / S</dt><dd>Play / Pass</dd>
+          <dt>A / L</dt><dd>Face-off buzzers</dd>
+          <dt>M</dt><dd>Mute</dd>
+          <dt>Esc</dt><dd>Pause menu</dd>
+          <dt>?</dt><dd>This list</dd>
+        </dl>
+        <button type="button" class="big-button" id="keysClose">CLOSE</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <noscript><p style="color:#fff;font:600 18px system-ui;padding:24px">This game needs JavaScript enabled.</p></noscript>
-<script type="module" src="app.js"></script>
+<script type="module" src="app.js?v=20261115-feud2"></script>
 </body>
 </html>

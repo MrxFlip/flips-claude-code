@@ -24,6 +24,13 @@ const ASSETS = [
   ['bella-idle',   'art-bella-idle', '--art-bella-idle'],
   ['bella-win',    'art-bella-win',  '--art-bella-win'],
   ['bella-strike', 'art-bella-strike', '--art-bella-strike'],
+  // Optional 2.0 extras. Each has a CSS-drawn stand-in, so none is required.
+  ['bella-think',  'art-bella-think',  '--art-bella-think'],
+  ['bella-point',  'art-bella-point',  '--art-bella-point'],
+  ['buzzer',       'art-buzzer',       '--art-buzzer'],
+  ['crowd',        'art-crowd',        '--art-crowd'],
+  ['trophy',       'art-trophy',       '--art-trophy'],
+  ['logo-marquee', 'art-logo-marquee', '--art-logo-marquee'],
 ];
 
 function probe(src) {

@@ -28,10 +28,27 @@ export const ROUNDS = [
   { label: 'ROUND 2', sub: 'DOUBLE POINTS', multiplier: 2 },
   { label: 'ROUND 3', sub: 'TRIPLE POINTS', multiplier: 3 },
 ];
+/**
+ * Round list for a match of `count` scoring rounds. Three is the quick game
+ * (x1, x2, x3); longer matches add single-point rounds up front, the way the
+ * show does (x1, x1, x2, x3).
+ */
+export function roundsFor(count = 3) {
+  const n = Math.max(1, Math.min(6, count | 0));
+  const mults = n <= 3 ? [1, 2, 3].slice(0, n) : [...new Array(n - 2).fill(1), 2, 3];
+  const SUBS = { 1: 'SINGLE POINTS', 2: 'DOUBLE POINTS', 3: 'TRIPLE POINTS' };
+  return mults.map((m, i) => ({ label: `ROUND ${i + 1}`, sub: SUBS[m], multiplier: m }));
+}
+
+const TIMEOUT_TEXT = '\u0000__timed_out__';
+
 export const SUDDEN_DEATH = { label: 'SUDDEN DEATH', sub: 'QUADRUPLE POINTS', multiplier: 4 };
 
 export const FM_QUESTION_COUNT = 5;
-export const FM_TARGET = 200;
+export const FM_TARGET = 200;      // two players answering together
+// One player cannot reach 200: five top answers total roughly 165. A solo
+// Fast Money plays to a target that is hard but actually winnable.
+export const FM_TARGET_SOLO = 100;
 export const FM_TIME = [20, 25]; // seconds for player 1 / player 2
 
 /** Mulberry32 — small seeded PRNG so a match can be replayed exactly. */
@@ -65,12 +82,16 @@ export function createGame({
     targetScore: settings.targetScore ?? null,   // e.g. 300, or null for "play all rounds"
     fastMoneyMode: settings.fastMoneyMode ?? 'both', // 'both' | 'solo'
     strikesAllowed: settings.strikesAllowed ?? 3,
+    rounds: settings.rounds ?? ROUNDS.length,        // scoring rounds before the finale
+    buzzIn: settings.buzzIn ?? false,                // face-off: race to buzz vs. fixed order
+    preshuffled: settings.preshuffled ?? false,      // caller already ordered the question pool
     ...settings,
   };
+  const roundList = cfg.rounds === ROUNDS.length ? ROUNDS : roundsFor(cfg.rounds);
 
   const rand = rng(seed);
-  const mainPool = shuffle(mainQuestions, rand);
-  const fmPool = shuffle(fmQuestions, rand);
+  const mainPool = cfg.preshuffled ? [...mainQuestions] : shuffle(mainQuestions, rand);
+  const fmPool = cfg.preshuffled ? [...fmQuestions] : shuffle(fmQuestions, rand);
   let mainCursor = 0;
 
   const state = {
@@ -78,6 +99,8 @@ export function createGame({
     phase: PHASE.SETUP,
     players: players.map((name, i) => ({ id: i, name, score: 0 })),
     roundIndex: 0,
+    totalRounds: roundList.length,
+    solo: players.length === 1,
     round: null,
     pot: 0,
     question: null,
@@ -140,7 +163,7 @@ export function createGame({
   // ---------------------------------------------------------------- rounds
 
   function roundConfig() {
-    return state.suddenDeath ? SUDDEN_DEATH : ROUNDS[state.roundIndex];
+    return state.suddenDeath ? SUDDEN_DEATH : roundList[state.roundIndex];
   }
 
   function startRound() {
@@ -155,27 +178,87 @@ export function createGame({
     loadQuestion(nextMainQuestion());
 
     const n = playerCount();
-    const a = state.roundIndex % n;
-    const b = (state.roundIndex + 1) % n;
-    state.faceoff = { pair: [a, b], turn: 0, results: [null, null], winner: null };
+    if (state.solo) {
+      // One player: no face-off, no steal. They simply play every board.
+      state.faceoff = null;
+      state.controller = 0;
+    } else {
+      const a = state.roundIndex % n;
+      const b = (state.roundIndex + 1) % n;
+      state.faceoff = { pair: [a, b], turn: 0, results: [null, null], winner: null, buzzed: null };
+    }
 
     state.phase = PHASE.ROUND_CARD;
     // phase first: the roundCard handler drives on into the face-off, so a
     // trailing phase event would snap the screen back to the round card.
     events.push({ type: 'phase', to: state.phase });
-    events.push({ type: 'roundCard', round: state.round, roundNumber: state.roundIndex + 1 });
+    events.push({
+      type: 'roundCard',
+      round: state.round,
+      roundNumber: state.roundIndex + 1,
+      totalRounds: roundList.length,
+      isFinal: !state.suddenDeath && state.roundIndex + 1 >= roundList.length,
+      suddenDeath: state.suddenDeath,
+      pair: state.faceoff ? [...state.faceoff.pair] : null,
+    });
     return events;
   }
 
   /** ROUND_CARD -> FACEOFF (the host reads the question). */
   function beginFaceoff() {
     snapshot();
+    if (state.solo) {
+      state.phase = PHASE.BOARD_PLAY;
+      return [
+        { type: 'phase', to: state.phase },
+        { type: 'readQuestion', question: state.question },
+        { type: 'awaitInput', who: 0, context: 'board', masked: false },
+      ];
+    }
     state.phase = PHASE.FACEOFF;
     return [
       { type: 'phase', to: state.phase },
-      { type: 'readQuestion', question: state.question },
-      { type: 'awaitInput', who: state.faceoff.pair[0], context: 'faceoff', masked: true },
+      { type: 'readQuestion', question: state.question, faceoff: true },
+      faceoffOpener(),
     ];
+  }
+
+  /** What the face-off waits for first: a buzz, or the first player's answer. */
+  function faceoffOpener() {
+    const fo = state.faceoff;
+    if (cfg.buzzIn) return { type: 'awaitBuzz', pair: [...fo.pair] };
+    return { type: 'awaitInput', who: fo.pair[0], context: 'faceoff', masked: true };
+  }
+
+  /** Buzz-in face-off: whoever buzzes answers first. */
+  function buzz(playerId) {
+    const fo = state.faceoff;
+    if (state.phase !== PHASE.FACEOFF || !fo) return [{ type: 'noop' }];
+    if (fo.buzzed != null || fo.turn !== 0 || fo.results[0]) return [{ type: 'noop' }];
+    if (!fo.pair.includes(playerId)) return [{ type: 'noop' }];
+    snapshot();
+    if (fo.pair[0] !== playerId) fo.pair = [fo.pair[1], fo.pair[0]];
+    fo.buzzed = playerId;
+    return [
+      { type: 'buzzed', player: playerId },
+      { type: 'awaitInput', who: playerId, context: 'faceoff', masked: false },
+    ];
+  }
+
+  /** The answer clock ran out on whoever is up. */
+  function timeout() {
+    let events;
+    if (state.phase === PHASE.FACEOFF) events = submitFaceoff(TIMEOUT_TEXT);
+    else if (state.phase === PHASE.BOARD_PLAY) events = submitBoard(TIMEOUT_TEXT);
+    else if (state.phase === PHASE.STEAL) events = submitSteal(TIMEOUT_TEXT);
+    else return [{ type: 'noop' }];
+    for (const e of events) {
+      if (e.type === 'strike' || e.type === 'faceoffMiss' || e.type === 'stealFailed' || e.type === 'faceoffEntry') {
+        e.timedOut = true;
+        if ('text' in e) e.text = '';
+      }
+    }
+    return events;
   }
 
   function submitFaceoff(text) {
@@ -218,9 +301,10 @@ export function createGame({
       loadQuestion(nextMainQuestion());
       fo.turn = 0;
       fo.results = [null, null];
+      fo.buzzed = null;
       events.push({ type: 'faceoffFailed' });
-      events.push({ type: 'readQuestion', question: state.question });
-      events.push({ type: 'awaitInput', who: fo.pair[0], context: 'faceoff', masked: true });
+      events.push({ type: 'readQuestion', question: state.question, faceoff: true });
+      events.push(faceoffOpener());
       return events;
     }
 
@@ -230,7 +314,12 @@ export function createGame({
     state.stealer = fo.pair[winnerSlot === 0 ? 1 : 0];
     state.phase = PHASE.PLAY_OR_PASS;
 
-    events.push({ type: 'faceoffWon', player: fo.winner });
+    events.push({
+      type: 'faceoffWon',
+      player: fo.winner,
+      loser: state.stealer,
+      rank: Math.min(r0, r1),
+    });
     events.push({ type: 'phase', to: state.phase });
     events.push({ type: 'awaitChoice', who: fo.winner });
     return events;
@@ -277,6 +366,9 @@ export function createGame({
     state.strikes += 1;
     events.push({ type: 'strike', count: state.strikes, text });
     if (state.strikes >= cfg.strikesAllowed) {
+      // Solo: nobody to steal, so three strikes simply ends the board and the
+      // player keeps what they found.
+      if (state.solo) return [...events, ...bankTo(0, 'struckOut')];
       state.phase = PHASE.STEAL;
       events.push({ type: 'phase', to: state.phase });
       events.push({ type: 'stealOffered', player: state.stealer, pot: state.pot });
@@ -310,11 +402,8 @@ export function createGame({
     state.players[playerId].score += awarded;
     state.roundResult = { playerId, pot: state.pot, multiplier, awarded, reason };
 
-    const remaining = [];
-    state.revealed.forEach((done, i) => { if (!done) remaining.push(i + 1); });
-    for (const rank of remaining) revealRank(rank, events, { award: false });
-
-    state.phase = PHASE.ROUND_END;
+    // Bank first, then sweep: the points land while the moment is hot, and the
+    // answers nobody found are shown afterwards, smallest first.
     events.push({
       type: 'bank',
       player: playerId,
@@ -324,7 +413,31 @@ export function createGame({
       reason,
       scores: state.players.map((p) => p.score),
     });
+
+    const remaining = [];
+    state.revealed.forEach((done, i) => { if (!done) remaining.push(i + 1); });
+    remaining.reverse();
+    for (const rank of remaining) {
+      revealRank(rank, events, { award: false });
+      events[events.length - 1].missed = true;
+    }
+
+    state.phase = PHASE.ROUND_END;
     events.push({ type: 'phase', to: state.phase });
+
+    const scores = state.players.map((p) => p.score);
+    const top = Math.max(...scores);
+    const tied = scores.filter((s) => s === top).length > 1;
+    const lastRound = state.suddenDeath || state.roundIndex + 1 >= roundList.length;
+    events.push({
+      type: 'roundEnd',
+      player: playerId,
+      awarded,
+      reason,
+      missedCount: remaining.length,
+      scores,
+      next: !lastRound ? 'round' : tied ? 'suddenDeath' : 'result',
+    });
     return events;
   }
 
@@ -338,7 +451,7 @@ export function createGame({
     const leaders = scores.filter((s) => s === top).length;
 
     const hitTarget = cfg.targetScore != null && top >= cfg.targetScore && leaders === 1;
-    const playedAll = state.suddenDeath || state.roundIndex + 1 >= ROUNDS.length;
+    const playedAll = state.suddenDeath || state.roundIndex + 1 >= roundList.length;
 
     if (hitTarget || playedAll) {
       // A tie always plays another sudden-death round, including a tie that
@@ -384,11 +497,12 @@ export function createGame({
       entries: order.map(() => []),
       duplicates: [],
       total: 0,
+      target: order.length === 1 ? FM_TARGET_SOLO : FM_TARGET,
     };
     state.phase = PHASE.FM_INTRO;
     return [
       { type: 'phase', to: state.phase },
-      { type: 'fmIntro', order, target: FM_TARGET, mode: state.fm.mode },
+      { type: 'fmIntro', order, target: state.fm.target, mode: state.fm.mode },
     ];
   }
 
@@ -523,10 +637,10 @@ export function createGame({
   function fmFinish() {
     const fm = state.fm;
     state.phase = PHASE.FM_RESULT;
-    const won = fm.total >= FM_TARGET;
+    const won = fm.total >= fm.target;
     return [
       { type: 'phase', to: state.phase },
-      { type: 'fmResult', total: fm.total, target: FM_TARGET, won },
+      { type: 'fmResult', total: fm.total, target: fm.target, won },
     ];
   }
 
@@ -552,7 +666,7 @@ export function createGame({
   return {
     state,
     get config() { return cfg; },
-    startRound, beginFaceoff, submitFaceoff, choose, submitBoard, submitSteal,
+    startRound, beginFaceoff, buzz, timeout, submitFaceoff, choose, submitBoard, submitSteal,
     advanceRound, startFastMoney, fmBeginTurn, fmSubmit, fmReveal, fmSubmitSpare,
     forceReveal, forceStrike, undo,
     get canUndo() { return history.length > 0; },

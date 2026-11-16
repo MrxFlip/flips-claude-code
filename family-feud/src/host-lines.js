@@ -95,6 +95,43 @@ export const HOST_LINES = {
     'And that is your winner!',
     'What a match!',
   ],
+
+  // ---- Added in the 2.0 flow pass. Not recorded yet: until clips exist these
+  // show as captions only (see the speak() fallback in audio.js). The script
+  // for recording them is in docs/bellafox-feud-2-art-and-voice.md.
+  buzzPrompt: [
+    'Hands on your buzzers.',
+    'Buzzers ready.',
+  ],
+  playOrPass: [
+    'Play, or pass?',
+    'You have control. Play or pass?',
+  ],
+  surveySays: [
+    'Survey says...',
+    'Show me!',
+    'Is it up there?',
+  ],
+  timeUp: [
+    'Out of time!',
+    'Too slow!',
+  ],
+  missedAnswers: [
+    "Let's see what you missed.",
+    'Here is what was still up there.',
+  ],
+  suddenDeath: [
+    "We're tied. Sudden death!",
+  ],
+  finalRound: [
+    'Final round. Triple points!',
+  ],
+  soloOpen: [
+    'Just you and the board. Good luck.',
+  ],
+  struckOut: [
+    'Three strikes. That board is done.',
+  ],
 };
 
 /** Pick a random take. Returns { key, text } for speak(). */
