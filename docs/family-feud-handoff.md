@@ -62,6 +62,23 @@ passes.
   touch devices. Play one real match with sound before deploying.
 - Six optional-art probes 404 on load until that art exists (harmless).
 
+### Deploy and branch state (2026-11-15, evening)
+
+- **2.0 is live** at https://bellafox.gg/arcade/feud/ (copied to `Z:\Websitercadeeud\`,
+  1.0 files backed up to `Z:\Backups\BellaFoxWebsite6-11-15-feud2\`, changed
+  files curl-verified). Scripts carry `?v=20261115-feud2`.
+- **2.0 is committed locally as `115c375` but NOT pushed.** The push was rejected:
+  another session pushed `fc7db30`, `984377a`, `a1bc83e` to the same branch
+  (seven play-through fixes, **online multiplayer** via `src/net.js` +
+  `server/feud-server.mjs`, browser suites in `tools/browser/`). Those were built
+  on 1.0 and rewrite the same `app.js` / `index.html` / `styles.css` / `board.js`.
+- **The two lines are not merged.** Live has 2.0 and no online play. GitHub has
+  online play and the 1.0 look. Do not force-push either way. Merging means
+  porting host/guest roles from their `app.js` into the 2.0 `app.js` and taking
+  their `match.js`, `synonyms.js`, `board.js`, `audio.js` queue and fixtures.
+- Online play also needs the relay running on the server plus an nginx `/ws`
+  block (owner-run; see `family-feud/server/README.md` on the remote branch).
+
 ### Still to do
 
 1. Owner plays it and gives notes.
