@@ -4,7 +4,7 @@
 // app.js turns those events into animation and sound. Keeping the two apart
 // is what makes the whole match testable in Node without a browser.
 
-import { matchAnswer } from './match.js';
+import { matchAnswer } from './match.js?v=20261115-feud3';
 
 export const PHASE = {
   SETUP: 'SETUP',

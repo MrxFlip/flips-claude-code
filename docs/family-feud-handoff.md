@@ -10,9 +10,8 @@ exists, what is done, and what is left. The build plan
 ## 0. UPDATE 2026-11-15 — the 2.0 flow and visual pass (READ THIS FIRST)
 
 The owner played 1.0 and called it "just ok ... too rough". 2.0 is a rebuild of
-the presentation layer and several rules. **It is in the working tree at
-`Z:\LLM Build Library\Website\BellaFox Feud\repo\` and is NOT committed or
-pushed** — the branch on GitHub is still 1.0. Sections 1-7 below describe 1.0
+the presentation layer and several rules. It is committed, merged with the online-play work (merge `afac12c`), pushed,
+and live. Details are in the merge and relay notes further down this section. Sections 1-7 below describe 1.0
 and are still right about the repo, voice, deploy blockers and gotchas; where
 they describe how the game plays or looks, this section wins.
 
@@ -103,6 +102,17 @@ matcher cases, all passing.
   porting.
 - 3-4 players online, real network latency, and sound with audio on.
 - No reconnect: a dropped guest cannot rejoin a started match (their design).
+
+### What is live (2026-11-15, night)
+
+- https://bellafox.gg/arcade/feud/ serves the merged build. Scripts and every
+  changed module import carry `?v=20261115-feud3` (including `game.js -> match.js`
+  and `match.js -> synonyms.js`, which Cloudflare would otherwise serve stale).
+- Backups of what was replaced: `Z:\Backups\BellaFoxWebsite\2026-11-15-feud2\`
+  (1.0) and `...\2026-11-15-feud3\` (2.0 before the merge).
+- Live-only file: `arcade/feud/data/online.json`. Relay source staged at
+  `/data/Projects/feud-relay/feud-server.mjs` (not in the web root).
+- `server/` and `tools/browser/` are not deployed to the web root.
 
 ### Relay on the server — OWNER STEP, needed before Online works on the live site
 
