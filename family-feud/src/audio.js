@@ -37,12 +37,32 @@ export function createAudio(opts = {}) {
       master = ctx.createGain();
       master.gain.value = volume;
       master.connect(ctx.destination);
-      if (ctx.state === 'suspended') ctx.resume();
       unlocked = true;
     } catch (e) {
       console.warn('[audio] Web Audio unavailable; running silent', e);
       unlocked = true; // don't retry forever
     }
+    resume();
+  }
+
+  /**
+   * An AudioContext does not stay running. Switching tab, locking the screen or
+   * changing the output device suspends it, and a suspended context accepts
+   * scheduled nodes and plays none of them. That is the bug where every effect
+   * went quiet for the rest of the match while Bella kept talking: `unlocked`
+   * was still true, so nothing ever looked at ctx.state again. Every entry
+   * point now resumes first, and the page listens for coming back into view.
+   */
+  function resume() {
+    if (!ctx || ctx.state !== 'suspended') return;
+    try { ctx.resume().catch(() => {}); } catch {}
+  }
+
+  if (typeof document !== 'undefined') {
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) resume();
+    });
+    window.addEventListener?.('focus', resume);
   }
 
   function setMuted(v) {
@@ -54,9 +74,8 @@ export function createAudio(opts = {}) {
   function setVolume(v) {
     volume = Math.max(0, Math.min(1, v));
     if (master && !muted) master.gain.value = volume;
-    if (liveClip) liveClip.volume = muted ? 0 : volume;
+    if (voiceEl) voiceEl.volume = muted ? 0 : volume;   // a line already playing follows the slider
   }
-  let liveClip = null;              // the <audio> currently speaking, for live volume
 
   // ---------- synth primitives ----------
 
@@ -211,16 +230,20 @@ export function createAudio(opts = {}) {
   function sfx(name) {
     if (muted) return;
     if (!unlocked) unlock();
+    resume();
 
     if (fileCache.has(name)) {
       const el = fileCache.get(name);
       if (el) { try { el.currentTime = 0; el.volume = volume; el.play().catch(() => {}); return; } catch {} }
     } else {
+      // Mark the probe as in flight before starting it. The cache is only
+      // written when the probe settles, so without this placeholder every call
+      // for a name with no file on disk — the default, since the synth covers
+      // all of them — started another download of the same 404.
+      fileCache.set(name, null);
       const el = new Audio(`${sfxDir}/${name}.mp3`);
       el.preload = 'auto';
-      el.addEventListener('error', () => fileCache.set(name, null), { once: true });
       el.addEventListener('canplaythrough', () => fileCache.set(name, el), { once: true });
-      // Don't wait on the probe — fall through to the synth for this first call.
     }
 
     SYNTH[name]?.();
@@ -248,12 +271,12 @@ export function createAudio(opts = {}) {
     for (const fn of subtitleListeners) { try { fn(text); } catch {} }
   }
 
-  let subtitleTimer = 0;
-  let subtitleSkip = null;
+  let captionTimer = 0;
+  let captionSkip = null;             // resolves a caption-only line early
 
   function stopVoice() {
     if (currentVoice) { try { currentVoice.stop(); } catch {} currentVoice = null; }
-    if (subtitleSkip) { clearTimeout(subtitleTimer); const r = subtitleSkip; subtitleSkip = null; r(); }
+    if (captionSkip) { clearTimeout(captionTimer); const r = captionSkip; captionSkip = null; r(); }
     try { window.speechSynthesis?.cancel(); } catch {}
   }
 
@@ -263,30 +286,45 @@ export function createAudio(opts = {}) {
     return Math.max(1200, Math.min(9000, (words / 2.7) * 1000 + 600));
   }
 
+  /**
+   * One element, reused for every line. A fresh `new Audio()` per line left a
+   * hundred-odd media elements alive over a long match, and browsers cap how
+   * many they will decode — past the cap play() rejects and Bella silently
+   * drops to the robot voice and then to subtitles.
+   */
+  let voiceEl = null;
+
   function playClip(src, text) {
     return new Promise((resolve) => {
-      const el = new Audio(src);
-      el.volume = muted ? 0 : volume;
-      liveClip = el;
+      if (!voiceEl) {
+        voiceEl = new Audio();
+        voiceEl.preload = 'auto';
+      }
+      const el = voiceEl;
       let done = false;
+      let guard = 0;
       const finish = (ok) => {
         if (done) return;
         done = true;
-        if (liveClip === el) liveClip = null;
+        clearTimeout(guard);
+        el.onended = el.onerror = el.onloadedmetadata = null;
         resolve(ok);
       };
 
-      el.addEventListener('ended', () => finish(true), { once: true });
-      el.addEventListener('error', () => finish(false), { once: true });
-
-      // Never let a stalled clip hold the game. Bound by its own duration
-      // once known, or a generous estimate until then.
-      const guard = setTimeout(() => finish(false), estimateMs(text) + 4000);
-      el.addEventListener('loadedmetadata', () => {
+      // 'ended' is what resolves a clip; the timer only exists so a stalled
+      // download cannot hold the game up. It used to resolve TRUE on a
+      // duration+1.5s timer, which bolted 1.5 seconds of dead air onto the end
+      // of every single line Bella spoke.
+      el.onended = () => finish(true);
+      el.onerror = () => finish(false);
+      guard = setTimeout(() => finish(false), estimateMs(text) + 4000);
+      el.onloadedmetadata = () => {
         clearTimeout(guard);
-        setTimeout(() => finish(true), el.duration * 1000 + 1500);
-      }, { once: true });
+        guard = setTimeout(() => finish(false), el.duration * 1000 + 2000);
+      };
 
+      el.volume = muted ? 0 : volume;
+      el.src = src;
       currentVoice = { stop: () => { try { el.pause(); } catch {} finish(false); } };
       el.play().catch(() => finish(false));
     });
@@ -320,12 +358,38 @@ export function createAudio(opts = {}) {
     });
   }
 
+  // Lines are spoken one at a time. Every say() used to begin by cancelling
+  // whatever was still playing, so "Good answer!" cut "Number one answer!" off
+  // mid-word and a fast round reduced Bella to syllables. The queue below plays
+  // them in order instead, and the priority decides what happens when a line
+  // arrives while she is still talking.
+  let voiceChain = Promise.resolve();
+  let voiceDepth = 0;                 // lines playing or waiting
+
   /**
    * Speak a line. Resolves when it's done (or when the fallback timer expires).
-   * @param {string|null} key  manifest key, e.g. "q:q001" or "host:goodAnswer"
-   * @param {string} text      the words, used for subtitles and fallbacks
+   * @param {string|null} key   manifest key, e.g. "q:q001" or "host:goodAnswer"
+   * @param {string} text       the words, used for subtitles and fallbacks
+   * @param {object} [opts]
+   * @param {number|null} [opts.index]   which take to use, so the subtitle on
+   *        screen is the take that actually plays instead of a different one.
+   * @param {'interrupt'|'queue'|'chatter'} [opts.priority]
+   *        interrupt — cut the current line off (a new question read);
+   *        queue     — wait your turn (the default);
+   *        chatter   — skip entirely if she is already mid-line (reactions,
+   *                    which are nice to have and never worth a collision).
    */
-  async function speak(key, text) {
+  function speak(key, text, { index = null, priority = 'queue' } = {}) {
+    if (priority === 'chatter' && voiceDepth > 0) return Promise.resolve('skipped');
+    if (priority === 'interrupt') stopVoice();
+
+    voiceDepth += 1;
+    const line = voiceChain.then(() => speakNow(key, text, index));
+    voiceChain = line.then(() => {}, () => {});
+    return line.finally(() => { voiceDepth -= 1; });
+  }
+
+  async function speakNow(key, text, index) {
     stopVoice();
     emitSubtitle(text);
 
@@ -334,14 +398,17 @@ export function createAudio(opts = {}) {
       emitSubtitle('');
       return 'muted';
     }
+    resume();
 
     let used = 'subtitle';
     const m = await loadManifest();
     const clips = key ? m[key] : null;
 
     if (Array.isArray(clips) && clips.length) {
-      const src = clips[Math.floor(Math.random() * clips.length)];
-      if (await playClip(src, text)) used = 'clip';
+      const pick = index == null
+        ? Math.floor(Math.random() * clips.length)
+        : ((index % clips.length) + clips.length) % clips.length;
+      if (await playClip(clips[pick], text)) used = 'clip';
     }
 
     // The browser's robot voice only stands in when there is no recorded host
@@ -352,8 +419,8 @@ export function createAudio(opts = {}) {
 
     if (used === 'subtitle') {
       const ms = hasRecordedHost ? Math.min(2200, estimateMs(text)) : estimateMs(text);
-      await new Promise((r) => { subtitleTimer = setTimeout(r, ms); subtitleSkip = r; });
-      subtitleSkip = null;
+      await new Promise((r) => { captionSkip = r; captionTimer = setTimeout(r, ms); });
+      captionSkip = null;
     }
 
     currentVoice = null;
@@ -362,8 +429,15 @@ export function createAudio(opts = {}) {
   }
 
   return {
-    unlock, setMuted, setVolume, sfx, speak, stopVoice, onSubtitle,
+    unlock, resume, setMuted, setVolume, sfx, speak, stopVoice, onSubtitle,
     get isMuted() { return muted; },
+    get speaking() { return voiceDepth > 0; },
+    // Diagnostic: 'running' is healthy, 'suspended' means the browser has
+    // parked the context and every effect would be silent.
+    get contextState() { return ctx ? ctx.state : 'none'; },
+    // Test hook: park the context the way backgrounding the tab does, so the
+    // recovery path can be exercised without depending on browser policy.
+    __suspendForTest() { return ctx ? ctx.suspend() : Promise.resolve(); },
     get volume() { return volume; },
   };
 }

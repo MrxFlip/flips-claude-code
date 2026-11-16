@@ -1,5 +1,5 @@
 # BELLAFOX FEUD — HANDOFF / CURRENT STATE
-Last updated: 2026-11-15
+Last updated: 2026-11-15 (second pass: play-test fixes + online multiplayer)
 
 **Read this first in any new session.** It is the authoritative record of what
 exists, what is done, and what is left. The build plan
@@ -62,39 +62,78 @@ passes.
   touch devices. Play one real match with sound before deploying.
 - Six optional-art probes 404 on load until that art exists (harmless).
 
-### Deploy and branch state (2026-11-15, evening)
+### Merge with the online-play line (2026-11-15, night)
 
-- **2.0 is live** at https://bellafox.gg/arcade/feud/ (copied to `Z:\Websitercadeeud\`,
-  1.0 files backed up to `Z:\Backups\BellaFoxWebsite6-11-15-feud2\`, changed
-  files curl-verified). Scripts carry `?v=20261115-feud2`.
-- **2.0 is committed locally as `115c375` but NOT pushed.** The push was rejected:
-  another session pushed `fc7db30`, `984377a`, `a1bc83e` to the same branch
-  (seven play-through fixes, **online multiplayer** via `src/net.js` +
-  `server/feud-server.mjs`, browser suites in `tools/browser/`). Those were built
-  on 1.0 and rewrite the same `app.js` / `index.html` / `styles.css` / `board.js`.
-- **The two lines are not merged.** Live has 2.0 and no online play. GitHub has
-  online play and the 1.0 look. Do not force-push either way. Merging means
-  porting host/guest roles from their `app.js` into the 2.0 `app.js` and taking
-  their `match.js`, `synonyms.js`, `board.js`, `audio.js` queue and fixtures.
-- Online play also needs the relay running on the server plus an nginx `/ws`
-  block (owner-run; see `family-feud/server/README.md` on the remote branch).
+The fork described in earlier copies of this file is **resolved**. The other
+session's three commits (`fc7db30` play-through fixes, `984377a` online
+multiplayer, `a1bc83e` dev server) are merged with 2.0 in one merge commit.
+
+What was taken from each side:
+
+| File | Result |
+|---|---|
+| `src/net.js`, `server/`, `tools/dev-server.mjs`, `src/board.js`, `src/match.js`, `src/synonyms.js`, fixtures, surveys | Theirs, unchanged |
+| `src/game.js` | Both. Their `faceoffRetry` (a double miss keeps the question), `skipQuestion()`, `attempt`; my buzz-in, solo, timeout, rounds. `state.buzzIn` and `state.clock` now ride in state so a guest's mirror has them |
+| `src/audio.js` | Theirs (speech queue, context resume, one reused element) plus my effects, live volume, and caption-only fallback |
+| `app.js`, `index.html`, `styles.css` | 2.0, with online play ported in: host/guest roles, `engineAwait` vs `pendingInput`, per-seat broadcast, lobby in the setup screen |
+
+How online play behaves in 2.0:
+
+- Setup has **Same screen / Online**. Online: type your name, CREATE A GAME or
+  enter a 4-character code and JOIN. The host sets the rules and starts.
+- Each player sees **only their own buzzer** (Space) in a face-off; everyone
+  else watches. Answers, play/pass and Fast Money are typed on your own screen.
+- The "survey says" beat and "out of time" are UI-only events (`guess`,
+  `timeUp`) sent through the same stream, so every screen plays them.
+- The answer clock is the host's; guests' clocks are displays.
+- No look-away curtain online; a player waiting for their Fast Money turn is
+  not shown the questions.
+- PLAY AGAIN (host) restarts in the same room. Leaving as host closes the room.
+
+Verified in two browser tabs against `tools/dev-server.mjs`: lobby, buzz from
+the guest, guest sees no unrevealed answers, strikes, steal by the guest, three
+rounds, winner, Fast Money both turns, final result, rematch, host leaving.
+Same-screen play re-checked after the merge. Headless: 115 game checks, 148
+matcher cases, all passing.
+
+**Not verified / known gaps**
+
+- `tools/browser/*.mjs` (their Playwright suites) target the 1.0 DOM and are
+  **stale**; Playwright is not installed on the Claude Code PC. They need
+  porting.
+- 3-4 players online, real network latency, and sound with audio on.
+- No reconnect: a dropped guest cannot rejoin a started match (their design).
+
+### Relay on the server — OWNER STEP, needed before Online works on the live site
+
+The static game is deployed. Online shows "Could not reach the game server"
+until the relay is running. `Website/Feud Relay Setup.sh` in the library does
+it (systemd unit + nginx `location /feud-ws`); the owner runs it with sudo.
+The live copy has `data/online.json` = `{"relay": "/feud-ws"}` so the page uses
+that path instead of the default `/ws`. That file is deliberately **not** in
+the repo, because locally `tools/dev-server.mjs` serves the relay on `/ws`.
 
 ### Still to do
 
 1. Owner plays it and gives notes.
 2. Optional art and 17 new Bella lines: `docs/bellafox-feud-2-art-and-voice.md`
    has every prompt and the line list. The game is complete without them.
-3. Commit and push (not done — nobody asked yet).
+3. Port the stale browser suites to the 2.0 DOM.
 4. Deploy: unchanged from section 4.
 
 ---
 
 ## 1. One-line state
 
-The game is **complete and playable**, and is **not deployed anywhere**.
+The game is **complete and playable, on one screen or over the internet**, and
+is **not deployed anywhere**.
 
 It exists only as source in this GitHub repo. It is **not** on the owner's PC
 and **not** on theflipside. The only remaining work is putting it on the arcade.
+
+The first real play-through (owner, 2026-11-15) found seven faults. All seven
+are fixed, each with a test that fails without the fix — see section 8. Online
+multiplayer was built in the same pass.
 
 ---
 
@@ -105,6 +144,8 @@ and **not** on theflipside. The only remaining work is putting it on the arcade.
 | Repo | `MrxFlip/flips-claude-code` on GitHub |
 | Branch | `claude/affectionate-newton-itx827` (all work; nothing on main) |
 | Game code | `family-feud/` |
+| Online relay | `family-feud/server/feud-server.mjs` + its own README |
+| Browser tests | `family-feud/tools/browser/` |
 | Docs | `docs/` |
 | Deploy target | `https://bellafox.gg/arcade/feud/` — slug approved by the owner |
 | Library home (eventual) | `X:\LLM Build Library\Website\family-feud\` |
@@ -116,11 +157,20 @@ git clone -b claude/affectionate-newton-itx827 https://github.com/MrxFlip/flips-
 ```
 
 ```bash
-cd flips-claude-code/family-feud && python3 -m http.server 8080
+cd flips-claude-code/family-feud && node tools/dev-server.mjs
 ```
 
+That serves the game and the online relay from one port — the same shape the
+deployed site has behind nginx — so both ways of playing work immediately.
+
 It is a static bundle: HTML, CSS, ES modules, images, mp3s. No build step, no
-Node runtime, no database, no server process. Any static host serves it.
+database, no dependencies. Any static host serves it.
+
+**Online play is the one exception** and it is optional. It needs one Node
+process — `node server/feud-server.mjs`, no install — and an nginx `location
+/ws` block. Without it the game is exactly what it was: same-screen play is
+untouched and the Online option reports that it cannot reach a server. Full
+instructions in `family-feud/server/README.md`.
 
 ---
 
@@ -130,13 +180,14 @@ Node runtime, no database, no server process. Any static host serves it.
 |---|---|
 | Game logic | Face-off (blind sequential entry), 3 rounds at x1/x2/x3, strikes, play/pass, steal, sudden death on a tie, banking |
 | Fast Money | Both-players and winner-solo modes, look-away curtain, per-player clock, duplicate detection, spare question, 200 target |
-| Players | 2-4, hot-seat, one keyboard |
+| Players | 2-4, same screen (one keyboard) **or online, one machine each** |
+| Online | Room codes, host runs the engine and posts events, guests render them; per-seat redaction so a guest is never sent an unrevealed answer |
 | Answer matching | Normalization + 4-stage cascade, curated synonym map, host override keys |
 | Questions | **40 main + 20 Fast Money** (the ship minimum) |
 | Artwork | **12/12**, 1.8 MB, in `family-feud/img/` |
 | Bella voice | **109/109 clips**, 6.1 MB, in `family-feud/audio/` |
 | Sound effects | Synthesized in-browser with Web Audio; no files needed |
-| Tests | 123 matcher cases, 1297 alias round-trips, 80 game checks, 45 + 22 browser checks |
+| Tests | 148 matcher cases, 1297 alias round-trips, 93 game checks, 6 committed browser suites |
 | Library doc blocks | Drafted, ready to paste (`family-feud-library-entries.md`) |
 
 Run everything headless:
@@ -145,12 +196,19 @@ Run everything headless:
 cd family-feud && node tools/test-all.mjs
 ```
 
-**What the browser checks actually cover.** The Playwright suites live outside
-the repo (they were scratch files, never committed): 45 checks on the main game
-and 22 on Fast Money at 1920x1080, plus a 12-screen visual tour. Separately, the
-finished game was checked at **1366x768, 1920x1080 and 2560x1440** — stage fits
-the viewport, no page scrollbars, every key element inside the stage, board
-renders, artwork applies, no page errors. All passed at all three.
+**The browser suites are now in the repo** (they used to be scratch files — that
+is fixed):
+
+```bash
+cd family-feud && node tools/browser/run-all.mjs
+```
+
+It starts its own static server and relay and shuts them down afterwards, so
+there is nothing to start by hand. It needs Playwright somewhere importable;
+`PLAYWRIGHT_MODULE` points it at a copy. Six suites: `main-game` (45),
+`fast-money` (22), `regressions` (24, one per fault found in play), `audio`
+(suspend/resume and the voice queue), `online` (two browsers, one relay, one
+match) and `resolutions` (1366x768 / 1920x1080 / 2560x1440). All passing.
 
 ---
 
@@ -185,6 +243,10 @@ Nothing to install.
 
 ### 4.3 Optional, not blocking
 
+- **Deploy the relay** if online play is wanted on the arcade. Separate from the
+  static deploy and not required by it: `server/README.md` has the nginx block
+  and a systemd unit. Until it is up, the Online button reports that it cannot
+  reach a server and same-screen play is unaffected.
 - Grow the question bank toward the 80/40 target. Currently at the 40/20 minimum.
   **Each new question needs a voice clip** — see 5.2.
 - The plan's phase-4 polish list in `family-feud-build-plan.md` is all done, but
@@ -244,12 +306,6 @@ set. Keep it that way.
 
 These each cost real time in the build.
 
-**The Playwright suites are not in the repo.** They were written as scratch
-files during the build and were not committed. A future session that wants
-browser coverage will need to rewrite them — the patterns to copy are in 6.2
-below and in `window.__feud.ui`. The headless suites in `tools/` *are* committed
-and are the real safety net.
-
 **Headless tests can pass with the page completely broken.** A dead
 `setCutinSource` import threw on module load and nothing rendered, while all 203
 headless checks stayed green. Always run a browser check after touching imports.
@@ -277,9 +333,77 @@ future session needs assets uploaded, ask for them when it is not working.
 **Fast Money needs at least 6 questions** (5 played + 1 spare for a duplicate).
 The validator now errors below that; it used to silently break.
 
+**An AudioContext does not stay running.** Backgrounding the tab or changing the
+output device suspends it, and a suspended context accepts scheduled nodes and
+plays none of them. Resume on every entry point; never assume one unlock holds
+for the session.
+
+**A label inside a container that gets hidden is not a label.** "Press SPACE to
+continue" lived inside the answer form, which is hidden at exactly the moments
+that message was needed. Check where a message renders, not just that it is set.
+
+**A permanently animated button is a permanently hard-to-click button.**
+Playwright refuses to click an element that never settles, which is a fair
+warning about real users too. Pulse the glow, not the geometry.
+
+**`pendingInput` means "this screen owes an answer", not "the engine is
+waiting".** Online those are different questions. Conflating them let one
+player's words be submitted as another's.
+
 ---
 
-## 7. Session history
+## 7. Online play, in short
+
+For a new session that has to touch it.
+
+- **Shape:** one browser (the room creator, seat 0) runs `src/game.js` exactly as
+  it does in a hot-seat match and posts every event batch it produces. The others
+  have no engine; they adopt the state that came with the batch and render the
+  events through the same `handle()` as always. `server/` is a relay and never
+  learns the rules — which is the point, because the alternative is a second
+  implementation of the rulebook.
+- **Why it was nearly free:** the engine already returned ordered event arrays
+  and `app.js` already decided nothing. Online play is `src/net.js` plus a few
+  `isHost()` / `myTurn()` branches.
+- **Redaction** is in `snapshotFor` and `eventsFor` (`src/net.js`). A guest is
+  not sent unrevealed board answers, the other player's Fast Money answers, or
+  Fast Money questions they have not been asked yet. `src/board.js` fills each
+  tile in from its reveal event rather than putting every answer in the page, so
+  there is nothing to redact on screen either.
+- **The host validates every guest input** against what the engine is actually
+  waiting for. The relay forwards a message sent at the wrong moment just as
+  happily as one sent at the right one.
+- **Known limits:** no reconnect (if the host's browser closes the match ends and
+  everyone is told why); the host is the authority. Both are in
+  `server/README.md`.
+
+---
+
+## 8. Faults found in the first play-through (all fixed)
+
+Owner played one match on 2026-11-15 and reported seven things. Each fix has a
+test that fails without it, in `tools/browser/regressions.mjs` or the headless
+suites.
+
+| Reported | Cause | Fix |
+|---|---|---|
+| Sound kept turning itself off | The AudioContext suspends when the tab is backgrounded; `unlock()` set a flag once and never looked at `ctx.state` again, so every effect after that was scheduled into a parked context | Resume on every entry point + on `visibilitychange` |
+| Wanted more of Bella | Every `say()` cancelled the line still playing; three rendered buckets were never wired up; subtitles showed a different take than the clip; every line had 1.5s of dead air bolted on | Voice queue with priorities, `faceoff`/`roundOpen`/`fmLookaway` wired in, index passed through, resolve on `ended` |
+| Both missed, question was binned | `resolveFaceoff` loaded a new question on a double miss | Question stays, players keep guessing; host key `N` bins one |
+| Stuck after a failed steal, nothing to click | "Press SPACE to continue" was written into a label inside the answer form, which is hidden at every advance point | A real `CONTINUE` button on each screen, clickable and Space-able |
+| "measuring tape" said already on the board | `tape` was listed as an alias of Scissors, and a one-token form matched any input containing that word | Alias removed; containment now requires the leftover words to be non-content |
+| Face-off masking looked inconsistent | The second player's box was deliberately unmasked | Both masked; online, neither (there is nobody next to you) |
+| Wanted online multiplayer | — | Built; see section 7 |
+
+The alias audit that found `tape` also found `washing up` landing on Laundry
+(both chore boards carry Laundry *and* the dishes) and `back pain` reaching
+`neck pain` in two edits. Transpositions now count as one edit, so ordinary
+typos still land. `tools/test-aliases.mjs` plus an ambiguity sweep now report
+zero.
+
+---
+
+## 9. Session history
 
 Built over 2026-11-14/15 in one session. Commits on the branch, oldest first:
 
@@ -291,6 +415,9 @@ Built over 2026-11-14/15 in one session. Commits on the branch, oldest first:
 6. `cfa4164` Final 2 assets + library doc blocks
 7. `f4fbd38` All 71 Bella voice lines (pre-expansion bank)
 8. `9a63a89` 40/20 question bank, fully voiced, + `test-aliases.mjs`
+9. `ba755bd` Cold-handoff documentation
+10. `fc7db30` The seven faults from the first play-through
+11. *(this pass)* Online multiplayer, relay, and the browser suites committed
 
 Each commit message records what was found and fixed. They are worth reading
 rather than re-deriving.

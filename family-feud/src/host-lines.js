@@ -134,9 +134,17 @@ export const HOST_LINES = {
   ],
 };
 
-/** Pick a random take. Returns { key, text } for speak(). */
+/**
+ * Pick a random take. Returns { key, text, index } for speak().
+ *
+ * The index matters: data/voice-manifest.json lists one clip per line in this
+ * same order, so passing it through means the subtitle on screen is the take
+ * the player actually hears. Without it the two were drawn separately and the
+ * caption regularly disagreed with Bella.
+ */
 export function hostLine(bucket) {
   const lines = HOST_LINES[bucket];
-  if (!lines?.length) return { key: null, text: '' };
-  return { key: `host:${bucket}`, text: lines[Math.floor(Math.random() * lines.length)] };
+  if (!lines?.length) return { key: null, text: '', index: null };
+  const index = Math.floor(Math.random() * lines.length);
+  return { key: `host:${bucket}`, text: lines[index], index };
 }

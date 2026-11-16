@@ -101,6 +101,7 @@ export function createGame({
     roundIndex: 0,
     totalRounds: roundList.length,
     solo: players.length === 1,
+    buzzIn: !!cfg.buzzIn,          // in state so an online guest's mirror has it
     round: null,
     pot: 0,
     question: null,
@@ -185,7 +186,7 @@ export function createGame({
     } else {
       const a = state.roundIndex % n;
       const b = (state.roundIndex + 1) % n;
-      state.faceoff = { pair: [a, b], turn: 0, results: [null, null], winner: null, buzzed: null };
+      state.faceoff = { pair: [a, b], turn: 0, results: [null, null], winner: null, buzzed: null, attempt: 1 };
     }
 
     state.phase = PHASE.ROUND_CARD;
@@ -218,7 +219,9 @@ export function createGame({
     state.phase = PHASE.FACEOFF;
     return [
       { type: 'phase', to: state.phase },
-      { type: 'readQuestion', question: state.question, faceoff: true },
+      // lead: this is the read that opens a face-off, so the host has a line
+      // before it. A re-read after a skipped question does not.
+      { type: 'readQuestion', question: state.question, faceoff: true, buzz: cfg.buzzIn, lead: true },
       faceoffOpener(),
     ];
   }
@@ -282,7 +285,10 @@ export function createGame({
 
     if (fo.turn === 0) {
       fo.turn = 1;
-      events.push({ type: 'awaitInput', who: fo.pair[1], context: 'faceoff', masked: false });
+      // Masked for both players, not just the first. The box being hidden for
+      // one and open for the other read as a glitch, and the second player is
+      // sitting next to the first either way.
+      events.push({ type: 'awaitInput', who: fo.pair[1], context: 'faceoff', masked: true });
       return events;
     }
     return [...events, ...resolveFaceoff()];
@@ -296,14 +302,16 @@ export function createGame({
     const r1 = rankOf(fo.results[1]);
 
     if (r0 === Infinity && r1 === Infinity) {
-      // Nobody found anything. Fresh question, same pair, pot resets.
-      state.pot = 0;
-      loadQuestion(nextMainQuestion());
+      // Nobody found anything. The question STAYS and the pair keeps guessing:
+      // throwing it away on the first double miss meant two wrong answers
+      // deleted a board nobody had seen yet. There are no strikes in the
+      // face-off, so this can go round as long as it needs to; the host has
+      // skipQuestion() as the escape hatch.
       fo.turn = 0;
       fo.results = [null, null];
       fo.buzzed = null;
-      events.push({ type: 'faceoffFailed' });
-      events.push({ type: 'readQuestion', question: state.question, faceoff: true });
+      fo.attempt += 1;
+      events.push({ type: 'faceoffRetry', attempt: fo.attempt, pair: [...fo.pair] });
       events.push(faceoffOpener());
       return events;
     }
@@ -658,6 +666,28 @@ export function createGame({
     return events;
   }
 
+  /**
+   * Host override: bin the current face-off question and read a new one. The
+   * face-off no longer discards a question by itself, so this is the only way
+   * past one the room cannot crack.
+   */
+  function skipQuestion() {
+    if (state.phase !== PHASE.FACEOFF) return [{ type: 'noop', reason: 'only during the face-off' }];
+    snapshot();
+    const events = [{ type: 'hostOverride', action: 'skipQuestion' }];
+    const fo = state.faceoff;
+    state.pot = 0;
+    loadQuestion(nextMainQuestion());
+    fo.turn = 0;
+    fo.results = [null, null];
+    fo.attempt = 1;
+    fo.buzzed = null;
+    events.push({ type: 'questionSkipped' });
+    events.push({ type: 'readQuestion', question: state.question, faceoff: true, buzz: cfg.buzzIn });
+    events.push(faceoffOpener());
+    return events;
+  }
+
   function forceStrike() {
     if (state.phase !== PHASE.BOARD_PLAY) return [{ type: 'noop' }];
     return submitBoard('\u0000__host_forced_strike__');
@@ -668,7 +698,7 @@ export function createGame({
     get config() { return cfg; },
     startRound, beginFaceoff, buzz, timeout, submitFaceoff, choose, submitBoard, submitSteal,
     advanceRound, startFastMoney, fmBeginTurn, fmSubmit, fmReveal, fmSubmitSpare,
-    forceReveal, forceStrike, undo,
+    forceReveal, forceStrike, skipQuestion, undo,
     get canUndo() { return history.length > 0; },
   };
 }

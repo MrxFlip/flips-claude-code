@@ -128,11 +128,47 @@ const has = (evts, type) => evts.some((e) => e.type === type);
   const firstQ = g.state.question.id;
   g.submitFaceoff(GARBAGE[0]);
   const evts = g.submitFaceoff(GARBAGE[1]);
-  check('E: both missing re-asks instead of soft-locking', has(evts, 'faceoffFailed'));
-  check('E: a new question is loaded', g.state.question.id !== firstQ, g.state.question.id);
+  check('E: both missing re-asks instead of soft-locking', has(evts, 'faceoffRetry'));
+  // The question is deliberately KEPT. Discarding a board nobody had seen on
+  // the first double miss is the behaviour this replaced.
+  check('E: the same question stays up', g.state.question.id === firstQ, g.state.question.id);
+  check('E: the lead player is asked again', g.state.faceoff.turn === 0);
+  check('E: the attempt is counted', g.state.faceoff.attempt === 2, String(g.state.faceoff.attempt));
   check('E: still in the face-off', g.state.phase === PHASE.FACEOFF);
-  check('E: pot reset', g.state.pot === 0);
+  check('E: pot still empty', g.state.pot === 0);
   check('E: board blank again', g.state.revealed.every((r) => !r));
+
+  // It can go round as many times as it needs to.
+  g.submitFaceoff(GARBAGE[2] ?? 'qqqzzz');
+  g.submitFaceoff('wwwqqqzzz');
+  check('E: a second double miss keeps going', g.state.phase === PHASE.FACEOFF);
+  check('E: attempt counted again', g.state.faceoff.attempt === 3, String(g.state.faceoff.attempt));
+  check('E: still the same question', g.state.question.id === firstQ);
+
+  // ...and the host can bin it.
+  const skipped = g.skipQuestion();
+  check('E: host skip loads a new question', g.state.question.id !== firstQ, g.state.question.id);
+  check('E: host skip re-reads', has(skipped, 'readQuestion'));
+  check('E: host skip resets the attempt count', g.state.faceoff.attempt === 1);
+  check('E: host skip stays in the face-off', g.state.phase === PHASE.FACEOFF);
+
+  // A real answer still ends it.
+  const good = g.state.question.answers[0].text;
+  g.submitFaceoff(good);
+  check('E: a hit after retries resolves the face-off', g.state.phase === PHASE.PLAY_OR_PASS);
+}
+
+// ------------------------------------------------- E2: both face-off answers are masked
+{
+  const g = newGame();
+  g.startRound();
+  const open = g.beginFaceoff();
+  const first = open.find((e) => e.type === 'awaitInput');
+  check('E2: the lead face-off answer is masked', first.masked === true);
+  const second = g.submitFaceoff('zzzqqqwww').find((e) => e.type === 'awaitInput');
+  check('E2: the second face-off answer is masked too', second.masked === true);
+  const retry = g.submitFaceoff('qqqzzzwww').find((e) => e.type === 'awaitInput');
+  check('E2: a retry is masked as well', retry.masked === true);
 }
 
 // ---------------------------------------------------------------- F: already-revealed costs nothing
@@ -341,8 +377,8 @@ const has = (evts, type) => evts.some((e) => e.type === type);
   g2.startRound(); g2.beginFaceoff(); g2.buzz(0);
   g2.submitFaceoff(GARBAGE[0]);
   const failed = g2.submitFaceoff(GARBAGE[1]);
-  check('P: double miss re-opens the buzzers', has(failed, 'faceoffFailed') && has(failed, 'awaitBuzz'));
-  check('P: buzz state is cleared for the new question', g2.state.faceoff.buzzed === null);
+  check('P: double miss re-opens the buzzers', has(failed, 'faceoffRetry') && has(failed, 'awaitBuzz'));
+  check('P: buzz state is cleared for the retry', g2.state.faceoff.buzzed === null);
 }
 
 // ---------------------------------------------------------------- Q: answer clock

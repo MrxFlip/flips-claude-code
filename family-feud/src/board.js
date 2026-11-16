@@ -11,6 +11,14 @@ function sizeClass(text) {
   return '';
 }
 
+/**
+ * Build a blank board for `question`.
+ *
+ * Only the NUMBER of answers is read here. Each tile's words and points arrive
+ * with its reveal event, so the answers are never sitting in the DOM waiting to
+ * be read out of the inspector — which also means a guest in an online match
+ * can be sent a board with the answers stripped out of it entirely.
+ */
 export function createBoard(rootEl, question) {
   rootEl.replaceChildren();
 
@@ -42,12 +50,10 @@ export function createBoard(rootEl, question) {
     badge.textContent = String(rank);
 
     const text = document.createElement('span');
-    text.className = `answer-text ${sizeClass(answer.text)}`.trim();
-    text.textContent = answer.text;
+    text.className = 'answer-text';
 
     const pts = document.createElement('span');
     pts.className = 'points-box';
-    pts.textContent = String(answer.points);
 
     front.append(badge, text, pts);
     inner.append(back, front);
@@ -58,32 +64,32 @@ export function createBoard(rootEl, question) {
     tile.setAttribute('aria-label', `Answer ${rank}, hidden`);
 
     rootEl.append(tile);
-    return { tile, answer, rank, revealed: false };
+    return { tile, answer, rank, revealed: false, textEl: text, ptsEl: pts };
   });
 
   return {
     question,
     tiles,
 
-    /** Reveals a 1-indexed rank. Returns the points awarded, or 0 if it was a no-op. */
-    reveal(rank) {
+    /**
+     * Reveal a 1-indexed rank, writing its words in as it turns.
+     *
+     * `text` and `points` come from the reveal event. They fall back to the
+     * question this board was built from, which is what the host has and a
+     * guest does not.
+     */
+    reveal(rank, text = null, points = null) {
       const t = tiles[rank - 1];
       if (!t || t.revealed) return 0;
+      const words = text ?? t.answer?.text ?? '';
+      const score = points ?? t.answer?.points ?? 0;
       t.revealed = true;
+      t.textEl.textContent = words;
+      t.textEl.className = `answer-text ${sizeClass(words)}`.trim();
+      t.ptsEl.textContent = String(score);
       t.tile.classList.add('revealed');
-      t.tile.setAttribute('aria-label', `Answer ${t.rank}, ${t.answer.text}, ${t.answer.points} points`);
-      return t.answer.points;
-    },
-
-    /** Reveals everything still hidden, staggered. Resolves when the last one starts. */
-    revealAll(stepMs = 260) {
-      const hidden = tiles.filter((t) => !t.revealed);
-      let gained = 0;
-      hidden.forEach((t, i) => {
-        setTimeout(() => this.reveal(t.rank), i * stepMs);
-        gained += t.answer.points;
-      });
-      return { count: hidden.length, points: gained };
+      t.tile.setAttribute('aria-label', `Answer ${t.rank}, ${words}, ${score} points`);
+      return score;
     },
 
     get revealedCount() { return tiles.filter((t) => t.revealed).length; },

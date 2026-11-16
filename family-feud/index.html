@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261115-feud2">
+<link rel="stylesheet" href="styles.css?v=20261115-feud3">
 </head>
 <body>
 <div id="stage-wrap">
@@ -38,7 +38,7 @@
           <button type="button" class="big-button" id="playBtn">PLAY <kbd>ENTER</kbd></button>
           <button type="button" class="ghost-button" id="howBtn">HOW TO PLAY</button>
         </div>
-        <p class="title-foot" id="titleFoot">1&ndash;4 players &middot; one screen &middot; hosted by Bella</p>
+        <p class="title-foot" id="titleFoot">1&ndash;4 players &middot; same screen or online &middot; hosted by Bella</p>
       </div>
     </section>
 
@@ -49,6 +49,10 @@
       <div class="setup-panels">
         <div class="panel">
           <h3 class="panel-title">Contestants</h3>
+          <div class="seg seg-wide seg-mode" id="modeSeg" role="group" aria-label="How to play">
+            <button type="button" data-v="local" class="on">Same screen</button>
+            <button type="button" data-v="online">Online</button>
+          </div>
           <div class="seg seg-wide" id="playerCount" role="group" aria-label="Number of players">
             <button type="button" data-n="1">Solo</button>
             <button type="button" data-n="2" class="on">2</button>
@@ -57,10 +61,38 @@
           </div>
           <div class="name-list" id="nameGrid"></div>
           <p class="panel-note" id="countNote">&nbsp;</p>
+
+          <!-- Online lobby. Hidden unless Online is picked, so the same-screen
+               game looks exactly as it does without a server. -->
+          <div class="lobby" id="lobby" hidden>
+            <div class="lobby-choice" id="lobbyChoice">
+              <button type="button" class="big-button lobby-btn" id="createRoomBtn">CREATE A GAME</button>
+              <div class="lobby-or">or join one</div>
+              <div class="lobby-join-row">
+                <input class="code-input" id="joinCode" type="text" maxlength="4" inputmode="text"
+                       autocomplete="off" autocapitalize="characters" spellcheck="false"
+                       aria-label="Room code" placeholder="CODE">
+                <button type="button" class="big-button lobby-btn" id="joinRoomBtn">JOIN</button>
+              </div>
+            </div>
+
+            <div class="lobby-room" id="lobbyRoom" hidden>
+              <div class="lobby-code-wrap">
+                <span class="hud-label">Room code</span>
+                <span class="lobby-code" id="lobbyCode">----</span>
+              </div>
+              <ul class="lobby-players" id="lobbyPlayers"></ul>
+              <p class="lobby-hint" id="lobbyHint">Give this code to the other players.</p>
+              <button type="button" class="ghost-button" id="leaveRoomBtn">LEAVE THIS GAME</button>
+            </div>
+
+            <p class="lobby-error" id="lobbyError" hidden></p>
+          </div>
         </div>
 
-        <div class="panel">
+        <div class="panel" id="rulesPanel">
           <h3 class="panel-title">Show rules</h3>
+          <p class="rules-locked-note">The host picks the rules.</p>
 
           <div class="opt">
             <div class="opt-head">
@@ -281,6 +313,8 @@
     <div class="subtitle" id="subtitle" aria-live="polite"></div>
     <div class="wipe" id="wipe" aria-hidden="true"></div>
 
+    <div class="net-badge" id="netBadge" hidden></div>
+
     <div class="corner-buttons">
       <button type="button" class="round-btn" id="menuBtn" aria-label="Menu" title="Menu (Esc)">&#9776;</button>
       <button type="button" class="round-btn" id="muteBtn" aria-label="Mute" title="Mute (M)">&#9835;</button>
@@ -311,7 +345,8 @@
           <li><b>Three strikes &rarr; steal.</b> The other player gets one guess. Get it right and they take the whole pot. Miss and the pot stays put.</li>
           <li><b>Later rounds are worth more</b> &mdash; double, then triple. Highest score wins and goes to <b>Fast Money</b>: five quick questions against the clock.</li>
         </ol>
-        <p class="how-foot">Playing solo? No face-off, no steal &mdash; just you, the board and three strikes.</p>
+        <p class="how-foot">Playing solo? No face-off, no steal &mdash; just you, the board and three strikes.
+          Playing online? One player creates a game and shares the four-character code; everyone answers on their own screen.</p>
         <button type="button" class="big-button" id="howClose">GOT IT</button>
       </div>
     </div>
@@ -324,6 +359,7 @@
           <dt>1&ndash;8</dt><dd>Reveal that answer and award it</dd>
           <dt>X</dt><dd>Force a strike</dd>
           <dt>Z</dt><dd>Undo the last action</dd>
+          <dt>N</dt><dd>New face-off question</dd>
           <dt>Space</dt><dd>Continue</dd>
           <dt>P / S</dt><dd>Play / Pass</dd>
           <dt>A / L</dt><dd>Face-off buzzers</dd>
@@ -338,6 +374,6 @@
 </div>
 
 <noscript><p style="color:#fff;font:600 18px system-ui;padding:24px">This game needs JavaScript enabled.</p></noscript>
-<script type="module" src="app.js?v=20261115-feud2"></script>
+<script type="module" src="app.js?v=20261115-feud3"></script>
 </body>
 </html>
