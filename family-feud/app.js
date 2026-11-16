@@ -11,15 +11,15 @@
 // (the console under the board, or a single primary button), so nobody ever
 // has to ask "what do I press now?".
 
-import { initStage } from './src/stage.js?v=20261116-feud4';
-import { loadSurveys } from './src/data.js?v=20261116-feud4';
-import { createBoard } from './src/board.js?v=20261116-feud4';
-import { createGame, PHASE, FM_TIME } from './src/game.js?v=20261116-feud4';
-import { createAudio } from './src/audio.js?v=20261116-feud4';
-import { initArt } from './src/art.js?v=20261116-feud4';
-import { confetti } from './src/confetti.js?v=20261116-feud4';
-import { hostLine } from './src/host-lines.js?v=20261116-feud4';
-import { createNet, resolveRelayUrl, snapshotFor, eventsFor } from './src/net.js?v=20261116-feud4';
+import { initStage } from './src/stage.js?v=20261116-feud5';
+import { loadSurveys } from './src/data.js?v=20261116-feud5';
+import { createBoard } from './src/board.js?v=20261116-feud5';
+import { createGame, PHASE, FM_TIME } from './src/game.js?v=20261116-feud5';
+import { createAudio } from './src/audio.js?v=20261116-feud5';
+import { initArt } from './src/art.js?v=20261116-feud5';
+import { confetti } from './src/confetti.js?v=20261116-feud5';
+import { hostLine } from './src/host-lines.js?v=20261116-feud5';
+import { createNet, resolveRelayUrl, snapshotFor, eventsFor } from './src/net.js?v=20261116-feud5';
 
 const $ = (id) => document.getElementById(id);
 const el = {
@@ -667,6 +667,9 @@ async function handle(e) {
 
     case 'reveal': {
       boardView?.reveal(e.rank, e.text, e.points);
+      // The entrance animation is over by now; retire it so nothing can replay
+      // it (see the .no-enter note in styles.css).
+      el.board.classList.add('no-enter');
       const tile = el.board.querySelector(`.tile[data-rank="${e.rank}"]`);
       if (e.missed) {
         if (!missedAnnounced) {
@@ -683,8 +686,9 @@ async function handle(e) {
       }
       tile?.classList.add('just-revealed');
       setTimeout(() => tile?.classList.remove('just-revealed'), 900);
+      // The ding lands as the tile finishes turning, not as it starts.
       audio.sfx('flip');
-      setTimeout(() => audio.sfx('ding'), 120);
+      setTimeout(() => audio.sfx('ding'), 360);
       renderPot(e.awarded);
       if (e.awarded) {
         setHost('win', 1500);

@@ -161,6 +161,19 @@ the line sits is a matter of taste; the pack file is the place to move it.
 There is still no way for a player to dispute a strike except the host keys
 (`Alt+1`-`8`), which online only the host has.
 
+### Owner notes fixed 2026-11-16 (tag `?v=20261116-feud5`)
+
+- **Hiccup after a correct answer.** `.tile` has an entrance animation and the
+  reveal "punch" was a second `animation` on the same element; removing
+  `.just-revealed` handed the property back to `tileIn`, which replayed. The
+  board now gets `.no-enter` on the first reveal. Do not put another
+  `animation` on `.tile` without that in mind.
+- **Correct-answer sound.** One high bell (C7 with partials) fired 360 ms after
+  the flip starts, instead of a C6 triad at 120 ms. The flip is a light swish
+  with no low tone. Synthesized in `src/audio.js`; a real clip dropped at
+  `audio/sfx/ding.mp3` would override it.
+- **Fast Money clock.** `FM_TIME` is `[60, 60]` (was `[20, 25]`).
+
 ### Still to do
 
 1. Owner plays it and gives notes.

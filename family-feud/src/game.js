@@ -4,7 +4,7 @@
 // app.js turns those events into animation and sound. Keeping the two apart
 // is what makes the whole match testable in Node without a browser.
 
-import { matchAnswer } from './match.js?v=20261116-feud4';
+import { matchAnswer } from './match.js?v=20261116-feud5';
 
 export const PHASE = {
   SETUP: 'SETUP',
@@ -49,7 +49,10 @@ export const FM_TARGET = 200;      // two players answering together
 // One player cannot reach 200: five top answers total roughly 165. A solo
 // Fast Money plays to a target that is hard but actually winnable.
 export const FM_TARGET_SOLO = 100;
-export const FM_TIME = [20, 25]; // seconds for player 1 / player 2
+// Seconds for player 1 / player 2. Generous on purpose: answers are typed,
+// and the owner wants everyone to get through all five questions. The clock is
+// there to keep the round moving, not to cut people off.
+export const FM_TIME = [60, 60];
 
 /** Mulberry32 — small seeded PRNG so a match can be replayed exactly. */
 export function rng(seed) {

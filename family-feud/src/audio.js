@@ -119,14 +119,23 @@ export function createAudio(opts = {}) {
   // ---------- sound effects ----------
 
   const SYNTH = {
+    /**
+     * The correct-answer bell. One bright, high struck note rather than a
+     * chord: a strong fundamental two octaves above middle C's neighbourhood,
+     * its octave, and a quiet inharmonic partial for the metallic edge, all
+     * with a long ring. The old C-E-G triad sat an octave lower and read as a
+     * soft chime, not a game-show ding.
+     */
     ding() {
-      tone({ freq: NOTE.C6, dur: 0.5, gain: 0.32 });
-      tone({ freq: NOTE.E6, dur: 0.5, gain: 0.2, start: 0.005 });
-      tone({ freq: NOTE.G6, dur: 0.42, gain: 0.12, start: 0.01 });
+      const f = 2093;                                    // C7
+      tone({ freq: f, dur: 1.1, gain: 0.3 });
+      tone({ freq: f * 2, dur: 0.7, gain: 0.12 });
+      tone({ freq: f * 2.76, dur: 0.35, gain: 0.05 });
+      tone({ freq: f, type: 'triangle', dur: 0.12, gain: 0.14 });   // the strike
     },
+    /** A tile turning: a short airy swish, with no low thump under it. */
     flip() {
-      noise({ dur: 0.1, gain: 0.18, type: 'bandpass', freq: 2600, q: 0.8 });
-      tone({ freq: 320, type: 'triangle', dur: 0.09, gain: 0.14 });
+      noise({ dur: 0.09, gain: 0.1, type: 'bandpass', freq: 3600, q: 0.9 });
     },
     strike() {
       tone({ freq: 150, type: 'sawtooth', dur: 0.55, gain: 0.3 });

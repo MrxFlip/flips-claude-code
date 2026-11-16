@@ -598,6 +598,12 @@ kbd {
   to   { opacity: 1; transform: none; }
 }
 .board.no-enter .tile { animation: none; }
+/* The punch below is also an `animation` on .tile. Without this rule, taking
+   .just-revealed off a tile handed the property back to tileIn, and the browser
+   replayed the entrance: the tile blinked out and faded in again a moment
+   after every correct answer. app.js sets .no-enter on the first reveal, so by
+   the time a punch ends there is no entrance animation left to fall back to. */
+.board.no-enter .tile.just-revealed { animation: tilePunch .55s var(--ease-pop); }
 
 .tile-inner {
   position: absolute; inset: 0;

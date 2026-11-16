@@ -5,7 +5,7 @@
 // rejection with the number keys and cannot take back a bad reveal. So the
 // cascade is generous about spelling and phrasing, strict about meaning.
 
-import { SYNONYMS, PHRASES, WEAK_WORDS } from './synonyms.js?v=20261116-feud4';
+import { SYNONYMS, PHRASES, WEAK_WORDS } from './synonyms.js?v=20261116-feud5';
 
 const ARTICLES = /^(a|an|the)\s+/;
 const FILLER = /^(my|your|his|her|their|our|some|any|going to|gonna|wanna|want to|like)\s+/;
