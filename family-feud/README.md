@@ -92,6 +92,12 @@ otherwise nobody could type an answer starting with X or Z.
 
 ## Adding questions
 
+**Widening what counts as a right answer** (the commonest change): put lines
+like `q003.4: video games | gaming pc` in a text file and run
+`node tools/merge-aliases.mjs that-file.txt --write`, then `node tools/test-all.mjs`.
+The existing pack, `data/alias-pack-2026-11-16.txt`, shows the format. Each
+answer carries about 23 accepted phrasings.
+
 Edit `data/surveys.json`, then:
 
 ```bash

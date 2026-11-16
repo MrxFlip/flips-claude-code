@@ -130,6 +130,37 @@ Not driven by the PM: the live page itself in two real browsers.
 The live copy has `data/online.json` = `{"relay": "/feud-ws"}`, deliberately
 **not** in the repo, because locally `tools/dev-server.mjs` serves the relay on `/ws`.
 
+### Accepted answers widened (2026-11-16)
+
+The owner reported right answers being struck: "video games" against Game
+console, "doom scrolling" against Scroll their phone. Cause: the bank had about
+1,300 accepted phrasings over 340 answers (3-4 each), which is too thin for
+free typing.
+
+- **Bank:** now about 7,860 phrasings, ~23 per answer. The merged pack is kept
+  at `family-feud/data/alias-pack-2026-11-16.txt` (one line per answer).
+- **Matcher (`src/match.js`):** apostrophes are dropped rather than turned into
+  a space; I / we / he / she are noise words; and a new stage accepts a known
+  phrasing plus leftover words that the same answer already uses elsewhere
+  ("doomscrolling on my phone"). A leftover word from nowhere, or two answers
+  qualifying at once, is still a miss.
+- **Tests:** 179 matcher fixtures (31 new, including the reported cases and
+  misses that must stay misses), 8,204 alias round-trips.
+- **Cache tag:** `?v=20261116-feud4`. Backup: `Backups/BellaFoxWebsite/2026-11-16-feud4/`.
+
+**To widen an answer again:** add lines to a pack file in the same format
+(`q003.4: video games | gaming pc`), run
+`node tools/merge-aliases.mjs <pack> --write`, then `node tools/test-all.mjs`.
+The merge refuses a phrasing two answers on one board would both claim. No voice
+work is needed; aliases are never spoken.
+
+**Judgment call to know about:** the drafts were first written much wider
+(e.g. accepting any messy food for Ribs) and were cut back to same-meaning
+phrasings, because a loose match reveals a tile the player did not mean. Where
+the line sits is a matter of taste; the pack file is the place to move it.
+There is still no way for a player to dispute a strike except the host keys
+(`Alt+1`-`8`), which online only the host has.
+
 ### Still to do
 
 1. Owner plays it and gives notes.
