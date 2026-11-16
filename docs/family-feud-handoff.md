@@ -114,14 +114,21 @@ matcher cases, all passing.
   `/data/Projects/feud-relay/feud-server.mjs` (not in the web root).
 - `server/` and `tools/browser/` are not deployed to the web root.
 
-### Relay on the server — OWNER STEP, needed before Online works on the live site
+### Relay on the server — DONE 2026-11-16
 
-The static game is deployed. Online shows "Could not reach the game server"
-until the relay is running. `Website/Feud Relay Setup.sh` in the library does
-it (systemd unit + nginx `location /feud-ws`); the owner runs it with sudo.
-The live copy has `data/online.json` = `{"relay": "/feud-ws"}` so the page uses
-that path instead of the default `/ws`. That file is deliberately **not** in
-the repo, because locally `tools/dev-server.mjs` serves the relay on `/ws`.
+`feud-relay.service` is active and enabled on theflipside (127.0.0.1:5057, path
+`/feud-ws`, origins limited to bellafox.gg), behind nginx `location = /feud-ws`.
+Installed by the owner-run `Website/Feud Relay Setup.sh`. The first run stopped
+because the server's only Node is nvm's (`/home/mrxflip/.nvm/versions/node/v24.16.0`)
+and is not on PATH; the script now falls back to it. If that Node version is
+removed, re-run the script.
+
+Verified against `wss://bellafox.gg/feud-ws`: 101 upgrade, other origins refused,
+and a host+guest room test (create, join, start, relay both ways, host leaving).
+Not driven by the PM: the live page itself in two real browsers.
+
+The live copy has `data/online.json` = `{"relay": "/feud-ws"}`, deliberately
+**not** in the repo, because locally `tools/dev-server.mjs` serves the relay on `/ws`.
 
 ### Still to do
 
