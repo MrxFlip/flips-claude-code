@@ -12,7 +12,8 @@ Hot-seat game show for 2–4 players, built for the BellaFox arcade.
 theflipside and not on any PC. See section 4 of the handoff.
 
 **State: complete and playable, on one screen or over the internet.** 80 main +
-20 Fast Money questions, all 12 artwork assets, all 109 Bella voice clips. Full
+60 Fast Money questions, all 12 artwork assets, 109 Bella voice clips (the 80 questions
+added 2026-11-17 are captions until voiced). Full
 show plays end to end — face-off, three scoring rounds with multipliers, strikes,
 steal, sudden death, and Fast Money with duplicate handling. Artwork is in
 (1.8 MB of a 4 MB budget) and so is Bella's voice (3.7 MB). Both still degrade
