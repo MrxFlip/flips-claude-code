@@ -214,8 +214,12 @@ over -> automatic rejoin -> resync, rejoin after a full page reload, Fast Money
 through to the top-answers reveal and the shared final screen.
 
 **Relay:** `server/feud-server.mjs` changed, so the copy at
-`/data/Projects/feud-relay/` was replaced and `feud-relay` restarted (see the
-Program log for whether the restart was done by the PM or needs the owner).
+`/data/Projects/feud-relay/` was replaced and the owner restarted `feud-relay`
+on 2026-11-16 (the PM is blocked from restarting services). Verified against
+the live relay afterwards: seat held after a drop, rejoin by token, rejoin by
+code and name, a stranger refused mid-match, host leaving closes the room.
+After any future change to `server/feud-server.mjs`: copy it there, then the
+owner runs `sudo systemctl restart feud-relay`.
 
 ### Still to do
 
