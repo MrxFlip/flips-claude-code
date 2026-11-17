@@ -310,21 +310,24 @@ const has = (evts, type) => evts.some((e) => e.type === type);
   check('M: after 5 answers the second player looks away', g.state.phase === PHASE.FM_LOOKAWAY, g.state.phase);
 
   g.fmBeginTurn();
-  // Player 2 deliberately duplicates question 1 and answers the rest differently.
-  g.fmSubmit(qs[0].answers[0].text);
+  // Player 2 repeats player 1's answer to question 1. It must be thrown back
+  // at once: nothing recorded, same question, and no replacement question.
+  const dup = g.fmSubmit(qs[0].answers[0].text);
+  check('M: a repeated answer is flagged immediately', has(dup, 'fmDupTry'));
+  check('M: a repeated answer is not recorded', g.state.fm.entries[1].length === 0 && !has(dup, 'fmAnswer'));
+  check('M: a repeated answer keeps the same question up', g.state.fm.qIndex === 0 && g.state.phase === PHASE.FM_PLAY);
+  // An alias of the same answer is the same answer.
+  const alias = qs[0].answers[0].aliases?.[0];
+  if (alias) check('M: an alias of a said answer is flagged too', has(g.fmSubmit(alias), 'fmDupTry'));
+  check('M: a different answer is then accepted', has(g.fmSubmit(qs[0].answers[1].text), 'fmAnswer'));
   for (let i = 1; i < qs.length; i++) g.fmSubmit(qs[i].answers[1].text);
   check('M: both turns done -> reveal', g.state.phase === PHASE.FM_REVEAL, g.state.phase);
 
-  const evts = g.fmReveal();
-  const dupEntry = evts.find((e) => e.type === 'fmRevealEntry' && e.duplicate);
-  check('M: duplicate detected', !!dupEntry);
-  check('M: duplicate scores zero', dupEntry?.points === 0);
-  check('M: duplicate triggers the spare question', g.state.phase === PHASE.FM_DUPLICATE, g.state.phase);
-
-  const spare = g.state.fm.spare;
-  const done = g.fmSubmitSpare(spare.answers[0].text);
+  const done = g.fmReveal();
   const result = last(done, 'fmResult');
-  check('M: spare answer finishes fast money', g.state.phase === PHASE.FM_RESULT, g.state.phase);
+  check('M: the reveal goes straight to the result', g.state.phase === PHASE.FM_RESULT, g.state.phase);
+  check('M: exactly the five questions were asked', done.filter((e) => e.type === 'fmRevealEntry').length === 10
+    && !done.some((e) => e.type === 'fmDuplicate'));
   check('M: a total is reported', typeof result?.total === 'number');
   check('M: target is 200', result?.target === FM_TARGET);
   check('M: win flag matches the total', result?.won === (result.total >= FM_TARGET));

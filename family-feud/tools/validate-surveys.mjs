@@ -114,11 +114,11 @@ const mainCount = Array.isArray(data.main) ? data.main.length : 0;
 const fmCount = Array.isArray(data.fastMoney) ? data.fastMoney.length : 0;
 // Fast Money plays 5 questions and holds one spare for a duplicate answer,
 // so fewer than 6 cannot complete a round — that is an error, not a warning.
-if (fmCount > 0 && fmCount < 6) {
-  err(`only ${fmCount} Fast Money question(s); a round needs at least 6 (5 played + 1 spare)`);
+if (fmCount > 0 && fmCount < 5) {
+  err(`only ${fmCount} Fast Money question(s); a round needs 5`);
 }
 if (mainCount < 40) warn(`only ${mainCount} main questions — 40 is the ship minimum, 80 the target`);
-if (fmCount >= 6 && fmCount < 20) warn(`only ${fmCount} Fast Money questions — 20 is the ship minimum, 40 the target`);
+if (fmCount >= 5 && fmCount < 20) warn(`only ${fmCount} Fast Money questions — 20 is the ship minimum, 40 the target`);
 
 for (const w of warnings) console.log(`WARN  ${w}`);
 for (const e of errors) console.error(`ERROR ${e}`);

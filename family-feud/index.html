@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261116-feud6">
+<link rel="stylesheet" href="styles.css?v=20261117-feud7">
 </head>
 <body>
 <div class="rotate-note" aria-hidden="true"><div><b>Turn your phone sideways</b>The show is widescreen.</div></div>
@@ -83,10 +83,11 @@
               <div class="lobby-code-wrap">
                 <span class="hud-label">Room code</span>
                 <span class="lobby-code" id="lobbyCode">----</span>
+                <button type="button" class="ghost-button lobby-leave" id="leaveRoomBtn">LEAVE</button>
               </div>
+              <div class="lobby-count" id="lobbyCount">In the room: 1 of 4</div>
               <ul class="lobby-players" id="lobbyPlayers"></ul>
               <p class="lobby-hint" id="lobbyHint">Give this code to the other players.</p>
-              <button type="button" class="ghost-button" id="leaveRoomBtn">LEAVE THIS GAME</button>
             </div>
 
             <p class="lobby-error" id="lobbyError" hidden></p>
@@ -262,6 +263,13 @@
                  aria-label="Fast Money answer" placeholder="Answer and press Enter">
           <button type="button" class="ghost-button" id="fmPassBtn">PASS <kbd>TAB</kbd></button>
         </form>
+        <div class="fm-watch" id="fmWatch" hidden aria-live="polite">
+          <span class="fm-watch-dot" aria-hidden="true"></span>
+          <span class="fm-watch-text">
+            <span class="fm-watch-main" id="fmWatchMain"></span>
+            <span class="fm-watch-sub" id="fmWatchSub"></span>
+          </span>
+        </div>
         <div class="fm-continue" id="fmContinue" hidden>
           <button type="button" class="big-button primary-action" id="fmContinueBtn">CONTINUE <kbd>SPACE</kbd></button>
         </div>
@@ -377,6 +385,6 @@
 </div>
 
 <noscript><p style="color:#fff;font:600 18px system-ui;padding:24px">This game needs JavaScript enabled.</p></noscript>
-<script type="module" src="app.js?v=20261116-feud6"></script>
+<script type="module" src="app.js?v=20261117-feud7"></script>
 </body>
 </html>

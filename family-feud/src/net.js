@@ -340,6 +340,17 @@ export function createNet() {
  * too: src/board.js fills each tile in from its reveal event, so a guest never
  * needs them and never gets them.
  */
+/**
+ * May this seat see what was typed during Fast Money turn `turn`?
+ *
+ * Yes for the player whose turn it was, for anyone who has already played, and
+ * for anyone not playing Fast Money at all. No for a player whose own turn is
+ * still to come: they would be reading answers they are not allowed to repeat.
+ */
+export function fmSees(fm, seat, turn) {
+  return fm.order.indexOf(seat) <= turn;
+}
+
 export function snapshotFor(state, seat) {
   const copy = JSON.parse(JSON.stringify(state));
 
@@ -355,16 +366,18 @@ export function snapshotFor(state, seat) {
 
   const fm = copy.fm;
   if (fm && fm.order) {
-    const revealing = ['FM_REVEAL', 'FM_DUPLICATE', 'FM_RESULT'].includes(copy.phase);
+    const revealing = ['FM_REVEAL', 'FM_RESULT'].includes(copy.phase);
     if (!revealing) {
       fm.entries = fm.entries.map((list, turn) => (
-        fm.order[turn] === seat ? list : list.map(() => ({ text: '', points: 0, hidden: true }))
+        fmSees(fm, seat, turn) ? list : list.map(() => ({ text: '', points: 0, hidden: true }))
       ));
       // The questions themselves are read out one at a time; sending the whole
       // set would let a waiting player prepare answers for questions they have
       // not been asked yet.
-      fm.questions = fm.questions.map((q, i) => (i <= fm.qIndex ? q : { id: q.id, prompt: '', answers: [] }));
-      if (fm.spare) fm.spare = { id: fm.spare.id, prompt: '', answers: [] };
+      const ahead = !fmSees(fm, seat, fm.turn);
+      fm.questions = fm.questions.map((q, i) => (
+        !ahead && i <= fm.qIndex ? q : { id: q.id, prompt: '', answers: [] }
+      ));
     }
   }
   return copy;
@@ -386,15 +399,22 @@ const blankQuestion = (q) => ({
  * travels, because app.js renders from the EVENT. readQuestion carries the
  * whole board, and the Fast Money events carry what the other player typed.
  */
-export function eventsFor(events, seat) {
+export function eventsFor(events, seat, state = null) {
+  const fm = state?.fm;
   return events.map((e) => {
     switch (e.type) {
       case 'readQuestion':
-      case 'fmQuestion':
-      case 'fmDuplicate':
         return e.question ? { ...e, question: blankQuestion(e.question) } : e;
+      case 'fmQuestion': {
+        if (!e.question) return e;
+        const q = blankQuestion(e.question);
+        // A player still waiting for their turn does not get the wording either.
+        return fm && !fmSees(fm, seat, fm.turn)
+          ? { ...e, question: { ...q, prompt: '', readAs: '' } }
+          : { ...e, question: q };
+      }
       case 'fmAnswer':
-        return e.player === seat ? e : { ...e, text: '' };
+        return (fm ? fmSees(fm, seat, e.turn) : e.player === seat) ? e : { ...e, text: '', hidden: true };
       case 'faceoffEntry':
         return e.player === seat ? e : { ...e, text: '' };
       default:

@@ -4,7 +4,7 @@
 // app.js turns those events into animation and sound. Keeping the two apart
 // is what makes the whole match testable in Node without a browser.
 
-import { matchAnswer } from './match.js?v=20261116-feud6';
+import { matchAnswer } from './match.js?v=20261117-feud7';
 
 export const PHASE = {
   SETUP: 'SETUP',
@@ -19,7 +19,6 @@ export const PHASE = {
   FM_LOOKAWAY: 'FM_LOOKAWAY',
   FM_PLAY: 'FM_PLAY',
   FM_REVEAL: 'FM_REVEAL',
-  FM_DUPLICATE: 'FM_DUPLICATE',
   FM_RESULT: 'FM_RESULT',
 };
 
@@ -64,6 +63,9 @@ export function rng(seed) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
+
+/** Lower-case letters and digits only: "The  Phone!" and "the phone" compare equal. */
+const plainWords = (text) => String(text ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
 export function shuffle(list, rand) {
   const out = [...list];
@@ -527,9 +529,7 @@ export function createGame({
       turn: 0,
       qIndex: 0,
       questions: fmPool.slice(0, FM_QUESTION_COUNT),
-      spare: fmPool[FM_QUESTION_COUNT] ?? fmPool[0],
       entries: order.map(() => []),
-      duplicates: [],
       total: 0,
       target: order.length === 1 ? FM_TARGET_SOLO : FM_TARGET,
     };
@@ -557,7 +557,14 @@ export function createGame({
     ];
   }
 
-  /** One Fast Money answer. Pass null for a pass/timeout. */
+  /**
+   * One Fast Money answer. Pass null for a pass/timeout.
+   *
+   * The second player may not repeat what the first said to the same question.
+   * That is caught HERE, the moment it is typed: nothing is recorded, the
+   * question stays up and the clock keeps running, so they simply try again —
+   * the way the host buzzes it on the show.
+   */
   function fmSubmit(text) {
     if (state.phase !== PHASE.FM_PLAY) return [{ type: 'noop' }];
     const fm = state.fm;
@@ -565,6 +572,25 @@ export function createGame({
     const q = fm.questions[fm.qIndex];
     const r = text == null ? { status: 'MISS' } : matchAnswer(text, q, []);
     const hit = r.status === 'HIT';
+
+    if (text != null && fm.turn > 0) {
+      const mine = plainWords(text);
+      const taken = fm.entries.slice(0, fm.turn).some((list) => {
+        const other = list[fm.qIndex];
+        if (!other) return false;
+        if (hit) return other.rank === r.rank;
+        return !!mine && plainWords(other.text) === mine;
+      });
+      if (taken) {
+        return [{
+          type: 'fmDupTry',
+          turn: fm.turn,
+          player: fm.order[fm.turn],
+          index: fm.qIndex,
+          text,
+        }];
+      }
+    }
 
     fm.entries[fm.turn].push({
       text: text ?? '',
@@ -600,7 +626,7 @@ export function createGame({
     return events;
   }
 
-  /** Reveal every answer with its points, flagging duplicates. */
+  /** Reveal every answer with its points. */
   function fmReveal() {
     snapshot();
     const fm = state.fm;
@@ -609,12 +635,6 @@ export function createGame({
 
     fm.entries.forEach((list, turn) => {
       list.forEach((entry, i) => {
-        let dup = false;
-        if (turn > 0 && entry.rank != null) {
-          dup = fm.entries.slice(0, turn).some((other) => other[i]?.rank === entry.rank);
-        }
-        entry.duplicate = dup;
-        if (dup) { entry.points = 0; fm.duplicates.push({ turn, index: i }); }
         total += entry.points;
         events.push({
           type: 'fmRevealEntry',
@@ -624,48 +644,11 @@ export function createGame({
           matched: entry.answerText,
           rank: entry.rank,
           points: entry.points,
-          duplicate: dup,
         });
       });
     });
 
     fm.total = total;
-
-    if (fm.duplicates.length) {
-      state.phase = PHASE.FM_DUPLICATE;
-      events.push({ type: 'phase', to: state.phase });
-      events.push({
-        type: 'fmDuplicate',
-        player: fm.order[fm.duplicates[0].turn],
-        question: fm.spare,
-        count: fm.duplicates.length,
-      });
-      return events;
-    }
-    return [...events, ...fmFinish()];
-  }
-
-  /** Answer to the spare question that replaces a duplicate. */
-  function fmSubmitSpare(text) {
-    if (state.phase !== PHASE.FM_DUPLICATE) return [{ type: 'noop' }];
-    snapshot();
-    const fm = state.fm;
-    const events = [];
-    const slot = fm.duplicates.shift();
-    const r = text == null ? { status: 'MISS' } : matchAnswer(text, fm.spare, []);
-    const pts = r.status === 'HIT' ? r.answer.points : 0;
-
-    fm.entries[slot.turn][slot.index] = {
-      text: text ?? '', rank: r.rank ?? null, points: pts,
-      answerText: r.answer?.text ?? null, duplicate: false, replaced: true,
-    };
-    fm.total += pts;
-    events.push({ type: 'fmSpareResult', ...slot, text: text ?? '', points: pts });
-
-    if (fm.duplicates.length) {
-      events.push({ type: 'fmDuplicate', player: fm.order[fm.duplicates[0].turn], question: fm.spare, count: fm.duplicates.length });
-      return events;
-    }
     return [...events, ...fmFinish()];
   }
 
@@ -674,14 +657,12 @@ export function createGame({
     state.phase = PHASE.FM_RESULT;
     const won = fm.total >= fm.target;
     // The number one answer to each question, and who (if anyone) said it.
-    // A slot that was swapped for the spare question is not counted: that
-    // entry answers a different question.
     const tops = fm.questions.map((q, index) => ({
       index,
       text: q.answers[0].text,
       points: q.answers[0].points,
       saidBy: fm.entries
-        .map((list, turn) => (list[index] && !list[index].replaced && list[index].rank === 1 ? fm.order[turn] : null))
+        .map((list, turn) => (list[index]?.rank === 1 ? fm.order[turn] : null))
         .filter((seat) => seat != null),
     }));
     return [
@@ -735,7 +716,7 @@ export function createGame({
     state,
     get config() { return cfg; },
     startRound, beginFaceoff, buzz, timeout, submitFaceoff, choose, submitBoard, submitSteal,
-    advanceRound, startFastMoney, fmBeginTurn, fmSubmit, fmReveal, fmSubmitSpare,
+    advanceRound, startFastMoney, fmBeginTurn, fmSubmit, fmReveal,
     forceReveal, forceStrike, skipQuestion, undo,
     get canUndo() { return history.length > 0; },
   };

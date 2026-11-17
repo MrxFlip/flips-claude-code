@@ -11,7 +11,7 @@ Hot-seat game show for 2–4 players, built for the BellaFox arcade.
 **Not deployed yet.** This runs from a local checkout only; it is not on
 theflipside and not on any PC. See section 4 of the handoff.
 
-**State: complete and playable, on one screen or over the internet.** 40 main +
+**State: complete and playable, on one screen or over the internet.** 80 main +
 20 Fast Money questions, all 12 artwork assets, all 109 Bella voice clips. Full
 show plays end to end — face-off, three scoring rounds with multipliers, strikes,
 steal, sudden death, and Fast Money with duplicate handling. Artwork is in
@@ -116,7 +116,7 @@ falls back to the browser's speech for that one. See the Bella section below.
 Rules the validator enforces:
 
 - Main questions: 5–8 answers, ordered highest points first, summing to **exactly 100**.
-- Fast Money: at least **6** questions in total (5 played + 1 spare for a duplicate).
+- Fast Money: at least **5** questions in total. To add questions in bulk, write a pack file and run `tools/add-questions.mjs` (see its header).
 - No duplicate IDs, and no alias claimed by two answers in the same question
   (the second one would be unreachable).
 

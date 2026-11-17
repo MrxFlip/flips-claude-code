@@ -1,0 +1,328 @@
+# BellaFox Feud question pack, 2026-11-17 (main game).
+# Merged into surveys.json by tools/add-questions.mjs.
+#
+#   ## TEMPLATE | Prompt
+#   Answer text | accepted phrasing, accepted phrasing, ...
+#
+# Answers are listed most popular first; the template sets the points
+# (see TEMPLATES in the tool). Aliases must mean the SAME thing as the answer.
+
+## T1 | Name something people do on a lazy Sunday.
+Sleep in | sleep, sleeping in, sleep late, stay in bed, nap, take a nap, napping, lie in, have a lie in, sleeping, lay in bed, sleep all day, snooze
+Watch TV | tv, television, watch television, netflix, watch netflix, binge watch, binge a show, watch movies, watch a movie, movies, watch shows, streaming, watch football, watch sports
+Eat brunch | brunch, breakfast, big breakfast, eat breakfast, go to brunch, make pancakes, pancakes, eat, cook breakfast, go out to eat, order food
+Go to church | church, pray, worship, go to mass, mass, attend church, sunday service
+Do laundry | laundry, wash clothes, clean, cleaning, chores, clean the house, housework, tidy up, do chores, washing
+Go for a walk | walk, take a walk, walking, go outside, stroll, walk the dog, hike, go hiking, go to the park
+
+## T2 | Name something you find in a kitchen junk-food cupboard.
+Chips | potato chips, crisps, doritos, bag of chips, tortilla chips, cheetos, pringles, lays, cheese puffs
+Cookies | cookie, biscuits, oreos, chocolate chip cookies, a pack of cookies, girl scout cookies
+Candy | sweets, candy bars, gummies, gummy bears, lollies, skittles, m and ms, m&ms, jelly beans, hard candy, licorice
+Chocolate | chocolate bar, chocolate bars, a bar of chocolate, hersheys, kit kat, snickers, reeses
+Crackers | cracker, goldfish, cheese crackers, cheez its, ritz, saltines, pretzels
+Popcorn | pop corn, microwave popcorn, bag of popcorn, kettle corn
+
+## T3 | Name something people do when they can't sleep.
+Scroll their phone | phone, look at phone, check phone, go on phone, scroll, scrolling, doom scroll, doomscrolling, social media, tiktok, instagram, play on phone, use their phone, be on their phone
+Watch TV | tv, television, watch television, netflix, watch a show, watch a movie, watch movies, youtube, watch youtube, watch videos
+Read | read a book, reading, book, books, read books, read a magazine, kindle
+Count sheep | counting sheep, sheep, count, counting, count backwards
+Get a snack | snack, eat, eating, midnight snack, raid the fridge, get food, go to the fridge, have a snack, drink milk, warm milk, drink water, get a drink
+Toss and turn | tossing and turning, toss, roll around, lie awake, lay there, stare at the ceiling, lay awake, worry, think, overthink, overthinking
+
+## T4 | Name something kids beg their parents for.
+A pet | pet, dog, a dog, puppy, a puppy, cat, a cat, kitten, a kitten, hamster, pony, a pony, an animal
+A phone | phone, cell phone, iphone, smartphone, a cell phone, mobile phone, tablet, ipad, an ipad
+Candy | sweets, treats, a treat, chocolate, ice cream, dessert, sugar, junk food, snacks, a snack, cookies
+Toys | toy, a toy, new toy, a new toy, lego, legos, doll, a doll, barbie, action figure, stuffed animal
+Video games | video game, games, a game, game console, a console, xbox, playstation, ps5, nintendo, switch, a switch, more screen time, screen time, robux, v bucks
+To stay up late | stay up, stay up late, later bedtime, staying up late, stay up later, no bedtime, five more minutes, a sleepover, sleepover
+
+## T5 | Name something that makes people scream.
+A spider | spider, spiders, bug, bugs, a bug, insect, cockroach, a cockroach, a mouse, mouse, a rat, a snake, snake
+A scary movie | scary movie, horror movie, horror movies, scary movies, a horror film, horror, jump scare, jump scares, a jumpscare
+A roller coaster | roller coaster, rollercoaster, roller coasters, a ride, rides, theme park ride, amusement park ride, the drop
+Being surprised | surprise, a surprise, being startled, someone scaring them, being scared, getting scared, a scare, a fright, someone jumping out, a prank, boo
+Pain | getting hurt, hurt, stubbing a toe, stub toe, stubbed toe, injury, an injury, breaking a bone, stepping on lego, childbirth
+A concert | concert, a band, favorite band, seeing a celebrity, a celebrity, a rock star, a pop star, their team winning, a goal, sports, winning the lottery, winning
+
+## T6 | Name something you'd hate to find in your shoe.
+A spider | spider, spiders, bug, a bug, bugs, insect, an insect, cockroach, a scorpion, scorpion, ant, ants
+A rock | rock, rocks, stone, a stone, pebble, a pebble, pebbles, gravel, a pebble or rock
+Something wet | water, wet, a wet sock, wet sock, mud, a puddle, slime, something slimy, gum, chewing gum, something sticky
+Poop | dog poop, poo, dog poo, dog mess, droppings, mouse droppings, cat poop, crap
+A mouse | mouse, a rat, rat, mice, rodent, a dead mouse, a frog, frog, a lizard, snake, a snake
+Sand | beach sand, dirt, grit, sand from the beach
+
+## T7 | Name a reason someone might call in sick when they aren't.
+To sleep in | sleep, tired, too tired, they are tired, being tired, exhausted, need sleep, sleep late, stay in bed, overslept, lazy, feeling lazy, laziness
+A hangover | hangover, hungover, being hungover, drank too much, partied too hard, drunk, still drunk, partying, a late night, out late
+They hate their job | hate work, hate their job, hate the job, hate their boss, dont want to work, dont feel like working, dont feel like it, bad boss, sick of work, bored of work, avoid the boss
+A day off | need a day off, want a day off, mental health day, a break, need a break, burnout, burned out, stress, stressed, a rest day, me time, a long weekend, long weekend
+Go somewhere fun | the beach, go to the beach, a trip, vacation, a concert, a game, the big game, a ball game, golf, play golf, fishing, go fishing, shopping, a date, nice weather, good weather, sunny day
+A job interview | interview, another interview, another job, job hunting, looking for a new job, a new job
+
+## T8 | Name something you see at every wedding.
+The bride | bride, a bride, bride and groom, the groom, groom, the couple, the happy couple, the wedding dress, wedding dress, a white dress, the dress
+A cake | cake, wedding cake, the cake, cutting the cake, a big cake
+Flowers | flower, bouquet, the bouquet, roses, flower arrangements, centerpieces, petals
+Dancing | dance, people dancing, first dance, the first dance, a dance floor, dance floor, bad dancing, a dj, dj, a band, music
+Rings | ring, wedding rings, the rings, wedding ring, a ring, wedding bands
+Crying | tears, people crying, someone crying, happy tears, a crying mother, crying mom, tissues
+
+## T1 | Name something people do at a red carpet event.
+Pose for photos | pose, posing, take photos, get photographed, pictures, photos, take pictures, smile for cameras, smile, get their picture taken, selfies
+Wave | waving, wave at fans, wave to fans, wave to the crowd, blow kisses
+Give interviews | interview, interviews, get interviewed, talk to reporters, answer questions, talk to the press, do interviews
+Show off their outfit | show off outfit, show off, wear a fancy dress, show off the dress, wear a gown, dress up, wear a tuxedo, wear a suit, wear designer clothes, twirl
+Sign autographs | autographs, sign, signing autographs, autograph, sign things, meet fans, greet fans
+Walk | walk the carpet, walk down the carpet, strut, walking
+
+## T2 | Name something a dog does that drives its owner crazy.
+Barking | bark, barks, bark a lot, barking all night, barks at everything, howling, howl, whining, whine, barks at the mailman
+Chewing things | chew, chewing, chews shoes, chew shoes, chewing shoes, chew the furniture, chews everything, eats shoes, destroying things, destroys things, eating things, rips things up
+Peeing inside | pee, pees inside, peeing in the house, pee on the carpet, pees on the floor, accidents, has accidents, poop inside, poops in the house, pooping inside, marking
+Begging for food | beg, begging, begs, begs for food, steals food, stealing food, eating off the table, counter surfing, eats off the counter
+Shedding | shed, sheds, hair everywhere, dog hair, fur everywhere, sheds hair, fur
+Jumping on people | jump, jumping, jumps on people, jumps up, jumping up, jumps on guests, jumps on the couch, jumps on the bed
+
+## T3 | Name something people take to the beach.
+A towel | towel, towels, beach towel, a beach towel, blanket, a blanket, beach blanket
+Sunscreen | sun screen, sunblock, sun block, suncream, sun cream, sun lotion, lotion, spf, tanning oil, sun tan lotion
+An umbrella | umbrella, beach umbrella, parasol, a tent, beach tent, shade, a canopy
+A cooler | cooler, drinks, a drink, water, beer, food, snacks, a picnic, sandwiches, ice chest, lunch
+A swimsuit | swimsuit, bathing suit, swim suit, bikini, trunks, swim trunks, swimming costume, swimwear, bathers
+A beach chair | chair, chairs, beach chair, beach chairs, lawn chair, a lounger, deck chair
+
+## T4 | Name something people do at the gym besides work out.
+Take selfies | selfie, selfies, take a selfie, take pictures, take photos, mirror selfie, film themselves, record themselves, make tiktoks, pose in the mirror
+Talk | chat, talking, chatting, socialize, gossip, talk to friends, hang out, stand around talking, small talk, flirt, flirting
+Look at their phone | phone, scroll phone, be on their phone, check their phone, text, texting, scroll, scrolling, sit on their phone, play on phone
+Shower | take a shower, use the shower, showering, sauna, use the sauna, steam room, hot tub
+Stare at others | stare, staring, watch people, people watch, watch others, look at people, check people out, look in the mirror, look at themselves, admire themselves
+Sit around | sit, rest, sitting, take breaks, rest between sets, nothing, sit on the machines, hog the machines
+
+## T5 | Name something that gets left behind in a hotel room.
+A phone charger | charger, phone charger, chargers, charging cable, cable, a cable, cord, phone cord, a plug, adapter
+A toothbrush | toothbrush, toothpaste, toiletries, shampoo, razor, a razor, deodorant, makeup, soap
+Clothes | clothing, socks, a sock, underwear, a shirt, shirt, pajamas, a jacket, swimsuit, shoes, a shoe
+Jewelry | jewellery, a ring, ring, earrings, a necklace, necklace, a watch, watch, wedding ring
+A phone | phone, cell phone, their phone, tablet, laptop, ipad, a book, book, glasses, sunglasses
+A pillow | pillow, their pillow, a stuffed animal, teddy bear, a teddy, a kids toy, a blanket, blankie
+
+## T6 | Name something that people do when they're nervous.
+Bite their nails | bite nails, nail biting, biting nails, chew nails, chew their nails, bite fingernails, pick their nails
+Sweat | sweating, sweaty palms, sweat a lot, get sweaty, sweaty hands, perspire
+Fidget | fidgeting, tap their foot, tapping, shake their leg, bounce their leg, leg bouncing, twiddle thumbs, play with hair, twirl hair, wring hands, crack knuckles
+Pace | pacing, pace around, walk around, pace back and forth, walk back and forth
+Talk too much | talk a lot, talk fast, ramble, rambling, babble, talk, stutter, stammer, laugh, giggle, nervous laugh, laugh nervously
+Shake | shaking, tremble, trembling, shiver, shaky hands, hands shake, quiver
+
+## T7 | Name a place where you have to be quiet.
+A library | library, the library, public library, school library
+A church | church, temple, mosque, chapel, a place of worship, synagogue, mass, a funeral, funeral, a funeral home
+A movie theater | movie theater, the movies, movies, cinema, the cinema, movie theatre, a theater, theatre, a play, the opera
+A hospital | hospital, the hospital, doctors office, a doctors office, waiting room, a nursery, babys room, a baby room, when a baby is sleeping
+A classroom | classroom, school, class, in class, a test, an exam, during a test, exam room, a lecture
+A museum | museum, art gallery, a gallery, art museum, a golf course, golf course, a spa, spa
+
+## T8 | Name something people put ketchup on.
+French fries | fries, french fry, chips, potatoes, hash browns, tater tots, tots, potato
+Burgers | burger, a burger, hamburger, hamburgers, cheeseburger, a cheeseburger, cheeseburgers
+Hot dogs | hot dog, hotdog, hotdogs, a hot dog, sausage, sausages, corn dog, corn dogs
+Eggs | egg, scrambled eggs, an omelette, omelet, fried eggs
+Chicken nuggets | nuggets, chicken, chicken tenders, tenders, chicken strips, chicken fingers
+Meatloaf | meat loaf, steak, a steak, meat
+
+## T1 | Name something that people collect.
+Coins | coin, money, old coins, rare coins, pennies, quarters, currency
+Stamps | stamp, postage stamps, old stamps
+Trading cards | cards, baseball cards, pokemon cards, sports cards, card, football cards, pokemon, basketball cards
+Toys | toy, action figures, figurines, dolls, funko pops, funkos, legos, lego, hot wheels, stuffed animals, beanie babies, model cars
+Shoes | sneakers, shoe, kicks, trainers, jordans, handbags, purses, bags
+Records | vinyl, vinyl records, albums, record, cds, comic books, comics, books
+
+## T2 | Name something you do before leaving the house.
+Lock the door | lock up, lock the doors, lock door, check the door, lock the house, check the locks, locking up
+Grab keys | keys, get keys, get my keys, find keys, find my keys, take keys, grab my keys, get the car keys, car keys
+Get dressed | dress, put on clothes, put clothes on, put on shoes, shoes, put shoes on, put on a coat, grab a jacket, get changed
+Check the mirror | look in the mirror, mirror, check my hair, fix my hair, do my hair, brush hair, do makeup, put on makeup, check how i look
+Use the bathroom | bathroom, pee, go to the bathroom, use the toilet, toilet, go pee, use the restroom, brush teeth, brush my teeth
+Turn off the lights | lights, turn off lights, turn the lights off, turn off the stove, check the stove, turn everything off, unplug things, turn off the tv
+
+## T3 | Name something a babysitter does after the kids are asleep.
+Watch TV | tv, television, watch television, netflix, watch netflix, watch a movie, watch movies, watch a show, movies
+Scroll their phone | phone, be on their phone, go on their phone, scroll, text, texting, social media, tiktok, call friends, talk on the phone, call a friend, facetime
+Raid the fridge | eat, eating, snack, snacks, eat snacks, eat the food, eat their food, raid the pantry, eat all the food, get a snack, raid the kitchen
+Do homework | homework, study, studying, schoolwork, read, read a book, reading
+Fall asleep | sleep, nap, take a nap, sleeping, doze off, go to sleep, falls asleep on the couch
+Invite someone over | invite a boyfriend, boyfriend, have a boyfriend over, invite friends, have friends over, invite their girlfriend, call their boyfriend, snoop, snooping, snoop around
+
+## T4 | Name something that costs way more than it should.
+Gas | gasoline, petrol, fuel, gas prices, a tank of gas
+Rent | housing, a house, houses, a home, an apartment, mortgage, real estate, property
+Groceries | food, eggs, milk, grocery, meat, beef, bread, eating out, restaurants, fast food, takeout
+Concert tickets | tickets, concerts, a concert, ticket, sports tickets, event tickets, movie tickets, the movies, movie popcorn, popcorn
+College | tuition, school, university, college tuition, education, textbooks, student loans
+Healthcare | health care, medicine, insurance, health insurance, doctors, the doctor, hospital bills, medical bills, prescriptions, the dentist, car insurance
+
+## T5 | Name something people do in an elevator.
+Stare at the floor numbers | watch the numbers, look at the numbers, stare at the numbers, look up, stare at the door, look at the door, stare ahead, stare, look at the floor, stare at the floor, avoid eye contact, look down
+Look at their phone | phone, check phone, check their phone, scroll, text, texting, pretend to text, look at phone, go on their phone
+Press buttons | push buttons, press the button, push the button, press a button, pick a floor, press all the buttons, hit the button, choose a floor
+Stand in silence | stand, stand quietly, be quiet, stay silent, silence, stand there, nothing, wait, stand awkwardly, be awkward
+Make small talk | small talk, talk, chat, say hello, say hi, talk about the weather, awkward conversation
+Check the mirror | look in the mirror, fix their hair, check themselves out, check their reflection, mirror, fix hair
+
+## T6 | Name something you might borrow from a neighbor.
+Sugar | a cup of sugar, cup of sugar, some sugar, flour, salt
+A ladder | ladder, step ladder, a stepladder
+Tools | tool, a tool, hammer, a hammer, drill, a drill, screwdriver, a screwdriver, wrench, a saw, power tools
+A lawn mower | lawnmower, lawn mower, mower, the mower, a rake, rake, a shovel, shovel, snow blower, a snow shovel, hedge trimmer, leaf blower
+Eggs | an egg, egg, milk, some milk, butter, a cup of milk
+Jumper cables | jump leads, jumper leads, cables, a jump start, a jump, their car, a car, a truck, their truck
+
+## T7 | Name something people say to a baby.
+Goo goo ga ga | goo goo, ga ga, baby talk, googoo gaga, goo goo gaga, coo, cooing, gibberish, coochie coo, coochy coochy coo
+Peekaboo | peek a boo, peek-a-boo, peekaboo i see you, i see you, boo
+Who's a good baby | whos a good boy, whos a good girl, good boy, good girl, good baby, good job, such a good baby, whos my baby
+You're so cute | so cute, cute, how cute, youre cute, aww, so adorable, adorable, you are so cute, cutie, what a cutie, youre so pretty, so sweet, look at you
+Say mama | mama, say dada, dada, mommy, daddy, say daddy, say mommy, come to mama, say my name
+I love you | love you, i love you so much, mommy loves you, daddy loves you, hello, hi, hi baby, hello baby
+
+## T8 | Name a reason a restaurant meal gets sent back.
+It's cold | cold, cold food, food is cold, the food was cold, not hot, not hot enough, lukewarm, its cold
+It's undercooked | undercooked, raw, under cooked, not cooked, its raw, raw meat, raw chicken, pink chicken, not done, rare, too rare, bloody
+Wrong order | wrong food, wrong dish, the wrong order, not what they ordered, wrong meal, they got the order wrong, wrong thing, mistake, order was wrong, not what i ordered
+It's overcooked | overcooked, burnt, burned, over cooked, well done, too well done, its burnt, dry, too dry, tough
+A hair in it | hair, a hair, hair in the food, found a hair, a bug, bug in it, a fly, fly in the soup, something in it, dirty
+It tastes bad | tastes bad, bad taste, it tastes awful, too salty, salty, too spicy, spicy, bland, no flavor, gross, disgusting, dont like it, didnt like it, bad
+
+## T1 | Name something you'd find in a doctor's waiting room.
+Magazines | magazine, old magazines, a magazine, books, reading material, newspapers, pamphlets, brochures
+Chairs | chair, seats, seating, a chair, uncomfortable chairs, couch, a sofa, benches
+Sick people | sick person, patients, people, coughing people, people coughing, a patient, other patients, germs, crying kids, kids, children
+A TV | tv, television, a television, a screen, the news
+Toys | toy, kids toys, a play area, childrens toys, a toy box, blocks, coloring books
+A front desk | reception desk, a receptionist, receptionist, the desk, a clipboard, clipboard, forms, paperwork, a sign in sheet, hand sanitizer, tissues, a fish tank, fish tank
+
+## T2 | Name something people do while driving that they shouldn't.
+Text | texting, text and drive, texting and driving, use their phone, phone, be on their phone, look at their phone, check their phone, talk on the phone, scroll, call
+Eat | eating, eat food, eat a burger, eat fast food, drink, drink coffee, eat and drive, snack
+Speed | speeding, drive too fast, go too fast, driving too fast, drive fast, race, racing
+Put on makeup | makeup, do makeup, apply makeup, do their makeup, put on lipstick, lipstick, mascara, shave, fix their hair, do their hair
+Drink alcohol | drink and drive, drunk driving, drive drunk, drinking and driving, drinking, drink beer, alcohol
+Fall asleep | sleep, doze off, nod off, drive tired, drive sleepy, sleeping, close their eyes
+
+## T3 | Name something that people are always running out of.
+Money | cash, funds, dollars, savings
+Time | hours in the day, time in the day, hours
+Toilet paper | tp, toilet roll, loo roll, bathroom tissue, toilet tissue, paper towels
+Milk | bread, eggs, groceries, food, coffee, butter
+Gas | gasoline, petrol, fuel, gas in the car
+Patience | energy, phone battery, battery, battery life, charge, data, storage, phone storage
+
+## T4 | Name something teachers confiscate.
+Phones | phone, cell phones, cell phone, a phone, cellphone, mobile phone, iphone, mobile, smartphones
+Gum | chewing gum, bubble gum, candy, sweets, food, snacks
+Toys | toy, a toy, fidget spinner, fidget spinners, fidget toys, slime, trading cards, pokemon cards, cards, a ball
+Notes | note, a note, passed notes, love notes, a passed note, cheat sheets, a cheat sheet
+Headphones | earbuds, airpods, earphones, ear buds, headphone, an ipod, music player
+Hats | hat, a hat, caps, cap, hoodies, a hoodie, vapes, a vape, vape
+
+## T5 | Name something people do when the power goes out.
+Light candles | candles, candle, light a candle, find candles, get candles, use candles
+Find a flashlight | flashlight, flashlights, get a flashlight, grab a flashlight, torch, find a torch, use a flashlight, use their phone light, phone flashlight, lantern
+Go to sleep | sleep, go to bed, nap, take a nap, sleeping, bed
+Play board games | board games, games, play games, play cards, cards, a board game, card games, play a game, tell stories, tell ghost stories, talk, talk to each other
+Check the breaker | breaker, fuse box, check the fuse box, check the fuses, flip the breaker, the circuit breaker, call the power company, call the electric company, complain, panic
+Use their phone | phone, scroll phone, go on their phone, look at phone, check their phone, use up phone battery
+
+## T6 | Name something that smells amazing.
+Fresh bread | bread, baking bread, fresh baked bread, bakery, a bakery, baking, baked goods, toast
+Coffee | fresh coffee, coffee brewing, brewing coffee, coffee beans, a coffee shop
+Bacon | bacon cooking, frying bacon, cooking bacon, sizzling bacon
+Cookies | cookies baking, fresh cookies, chocolate chip cookies, baking cookies, cake, brownies, cinnamon rolls, cinnamon, vanilla
+Flowers | flower, roses, a rose, lavender, fresh flowers, lilacs, jasmine, perfume, cologne
+Rain | fresh rain, after rain, the smell of rain, fresh cut grass, cut grass, grass, clean laundry, fresh laundry, a campfire, the ocean, a new car, pizza, barbecue, bbq, garlic
+
+## T7 | Name something a superhero needs.
+A cape | cape, a costume, costume, a suit, suit, a mask, mask, an outfit, spandex, tights, a disguise
+Superpowers | powers, super powers, a power, a superpower, super strength, strength, the ability to fly, flying, flight, speed, special powers
+A villain | villain, an enemy, enemy, a nemesis, nemesis, bad guys, a bad guy, an arch enemy, someone to fight, crime
+A sidekick | sidekick, a partner, partner, a team, a helper, friends, a butler
+A secret identity | secret identity, an alter ego, alter ego, a cool name, a name, a hero name, a catchphrase, a logo
+Gadgets | gadget, a car, a cool car, a vehicle, the batmobile, weapons, a weapon, a shield, a hammer, a lair, a hideout, a secret base
+
+## T8 | Name something people do on an airplane.
+Sleep | nap, sleeping, take a nap, try to sleep, doze, snooze, rest
+Watch movies | watch a movie, movies, movie, watch tv, watch shows, watch a show, tv, in flight movie, watch something
+Eat | eating, snack, eat snacks, eat peanuts, eat the meal, drink, have a drink, order a drink, drink alcohol, eat pretzels
+Read | reading, read a book, book, read a magazine, read books
+Listen to music | music, listen to a podcast, podcasts, headphones, put on headphones, listen to headphones
+Look out the window | look out window, stare out the window, window, look at the clouds, take pictures out the window, use the bathroom, go to the bathroom, complain, pray, panic
+
+## T1 | Name a food you eat with your hands.
+Pizza | a slice of pizza, pizza slice, slice of pizza, a slice
+Burgers | burger, hamburger, a burger, hamburgers, cheeseburger, a cheeseburger, sandwich, a sandwich, sandwiches
+Fried chicken | chicken, chicken wings, wings, drumsticks, chicken legs, hot wings, buffalo wings, nuggets, chicken nuggets, ribs
+Tacos | taco, a taco, burrito, a burrito, burritos, nachos, quesadilla
+French fries | fries, chips, french fry, a fry
+Hot dogs | hot dog, hotdog, a hot dog, hotdogs, corn dog, corn on the cob, corn
+
+## T2 | Name something you'd be embarrassed to have your mom find.
+Your diary | diary, a diary, journal, my journal, a journal, my diary
+Your texts | texts, text messages, my texts, messages, my phone, phone, search history, my search history, browser history, internet history, my browser history, dms
+Love letters | love letter, a love letter, love notes, notes, a note from a crush, letters
+A bad report card | report card, bad grades, grades, a failed test, a bad test, a bad grade, a detention slip, test scores, my report card
+Dirty laundry | dirty underwear, underwear, dirty clothes, dirty socks, a messy room, messy room, my messy room, old food, moldy food, dirty dishes
+Cigarettes | a vape, vape, vapes, alcohol, beer, a fake id, fake id, smokes, a tattoo, tattoo, a piercing
+
+## T3 | Name something that gets stuck in your teeth.
+Popcorn | pop corn, popcorn kernels, a kernel, kernels, a popcorn kernel, popcorn shell
+Spinach | lettuce, greens, salad, kale, herbs, broccoli, something green, a leaf, parsley
+Meat | steak, chicken, beef, pork, ribs, beef jerky, jerky, a piece of meat, bacon
+Seeds | seed, a seed, poppy seeds, sesame seeds, a poppy seed, strawberry seeds, sunflower seeds, nuts
+Candy | caramel, toffee, taffy, gum, chewing gum, sticky candy, gummies, gummy bears
+Corn | corn on the cob, sweetcorn, sweet corn, a piece of corn
+
+## T4 | Name something you do at a sleepover.
+Stay up late | stay up, stay up all night, dont sleep, not sleep, stay awake, pull an all nighter, all nighter, no sleep
+Watch movies | watch a movie, movies, movie, movie night, watch tv, scary movies, watch scary movies, watch a scary movie
+Eat junk food | junk food, eat, snacks, eat snacks, eat pizza, pizza, candy, eat candy, popcorn, order pizza, eat sweets
+Tell secrets | secrets, gossip, talk, talking, tell stories, ghost stories, tell ghost stories, scary stories, tell scary stories, talk about crushes, truth or dare, play truth or dare
+Play games | games, video games, play video games, board games, play a game, hide and seek
+Pillow fight | pillow fights, have a pillow fight, a pillow fight, build a fort, pillow fort, build a pillow fort, pranks, prank each other, do makeovers, makeovers, paint nails
+
+## T5 | Name a reason your phone might die fast.
+Too many apps | apps, too many apps open, apps running, background apps, apps open, apps in the background, lots of apps
+Playing games | games, gaming, a game, mobile games, playing a game, video games
+Watching videos | videos, video, streaming, youtube, tiktok, netflix, watching youtube, watching tiktok, watching movies, social media, scrolling, too much scrolling, being on it too much, using it too much, overuse
+An old battery | old battery, bad battery, its old, old phone, an old phone, the phone is old, battery is old, worn out battery, a dying battery, broken battery
+Brightness too high | brightness, screen brightness, bright screen, the screen is too bright, brightness all the way up, high brightness
+The cold | cold, cold weather, its cold, the heat, heat, hot weather, bluetooth, gps, location, wifi, searching for signal, no signal, bad signal
+
+## T6 | Name something people do at a stoplight when a song they love comes on.
+Sing along | sing, singing, sing loudly, sing out loud, belt it out, sing at the top of their lungs, karaoke
+Turn it up | turn up the volume, crank it up, turn up the radio, crank it, turn it up loud, blast it, volume up, turn up the music, make it louder
+Dance | dancing, car dance, dance in their seat, seat dance, bust a move, groove, wiggle, bop
+Drum on the wheel | drum on the steering wheel, steering wheel drums, tap the wheel, tap the steering wheel, drum, drumming, tap their fingers, air drums, tap along
+Bob their head | head bob, nod their head, bob head, head bang, headbang, nod along, bang their head
+Roll down the windows | roll the windows down, windows down, open the windows, put the windows down, open the window
+
+## T7 | Name a piece of advice parents give that kids ignore.
+Eat your vegetables | eat vegetables, eat your veggies, vegetables, veggies, eat healthy, eat your greens, eat your food, finish your dinner
+Go to bed early | go to bed, go to sleep, get some sleep, bedtime, sleep early, get more sleep, go to bed on time, dont stay up late
+Do your homework | homework, study, study hard, do your schoolwork, work hard in school, stay in school, get good grades
+Wear a jacket | wear a coat, put on a coat, put on a jacket, bring a jacket, take a jacket, jacket, coat, dress warm, bundle up, wear a sweater
+Save your money | save money, dont waste money, save, be careful with money, dont spend it all
+Get off your phone | put down the phone, put your phone away, less screen time, get off the phone, stop playing video games, turn off the tv, go outside, play outside, clean your room, brush your teeth
+
+## T8 | Name something you might see in the sky.
+Clouds | cloud, a cloud, rain clouds, storm clouds
+The sun | sun, sunshine, the sunset, sunset, a sunrise, sunrise
+Birds | bird, a bird, seagulls, an eagle, geese, a flock of birds
+An airplane | plane, airplane, a plane, planes, airplanes, a jet, jets, helicopter, a helicopter, aircraft
+Stars | star, a star, the stars, shooting star, a shooting star, constellations
+The moon | moon, a full moon, full moon, a rainbow, rainbow, a kite, kite, a balloon, hot air balloon, a ufo, ufo, lightning, fireworks

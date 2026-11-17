@@ -207,6 +207,11 @@ file paths) — the same shape as the existing entries.
 | `soloOpen` | Start of a solo run | "Just you and the board. Good luck." |
 | `struckOut` | Solo: third strike | "Three strikes. That board is done." |
 
-17 short clips in total. Three existing buckets that were recorded but never
+| `fmTryAgain` | Fast Money: the second player repeats an answer | "That one's already been said. Try again!" / "Already up there. Give me another one!" |
+
+19 short clips in total, plus the 80 questions added on 2026-11-17
+(`q041`-`q080`, `f021`-`f060` in `data/surveys.json`), which are captions only
+until rendered. `node tools/render-voice.mjs --dry-run` lists exactly what is
+missing. Three existing buckets that were recorded but never
 used are now wired in: `roundOpen` (rounds 2+), `fmLookaway`, and `faceoff`
 remains available.

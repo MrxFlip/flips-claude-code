@@ -11,15 +11,15 @@
 // (the console under the board, or a single primary button), so nobody ever
 // has to ask "what do I press now?".
 
-import { initStage } from './src/stage.js?v=20261116-feud6';
-import { loadSurveys } from './src/data.js?v=20261116-feud6';
-import { createBoard } from './src/board.js?v=20261116-feud6';
-import { createGame, PHASE, FM_TIME } from './src/game.js?v=20261116-feud6';
-import { createAudio } from './src/audio.js?v=20261116-feud6';
-import { initArt } from './src/art.js?v=20261116-feud6';
-import { confetti } from './src/confetti.js?v=20261116-feud6';
-import { hostLine } from './src/host-lines.js?v=20261116-feud6';
-import { createNet, resolveRelayUrl, snapshotFor, eventsFor } from './src/net.js?v=20261116-feud6';
+import { initStage } from './src/stage.js?v=20261117-feud7';
+import { loadSurveys } from './src/data.js?v=20261117-feud7';
+import { createBoard } from './src/board.js?v=20261117-feud7';
+import { createGame, PHASE, FM_TIME } from './src/game.js?v=20261117-feud7';
+import { createAudio } from './src/audio.js?v=20261117-feud7';
+import { initArt } from './src/art.js?v=20261117-feud7';
+import { confetti } from './src/confetti.js?v=20261117-feud7';
+import { hostLine } from './src/host-lines.js?v=20261117-feud7';
+import { createNet, resolveRelayUrl, snapshotFor, eventsFor, fmSees } from './src/net.js?v=20261117-feud7';
 
 const $ = (id) => document.getElementById(id);
 const el = {
@@ -32,7 +32,7 @@ const el = {
   startBtn: $('startBtn'), setupBackBtn: $('setupBackBtn'), setupHowBtn: $('setupHowBtn'),
   // online lobby
   modeSeg: $('modeSeg'), lobby: $('lobby'), lobbyChoice: $('lobbyChoice'), lobbyRoom: $('lobbyRoom'),
-  lobbyCode: $('lobbyCode'), lobbyHint: $('lobbyHint'), lobbyPlayers: $('lobbyPlayers'),
+  lobbyCode: $('lobbyCode'), lobbyHint: $('lobbyHint'), lobbyPlayers: $('lobbyPlayers'), lobbyCount: $('lobbyCount'),
   lobbyError: $('lobbyError'), createRoomBtn: $('createRoomBtn'), joinRoomBtn: $('joinRoomBtn'),
   joinCode: $('joinCode'), leaveRoomBtn: $('leaveRoomBtn'), rulesPanel: $('rulesPanel'),
   netBadge: $('netBadge'),
@@ -54,6 +54,7 @@ const el = {
   fmWho: $('fmWho'), fmTimer: $('fmTimer'), fmTimerText: $('fmTimerText'),
   fmQuestion: $('fmQuestion'), fmRows: $('fmRows'), fmColA: $('fmColA'), fmColB: $('fmColB'),
   fmForm: $('fmForm'), fmInput: $('fmInput'), fmPassBtn: $('fmPassBtn'),
+  fmWatch: $('fmWatch'), fmWatchMain: $('fmWatchMain'), fmWatchSub: $('fmWatchSub'),
   fmContinue: $('fmContinue'), fmContinueBtn: $('fmContinueBtn'),
   fmTotal: $('fmTotal'), fmTarget: $('fmTarget'), fmBar: $('fmBar'),
   // result
@@ -133,7 +134,8 @@ let game = null;
 let boardView = null;
 let artUrls = new Map();
 
-let advance = null;            // { fn } — what the primary button / Space does right now
+let earlyReady = null;         // seat that pressed "I am ready" before the host's button existed
+let advance = null;            // { fn, label, who } — what the primary button / Space does right now
 let pendingInput = null;       // { context, who } — a person at THIS screen owes an answer
 let engineAwait = null;        // { context, who } — what the engine is waiting on, whoever
                                // owns it. Only meaningful on the machine with the engine.
@@ -196,7 +198,6 @@ const SCREEN_FOR_PHASE = {
   [PHASE.FM_LOOKAWAY]: 'fm',
   [PHASE.FM_PLAY]: 'fm',
   [PHASE.FM_REVEAL]: 'fm',
-  [PHASE.FM_DUPLICATE]: 'fm',
   [PHASE.FM_RESULT]: 'fm',      // stay on the board; the result screen follows the reveal
 };
 
@@ -256,22 +257,49 @@ function setHost(pose, ms = 0) {
   if (ms) hostTimer = setTimeout(() => setHost('idle'), ms);
 }
 
-function setAdvance(label, fn) {
-  // Online, the host moves the show along, the way a real host does. Guests
-  // see the same button, parked, saying who they are waiting for.
-  const guest = online && !isHost();
-  advance = guest ? null : { fn };
+/**
+ * Put up the "carry on" button.
+ *
+ * Online, the host moves the show along, the way a real host does, and guests
+ * see the same button parked, saying who they are waiting for. A step that is
+ * one player's own to take ("I am ready" before their Fast Money clock starts)
+ * names that seat in `who`, and then the button is live on THEIR screen.
+ */
+function setAdvance(label, fn, who = null) {
+  advance = { fn, label, who };
+  // That player may have pressed their button before this screen got here
+  // (each screen finishes Bella's line in its own time). Honour it now.
+  const early = earlyReady;
+  earlyReady = null;
+  if (who != null && early === who && online && isHost()) {
+    clearAdvance();
+    fn();
+    return;
+  }
+  paintAdvance();
+  el.fmContinue.hidden = false;
+  el.resultPrimary.hidden = false;
+}
+
+function canAdvance() {
+  if (!advance) return false;
+  if (!online) return true;
+  return advance.who == null ? isHost() : myTurn(advance.who);
+}
+
+function paintAdvance() {
+  if (!advance) return;
+  const mine = canAdvance();
+  const waitFor = advance.who != null && game ? name(advance.who) : hostName();
   for (const btn of [el.continueBtn, el.fmContinueBtn, el.resultPrimary]) {
     btn.innerHTML = '';
-    btn.disabled = guest;
-    if (guest) { btn.append(`WAITING FOR ${hostName().toUpperCase()}`); continue; }
-    btn.append(`${label} `);
+    btn.disabled = !mine;
+    if (!mine) { btn.append(`WAITING FOR ${waitFor.toUpperCase()}`); continue; }
+    btn.append(`${advance.label} `);
     const k = document.createElement('kbd');
     k.textContent = 'SPACE';
     btn.append(k);
   }
-  el.fmContinue.hidden = false;
-  el.resultPrimary.hidden = false;
 }
 
 function clearAdvance() {
@@ -280,10 +308,16 @@ function clearAdvance() {
 }
 
 function fireAdvance() {
-  if (!advance || paused) return;
+  if (!advance || paused || !canAdvance()) return;
+  audio.sfx('click');
+  if (online && !isHost()) {
+    // A guest has no engine: tell the host this seat pressed its button.
+    for (const btn of [el.continueBtn, el.fmContinueBtn, el.resultPrimary]) btn.disabled = true;
+    net.relay({ k: 'input', kind: 'ready' });
+    return;
+  }
   const { fn } = advance;
   clearAdvance();
-  audio.sfx('click');
   fn();
 }
 
@@ -479,7 +513,7 @@ function broadcast(events) {
   const bySeat = {};
   for (const pl of net.players) {
     if (pl.seat === 0) continue;
-    bySeat[pl.seat] = { events: eventsFor(events, pl.seat), state: snapshotFor(game.state, pl.seat) };
+    bySeat[pl.seat] = { events: eventsFor(events, pl.seat, game.state), state: snapshotFor(game.state, pl.seat) };
   }
   if (Object.keys(bySeat).length) net.relay({ k: 'events', bySeat });
 }
@@ -882,7 +916,6 @@ async function handle(e) {
       fmShownTotal = 0;
       buildFmRows();
       for (const q of fm.questions) markSeen(q.id);
-      markSeen(fm.spare?.id);
       el.fmTotal.textContent = '0';
       el.fmTarget.textContent = `/ ${e.target}`;
       el.fmBar.style.width = '0%';
@@ -897,13 +930,14 @@ async function handle(e) {
         ? `Five questions, ${FM_TIME[0]} seconds. Score ${e.target} to win.`
         : `Five questions each, against the clock. Reach ${e.target} together to win.`;
       el.fmForm.hidden = true;
+      setFmWatch(null);
       clearAdvance();
       el.stage.classList.remove('fm-tops');
       lastFmResult = null;
       audio.sfx('bell');
       await say('fmIntro');
       fmIntroSpoke = true;
-      setAdvance(`${name(e.order[0]).toUpperCase()} IS READY`, () => run(game.fmBeginTurn()));
+      setAdvance(`${name(e.order[0]).toUpperCase()} IS READY`, () => run(game.fmBeginTurn()), e.order[0]);
       break;
     }
 
@@ -914,6 +948,9 @@ async function handle(e) {
       el.fmTimer.style.setProperty('--t', '1');
       el.fmWho.textContent = `${name(e.player)} — ${e.seconds} seconds`;
       el.fmQuestion.textContent = 'Get ready…';
+      // Everyone who is not typing gets a banner saying who is, so a watching
+      // screen never looks like it has stalled.
+      setFmWatch(myTurn(e.player) ? null : e.player, 0);
       // One spoken cue, and only for the first player: the intro line has just
       // played, and a second "here we go" on top of it sounded like a stutter.
       if (s.fm.turn === 0 && !fmIntroSpoke) await say('fmGo');
@@ -929,32 +966,60 @@ async function handle(e) {
 
     case 'fmQuestion': {
       markFmCurrent(e.index);
+      const active = s.fm.order[s.fm.turn];
+      if (!myTurn(active)) setFmWatch(active, e.index);
       // Online, a player still waiting for their own turn is not shown the
       // questions early — on the show they would be offstage in headphones.
-      const active = s.fm.order[s.fm.turn];
-      if (online && s.fm.order.indexOf(mySeat) > s.fm.order.indexOf(active)) {
-        el.fmQuestion.textContent = `${name(active)} is answering. You are up next — no peeking.`;
+      if (online && !fmSees(s.fm, mySeat, s.fm.turn)) {
+        el.fmQuestion.textContent =
+          `${name(active)} is on question ${e.index + 1} of ${s.fm.questions.length}. You are up next — no peeking!`;
         break;
       }
       el.fmQuestion.textContent = e.question.prompt;
       el.fmInput.value = '';
+      el.fmInput.placeholder = FM_PLACEHOLDER;
       if (!el.fmInput.disabled && !el.fmForm.hidden) el.fmInput.focus();
       live(audio.speak(`q:${e.question.id}`, e.question.readAs ?? e.question.prompt,
         { priority: 'interrupt' })).catch(swallow);
       break;
     }
 
-    case 'fmAnswer':
-      // Visible while it is still this player's turn; masked the moment it ends.
-      // Online, another player's answer never reaches this screen at all.
-      if (online && !myTurn(e.player)) setFmCell(e.turn, e.index, 'x', { masked: true });
-      else setFmCell(e.turn, e.index, e.text || 'PASS', { masked: false });
+    case 'fmAnswer': {
+      // Typed answers are shown to the player who gave them and to anyone who
+      // has already had their turn (or is only watching). A player who has yet
+      // to play sees a "locked in" block: they must not be able to copy.
+      const see = !e.hidden && (!online || myTurn(e.player) || fmSees(s.fm, mySeat, e.turn));
+      if (see) setFmCell(e.turn, e.index, e.text || 'PASS', { masked: false });
+      else setFmCell(e.turn, e.index, 'x', { masked: true });
       audio.sfx('click');
       break;
+    }
+
+    // The second player typed something the first already said to this
+    // question. Nothing was recorded: buzz it and let them go again at once.
+    case 'fmDupTry': {
+      const mine = myTurn(e.player);
+      audio.sfx('buzz');
+      toast(mine ? 'ALREADY SAID — TRY ANOTHER ANSWER' : `${name(e.player)} matched an answer — trying again`, true, 2400);
+      const row = el.fmRows.children[e.index];
+      if (row) {
+        row.classList.remove('dup-flash');
+        void row.offsetWidth;
+        row.classList.add('dup-flash');
+      }
+      if (mine) {
+        el.fmInput.value = '';
+        el.fmInput.placeholder = 'Already said — try a different answer';
+        if (!el.fmForm.hidden) el.fmInput.focus();
+      }
+      sayBg('fmTryAgain', 'interrupt');
+      break;
+    }
 
     case 'fmLookaway':
       stopFmTimer();
       el.fmForm.hidden = true;
+      setFmWatch(null);
       markFmCurrent(-1);
       await say('fmTimeUp');
       // The curtain is for a shared screen. Online nobody can see anyone
@@ -968,15 +1033,16 @@ async function handle(e) {
           4
         );
       }
-      el.fmQuestion.textContent = `${name(e.nextPlayer)}: same five questions. Matching an answer scores nothing.`;
+      el.fmQuestion.textContent = `${name(e.nextPlayer)}: same five questions. Repeat an answer and you will be asked for another.`;
       el.fmWho.textContent = `${name(e.nextPlayer)} is up`;
-      setAdvance(`${name(e.nextPlayer).toUpperCase()} IS READY`, () => run(game.fmBeginTurn()));
+      setAdvance(`${name(e.nextPlayer).toUpperCase()} IS READY`, () => run(game.fmBeginTurn()), e.nextPlayer);
       break;
 
     case 'fmRevealReady':
       stopFmTimer();
       el.fmTimer.style.visibility = 'hidden';
       el.fmForm.hidden = true;
+      setFmWatch(null);
       maskFmCells();
       markFmCurrent(-1);
       el.fmWho.textContent = 'Time for the reveal';
@@ -999,50 +1065,19 @@ async function handle(e) {
       const cell = fmCell(e.turn, e.index);
       if (cell) {
         cell.textContent = e.text || 'PASS';
-        cell.classList.remove('hidden-answer');
+        cell.classList.remove('hidden-answer', 'locked');
         cell.classList.add('shown');
       }
       audio.sfx('flip');
       await delay(900);
-      await showFmPoints(e.turn, e.index, e.points, e.duplicate);
-      if (e.rank === 1 && !e.duplicate) {
+      await showFmPoints(e.turn, e.index, e.points);
+      if (e.rank === 1) {
         cell?.classList.add('top-hit');
         toast('NUMBER ONE ANSWER!', false, 1500);
         sayBg('topAnswer');
         await delay(700);
       }
       await delay(600);
-      break;
-    }
-
-    case 'fmDuplicate': {
-      const slot = s.fm.duplicates[0];
-      markFmCurrent(slot?.index ?? -1);
-      await say('fmDuplicate');
-      toast('Duplicate answer — one replacement question', true, 2600);
-      el.fmWho.textContent = `${name(e.player)} — replacement question`;
-      el.fmQuestion.textContent = e.question.prompt;
-      clearAdvance();
-      const mine = myTurn(e.player);
-      el.fmForm.hidden = !mine;
-      el.fmInput.disabled = !mine;
-      el.fmInput.value = '';
-      if (mine) el.fmInput.focus();
-      live(audio.speak(`q:${e.question.id}`, e.question.readAs ?? e.question.prompt)).catch(swallow);
-      break;
-    }
-
-    case 'fmSpareResult': {
-      el.fmForm.hidden = true;
-      const cell = fmCell(e.turn, e.index);
-      if (cell) {
-        cell.textContent = e.text || 'PASS';
-        cell.classList.remove('dupe', 'hidden-answer');
-      }
-      audio.sfx('flip');
-      await delay(700);
-      await showFmPoints(e.turn, e.index, e.points, false);
-      await delay(500);
       break;
     }
 
@@ -1262,6 +1297,24 @@ function setResultButtons(final) {
 
 // ------------------------------------------------------------- fast money UI
 
+const FM_PLACEHOLDER = 'Answer and press Enter';
+
+/**
+ * The "someone else is answering" banner, shown in place of the answer box on
+ * every screen that is not the one typing. Pass null to take it down.
+ */
+function setFmWatch(player, index = 0) {
+  const show = player != null && !!game?.state.fm;
+  el.fmWatch.hidden = !show;
+  if (!show) return;
+  const fm = game.state.fm;
+  const upNext = online && !fmSees(fm, mySeat, fm.turn);
+  el.fmWatch.style.setProperty('--pc', PLAYER_COLORS[player] ?? '#fff');
+  el.fmWatchMain.textContent = `${name(player)} is answering`;
+  el.fmWatchSub.textContent = `Question ${Math.min(index + 1, fm.questions.length)} of ${fm.questions.length} · `
+    + (upNext ? 'you are up next' : 'their answers show up here as they lock in');
+}
+
 function buildFmRows() {
   const fm = game.state.fm;
   const solo = fm.order.length === 1;
@@ -1313,16 +1366,14 @@ function markFmCurrent(index) {
   [...el.fmRows.children].forEach((r, i) => r.classList.toggle('current', i === index));
 }
 
-async function showFmPoints(turn, index, points, duplicate) {
+async function showFmPoints(turn, index, points) {
   const pts = fmPtsCell(turn, index);
-  const cell = fmCell(turn, index);
   if (pts) {
-    pts.textContent = duplicate ? 'DUP' : String(points);
+    pts.textContent = String(points);
     pts.classList.add('shown');
     pts.classList.toggle('zero', points === 0);
   }
-  cell?.classList.toggle('dupe', !!duplicate);
-  audio.sfx(points > 0 && !duplicate ? 'ding' : 'buzz');
+  audio.sfx(points > 0 ? 'ding' : 'buzz');
   if (points > 0) {
     const from = fmShownTotal;
     const to = from + points;
@@ -1410,8 +1461,7 @@ function fmSubmit(text) {
 
 /** Feed a Fast Money answer to the engine. Only runs where the engine is. */
 function applyFm(text) {
-  if (game.state.phase === PHASE.FM_DUPLICATE) run(game.fmSubmitSpare(text));
-  else if (game.state.phase === PHASE.FM_PLAY) run(game.fmSubmit(text));
+  if (game.state.phase === PHASE.FM_PLAY) run(game.fmSubmit(text));
 }
 
 // ------------------------------------------------------------------ input
@@ -1573,10 +1623,20 @@ function applyGuestInput(seat, body) {
   if (body.kind === 'fm') {
     const fm = st.fm;
     if (!fm) return;
-    if (st.phase === PHASE.FM_PLAY && fm.order[fm.turn] !== seat) return;
-    if (st.phase === PHASE.FM_DUPLICATE && fm.order[fm.duplicates[0]?.turn] !== seat) return;
-    if (st.phase !== PHASE.FM_PLAY && st.phase !== PHASE.FM_DUPLICATE) return;
+    if (st.phase !== PHASE.FM_PLAY || fm.order[fm.turn] !== seat) return;
     applyFm(body.pass || !text.trim() ? null : text.trim());
+    return;
+  }
+
+  // A player pressing their own "I am ready" button.
+  if (body.kind === 'ready') {
+    if (advance && advance.who === seat) {
+      const { fn } = advance;
+      clearAdvance();
+      fn();
+    } else if ((st.phase === PHASE.FM_INTRO || st.phase === PHASE.FM_LOOKAWAY) && st.fm?.order[st.fm.turn] === seat) {
+      earlyReady = seat;         // the button is not up here yet; see setAdvance
+    }
   }
 }
 
@@ -1587,7 +1647,24 @@ net.on('closed', (reason) => {
   toast(reason, true, 6000);
   lobbyError(reason);
 });
-net.on('roster', () => { renderRoster(); renderNetBadge(); rosterChanged(); });
+net.on('roster', () => { announceLobby(); renderRoster(); renderNetBadge(); rosterChanged(); });
+
+let lobbySeats = new Map();     // seat -> name, as of the last roster, for the "X joined" call-out
+
+/** Before the match starts, say out loud who walked in or out of the room. */
+function announceLobby() {
+  const before = lobbySeats;
+  lobbySeats = new Map(net.players.map((pl) => [pl.seat, pl.name]));
+  if (!online || game || !before.size) return;
+  for (const [seat, who] of lobbySeats) {
+    if (seat === mySeat || before.has(seat)) continue;
+    toast(`${who} joined the room!`, false, 3200);
+    audio.sfx('ding');
+  }
+  for (const [seat, who] of before) {
+    if (seat !== mySeat && !lobbySeats.has(seat)) toast(`${who} left the room`, true, 2600);
+  }
+}
 net.on('reconnecting', () => {
   toast('Connection lost — reconnecting…', true, 60000);
   renderNetBadge();
@@ -1639,14 +1716,16 @@ function sendSync(seat) {
 function reassertPrompt() {
   const s = game?.state;
   if (!s) return;
+  paintAdvance();
   if (awaitingBuzz) { handle({ type: 'awaitBuzz', pair: awaitingBuzz.slots }).catch(swallow); return; }
   if (engineAwait) { handle({ type: 'awaitInput', ...engineAwait, keepClock: true }).catch(swallow); return; }
   if (choiceWho != null) { handle({ type: 'awaitChoice', who: choiceWho }).catch(swallow); return; }
-  if ((s.phase === PHASE.FM_PLAY || s.phase === PHASE.FM_DUPLICATE) && s.fm) {
-    const active = s.phase === PHASE.FM_DUPLICATE ? s.fm.order[s.fm.duplicates[0]?.turn] : s.fm.order[s.fm.turn];
+  if (s.phase === PHASE.FM_PLAY && s.fm) {
+    const active = s.fm.order[s.fm.turn];
     const mine = myTurn(active);
     el.fmForm.hidden = !mine;
     el.fmInput.disabled = !mine;
+    setFmWatch(mine ? null : active, s.fm.qIndex);
     if (mine) el.fmInput.focus();
   }
 }
@@ -1669,18 +1748,18 @@ function resyncFromState() {
   clearAdvance();
   toast('Back in the game', false, 2000);
 
-  const fmPhases = [PHASE.FM_INTRO, PHASE.FM_LOOKAWAY, PHASE.FM_PLAY, PHASE.FM_REVEAL, PHASE.FM_DUPLICATE, PHASE.FM_RESULT];
+  const fmPhases = [PHASE.FM_INTRO, PHASE.FM_LOOKAWAY, PHASE.FM_PLAY, PHASE.FM_REVEAL, PHASE.FM_RESULT];
   if (fmPhases.includes(s.phase) && s.fm) {
     showScreen('fm');
     buildFmRows();
-    const revealing = [PHASE.FM_REVEAL, PHASE.FM_DUPLICATE, PHASE.FM_RESULT].includes(s.phase);
+    const revealing = [PHASE.FM_REVEAL, PHASE.FM_RESULT].includes(s.phase);
     fmShownTotal = 0;
     s.fm.entries.forEach((list, turn) => list.forEach((entry, i) => {
       if (entry.hidden) { setFmCell(turn, i, 'x', { masked: true }); return; }
       setFmCell(turn, i, entry.text || 'PASS', { masked: false });
-      if (revealing && entry.duplicate !== undefined) {
+      if (revealing) {
         const pts = fmPtsCell(turn, i);
-        if (pts) { pts.textContent = entry.duplicate ? 'DUP' : String(entry.points); pts.classList.add('shown'); }
+        if (pts) { pts.textContent = String(entry.points); pts.classList.add('shown'); }
         fmCell(turn, i)?.classList.add('shown');
         fmShownTotal += entry.points;
       }
@@ -1691,6 +1770,13 @@ function resyncFromState() {
     el.fmForm.hidden = true;
     el.fmWho.textContent = 'Fast Money';
     el.fmQuestion.textContent = `Reconnected. Waiting for ${hostName()} to carry on…`;
+    setFmWatch(null);
+    if (s.phase === PHASE.FM_PLAY) {
+      const active = s.fm.order[s.fm.turn];
+      el.fmWho.textContent = `${name(active)} is answering`;
+      const prompt = s.fm.questions[s.fm.qIndex]?.prompt;
+      if (prompt && fmSees(s.fm, mySeat, s.fm.turn)) el.fmQuestion.textContent = prompt;
+    }
     reassertPrompt();
     return;
   }
@@ -1755,18 +1841,34 @@ function syncSetupForMode() {
   }
 }
 
+const MAX_SEATS = 4;
+
 function renderRoster() {
   el.lobbyPlayers.replaceChildren();
-  for (const pl of net.players) {
+  const bySeat = new Map(net.players.map((pl) => [pl.seat, pl]));
+  // Every seat gets a card, taken or not, so it is obvious at a glance who is
+  // in the room and how many more can join.
+  for (let seat = 0; seat < MAX_SEATS; seat++) {
+    const pl = bySeat.get(seat);
     const li = document.createElement('li');
-    li.style.setProperty('--pc', PLAYER_COLORS[pl.seat] ?? '#fff');
-    li.textContent = pl.name + (pl.seat === 0 ? ' · host' : '') + (pl.seat === mySeat ? ' · you' : '');
+    li.style.setProperty('--pc', PLAYER_COLORS[seat] ?? '#fff');
+    li.className = pl ? 'taken' : 'open';
+    const who = document.createElement('span');
+    who.className = 'lobby-seat-name';
+    who.textContent = pl ? pl.name : 'Open seat';
+    const tag = document.createElement('span');
+    tag.className = 'lobby-seat-tag';
+    tag.textContent = !pl ? `Player ${seat + 1}`
+      : [seat === 0 ? 'Host' : `Player ${seat + 1}`, seat === mySeat ? 'you' : ''].filter(Boolean).join(' · ');
+    li.append(who, tag);
     el.lobbyPlayers.append(li);
   }
-  const enough = net.players.length >= 2;
-  el.lobbyHint.textContent = !isHost() ? `Waiting for ${hostName()} to start the show.`
-    : enough ? 'Everyone in? Start when you are ready. Up to 4 can play.'
-    : 'Give this code to the other players.';
+  const n = net.players.length;
+  el.lobbyCount.textContent = `In the room: ${n} of ${MAX_SEATS}`;
+  const others = net.players.filter((pl) => pl.seat !== mySeat).map((pl) => pl.name);
+  el.lobbyHint.textContent = !isHost() ? `You are in! Waiting for ${hostName()} to start the show.`
+    : others.length ? `${others.join(' and ')} ${others.length > 1 ? 'are' : 'is'} in. Start when everyone is here.`
+    : 'Nobody else is here yet. Give them this code.';
   if (mode === 'online' && !game) syncSetupForMode();
 }
 
@@ -2135,6 +2237,8 @@ function resetMatch() {
   clearTimeout(hostTimer);
   if (stopConfetti) { stopConfetti(); stopConfetti = null; }
   clearAdvance();
+  earlyReady = null;
+  el.fmWatch.hidden = true;
   pendingInput = null;
   engineAwait = null;
   choiceWho = null;
@@ -2194,7 +2298,7 @@ function startMatch() {
 
   game = createGame({
     mainQuestions: freshFirst(surveys.main, setup.rounds + 3),
-    fmQuestions: freshFirst(surveys.fastMoney, 6),
+    fmQuestions: freshFirst(surveys.fastMoney, 5),
     players: names,
     seed: Date.now(),
     settings: {

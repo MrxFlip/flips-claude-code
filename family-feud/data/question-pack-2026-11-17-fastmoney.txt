@@ -1,0 +1,282 @@
+# BellaFox Feud question pack, 2026-11-17 (Fast Money).
+# Same format as the main pack; five answers each. See tools/add-questions.mjs.
+
+## F1 | Name a fruit you peel before eating.
+Banana | bananas, a banana, plantain
+Orange | oranges, an orange, tangerine, clementine, mandarin, a tangerine, satsuma
+Mango | mangoes, a mango, mangos, papaya
+Kiwi | kiwis, a kiwi, kiwi fruit, kiwifruit
+Pineapple | a pineapple, pineapples, grapefruit, a grapefruit, lemon, a lemon, avocado, an avocado
+
+## F2 | Name something you put on a hot dog.
+Mustard | yellow mustard, spicy mustard, dijon
+Ketchup | catsup, tomato sauce, tomato ketchup, red sauce
+Relish | pickle relish, pickles, a pickle, sweet relish
+Onions | onion, chopped onions, diced onions, grilled onions, fried onions
+Chili | chilli, cheese, chili and cheese, sauerkraut, kraut, jalapenos
+
+## F3 | Name a day of the week people dread.
+Monday | mondays, mon
+Sunday | sundays, sunday night, sunday evening, sun
+Tuesday | tuesdays, tues
+Wednesday | wednesdays, hump day, wed
+Thursday | thursdays, thurs
+
+## F4 | Name something you wear on your head.
+A hat | hat, hats, baseball cap, cap, a cap, beanie, a beanie, ball cap, cowboy hat, a beret
+A helmet | helmet, bike helmet, hard hat, a hard hat, football helmet
+A headband | headband, a bandana, bandana, hair band, a scrunchie, a bow, hair bow, a hair clip
+A crown | crown, tiara, a tiara
+A wig | wig, a hood, hood, a scarf, headscarf, a veil, headphones, sunglasses, glasses
+
+## F5 | Name something people do at the beach.
+Swim | swimming, go swimming, go in the water, get in the water, play in the water, go in the ocean, splash, surf, surfing, bodysurf, wade
+Sunbathe | tan, tanning, get a tan, lay out, lie in the sun, sun bathe, lay in the sun, work on their tan, suntan, relax, lay down, nap
+Build sandcastles | sandcastle, sand castles, build a sandcastle, make sandcastles, play in the sand, dig, dig a hole, dig in the sand, build sand castles
+Play volleyball | volleyball, beach volleyball, play frisbee, frisbee, play catch, play games, throw a ball, play football
+Collect shells | shells, seashells, look for shells, collect seashells, pick up shells, find shells, walk, go for a walk, walk on the beach, take a walk
+
+## F1 | Name an animal with stripes.
+Zebra | a zebra, zebras
+Tiger | a tiger, tigers, bengal tiger
+Skunk | a skunk, skunks
+Bee | a bee, bees, bumblebee, a bumble bee, wasp, a wasp, hornet
+Raccoon | a raccoon, raccoons, chipmunk, a chipmunk, a cat, tabby cat, a snake, a fish, clownfish
+
+## F2 | Name a pizza topping.
+Pepperoni | pepperonis, peperoni, pepperoni slices
+Cheese | extra cheese, mozzarella, more cheese
+Mushrooms | mushroom, shrooms
+Sausage | italian sausage, sausages, meat, bacon, ham
+Pineapple | pineapples, ham and pineapple, hawaiian, peppers, onions, olives, green peppers, black olives
+
+## F3 | Name something that has keys.
+A piano | piano, a keyboard piano, pianos, an organ, organ
+A keyboard | keyboard, computer keyboard, a computer, computer, laptop, a laptop, typewriter, a typewriter
+A car | car, cars, a truck, a vehicle
+A house | house, a door, door, a lock, lock, a home, an apartment, front door
+A key ring | keyring, a keychain, keychain, key chain, a janitor, janitor, a landlord, a map, florida
+
+## F4 | Name something you see at a birthday party.
+A cake | cake, birthday cake, cupcakes, a birthday cake, the cake
+Balloons | balloon, a balloon, a bunch of balloons
+Presents | present, gifts, a gift, a present, gift bags, wrapped presents
+Candles | candle, birthday candles, a candle
+Party hats | party hat, hats, streamers, decorations, a banner, confetti, a clown, clown, a pinata, pinata
+
+## F5 | Name a room in a house.
+The kitchen | kitchen, a kitchen, kitchen area, the pantry
+The bedroom | bedroom, a bedroom, master bedroom, bed room
+The bathroom | bathroom, a bathroom, bath room, the toilet, restroom, washroom
+The living room | living room, lounge, the lounge, family room, den, the den, sitting room
+The dining room | dining room, the basement, basement, the attic, attic, the garage, garage, the office, laundry room
+
+## F1 | Name a sport played with a ball.
+Football | american football, nfl, flag football
+Basketball | basket ball, hoops, nba
+Soccer | futbol, association football
+Baseball | base ball, softball, mlb
+Tennis | golf, volleyball, rugby, cricket, bowling, ping pong, table tennis, pickleball, lacrosse
+
+## F2 | Name something you put in coffee.
+Cream | creamer, coffee creamer, half and half, heavy cream, coffee mate
+Sugar | sweetener, a sugar, sugar cubes, splenda, stevia, honey
+Milk | oat milk, almond milk, skim milk, soy milk, whole milk
+Ice | ice cubes, an ice cube, crushed ice
+Syrup | vanilla, caramel, flavoring, flavored syrup, vanilla syrup, cinnamon, chocolate, whipped cream, whiskey, baileys, liquor
+
+## F3 | Name a color in the rainbow.
+Red | the color red, crimson, scarlet
+Blue | the color blue, indigo
+Yellow | the color yellow, gold, golden
+Green | the color green, lime, lime green
+Purple | violet, orange, the color purple
+
+## F4 | Name something you need to go camping.
+A tent | tent, tents, a camper, an rv, camper
+A sleeping bag | sleeping bag, sleeping bags, a blanket, blankets, a pillow, an air mattress
+Food | snacks, marshmallows, smores, hot dogs, a cooler, cooler, water, drinks
+A flashlight | flashlight, a lantern, lantern, torch, a light, flashlights
+Firewood | wood, a fire, matches, a lighter, lighter, fire starter, a campfire, bug spray, insect repellent
+
+## F5 | Name something you do with your eyes closed.
+Sleep | sleeping, nap, dream, take a nap, dreaming, fall asleep
+Kiss | kissing, make out, a kiss
+Pray | praying, meditate, meditating, say a prayer
+Sneeze | sneezing, a sneeze
+Make a wish | wish, blow out candles, blow out the candles, wishing, count for hide and seek, hide and seek, count, wash your hair, shampoo, wash your face
+
+## F1 | Name something that melts.
+Ice cream | icecream, an ice cream cone, a popsicle, popsicle, popsicles, ice lolly
+Ice | ice cubes, an ice cube, icicles, an iceberg, a glacier
+Chocolate | a chocolate bar, chocolate bar, candy bar
+Snow | a snowman, snowman, snowflakes, snowmen
+Butter | cheese, a candle, candle, wax, candles, candle wax, crayons
+
+## F2 | Name something you find in a wallet.
+Cash | money, dollar bills, bills, dollars, a dollar, coins
+Credit cards | credit card, a credit card, debit card, cards, a debit card, bank card, a card
+A driver's license | drivers license, license, id, an id, driving license, identification, id card, a licence
+Photos | pictures, a photo, family photos, a picture, photo, pictures of family
+Receipts | receipt, a receipt, old receipts, gift cards, a gift card, business cards, insurance card
+
+## F3 | Name a fast food restaurant.
+McDonald's | mcdonalds, mc donalds, mickey ds, mcds, maccas, the golden arches
+Burger King | bk, burgerking
+Wendy's | wendys, wendy, wendys restaurant
+Taco Bell | tacobell, taco bell restaurant
+Chick-fil-A | chick fil a, chickfila, chic fil a, kfc, kentucky fried chicken, subway, popeyes, in n out, arbys, five guys
+
+## F4 | Name something people do at a concert.
+Sing along | sing, singing, sing the songs, sing loudly, scream the lyrics
+Dance | dancing, jump, jump around, jumping, mosh, mosh pit, sway
+Scream | cheer, yell, cheering, screaming, shout, clap, applaud, whistle
+Take videos | record, film, record it, film it, record videos, take video, take pictures, take photos, record on their phone, hold up their phone, use their phone
+Drink | drink beer, buy beer, drinking, get drunk, buy merch, buy a t shirt, buy a shirt
+
+## F5 | Name an insect people swat at.
+A fly | fly, flies, housefly, a house fly, fruit flies
+A mosquito | mosquito, mosquitoes, mosquitos, skeeter
+A bee | bee, bees, a wasp, wasp, wasps, hornet, a hornet, yellow jacket
+A gnat | gnat, gnats, midges, a midge, no see ums
+A moth | moth, moths, a spider, spider, a horsefly, horse fly
+
+## F1 | Name something you do at a stop sign.
+Stop | stop the car, come to a stop, brake, hit the brakes, come to a complete stop, slow down, a rolling stop, roll through
+Look both ways | look, look left and right, check both ways, look around, look for cars, check for cars, check for traffic, look for traffic, look left, look right
+Wait | wait your turn, wait for cars, wait for traffic, take turns, let others go, yield
+Use a turn signal | signal, turn signal, blinker, use your blinker, indicate, put on the blinker
+Go | drive, turn, proceed, keep going, drive off, accelerate
+
+## F2 | Name a holiday when families get together.
+Christmas | xmas, christmas day, christmas eve, the holidays
+Thanksgiving | thanks giving, turkey day, thanksgiving day
+Easter | easter sunday, easter day, easter weekend
+Fourth of July | 4th of july, july 4th, independence day, july fourth, the fourth
+New Year's | new years, new years eve, new year, new years day, hanukkah, mothers day, halloween
+
+## F3 | Name something you find in a bathroom.
+A toilet | toilet, the toilet, toilet bowl, commode
+A sink | sink, the sink, faucet, a faucet, taps
+A shower | shower, a bathtub, bathtub, tub, a tub, a bath, bath
+Toilet paper | toilet roll, tp, loo roll, tissue
+A towel | towel, towels, a mirror, mirror, soap, a toothbrush, toothbrush, toothpaste, shampoo
+
+## F4 | Name a reason kids get sent to their room.
+Talking back | back talk, backtalk, being rude, sass, being sassy, mouthing off, being disrespectful, attitude, a bad attitude, bad language, swearing, cursing
+Fighting | fighting with siblings, hitting, hitting a sibling, hitting their brother, hitting their sister, arguing, fight, hit someone, biting
+Not listening | not doing what they are told, disobeying, bad behavior, misbehaving, being bad, being naughty, acting up, breaking the rules, being grounded
+Lying | lie, telling a lie, they lied, telling lies, fibbing
+A tantrum | throwing a tantrum, tantrum, tantrums, a fit, throwing a fit, screaming, yelling, a meltdown, whining, crying
+
+## F5 | Name something that's hard to do with one hand.
+Clap | clapping, applaud, clap your hands
+Tie your shoes | tie shoes, tie a shoe, tie shoelaces, tie laces, tie a knot, tie a tie
+Open a jar | open jars, open a bottle, unscrew a lid, open a can, open a bag
+Type | typing, play piano, play the piano, play guitar, play video games, text
+Button a shirt | button shirt, do up buttons, get dressed, put on a bra, zip a jacket, wash dishes, cut food, cut a steak, drive, juggle, carry things
+
+## F1 | Name something that comes in pairs.
+Shoes | shoe, sneakers, boots, a pair of shoes, sandals, slippers
+Socks | sock, a pair of socks
+Gloves | glove, mittens, a pair of gloves
+Earrings | earring, a pair of earrings, ear rings
+Eyes | hands, feet, ears, legs, arms, twins, pants, glasses, scissors, dice, chopsticks
+
+## F2 | Name a vegetable kids won't eat.
+Broccoli | brocolli, brocoli
+Brussels sprouts | brussel sprouts, sprouts, brussels, brussel sprout
+Spinach | kale, greens, lettuce
+Peas | green peas, a pea
+Carrots | carrot, asparagus, cabbage, cauliflower, beets, green beans, onions, mushrooms, zucchini
+
+## F3 | Name something you turn on every morning.
+The lights | light, lights, a light, the light, a lamp, lamp
+The coffee maker | coffee maker, coffee pot, coffee machine, the coffee, the kettle, kettle, coffee
+The shower | shower, the water, water, the faucet, the tap, hot water
+Your phone | phone, my phone, the alarm, cell phone
+The TV | tv, television, the news, the radio, radio, the car, car, the computer, computer, the stove, the heat
+
+## F4 | Name something that has wheels.
+A car | car, cars, a truck, truck, automobile, a van, a vehicle
+A bicycle | bike, bicycle, a bike, bikes, a tricycle, tricycle, a motorcycle, motorcycle
+A skateboard | skateboard, roller skates, skates, rollerblades, a scooter, scooter
+A shopping cart | shopping cart, a cart, cart, a trolley, a wagon, wagon, a wheelbarrow, a stroller, stroller
+A bus | bus, a train, train, a suitcase, suitcase, luggage, an office chair, a wheelchair, wheelchair, an airplane
+
+## F5 | Name something you do in the dark.
+Sleep | sleeping, go to sleep, nap, go to bed
+Watch a movie | watch movies, watch tv, movie, movies, go to the movies, see a movie
+Kiss | make out, kissing, cuddle, snuggle, make love, romance
+Trip over things | trip, stumble, bump into things, stub your toe, walk into things, fall, stumble around, feel around
+Tell ghost stories | ghost stories, tell scary stories, scary stories, stargaze, look at the stars, watch fireworks, hide, hide and seek, play hide and seek, use a flashlight
+
+## F1 | Name something people do at a fair.
+Go on rides | ride rides, rides, ride the rides, go on a ride, ride the ferris wheel, ferris wheel, ride roller coasters, ride
+Eat | eat food, eat fair food, eat junk food, eat cotton candy, cotton candy, eat funnel cake, funnel cake, eat corn dogs, eating
+Play games | games, carnival games, play carnival games, win prizes, win a prize, try to win a prize, win a stuffed animal, ring toss
+See animals | look at animals, animals, pet animals, the petting zoo, petting zoo, see the animals, see the pigs, livestock
+Spend money | waste money, spend too much money, buy tickets, people watch, walk around, watch a show
+
+## F2 | Name a breakfast food.
+Eggs | egg, scrambled eggs, an omelette, omelet, fried eggs, eggs and bacon
+Bacon | bacon strips, sausage, sausages, ham
+Pancakes | pancake, waffles, a waffle, french toast, hotcakes, flapjacks
+Cereal | a bowl of cereal, oatmeal, porridge, cheerios, granola
+Toast | bread, a bagel, bagel, bagels, a muffin, muffin, a donut, donuts, a croissant, yogurt, fruit, hash browns
+
+## F3 | Name something you might find under a couch cushion.
+Coins | change, money, loose change, coin, a coin, pennies, quarters, cash, spare change
+The remote | remote, tv remote, remote control, the tv remote, a remote
+Crumbs | food, old food, crumb, chips, popcorn, a cheerio, cereal, candy, snacks, a french fry
+Hair ties | a hair tie, hair tie, bobby pins, pens, a pen, pen, a pencil, pencils, toys, a toy, lego, legos
+Keys | key, car keys, a phone, phone, my phone, a sock, socks, an earring, jewelry, dust, lint, pet hair
+
+## F4 | Name something you wear in winter.
+A coat | coat, jacket, a jacket, winter coat, a parka, parka, a puffer jacket
+Gloves | glove, mittens, a pair of gloves, mitts
+A scarf | scarf, scarves
+A hat | hat, beanie, a beanie, winter hat, a toque, earmuffs, ear muffs
+Boots | boot, snow boots, winter boots, a sweater, sweater, thermals, long johns, thick socks, wool socks, snow pants
+
+## F5 | Name something a pirate has.
+An eye patch | eyepatch, eye patch, a patch, patch
+A parrot | parrot, a bird, bird
+A ship | ship, a boat, boat, a pirate ship
+A sword | sword, a cutlass, cutlass, a hook, hook, a hook hand, a peg leg, peg leg, wooden leg
+Treasure | gold, a treasure chest, treasure chest, a treasure map, a map, booty, a hat, pirate hat, rum, a flag
+
+## F1 | Name something people do when they win.
+Cheer | scream, yell, shout, cheering, scream with joy, whoop
+Jump up and down | jump, jumping, jump for joy, leap, jump around
+Celebrate | party, celebrating, throw a party, have a party, go out, drink, pop champagne, champagne
+Dance | dancing, a victory dance, victory dance, do a dance, happy dance
+Brag | gloat, show off, rub it in, bragging, boast, cry, happy tears, hug, hug someone, high five, smile
+
+## F2 | Name something you keep in the fridge door.
+Ketchup | catsup, tomato ketchup
+Milk | a carton of milk, milk jug, juice, orange juice
+Mustard | mayo, mayonnaise, condiments, sauces, hot sauce, salad dressing, dressing, bbq sauce, soy sauce, relish
+Butter | margarine, a stick of butter
+Eggs | egg, drinks, soda, water, beer, pickles, jam, jelly
+
+## F3 | Name a job that requires a uniform.
+Police officer | police, cop, a cop, policeman, police woman, officer, a police officer, sheriff
+Nurse | a nurse, doctor, a doctor, surgeon, nurses
+Firefighter | fireman, a firefighter, fire fighter, firemen
+Soldier | military, army, the army, the military, a soldier, marine, navy, sailor
+Pilot | a pilot, flight attendant, chef, a chef, mail carrier, mailman, postal worker, waiter, security guard, fast food worker
+
+## F4 | Name something that makes you sneeze.
+Pollen | allergies, hay fever, flowers, grass, an allergy, ragweed
+Dust | dust bunnies, dusting, dirt
+Pepper | black pepper, ground pepper, spices
+A cold | the flu, being sick, a virus, sickness, illness
+Cats | cat, cat hair, pet hair, a cat, dogs, dog hair, pet dander, dander, the sun, sunlight, bright light, perfume, feathers
+
+## F5 | Name something you do before a test.
+Study | studying, cram, cramming, review, revise, review notes, read your notes, practice
+Panic | worry, stress, stress out, get nervous, freak out, be nervous, cry
+Sleep | get a good nights sleep, get some sleep, rest, go to bed early, get rest
+Pray | say a prayer, praying, hope, cross your fingers
+Eat breakfast | eat, have breakfast, eat a good breakfast, sharpen a pencil, sharpen pencils, go to the bathroom, use the bathroom, take a deep breath, breathe

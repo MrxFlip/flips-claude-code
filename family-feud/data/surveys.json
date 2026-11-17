@@ -8270,6 +8270,3794 @@
           ]
         }
       ]
+    },
+    {
+      "id": "q041",
+      "prompt": "Name something people do on a lazy Sunday.",
+      "readAs": "Name something people do on a lazy Sunday.",
+      "answers": [
+        {
+          "text": "Sleep in",
+          "points": 34,
+          "aliases": [
+            "sleep",
+            "sleeping in",
+            "sleep late",
+            "stay in bed",
+            "nap",
+            "take a nap",
+            "napping",
+            "lie in",
+            "have a lie in",
+            "sleeping",
+            "lay in bed",
+            "sleep all day",
+            "snooze"
+          ]
+        },
+        {
+          "text": "Watch TV",
+          "points": 22,
+          "aliases": [
+            "tv",
+            "television",
+            "watch television",
+            "netflix",
+            "watch netflix",
+            "binge watch",
+            "binge a show",
+            "watch movies",
+            "watch a movie",
+            "movies",
+            "watch shows",
+            "streaming",
+            "watch football",
+            "watch sports"
+          ]
+        },
+        {
+          "text": "Eat brunch",
+          "points": 16,
+          "aliases": [
+            "brunch",
+            "breakfast",
+            "big breakfast",
+            "eat breakfast",
+            "go to brunch",
+            "make pancakes",
+            "pancakes",
+            "eat",
+            "cook breakfast",
+            "go out to eat",
+            "order food"
+          ]
+        },
+        {
+          "text": "Go to church",
+          "points": 12,
+          "aliases": [
+            "church",
+            "pray",
+            "worship",
+            "go to mass",
+            "mass",
+            "attend church",
+            "sunday service"
+          ]
+        },
+        {
+          "text": "Do laundry",
+          "points": 9,
+          "aliases": [
+            "laundry",
+            "wash clothes",
+            "clean",
+            "cleaning",
+            "chores",
+            "clean the house",
+            "housework",
+            "tidy up",
+            "do chores",
+            "washing"
+          ]
+        },
+        {
+          "text": "Go for a walk",
+          "points": 7,
+          "aliases": [
+            "walk",
+            "take a walk",
+            "walking",
+            "go outside",
+            "stroll",
+            "walk the dog",
+            "hike",
+            "go hiking",
+            "go to the park"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q042",
+      "prompt": "Name something you find in a kitchen junk-food cupboard.",
+      "readAs": "Name something you find in a kitchen junk-food cupboard.",
+      "answers": [
+        {
+          "text": "Chips",
+          "points": 30,
+          "aliases": [
+            "potato chips",
+            "crisps",
+            "doritos",
+            "bag of chips",
+            "tortilla chips",
+            "cheetos",
+            "pringles",
+            "lays",
+            "cheese puffs"
+          ]
+        },
+        {
+          "text": "Cookies",
+          "points": 24,
+          "aliases": [
+            "cookie",
+            "biscuits",
+            "oreos",
+            "chocolate chip cookies",
+            "a pack of cookies",
+            "girl scout cookies"
+          ]
+        },
+        {
+          "text": "Candy",
+          "points": 18,
+          "aliases": [
+            "sweets",
+            "candy bars",
+            "gummies",
+            "gummy bears",
+            "lollies",
+            "skittles",
+            "m and ms",
+            "m&ms",
+            "jelly beans",
+            "hard candy",
+            "licorice"
+          ]
+        },
+        {
+          "text": "Chocolate",
+          "points": 13,
+          "aliases": [
+            "chocolate bar",
+            "chocolate bars",
+            "a bar of chocolate",
+            "hersheys",
+            "kit kat",
+            "snickers",
+            "reeses"
+          ]
+        },
+        {
+          "text": "Crackers",
+          "points": 9,
+          "aliases": [
+            "cracker",
+            "goldfish",
+            "cheese crackers",
+            "cheez its",
+            "ritz",
+            "saltines",
+            "pretzels"
+          ]
+        },
+        {
+          "text": "Popcorn",
+          "points": 6,
+          "aliases": [
+            "pop corn",
+            "microwave popcorn",
+            "bag of popcorn",
+            "kettle corn"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q043",
+      "prompt": "Name something people do when they can't sleep.",
+      "readAs": "Name something people do when they can't sleep.",
+      "answers": [
+        {
+          "text": "Scroll their phone",
+          "points": 38,
+          "aliases": [
+            "phone",
+            "look at phone",
+            "check phone",
+            "go on phone",
+            "scroll",
+            "scrolling",
+            "doom scroll",
+            "doomscrolling",
+            "social media",
+            "tiktok",
+            "instagram",
+            "play on phone",
+            "use their phone",
+            "be on their phone"
+          ]
+        },
+        {
+          "text": "Watch TV",
+          "points": 21,
+          "aliases": [
+            "tv",
+            "television",
+            "watch television",
+            "netflix",
+            "watch a show",
+            "watch a movie",
+            "watch movies",
+            "youtube",
+            "watch youtube",
+            "watch videos"
+          ]
+        },
+        {
+          "text": "Read",
+          "points": 15,
+          "aliases": [
+            "read a book",
+            "reading",
+            "book",
+            "books",
+            "read books",
+            "read a magazine",
+            "kindle"
+          ]
+        },
+        {
+          "text": "Count sheep",
+          "points": 11,
+          "aliases": [
+            "counting sheep",
+            "sheep",
+            "count",
+            "counting",
+            "count backwards"
+          ]
+        },
+        {
+          "text": "Get a snack",
+          "points": 9,
+          "aliases": [
+            "snack",
+            "eat",
+            "eating",
+            "midnight snack",
+            "raid the fridge",
+            "get food",
+            "go to the fridge",
+            "have a snack",
+            "drink milk",
+            "warm milk",
+            "drink water",
+            "get a drink"
+          ]
+        },
+        {
+          "text": "Toss and turn",
+          "points": 6,
+          "aliases": [
+            "tossing and turning",
+            "toss",
+            "roll around",
+            "lie awake",
+            "lay there",
+            "stare at the ceiling",
+            "lay awake",
+            "worry",
+            "think",
+            "overthink",
+            "overthinking"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q044",
+      "prompt": "Name something kids beg their parents for.",
+      "readAs": "Name something kids beg their parents for.",
+      "answers": [
+        {
+          "text": "A pet",
+          "points": 27,
+          "aliases": [
+            "pet",
+            "dog",
+            "a dog",
+            "puppy",
+            "a puppy",
+            "cat",
+            "a cat",
+            "kitten",
+            "a kitten",
+            "hamster",
+            "pony",
+            "a pony",
+            "an animal"
+          ]
+        },
+        {
+          "text": "A phone",
+          "points": 23,
+          "aliases": [
+            "phone",
+            "cell phone",
+            "iphone",
+            "smartphone",
+            "a cell phone",
+            "mobile phone",
+            "tablet",
+            "ipad",
+            "an ipad"
+          ]
+        },
+        {
+          "text": "Candy",
+          "points": 19,
+          "aliases": [
+            "sweets",
+            "treats",
+            "a treat",
+            "chocolate",
+            "ice cream",
+            "dessert",
+            "sugar",
+            "junk food",
+            "snacks",
+            "a snack",
+            "cookies"
+          ]
+        },
+        {
+          "text": "Toys",
+          "points": 14,
+          "aliases": [
+            "toy",
+            "a toy",
+            "new toy",
+            "a new toy",
+            "lego",
+            "legos",
+            "doll",
+            "a doll",
+            "barbie",
+            "action figure",
+            "stuffed animal"
+          ]
+        },
+        {
+          "text": "Video games",
+          "points": 10,
+          "aliases": [
+            "video game",
+            "games",
+            "a game",
+            "game console",
+            "a console",
+            "xbox",
+            "playstation",
+            "ps5",
+            "nintendo",
+            "switch",
+            "a switch",
+            "more screen time",
+            "screen time",
+            "robux",
+            "v bucks"
+          ]
+        },
+        {
+          "text": "To stay up late",
+          "points": 7,
+          "aliases": [
+            "stay up",
+            "stay up late",
+            "later bedtime",
+            "staying up late",
+            "stay up later",
+            "no bedtime",
+            "five more minutes",
+            "a sleepover",
+            "sleepover"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q045",
+      "prompt": "Name something that makes people scream.",
+      "readAs": "Name something that makes people scream.",
+      "answers": [
+        {
+          "text": "A spider",
+          "points": 32,
+          "aliases": [
+            "spider",
+            "spiders",
+            "bug",
+            "bugs",
+            "a bug",
+            "insect",
+            "cockroach",
+            "a cockroach",
+            "a mouse",
+            "mouse",
+            "a rat",
+            "a snake",
+            "snake"
+          ]
+        },
+        {
+          "text": "A scary movie",
+          "points": 25,
+          "aliases": [
+            "scary movie",
+            "horror movie",
+            "horror movies",
+            "scary movies",
+            "a horror film",
+            "horror",
+            "jump scare",
+            "jump scares",
+            "a jumpscare"
+          ]
+        },
+        {
+          "text": "A roller coaster",
+          "points": 17,
+          "aliases": [
+            "roller coaster",
+            "rollercoaster",
+            "roller coasters",
+            "a ride",
+            "rides",
+            "theme park ride",
+            "amusement park ride",
+            "the drop"
+          ]
+        },
+        {
+          "text": "Being surprised",
+          "points": 12,
+          "aliases": [
+            "surprise",
+            "a surprise",
+            "being startled",
+            "someone scaring them",
+            "being scared",
+            "getting scared",
+            "a scare",
+            "a fright",
+            "someone jumping out",
+            "a prank",
+            "boo"
+          ]
+        },
+        {
+          "text": "Pain",
+          "points": 8,
+          "aliases": [
+            "getting hurt",
+            "hurt",
+            "stubbing a toe",
+            "stub toe",
+            "stubbed toe",
+            "injury",
+            "an injury",
+            "breaking a bone",
+            "stepping on lego",
+            "childbirth"
+          ]
+        },
+        {
+          "text": "A concert",
+          "points": 6,
+          "aliases": [
+            "concert",
+            "a band",
+            "favorite band",
+            "seeing a celebrity",
+            "a celebrity",
+            "a rock star",
+            "a pop star",
+            "their team winning",
+            "a goal",
+            "sports",
+            "winning the lottery",
+            "winning"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q046",
+      "prompt": "Name something you'd hate to find in your shoe.",
+      "readAs": "Name something you'd hate to find in your shoe.",
+      "answers": [
+        {
+          "text": "A spider",
+          "points": 29,
+          "aliases": [
+            "spider",
+            "spiders",
+            "bug",
+            "a bug",
+            "bugs",
+            "insect",
+            "an insect",
+            "cockroach",
+            "a scorpion",
+            "scorpion",
+            "ant",
+            "ants"
+          ]
+        },
+        {
+          "text": "A rock",
+          "points": 22,
+          "aliases": [
+            "rock",
+            "rocks",
+            "stone",
+            "a stone",
+            "pebble",
+            "a pebble",
+            "pebbles",
+            "gravel",
+            "a pebble or rock"
+          ]
+        },
+        {
+          "text": "Something wet",
+          "points": 18,
+          "aliases": [
+            "water",
+            "wet",
+            "a wet sock",
+            "wet sock",
+            "mud",
+            "a puddle",
+            "slime",
+            "something slimy",
+            "gum",
+            "chewing gum",
+            "something sticky"
+          ]
+        },
+        {
+          "text": "Poop",
+          "points": 14,
+          "aliases": [
+            "dog poop",
+            "poo",
+            "dog poo",
+            "dog mess",
+            "droppings",
+            "mouse droppings",
+            "cat poop",
+            "crap"
+          ]
+        },
+        {
+          "text": "A mouse",
+          "points": 10,
+          "aliases": [
+            "mouse",
+            "a rat",
+            "rat",
+            "mice",
+            "rodent",
+            "a dead mouse",
+            "a frog",
+            "frog",
+            "a lizard",
+            "snake",
+            "a snake"
+          ]
+        },
+        {
+          "text": "Sand",
+          "points": 7,
+          "aliases": [
+            "beach sand",
+            "dirt",
+            "grit",
+            "sand from the beach"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q047",
+      "prompt": "Name a reason someone might call in sick when they aren't.",
+      "readAs": "Name a reason someone might call in sick when they aren't.",
+      "answers": [
+        {
+          "text": "To sleep in",
+          "points": 36,
+          "aliases": [
+            "sleep",
+            "tired",
+            "too tired",
+            "they are tired",
+            "being tired",
+            "exhausted",
+            "need sleep",
+            "sleep late",
+            "stay in bed",
+            "overslept",
+            "lazy",
+            "feeling lazy",
+            "laziness"
+          ]
+        },
+        {
+          "text": "A hangover",
+          "points": 20,
+          "aliases": [
+            "hangover",
+            "hungover",
+            "being hungover",
+            "drank too much",
+            "partied too hard",
+            "drunk",
+            "still drunk",
+            "partying",
+            "a late night",
+            "out late"
+          ]
+        },
+        {
+          "text": "They hate their job",
+          "points": 16,
+          "aliases": [
+            "hate work",
+            "hate their job",
+            "hate the job",
+            "hate their boss",
+            "dont want to work",
+            "dont feel like working",
+            "dont feel like it",
+            "bad boss",
+            "sick of work",
+            "bored of work",
+            "avoid the boss"
+          ]
+        },
+        {
+          "text": "A day off",
+          "points": 13,
+          "aliases": [
+            "need a day off",
+            "want a day off",
+            "mental health day",
+            "a break",
+            "need a break",
+            "burnout",
+            "burned out",
+            "stress",
+            "stressed",
+            "a rest day",
+            "me time",
+            "a long weekend",
+            "long weekend"
+          ]
+        },
+        {
+          "text": "Go somewhere fun",
+          "points": 9,
+          "aliases": [
+            "the beach",
+            "go to the beach",
+            "a trip",
+            "vacation",
+            "a concert",
+            "a game",
+            "the big game",
+            "a ball game",
+            "golf",
+            "play golf",
+            "fishing",
+            "go fishing",
+            "shopping",
+            "a date",
+            "nice weather",
+            "good weather",
+            "sunny day"
+          ]
+        },
+        {
+          "text": "A job interview",
+          "points": 6,
+          "aliases": [
+            "interview",
+            "another interview",
+            "another job",
+            "job hunting",
+            "looking for a new job",
+            "a new job"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q048",
+      "prompt": "Name something you see at every wedding.",
+      "readAs": "Name something you see at every wedding.",
+      "answers": [
+        {
+          "text": "The bride",
+          "points": 25,
+          "aliases": [
+            "bride",
+            "a bride",
+            "bride and groom",
+            "the groom",
+            "groom",
+            "the couple",
+            "the happy couple",
+            "the wedding dress",
+            "wedding dress",
+            "a white dress",
+            "the dress"
+          ]
+        },
+        {
+          "text": "A cake",
+          "points": 22,
+          "aliases": [
+            "cake",
+            "wedding cake",
+            "the cake",
+            "cutting the cake",
+            "a big cake"
+          ]
+        },
+        {
+          "text": "Flowers",
+          "points": 19,
+          "aliases": [
+            "flower",
+            "bouquet",
+            "the bouquet",
+            "roses",
+            "flower arrangements",
+            "centerpieces",
+            "petals"
+          ]
+        },
+        {
+          "text": "Dancing",
+          "points": 15,
+          "aliases": [
+            "dance",
+            "people dancing",
+            "first dance",
+            "the first dance",
+            "a dance floor",
+            "dance floor",
+            "bad dancing",
+            "a dj",
+            "dj",
+            "a band",
+            "music"
+          ]
+        },
+        {
+          "text": "Rings",
+          "points": 11,
+          "aliases": [
+            "ring",
+            "wedding rings",
+            "the rings",
+            "wedding ring",
+            "a ring",
+            "wedding bands"
+          ]
+        },
+        {
+          "text": "Crying",
+          "points": 8,
+          "aliases": [
+            "tears",
+            "people crying",
+            "someone crying",
+            "happy tears",
+            "a crying mother",
+            "crying mom",
+            "tissues"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q049",
+      "prompt": "Name something people do at a red carpet event.",
+      "readAs": "Name something people do at a red carpet event.",
+      "answers": [
+        {
+          "text": "Pose for photos",
+          "points": 34,
+          "aliases": [
+            "pose",
+            "posing",
+            "take photos",
+            "get photographed",
+            "pictures",
+            "photos",
+            "take pictures",
+            "smile for cameras",
+            "smile",
+            "get their picture taken",
+            "selfies"
+          ]
+        },
+        {
+          "text": "Wave",
+          "points": 22,
+          "aliases": [
+            "waving",
+            "wave at fans",
+            "wave to fans",
+            "wave to the crowd",
+            "blow kisses"
+          ]
+        },
+        {
+          "text": "Give interviews",
+          "points": 16,
+          "aliases": [
+            "interview",
+            "interviews",
+            "get interviewed",
+            "talk to reporters",
+            "answer questions",
+            "talk to the press",
+            "do interviews"
+          ]
+        },
+        {
+          "text": "Show off their outfit",
+          "points": 12,
+          "aliases": [
+            "show off outfit",
+            "show off",
+            "wear a fancy dress",
+            "show off the dress",
+            "wear a gown",
+            "dress up",
+            "wear a tuxedo",
+            "wear a suit",
+            "wear designer clothes",
+            "twirl"
+          ]
+        },
+        {
+          "text": "Sign autographs",
+          "points": 9,
+          "aliases": [
+            "autographs",
+            "sign",
+            "signing autographs",
+            "autograph",
+            "sign things",
+            "meet fans",
+            "greet fans"
+          ]
+        },
+        {
+          "text": "Walk",
+          "points": 7,
+          "aliases": [
+            "walk the carpet",
+            "walk down the carpet",
+            "strut",
+            "walking"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q050",
+      "prompt": "Name something a dog does that drives its owner crazy.",
+      "readAs": "Name something a dog does that drives its owner crazy.",
+      "answers": [
+        {
+          "text": "Barking",
+          "points": 30,
+          "aliases": [
+            "bark",
+            "barks",
+            "bark a lot",
+            "barking all night",
+            "barks at everything",
+            "howling",
+            "howl",
+            "whining",
+            "whine",
+            "barks at the mailman"
+          ]
+        },
+        {
+          "text": "Chewing things",
+          "points": 24,
+          "aliases": [
+            "chew",
+            "chewing",
+            "chews shoes",
+            "chew shoes",
+            "chewing shoes",
+            "chew the furniture",
+            "chews everything",
+            "eats shoes",
+            "destroying things",
+            "destroys things",
+            "eating things",
+            "rips things up"
+          ]
+        },
+        {
+          "text": "Peeing inside",
+          "points": 18,
+          "aliases": [
+            "pee",
+            "pees inside",
+            "peeing in the house",
+            "pee on the carpet",
+            "pees on the floor",
+            "accidents",
+            "has accidents",
+            "poop inside",
+            "poops in the house",
+            "pooping inside",
+            "marking"
+          ]
+        },
+        {
+          "text": "Begging for food",
+          "points": 13,
+          "aliases": [
+            "beg",
+            "begging",
+            "begs",
+            "begs for food",
+            "steals food",
+            "stealing food",
+            "eating off the table",
+            "counter surfing",
+            "eats off the counter"
+          ]
+        },
+        {
+          "text": "Shedding",
+          "points": 9,
+          "aliases": [
+            "shed",
+            "sheds",
+            "hair everywhere",
+            "dog hair",
+            "fur everywhere",
+            "sheds hair",
+            "fur"
+          ]
+        },
+        {
+          "text": "Jumping on people",
+          "points": 6,
+          "aliases": [
+            "jump",
+            "jumping",
+            "jumps on people",
+            "jumps up",
+            "jumping up",
+            "jumps on guests",
+            "jumps on the couch",
+            "jumps on the bed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q051",
+      "prompt": "Name something people take to the beach.",
+      "readAs": "Name something people take to the beach.",
+      "answers": [
+        {
+          "text": "A towel",
+          "points": 38,
+          "aliases": [
+            "towel",
+            "towels",
+            "beach towel",
+            "a beach towel",
+            "blanket",
+            "a blanket",
+            "beach blanket"
+          ]
+        },
+        {
+          "text": "Sunscreen",
+          "points": 21,
+          "aliases": [
+            "sun screen",
+            "sunblock",
+            "sun block",
+            "suncream",
+            "sun cream",
+            "sun lotion",
+            "lotion",
+            "spf",
+            "tanning oil",
+            "sun tan lotion"
+          ]
+        },
+        {
+          "text": "An umbrella",
+          "points": 15,
+          "aliases": [
+            "umbrella",
+            "beach umbrella",
+            "parasol",
+            "a tent",
+            "beach tent",
+            "shade",
+            "a canopy"
+          ]
+        },
+        {
+          "text": "A cooler",
+          "points": 11,
+          "aliases": [
+            "cooler",
+            "drinks",
+            "a drink",
+            "water",
+            "beer",
+            "food",
+            "snacks",
+            "a picnic",
+            "sandwiches",
+            "ice chest",
+            "lunch"
+          ]
+        },
+        {
+          "text": "A swimsuit",
+          "points": 9,
+          "aliases": [
+            "swimsuit",
+            "bathing suit",
+            "swim suit",
+            "bikini",
+            "trunks",
+            "swim trunks",
+            "swimming costume",
+            "swimwear",
+            "bathers"
+          ]
+        },
+        {
+          "text": "A beach chair",
+          "points": 6,
+          "aliases": [
+            "chair",
+            "chairs",
+            "beach chair",
+            "beach chairs",
+            "lawn chair",
+            "a lounger",
+            "deck chair"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q052",
+      "prompt": "Name something people do at the gym besides work out.",
+      "readAs": "Name something people do at the gym besides work out.",
+      "answers": [
+        {
+          "text": "Take selfies",
+          "points": 27,
+          "aliases": [
+            "selfie",
+            "selfies",
+            "take a selfie",
+            "take pictures",
+            "take photos",
+            "mirror selfie",
+            "film themselves",
+            "record themselves",
+            "make tiktoks",
+            "pose in the mirror"
+          ]
+        },
+        {
+          "text": "Talk",
+          "points": 23,
+          "aliases": [
+            "chat",
+            "talking",
+            "chatting",
+            "socialize",
+            "gossip",
+            "talk to friends",
+            "hang out",
+            "stand around talking",
+            "small talk",
+            "flirt",
+            "flirting"
+          ]
+        },
+        {
+          "text": "Look at their phone",
+          "points": 19,
+          "aliases": [
+            "phone",
+            "scroll phone",
+            "be on their phone",
+            "check their phone",
+            "text",
+            "texting",
+            "scroll",
+            "scrolling",
+            "sit on their phone",
+            "play on phone"
+          ]
+        },
+        {
+          "text": "Shower",
+          "points": 14,
+          "aliases": [
+            "take a shower",
+            "use the shower",
+            "showering",
+            "sauna",
+            "use the sauna",
+            "steam room",
+            "hot tub"
+          ]
+        },
+        {
+          "text": "Stare at others",
+          "points": 10,
+          "aliases": [
+            "stare",
+            "staring",
+            "watch people",
+            "people watch",
+            "watch others",
+            "look at people",
+            "check people out",
+            "look in the mirror",
+            "look at themselves",
+            "admire themselves"
+          ]
+        },
+        {
+          "text": "Sit around",
+          "points": 7,
+          "aliases": [
+            "sit",
+            "rest",
+            "sitting",
+            "take breaks",
+            "rest between sets",
+            "nothing",
+            "sit on the machines",
+            "hog the machines"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q053",
+      "prompt": "Name something that gets left behind in a hotel room.",
+      "readAs": "Name something that gets left behind in a hotel room.",
+      "answers": [
+        {
+          "text": "A phone charger",
+          "points": 32,
+          "aliases": [
+            "charger",
+            "phone charger",
+            "chargers",
+            "charging cable",
+            "cable",
+            "a cable",
+            "cord",
+            "phone cord",
+            "a plug",
+            "adapter"
+          ]
+        },
+        {
+          "text": "A toothbrush",
+          "points": 25,
+          "aliases": [
+            "toothbrush",
+            "toothpaste",
+            "toiletries",
+            "shampoo",
+            "razor",
+            "a razor",
+            "deodorant",
+            "makeup",
+            "soap"
+          ]
+        },
+        {
+          "text": "Clothes",
+          "points": 17,
+          "aliases": [
+            "clothing",
+            "socks",
+            "a sock",
+            "underwear",
+            "a shirt",
+            "shirt",
+            "pajamas",
+            "a jacket",
+            "swimsuit",
+            "shoes",
+            "a shoe"
+          ]
+        },
+        {
+          "text": "Jewelry",
+          "points": 12,
+          "aliases": [
+            "jewellery",
+            "a ring",
+            "ring",
+            "earrings",
+            "a necklace",
+            "necklace",
+            "a watch",
+            "watch",
+            "wedding ring"
+          ]
+        },
+        {
+          "text": "A phone",
+          "points": 8,
+          "aliases": [
+            "phone",
+            "cell phone",
+            "their phone",
+            "tablet",
+            "laptop",
+            "ipad",
+            "a book",
+            "book",
+            "glasses",
+            "sunglasses"
+          ]
+        },
+        {
+          "text": "A pillow",
+          "points": 6,
+          "aliases": [
+            "pillow",
+            "their pillow",
+            "a stuffed animal",
+            "teddy bear",
+            "a teddy",
+            "a kids toy",
+            "a blanket",
+            "blankie"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q054",
+      "prompt": "Name something that people do when they're nervous.",
+      "readAs": "Name something that people do when they're nervous.",
+      "answers": [
+        {
+          "text": "Bite their nails",
+          "points": 29,
+          "aliases": [
+            "bite nails",
+            "nail biting",
+            "biting nails",
+            "chew nails",
+            "chew their nails",
+            "bite fingernails",
+            "pick their nails"
+          ]
+        },
+        {
+          "text": "Sweat",
+          "points": 22,
+          "aliases": [
+            "sweating",
+            "sweaty palms",
+            "sweat a lot",
+            "get sweaty",
+            "sweaty hands",
+            "perspire"
+          ]
+        },
+        {
+          "text": "Fidget",
+          "points": 18,
+          "aliases": [
+            "fidgeting",
+            "tap their foot",
+            "tapping",
+            "shake their leg",
+            "bounce their leg",
+            "leg bouncing",
+            "twiddle thumbs",
+            "play with hair",
+            "twirl hair",
+            "wring hands",
+            "crack knuckles"
+          ]
+        },
+        {
+          "text": "Pace",
+          "points": 14,
+          "aliases": [
+            "pacing",
+            "pace around",
+            "walk around",
+            "pace back and forth",
+            "walk back and forth"
+          ]
+        },
+        {
+          "text": "Talk too much",
+          "points": 10,
+          "aliases": [
+            "talk a lot",
+            "talk fast",
+            "ramble",
+            "rambling",
+            "babble",
+            "talk",
+            "stutter",
+            "stammer",
+            "laugh",
+            "giggle",
+            "nervous laugh",
+            "laugh nervously"
+          ]
+        },
+        {
+          "text": "Shake",
+          "points": 7,
+          "aliases": [
+            "shaking",
+            "tremble",
+            "trembling",
+            "shiver",
+            "shaky hands",
+            "hands shake",
+            "quiver"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q055",
+      "prompt": "Name a place where you have to be quiet.",
+      "readAs": "Name a place where you have to be quiet.",
+      "answers": [
+        {
+          "text": "A library",
+          "points": 36,
+          "aliases": [
+            "library",
+            "the library",
+            "public library",
+            "school library"
+          ]
+        },
+        {
+          "text": "A church",
+          "points": 20,
+          "aliases": [
+            "church",
+            "temple",
+            "mosque",
+            "chapel",
+            "a place of worship",
+            "synagogue",
+            "mass",
+            "a funeral",
+            "funeral",
+            "a funeral home"
+          ]
+        },
+        {
+          "text": "A movie theater",
+          "points": 16,
+          "aliases": [
+            "movie theater",
+            "the movies",
+            "movies",
+            "cinema",
+            "the cinema",
+            "movie theatre",
+            "a theater",
+            "theatre",
+            "a play",
+            "the opera"
+          ]
+        },
+        {
+          "text": "A hospital",
+          "points": 13,
+          "aliases": [
+            "hospital",
+            "the hospital",
+            "doctors office",
+            "a doctors office",
+            "waiting room",
+            "a nursery",
+            "babys room",
+            "a baby room",
+            "when a baby is sleeping"
+          ]
+        },
+        {
+          "text": "A classroom",
+          "points": 9,
+          "aliases": [
+            "classroom",
+            "school",
+            "class",
+            "in class",
+            "a test",
+            "an exam",
+            "during a test",
+            "exam room",
+            "a lecture"
+          ]
+        },
+        {
+          "text": "A museum",
+          "points": 6,
+          "aliases": [
+            "museum",
+            "art gallery",
+            "a gallery",
+            "art museum",
+            "a golf course",
+            "golf course",
+            "a spa",
+            "spa"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q056",
+      "prompt": "Name something people put ketchup on.",
+      "readAs": "Name something people put ketchup on.",
+      "answers": [
+        {
+          "text": "French fries",
+          "points": 25,
+          "aliases": [
+            "fries",
+            "french fry",
+            "chips",
+            "potatoes",
+            "hash browns",
+            "tater tots",
+            "tots",
+            "potato"
+          ]
+        },
+        {
+          "text": "Burgers",
+          "points": 22,
+          "aliases": [
+            "burger",
+            "a burger",
+            "hamburger",
+            "hamburgers",
+            "cheeseburger",
+            "a cheeseburger",
+            "cheeseburgers"
+          ]
+        },
+        {
+          "text": "Hot dogs",
+          "points": 19,
+          "aliases": [
+            "hot dog",
+            "hotdog",
+            "hotdogs",
+            "a hot dog",
+            "sausage",
+            "sausages",
+            "corn dog",
+            "corn dogs"
+          ]
+        },
+        {
+          "text": "Eggs",
+          "points": 15,
+          "aliases": [
+            "egg",
+            "scrambled eggs",
+            "an omelette",
+            "omelet",
+            "fried eggs"
+          ]
+        },
+        {
+          "text": "Chicken nuggets",
+          "points": 11,
+          "aliases": [
+            "nuggets",
+            "chicken",
+            "chicken tenders",
+            "tenders",
+            "chicken strips",
+            "chicken fingers"
+          ]
+        },
+        {
+          "text": "Meatloaf",
+          "points": 8,
+          "aliases": [
+            "meat loaf",
+            "steak",
+            "a steak",
+            "meat"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q057",
+      "prompt": "Name something that people collect.",
+      "readAs": "Name something that people collect.",
+      "answers": [
+        {
+          "text": "Coins",
+          "points": 34,
+          "aliases": [
+            "coin",
+            "money",
+            "old coins",
+            "rare coins",
+            "pennies",
+            "quarters",
+            "currency"
+          ]
+        },
+        {
+          "text": "Stamps",
+          "points": 22,
+          "aliases": [
+            "stamp",
+            "postage stamps",
+            "old stamps"
+          ]
+        },
+        {
+          "text": "Trading cards",
+          "points": 16,
+          "aliases": [
+            "cards",
+            "baseball cards",
+            "pokemon cards",
+            "sports cards",
+            "card",
+            "football cards",
+            "pokemon",
+            "basketball cards"
+          ]
+        },
+        {
+          "text": "Toys",
+          "points": 12,
+          "aliases": [
+            "toy",
+            "action figures",
+            "figurines",
+            "dolls",
+            "funko pops",
+            "funkos",
+            "legos",
+            "lego",
+            "hot wheels",
+            "stuffed animals",
+            "beanie babies",
+            "model cars"
+          ]
+        },
+        {
+          "text": "Shoes",
+          "points": 9,
+          "aliases": [
+            "sneakers",
+            "shoe",
+            "kicks",
+            "trainers",
+            "jordans",
+            "handbags",
+            "purses",
+            "bags"
+          ]
+        },
+        {
+          "text": "Records",
+          "points": 7,
+          "aliases": [
+            "vinyl",
+            "vinyl records",
+            "albums",
+            "record",
+            "cds",
+            "comic books",
+            "comics",
+            "books"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q058",
+      "prompt": "Name something you do before leaving the house.",
+      "readAs": "Name something you do before leaving the house.",
+      "answers": [
+        {
+          "text": "Lock the door",
+          "points": 30,
+          "aliases": [
+            "lock up",
+            "lock the doors",
+            "lock door",
+            "check the door",
+            "lock the house",
+            "check the locks",
+            "locking up"
+          ]
+        },
+        {
+          "text": "Grab keys",
+          "points": 24,
+          "aliases": [
+            "keys",
+            "get keys",
+            "get my keys",
+            "find keys",
+            "find my keys",
+            "take keys",
+            "grab my keys",
+            "get the car keys",
+            "car keys"
+          ]
+        },
+        {
+          "text": "Get dressed",
+          "points": 18,
+          "aliases": [
+            "dress",
+            "put on clothes",
+            "put clothes on",
+            "put on shoes",
+            "shoes",
+            "put shoes on",
+            "put on a coat",
+            "grab a jacket",
+            "get changed"
+          ]
+        },
+        {
+          "text": "Check the mirror",
+          "points": 13,
+          "aliases": [
+            "look in the mirror",
+            "mirror",
+            "check my hair",
+            "fix my hair",
+            "do my hair",
+            "brush hair",
+            "do makeup",
+            "put on makeup",
+            "check how i look"
+          ]
+        },
+        {
+          "text": "Use the bathroom",
+          "points": 9,
+          "aliases": [
+            "bathroom",
+            "pee",
+            "go to the bathroom",
+            "use the toilet",
+            "toilet",
+            "go pee",
+            "use the restroom",
+            "brush teeth",
+            "brush my teeth"
+          ]
+        },
+        {
+          "text": "Turn off the lights",
+          "points": 6,
+          "aliases": [
+            "lights",
+            "turn off lights",
+            "turn the lights off",
+            "turn off the stove",
+            "check the stove",
+            "turn everything off",
+            "unplug things",
+            "turn off the tv"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q059",
+      "prompt": "Name something a babysitter does after the kids are asleep.",
+      "readAs": "Name something a babysitter does after the kids are asleep.",
+      "answers": [
+        {
+          "text": "Watch TV",
+          "points": 38,
+          "aliases": [
+            "tv",
+            "television",
+            "watch television",
+            "netflix",
+            "watch netflix",
+            "watch a movie",
+            "watch movies",
+            "watch a show",
+            "movies"
+          ]
+        },
+        {
+          "text": "Scroll their phone",
+          "points": 21,
+          "aliases": [
+            "phone",
+            "be on their phone",
+            "go on their phone",
+            "scroll",
+            "text",
+            "texting",
+            "social media",
+            "tiktok",
+            "call friends",
+            "talk on the phone",
+            "call a friend",
+            "facetime"
+          ]
+        },
+        {
+          "text": "Raid the fridge",
+          "points": 15,
+          "aliases": [
+            "eat",
+            "eating",
+            "snack",
+            "snacks",
+            "eat snacks",
+            "eat the food",
+            "eat their food",
+            "raid the pantry",
+            "eat all the food",
+            "get a snack",
+            "raid the kitchen"
+          ]
+        },
+        {
+          "text": "Do homework",
+          "points": 11,
+          "aliases": [
+            "homework",
+            "study",
+            "studying",
+            "schoolwork",
+            "read",
+            "read a book",
+            "reading"
+          ]
+        },
+        {
+          "text": "Fall asleep",
+          "points": 9,
+          "aliases": [
+            "sleep",
+            "nap",
+            "take a nap",
+            "sleeping",
+            "doze off",
+            "go to sleep",
+            "falls asleep on the couch"
+          ]
+        },
+        {
+          "text": "Invite someone over",
+          "points": 6,
+          "aliases": [
+            "invite a boyfriend",
+            "boyfriend",
+            "have a boyfriend over",
+            "invite friends",
+            "have friends over",
+            "invite their girlfriend",
+            "call their boyfriend",
+            "snoop",
+            "snooping",
+            "snoop around"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q060",
+      "prompt": "Name something that costs way more than it should.",
+      "readAs": "Name something that costs way more than it should.",
+      "answers": [
+        {
+          "text": "Gas",
+          "points": 27,
+          "aliases": [
+            "gasoline",
+            "petrol",
+            "fuel",
+            "gas prices",
+            "a tank of gas"
+          ]
+        },
+        {
+          "text": "Rent",
+          "points": 23,
+          "aliases": [
+            "housing",
+            "a house",
+            "houses",
+            "a home",
+            "an apartment",
+            "mortgage",
+            "real estate",
+            "property"
+          ]
+        },
+        {
+          "text": "Groceries",
+          "points": 19,
+          "aliases": [
+            "food",
+            "eggs",
+            "milk",
+            "grocery",
+            "meat",
+            "beef",
+            "bread",
+            "eating out",
+            "restaurants",
+            "fast food",
+            "takeout"
+          ]
+        },
+        {
+          "text": "Concert tickets",
+          "points": 14,
+          "aliases": [
+            "tickets",
+            "concerts",
+            "a concert",
+            "ticket",
+            "sports tickets",
+            "event tickets",
+            "movie tickets",
+            "the movies",
+            "movie popcorn",
+            "popcorn"
+          ]
+        },
+        {
+          "text": "College",
+          "points": 10,
+          "aliases": [
+            "tuition",
+            "school",
+            "university",
+            "college tuition",
+            "education",
+            "textbooks",
+            "student loans"
+          ]
+        },
+        {
+          "text": "Healthcare",
+          "points": 7,
+          "aliases": [
+            "health care",
+            "medicine",
+            "insurance",
+            "health insurance",
+            "doctors",
+            "the doctor",
+            "hospital bills",
+            "medical bills",
+            "prescriptions",
+            "the dentist",
+            "car insurance"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q061",
+      "prompt": "Name something people do in an elevator.",
+      "readAs": "Name something people do in an elevator.",
+      "answers": [
+        {
+          "text": "Stare at the floor numbers",
+          "points": 32,
+          "aliases": [
+            "watch the numbers",
+            "look at the numbers",
+            "stare at the numbers",
+            "look up",
+            "stare at the door",
+            "look at the door",
+            "stare ahead",
+            "stare",
+            "look at the floor",
+            "stare at the floor",
+            "avoid eye contact",
+            "look down"
+          ]
+        },
+        {
+          "text": "Look at their phone",
+          "points": 25,
+          "aliases": [
+            "phone",
+            "check phone",
+            "check their phone",
+            "scroll",
+            "text",
+            "texting",
+            "pretend to text",
+            "look at phone",
+            "go on their phone"
+          ]
+        },
+        {
+          "text": "Press buttons",
+          "points": 17,
+          "aliases": [
+            "push buttons",
+            "press the button",
+            "push the button",
+            "press a button",
+            "pick a floor",
+            "press all the buttons",
+            "hit the button",
+            "choose a floor"
+          ]
+        },
+        {
+          "text": "Stand in silence",
+          "points": 12,
+          "aliases": [
+            "stand",
+            "stand quietly",
+            "be quiet",
+            "stay silent",
+            "silence",
+            "stand there",
+            "nothing",
+            "wait",
+            "stand awkwardly",
+            "be awkward"
+          ]
+        },
+        {
+          "text": "Make small talk",
+          "points": 8,
+          "aliases": [
+            "small talk",
+            "talk",
+            "chat",
+            "say hello",
+            "say hi",
+            "talk about the weather",
+            "awkward conversation"
+          ]
+        },
+        {
+          "text": "Check the mirror",
+          "points": 6,
+          "aliases": [
+            "look in the mirror",
+            "fix their hair",
+            "check themselves out",
+            "check their reflection",
+            "mirror",
+            "fix hair"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q062",
+      "prompt": "Name something you might borrow from a neighbor.",
+      "readAs": "Name something you might borrow from a neighbor.",
+      "answers": [
+        {
+          "text": "Sugar",
+          "points": 29,
+          "aliases": [
+            "a cup of sugar",
+            "cup of sugar",
+            "some sugar",
+            "flour",
+            "salt"
+          ]
+        },
+        {
+          "text": "A ladder",
+          "points": 22,
+          "aliases": [
+            "ladder",
+            "step ladder",
+            "a stepladder"
+          ]
+        },
+        {
+          "text": "Tools",
+          "points": 18,
+          "aliases": [
+            "tool",
+            "a tool",
+            "hammer",
+            "a hammer",
+            "drill",
+            "a drill",
+            "screwdriver",
+            "a screwdriver",
+            "wrench",
+            "a saw",
+            "power tools"
+          ]
+        },
+        {
+          "text": "A lawn mower",
+          "points": 14,
+          "aliases": [
+            "lawnmower",
+            "lawn mower",
+            "mower",
+            "the mower",
+            "a rake",
+            "rake",
+            "a shovel",
+            "shovel",
+            "snow blower",
+            "a snow shovel",
+            "hedge trimmer",
+            "leaf blower"
+          ]
+        },
+        {
+          "text": "Eggs",
+          "points": 10,
+          "aliases": [
+            "an egg",
+            "egg",
+            "milk",
+            "some milk",
+            "butter",
+            "a cup of milk"
+          ]
+        },
+        {
+          "text": "Jumper cables",
+          "points": 7,
+          "aliases": [
+            "jump leads",
+            "jumper leads",
+            "cables",
+            "a jump start",
+            "a jump",
+            "their car",
+            "a car",
+            "a truck",
+            "their truck"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q063",
+      "prompt": "Name something people say to a baby.",
+      "readAs": "Name something people say to a baby.",
+      "answers": [
+        {
+          "text": "Goo goo ga ga",
+          "points": 36,
+          "aliases": [
+            "goo goo",
+            "ga ga",
+            "baby talk",
+            "googoo gaga",
+            "goo goo gaga",
+            "coo",
+            "cooing",
+            "gibberish",
+            "coochie coo",
+            "coochy coochy coo"
+          ]
+        },
+        {
+          "text": "Peekaboo",
+          "points": 20,
+          "aliases": [
+            "peek a boo",
+            "peek-a-boo",
+            "peekaboo i see you",
+            "i see you",
+            "boo"
+          ]
+        },
+        {
+          "text": "Who's a good baby",
+          "points": 16,
+          "aliases": [
+            "whos a good boy",
+            "whos a good girl",
+            "good boy",
+            "good girl",
+            "good baby",
+            "good job",
+            "such a good baby",
+            "whos my baby"
+          ]
+        },
+        {
+          "text": "You're so cute",
+          "points": 13,
+          "aliases": [
+            "so cute",
+            "cute",
+            "how cute",
+            "youre cute",
+            "aww",
+            "so adorable",
+            "adorable",
+            "you are so cute",
+            "cutie",
+            "what a cutie",
+            "youre so pretty",
+            "so sweet",
+            "look at you"
+          ]
+        },
+        {
+          "text": "Say mama",
+          "points": 9,
+          "aliases": [
+            "mama",
+            "say dada",
+            "dada",
+            "mommy",
+            "daddy",
+            "say daddy",
+            "say mommy",
+            "come to mama",
+            "say my name"
+          ]
+        },
+        {
+          "text": "I love you",
+          "points": 6,
+          "aliases": [
+            "love you",
+            "i love you so much",
+            "mommy loves you",
+            "daddy loves you",
+            "hello",
+            "hi",
+            "hi baby",
+            "hello baby"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q064",
+      "prompt": "Name a reason a restaurant meal gets sent back.",
+      "readAs": "Name a reason a restaurant meal gets sent back.",
+      "answers": [
+        {
+          "text": "It's cold",
+          "points": 25,
+          "aliases": [
+            "cold",
+            "cold food",
+            "food is cold",
+            "the food was cold",
+            "not hot",
+            "not hot enough",
+            "lukewarm",
+            "its cold"
+          ]
+        },
+        {
+          "text": "It's undercooked",
+          "points": 22,
+          "aliases": [
+            "undercooked",
+            "raw",
+            "under cooked",
+            "not cooked",
+            "its raw",
+            "raw meat",
+            "raw chicken",
+            "pink chicken",
+            "not done",
+            "rare",
+            "too rare",
+            "bloody"
+          ]
+        },
+        {
+          "text": "Wrong order",
+          "points": 19,
+          "aliases": [
+            "wrong food",
+            "wrong dish",
+            "the wrong order",
+            "not what they ordered",
+            "wrong meal",
+            "they got the order wrong",
+            "wrong thing",
+            "mistake",
+            "order was wrong",
+            "not what i ordered"
+          ]
+        },
+        {
+          "text": "It's overcooked",
+          "points": 15,
+          "aliases": [
+            "overcooked",
+            "burnt",
+            "burned",
+            "over cooked",
+            "well done",
+            "too well done",
+            "its burnt",
+            "dry",
+            "too dry",
+            "tough"
+          ]
+        },
+        {
+          "text": "A hair in it",
+          "points": 11,
+          "aliases": [
+            "hair",
+            "a hair",
+            "hair in the food",
+            "found a hair",
+            "a bug",
+            "bug in it",
+            "a fly",
+            "fly in the soup",
+            "something in it",
+            "dirty"
+          ]
+        },
+        {
+          "text": "It tastes bad",
+          "points": 8,
+          "aliases": [
+            "tastes bad",
+            "bad taste",
+            "it tastes awful",
+            "too salty",
+            "salty",
+            "too spicy",
+            "spicy",
+            "bland",
+            "no flavor",
+            "gross",
+            "disgusting",
+            "dont like it",
+            "didnt like it",
+            "bad"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q065",
+      "prompt": "Name something you'd find in a doctor's waiting room.",
+      "readAs": "Name something you'd find in a doctor's waiting room.",
+      "answers": [
+        {
+          "text": "Magazines",
+          "points": 34,
+          "aliases": [
+            "magazine",
+            "old magazines",
+            "a magazine",
+            "books",
+            "reading material",
+            "newspapers",
+            "pamphlets",
+            "brochures"
+          ]
+        },
+        {
+          "text": "Chairs",
+          "points": 22,
+          "aliases": [
+            "chair",
+            "seats",
+            "seating",
+            "a chair",
+            "uncomfortable chairs",
+            "couch",
+            "a sofa",
+            "benches"
+          ]
+        },
+        {
+          "text": "Sick people",
+          "points": 16,
+          "aliases": [
+            "sick person",
+            "patients",
+            "people",
+            "coughing people",
+            "people coughing",
+            "a patient",
+            "other patients",
+            "germs",
+            "crying kids",
+            "kids",
+            "children"
+          ]
+        },
+        {
+          "text": "A TV",
+          "points": 12,
+          "aliases": [
+            "tv",
+            "television",
+            "a television",
+            "a screen",
+            "the news"
+          ]
+        },
+        {
+          "text": "Toys",
+          "points": 9,
+          "aliases": [
+            "toy",
+            "kids toys",
+            "a play area",
+            "childrens toys",
+            "a toy box",
+            "blocks",
+            "coloring books"
+          ]
+        },
+        {
+          "text": "A front desk",
+          "points": 7,
+          "aliases": [
+            "reception desk",
+            "a receptionist",
+            "receptionist",
+            "the desk",
+            "a clipboard",
+            "clipboard",
+            "forms",
+            "paperwork",
+            "a sign in sheet",
+            "hand sanitizer",
+            "tissues",
+            "a fish tank",
+            "fish tank"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q066",
+      "prompt": "Name something people do while driving that they shouldn't.",
+      "readAs": "Name something people do while driving that they shouldn't.",
+      "answers": [
+        {
+          "text": "Text",
+          "points": 30,
+          "aliases": [
+            "texting",
+            "text and drive",
+            "texting and driving",
+            "use their phone",
+            "phone",
+            "be on their phone",
+            "look at their phone",
+            "check their phone",
+            "talk on the phone",
+            "scroll",
+            "call"
+          ]
+        },
+        {
+          "text": "Eat",
+          "points": 24,
+          "aliases": [
+            "eating",
+            "eat food",
+            "eat a burger",
+            "eat fast food",
+            "drink",
+            "drink coffee",
+            "eat and drive",
+            "snack"
+          ]
+        },
+        {
+          "text": "Speed",
+          "points": 18,
+          "aliases": [
+            "speeding",
+            "drive too fast",
+            "go too fast",
+            "driving too fast",
+            "drive fast",
+            "race",
+            "racing"
+          ]
+        },
+        {
+          "text": "Put on makeup",
+          "points": 13,
+          "aliases": [
+            "makeup",
+            "do makeup",
+            "apply makeup",
+            "do their makeup",
+            "put on lipstick",
+            "lipstick",
+            "mascara",
+            "shave",
+            "fix their hair",
+            "do their hair"
+          ]
+        },
+        {
+          "text": "Drink alcohol",
+          "points": 9,
+          "aliases": [
+            "drink and drive",
+            "drunk driving",
+            "drive drunk",
+            "drinking and driving",
+            "drinking",
+            "drink beer",
+            "alcohol"
+          ]
+        },
+        {
+          "text": "Fall asleep",
+          "points": 6,
+          "aliases": [
+            "sleep",
+            "doze off",
+            "nod off",
+            "drive tired",
+            "drive sleepy",
+            "sleeping",
+            "close their eyes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q067",
+      "prompt": "Name something that people are always running out of.",
+      "readAs": "Name something that people are always running out of.",
+      "answers": [
+        {
+          "text": "Money",
+          "points": 38,
+          "aliases": [
+            "cash",
+            "funds",
+            "dollars",
+            "savings"
+          ]
+        },
+        {
+          "text": "Time",
+          "points": 21,
+          "aliases": [
+            "hours in the day",
+            "time in the day",
+            "hours"
+          ]
+        },
+        {
+          "text": "Toilet paper",
+          "points": 15,
+          "aliases": [
+            "tp",
+            "toilet roll",
+            "loo roll",
+            "bathroom tissue",
+            "toilet tissue",
+            "paper towels"
+          ]
+        },
+        {
+          "text": "Milk",
+          "points": 11,
+          "aliases": [
+            "bread",
+            "eggs",
+            "groceries",
+            "food",
+            "coffee",
+            "butter"
+          ]
+        },
+        {
+          "text": "Gas",
+          "points": 9,
+          "aliases": [
+            "gasoline",
+            "petrol",
+            "fuel",
+            "gas in the car"
+          ]
+        },
+        {
+          "text": "Patience",
+          "points": 6,
+          "aliases": [
+            "energy",
+            "phone battery",
+            "battery",
+            "battery life",
+            "charge",
+            "data",
+            "storage",
+            "phone storage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q068",
+      "prompt": "Name something teachers confiscate.",
+      "readAs": "Name something teachers confiscate.",
+      "answers": [
+        {
+          "text": "Phones",
+          "points": 27,
+          "aliases": [
+            "phone",
+            "cell phones",
+            "cell phone",
+            "a phone",
+            "cellphone",
+            "mobile phone",
+            "iphone",
+            "mobile",
+            "smartphones"
+          ]
+        },
+        {
+          "text": "Gum",
+          "points": 23,
+          "aliases": [
+            "chewing gum",
+            "bubble gum",
+            "candy",
+            "sweets",
+            "food",
+            "snacks"
+          ]
+        },
+        {
+          "text": "Toys",
+          "points": 19,
+          "aliases": [
+            "toy",
+            "a toy",
+            "fidget spinner",
+            "fidget spinners",
+            "fidget toys",
+            "slime",
+            "trading cards",
+            "pokemon cards",
+            "cards",
+            "a ball"
+          ]
+        },
+        {
+          "text": "Notes",
+          "points": 14,
+          "aliases": [
+            "note",
+            "a note",
+            "passed notes",
+            "love notes",
+            "a passed note",
+            "cheat sheets",
+            "a cheat sheet"
+          ]
+        },
+        {
+          "text": "Headphones",
+          "points": 10,
+          "aliases": [
+            "earbuds",
+            "airpods",
+            "earphones",
+            "ear buds",
+            "headphone",
+            "an ipod",
+            "music player"
+          ]
+        },
+        {
+          "text": "Hats",
+          "points": 7,
+          "aliases": [
+            "hat",
+            "a hat",
+            "caps",
+            "cap",
+            "hoodies",
+            "a hoodie",
+            "vapes",
+            "a vape",
+            "vape"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q069",
+      "prompt": "Name something people do when the power goes out.",
+      "readAs": "Name something people do when the power goes out.",
+      "answers": [
+        {
+          "text": "Light candles",
+          "points": 32,
+          "aliases": [
+            "candles",
+            "candle",
+            "light a candle",
+            "find candles",
+            "get candles",
+            "use candles"
+          ]
+        },
+        {
+          "text": "Find a flashlight",
+          "points": 25,
+          "aliases": [
+            "flashlight",
+            "flashlights",
+            "get a flashlight",
+            "grab a flashlight",
+            "torch",
+            "find a torch",
+            "use a flashlight",
+            "use their phone light",
+            "phone flashlight",
+            "lantern"
+          ]
+        },
+        {
+          "text": "Go to sleep",
+          "points": 17,
+          "aliases": [
+            "sleep",
+            "go to bed",
+            "nap",
+            "take a nap",
+            "sleeping",
+            "bed"
+          ]
+        },
+        {
+          "text": "Play board games",
+          "points": 12,
+          "aliases": [
+            "board games",
+            "games",
+            "play games",
+            "play cards",
+            "cards",
+            "a board game",
+            "card games",
+            "play a game",
+            "tell stories",
+            "tell ghost stories",
+            "talk",
+            "talk to each other"
+          ]
+        },
+        {
+          "text": "Check the breaker",
+          "points": 8,
+          "aliases": [
+            "breaker",
+            "fuse box",
+            "check the fuse box",
+            "check the fuses",
+            "flip the breaker",
+            "the circuit breaker",
+            "call the power company",
+            "call the electric company",
+            "complain",
+            "panic"
+          ]
+        },
+        {
+          "text": "Use their phone",
+          "points": 6,
+          "aliases": [
+            "phone",
+            "scroll phone",
+            "go on their phone",
+            "look at phone",
+            "check their phone",
+            "use up phone battery"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q070",
+      "prompt": "Name something that smells amazing.",
+      "readAs": "Name something that smells amazing.",
+      "answers": [
+        {
+          "text": "Fresh bread",
+          "points": 29,
+          "aliases": [
+            "bread",
+            "baking bread",
+            "fresh baked bread",
+            "bakery",
+            "a bakery",
+            "baking",
+            "baked goods",
+            "toast"
+          ]
+        },
+        {
+          "text": "Coffee",
+          "points": 22,
+          "aliases": [
+            "fresh coffee",
+            "coffee brewing",
+            "brewing coffee",
+            "coffee beans",
+            "a coffee shop"
+          ]
+        },
+        {
+          "text": "Bacon",
+          "points": 18,
+          "aliases": [
+            "bacon cooking",
+            "frying bacon",
+            "cooking bacon",
+            "sizzling bacon"
+          ]
+        },
+        {
+          "text": "Cookies",
+          "points": 14,
+          "aliases": [
+            "cookies baking",
+            "fresh cookies",
+            "chocolate chip cookies",
+            "baking cookies",
+            "cake",
+            "brownies",
+            "cinnamon rolls",
+            "cinnamon",
+            "vanilla"
+          ]
+        },
+        {
+          "text": "Flowers",
+          "points": 10,
+          "aliases": [
+            "flower",
+            "roses",
+            "a rose",
+            "lavender",
+            "fresh flowers",
+            "lilacs",
+            "jasmine",
+            "perfume",
+            "cologne"
+          ]
+        },
+        {
+          "text": "Rain",
+          "points": 7,
+          "aliases": [
+            "fresh rain",
+            "after rain",
+            "the smell of rain",
+            "fresh cut grass",
+            "cut grass",
+            "grass",
+            "clean laundry",
+            "fresh laundry",
+            "a campfire",
+            "the ocean",
+            "a new car",
+            "pizza",
+            "barbecue",
+            "bbq",
+            "garlic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q071",
+      "prompt": "Name something a superhero needs.",
+      "readAs": "Name something a superhero needs.",
+      "answers": [
+        {
+          "text": "A cape",
+          "points": 36,
+          "aliases": [
+            "cape",
+            "a costume",
+            "costume",
+            "a suit",
+            "suit",
+            "a mask",
+            "mask",
+            "an outfit",
+            "spandex",
+            "tights",
+            "a disguise"
+          ]
+        },
+        {
+          "text": "Superpowers",
+          "points": 20,
+          "aliases": [
+            "powers",
+            "super powers",
+            "a power",
+            "a superpower",
+            "super strength",
+            "strength",
+            "the ability to fly",
+            "flying",
+            "flight",
+            "speed",
+            "special powers"
+          ]
+        },
+        {
+          "text": "A villain",
+          "points": 16,
+          "aliases": [
+            "villain",
+            "an enemy",
+            "enemy",
+            "a nemesis",
+            "nemesis",
+            "bad guys",
+            "a bad guy",
+            "an arch enemy",
+            "someone to fight",
+            "crime"
+          ]
+        },
+        {
+          "text": "A sidekick",
+          "points": 13,
+          "aliases": [
+            "sidekick",
+            "a partner",
+            "partner",
+            "a team",
+            "a helper",
+            "friends",
+            "a butler"
+          ]
+        },
+        {
+          "text": "A secret identity",
+          "points": 9,
+          "aliases": [
+            "secret identity",
+            "an alter ego",
+            "alter ego",
+            "a cool name",
+            "a name",
+            "a hero name",
+            "a catchphrase",
+            "a logo"
+          ]
+        },
+        {
+          "text": "Gadgets",
+          "points": 6,
+          "aliases": [
+            "gadget",
+            "a car",
+            "a cool car",
+            "a vehicle",
+            "the batmobile",
+            "weapons",
+            "a weapon",
+            "a shield",
+            "a hammer",
+            "a lair",
+            "a hideout",
+            "a secret base"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q072",
+      "prompt": "Name something people do on an airplane.",
+      "readAs": "Name something people do on an airplane.",
+      "answers": [
+        {
+          "text": "Sleep",
+          "points": 25,
+          "aliases": [
+            "nap",
+            "sleeping",
+            "take a nap",
+            "try to sleep",
+            "doze",
+            "snooze",
+            "rest"
+          ]
+        },
+        {
+          "text": "Watch movies",
+          "points": 22,
+          "aliases": [
+            "watch a movie",
+            "movies",
+            "movie",
+            "watch tv",
+            "watch shows",
+            "watch a show",
+            "tv",
+            "in flight movie",
+            "watch something"
+          ]
+        },
+        {
+          "text": "Eat",
+          "points": 19,
+          "aliases": [
+            "eating",
+            "snack",
+            "eat snacks",
+            "eat peanuts",
+            "eat the meal",
+            "drink",
+            "have a drink",
+            "order a drink",
+            "drink alcohol",
+            "eat pretzels"
+          ]
+        },
+        {
+          "text": "Read",
+          "points": 15,
+          "aliases": [
+            "reading",
+            "read a book",
+            "book",
+            "read a magazine",
+            "read books"
+          ]
+        },
+        {
+          "text": "Listen to music",
+          "points": 11,
+          "aliases": [
+            "music",
+            "listen to a podcast",
+            "podcasts",
+            "headphones",
+            "put on headphones",
+            "listen to headphones"
+          ]
+        },
+        {
+          "text": "Look out the window",
+          "points": 8,
+          "aliases": [
+            "look out window",
+            "stare out the window",
+            "window",
+            "look at the clouds",
+            "take pictures out the window",
+            "use the bathroom",
+            "go to the bathroom",
+            "complain",
+            "pray",
+            "panic"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q073",
+      "prompt": "Name a food you eat with your hands.",
+      "readAs": "Name a food you eat with your hands.",
+      "answers": [
+        {
+          "text": "Pizza",
+          "points": 34,
+          "aliases": [
+            "a slice of pizza",
+            "pizza slice",
+            "slice of pizza",
+            "a slice"
+          ]
+        },
+        {
+          "text": "Burgers",
+          "points": 22,
+          "aliases": [
+            "burger",
+            "hamburger",
+            "a burger",
+            "hamburgers",
+            "cheeseburger",
+            "a cheeseburger",
+            "sandwich",
+            "a sandwich",
+            "sandwiches"
+          ]
+        },
+        {
+          "text": "Fried chicken",
+          "points": 16,
+          "aliases": [
+            "chicken",
+            "chicken wings",
+            "wings",
+            "drumsticks",
+            "chicken legs",
+            "hot wings",
+            "buffalo wings",
+            "nuggets",
+            "chicken nuggets",
+            "ribs"
+          ]
+        },
+        {
+          "text": "Tacos",
+          "points": 12,
+          "aliases": [
+            "taco",
+            "a taco",
+            "burrito",
+            "a burrito",
+            "burritos",
+            "nachos",
+            "quesadilla"
+          ]
+        },
+        {
+          "text": "French fries",
+          "points": 9,
+          "aliases": [
+            "fries",
+            "chips",
+            "french fry",
+            "a fry"
+          ]
+        },
+        {
+          "text": "Hot dogs",
+          "points": 7,
+          "aliases": [
+            "hot dog",
+            "hotdog",
+            "a hot dog",
+            "hotdogs",
+            "corn dog",
+            "corn on the cob",
+            "corn"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q074",
+      "prompt": "Name something you'd be embarrassed to have your mom find.",
+      "readAs": "Name something you'd be embarrassed to have your mom find.",
+      "answers": [
+        {
+          "text": "Your diary",
+          "points": 30,
+          "aliases": [
+            "diary",
+            "a diary",
+            "journal",
+            "my journal",
+            "a journal",
+            "my diary"
+          ]
+        },
+        {
+          "text": "Your texts",
+          "points": 24,
+          "aliases": [
+            "texts",
+            "text messages",
+            "my texts",
+            "messages",
+            "my phone",
+            "phone",
+            "search history",
+            "my search history",
+            "browser history",
+            "internet history",
+            "my browser history",
+            "dms"
+          ]
+        },
+        {
+          "text": "Love letters",
+          "points": 18,
+          "aliases": [
+            "love letter",
+            "a love letter",
+            "love notes",
+            "notes",
+            "a note from a crush",
+            "letters"
+          ]
+        },
+        {
+          "text": "A bad report card",
+          "points": 13,
+          "aliases": [
+            "report card",
+            "bad grades",
+            "grades",
+            "a failed test",
+            "a bad test",
+            "a bad grade",
+            "a detention slip",
+            "test scores",
+            "my report card"
+          ]
+        },
+        {
+          "text": "Dirty laundry",
+          "points": 9,
+          "aliases": [
+            "dirty underwear",
+            "underwear",
+            "dirty clothes",
+            "dirty socks",
+            "a messy room",
+            "messy room",
+            "my messy room",
+            "old food",
+            "moldy food",
+            "dirty dishes"
+          ]
+        },
+        {
+          "text": "Cigarettes",
+          "points": 6,
+          "aliases": [
+            "a vape",
+            "vape",
+            "vapes",
+            "alcohol",
+            "beer",
+            "a fake id",
+            "fake id",
+            "smokes",
+            "a tattoo",
+            "tattoo",
+            "a piercing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q075",
+      "prompt": "Name something that gets stuck in your teeth.",
+      "readAs": "Name something that gets stuck in your teeth.",
+      "answers": [
+        {
+          "text": "Popcorn",
+          "points": 38,
+          "aliases": [
+            "pop corn",
+            "popcorn kernels",
+            "a kernel",
+            "kernels",
+            "a popcorn kernel",
+            "popcorn shell"
+          ]
+        },
+        {
+          "text": "Spinach",
+          "points": 21,
+          "aliases": [
+            "lettuce",
+            "greens",
+            "salad",
+            "kale",
+            "herbs",
+            "broccoli",
+            "something green",
+            "a leaf",
+            "parsley"
+          ]
+        },
+        {
+          "text": "Meat",
+          "points": 15,
+          "aliases": [
+            "steak",
+            "chicken",
+            "beef",
+            "pork",
+            "ribs",
+            "beef jerky",
+            "jerky",
+            "a piece of meat",
+            "bacon"
+          ]
+        },
+        {
+          "text": "Seeds",
+          "points": 11,
+          "aliases": [
+            "seed",
+            "a seed",
+            "poppy seeds",
+            "sesame seeds",
+            "a poppy seed",
+            "strawberry seeds",
+            "sunflower seeds",
+            "nuts"
+          ]
+        },
+        {
+          "text": "Candy",
+          "points": 9,
+          "aliases": [
+            "caramel",
+            "toffee",
+            "taffy",
+            "gum",
+            "chewing gum",
+            "sticky candy",
+            "gummies",
+            "gummy bears"
+          ]
+        },
+        {
+          "text": "Corn",
+          "points": 6,
+          "aliases": [
+            "corn on the cob",
+            "sweetcorn",
+            "sweet corn",
+            "a piece of corn"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q076",
+      "prompt": "Name something you do at a sleepover.",
+      "readAs": "Name something you do at a sleepover.",
+      "answers": [
+        {
+          "text": "Stay up late",
+          "points": 27,
+          "aliases": [
+            "stay up",
+            "stay up all night",
+            "dont sleep",
+            "not sleep",
+            "stay awake",
+            "pull an all nighter",
+            "all nighter",
+            "no sleep"
+          ]
+        },
+        {
+          "text": "Watch movies",
+          "points": 23,
+          "aliases": [
+            "watch a movie",
+            "movies",
+            "movie",
+            "movie night",
+            "watch tv",
+            "scary movies",
+            "watch scary movies",
+            "watch a scary movie"
+          ]
+        },
+        {
+          "text": "Eat junk food",
+          "points": 19,
+          "aliases": [
+            "junk food",
+            "eat",
+            "snacks",
+            "eat snacks",
+            "eat pizza",
+            "pizza",
+            "candy",
+            "eat candy",
+            "popcorn",
+            "order pizza",
+            "eat sweets"
+          ]
+        },
+        {
+          "text": "Tell secrets",
+          "points": 14,
+          "aliases": [
+            "secrets",
+            "gossip",
+            "talk",
+            "talking",
+            "tell stories",
+            "ghost stories",
+            "tell ghost stories",
+            "scary stories",
+            "tell scary stories",
+            "talk about crushes",
+            "truth or dare",
+            "play truth or dare"
+          ]
+        },
+        {
+          "text": "Play games",
+          "points": 10,
+          "aliases": [
+            "games",
+            "video games",
+            "play video games",
+            "board games",
+            "play a game",
+            "hide and seek"
+          ]
+        },
+        {
+          "text": "Pillow fight",
+          "points": 7,
+          "aliases": [
+            "pillow fights",
+            "have a pillow fight",
+            "a pillow fight",
+            "build a fort",
+            "pillow fort",
+            "build a pillow fort",
+            "pranks",
+            "prank each other",
+            "do makeovers",
+            "makeovers",
+            "paint nails"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q077",
+      "prompt": "Name a reason your phone might die fast.",
+      "readAs": "Name a reason your phone might die fast.",
+      "answers": [
+        {
+          "text": "Too many apps",
+          "points": 32,
+          "aliases": [
+            "apps",
+            "too many apps open",
+            "apps running",
+            "background apps",
+            "apps open",
+            "apps in the background",
+            "lots of apps"
+          ]
+        },
+        {
+          "text": "Playing games",
+          "points": 25,
+          "aliases": [
+            "games",
+            "gaming",
+            "a game",
+            "mobile games",
+            "playing a game",
+            "video games"
+          ]
+        },
+        {
+          "text": "Watching videos",
+          "points": 17,
+          "aliases": [
+            "videos",
+            "video",
+            "streaming",
+            "youtube",
+            "tiktok",
+            "netflix",
+            "watching youtube",
+            "watching tiktok",
+            "watching movies",
+            "social media",
+            "scrolling",
+            "too much scrolling",
+            "being on it too much",
+            "using it too much",
+            "overuse"
+          ]
+        },
+        {
+          "text": "An old battery",
+          "points": 12,
+          "aliases": [
+            "old battery",
+            "bad battery",
+            "its old",
+            "old phone",
+            "an old phone",
+            "the phone is old",
+            "battery is old",
+            "worn out battery",
+            "a dying battery",
+            "broken battery"
+          ]
+        },
+        {
+          "text": "Brightness too high",
+          "points": 8,
+          "aliases": [
+            "brightness",
+            "screen brightness",
+            "bright screen",
+            "the screen is too bright",
+            "brightness all the way up",
+            "high brightness"
+          ]
+        },
+        {
+          "text": "The cold",
+          "points": 6,
+          "aliases": [
+            "cold",
+            "cold weather",
+            "its cold",
+            "the heat",
+            "heat",
+            "hot weather",
+            "bluetooth",
+            "gps",
+            "location",
+            "wifi",
+            "searching for signal",
+            "no signal",
+            "bad signal"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q078",
+      "prompt": "Name something people do at a stoplight when a song they love comes on.",
+      "readAs": "Name something people do at a stoplight when a song they love comes on.",
+      "answers": [
+        {
+          "text": "Sing along",
+          "points": 29,
+          "aliases": [
+            "sing",
+            "singing",
+            "sing loudly",
+            "sing out loud",
+            "belt it out",
+            "sing at the top of their lungs",
+            "karaoke"
+          ]
+        },
+        {
+          "text": "Turn it up",
+          "points": 22,
+          "aliases": [
+            "turn up the volume",
+            "crank it up",
+            "turn up the radio",
+            "crank it",
+            "turn it up loud",
+            "blast it",
+            "volume up",
+            "turn up the music",
+            "make it louder"
+          ]
+        },
+        {
+          "text": "Dance",
+          "points": 18,
+          "aliases": [
+            "dancing",
+            "car dance",
+            "dance in their seat",
+            "seat dance",
+            "bust a move",
+            "groove",
+            "wiggle",
+            "bop"
+          ]
+        },
+        {
+          "text": "Drum on the wheel",
+          "points": 14,
+          "aliases": [
+            "drum on the steering wheel",
+            "steering wheel drums",
+            "tap the wheel",
+            "tap the steering wheel",
+            "drum",
+            "drumming",
+            "tap their fingers",
+            "air drums",
+            "tap along"
+          ]
+        },
+        {
+          "text": "Bob their head",
+          "points": 10,
+          "aliases": [
+            "head bob",
+            "nod their head",
+            "bob head",
+            "head bang",
+            "headbang",
+            "nod along",
+            "bang their head"
+          ]
+        },
+        {
+          "text": "Roll down the windows",
+          "points": 7,
+          "aliases": [
+            "roll the windows down",
+            "windows down",
+            "open the windows",
+            "put the windows down",
+            "open the window"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q079",
+      "prompt": "Name a piece of advice parents give that kids ignore.",
+      "readAs": "Name a piece of advice parents give that kids ignore.",
+      "answers": [
+        {
+          "text": "Eat your vegetables",
+          "points": 36,
+          "aliases": [
+            "eat vegetables",
+            "eat your veggies",
+            "vegetables",
+            "veggies",
+            "eat healthy",
+            "eat your greens",
+            "eat your food",
+            "finish your dinner"
+          ]
+        },
+        {
+          "text": "Go to bed early",
+          "points": 20,
+          "aliases": [
+            "go to bed",
+            "go to sleep",
+            "get some sleep",
+            "bedtime",
+            "sleep early",
+            "get more sleep",
+            "go to bed on time",
+            "dont stay up late"
+          ]
+        },
+        {
+          "text": "Do your homework",
+          "points": 16,
+          "aliases": [
+            "homework",
+            "study",
+            "study hard",
+            "do your schoolwork",
+            "work hard in school",
+            "stay in school",
+            "get good grades"
+          ]
+        },
+        {
+          "text": "Wear a jacket",
+          "points": 13,
+          "aliases": [
+            "wear a coat",
+            "put on a coat",
+            "put on a jacket",
+            "bring a jacket",
+            "take a jacket",
+            "jacket",
+            "coat",
+            "dress warm",
+            "bundle up",
+            "wear a sweater"
+          ]
+        },
+        {
+          "text": "Save your money",
+          "points": 9,
+          "aliases": [
+            "save money",
+            "dont waste money",
+            "save",
+            "be careful with money",
+            "dont spend it all"
+          ]
+        },
+        {
+          "text": "Get off your phone",
+          "points": 6,
+          "aliases": [
+            "put down the phone",
+            "put your phone away",
+            "less screen time",
+            "get off the phone",
+            "stop playing video games",
+            "turn off the tv",
+            "go outside",
+            "play outside",
+            "clean your room",
+            "brush your teeth"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q080",
+      "prompt": "Name something you might see in the sky.",
+      "readAs": "Name something you might see in the sky.",
+      "answers": [
+        {
+          "text": "Clouds",
+          "points": 25,
+          "aliases": [
+            "cloud",
+            "a cloud",
+            "rain clouds",
+            "storm clouds"
+          ]
+        },
+        {
+          "text": "The sun",
+          "points": 22,
+          "aliases": [
+            "sun",
+            "sunshine",
+            "the sunset",
+            "sunset",
+            "a sunrise",
+            "sunrise"
+          ]
+        },
+        {
+          "text": "Birds",
+          "points": 19,
+          "aliases": [
+            "bird",
+            "a bird",
+            "seagulls",
+            "an eagle",
+            "geese",
+            "a flock of birds"
+          ]
+        },
+        {
+          "text": "An airplane",
+          "points": 15,
+          "aliases": [
+            "plane",
+            "airplane",
+            "a plane",
+            "planes",
+            "airplanes",
+            "a jet",
+            "jets",
+            "helicopter",
+            "a helicopter",
+            "aircraft"
+          ]
+        },
+        {
+          "text": "Stars",
+          "points": 11,
+          "aliases": [
+            "star",
+            "a star",
+            "the stars",
+            "shooting star",
+            "a shooting star",
+            "constellations"
+          ]
+        },
+        {
+          "text": "The moon",
+          "points": 8,
+          "aliases": [
+            "moon",
+            "a full moon",
+            "full moon",
+            "a rainbow",
+            "rainbow",
+            "a kite",
+            "kite",
+            "a balloon",
+            "hot air balloon",
+            "a ufo",
+            "ufo",
+            "lightning",
+            "fireworks"
+          ]
+        }
+      ]
     }
   ],
   "fastMoney": [
@@ -10324,6 +14112,2693 @@
             "tata",
             "toodles",
             "toodle oo"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f021",
+      "prompt": "Name a fruit you peel before eating.",
+      "readAs": "Name a fruit you peel before eating.",
+      "answers": [
+        {
+          "text": "Banana",
+          "points": 36,
+          "aliases": [
+            "bananas",
+            "a banana",
+            "plantain"
+          ]
+        },
+        {
+          "text": "Orange",
+          "points": 24,
+          "aliases": [
+            "oranges",
+            "an orange",
+            "tangerine",
+            "clementine",
+            "mandarin",
+            "a tangerine",
+            "satsuma"
+          ]
+        },
+        {
+          "text": "Mango",
+          "points": 17,
+          "aliases": [
+            "mangoes",
+            "a mango",
+            "mangos",
+            "papaya"
+          ]
+        },
+        {
+          "text": "Kiwi",
+          "points": 12,
+          "aliases": [
+            "kiwis",
+            "a kiwi",
+            "kiwi fruit",
+            "kiwifruit"
+          ]
+        },
+        {
+          "text": "Pineapple",
+          "points": 8,
+          "aliases": [
+            "a pineapple",
+            "pineapples",
+            "grapefruit",
+            "a grapefruit",
+            "lemon",
+            "a lemon",
+            "avocado",
+            "an avocado"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f022",
+      "prompt": "Name something you put on a hot dog.",
+      "readAs": "Name something you put on a hot dog.",
+      "answers": [
+        {
+          "text": "Mustard",
+          "points": 33,
+          "aliases": [
+            "yellow mustard",
+            "spicy mustard",
+            "dijon"
+          ]
+        },
+        {
+          "text": "Ketchup",
+          "points": 25,
+          "aliases": [
+            "catsup",
+            "tomato sauce",
+            "tomato ketchup",
+            "red sauce"
+          ]
+        },
+        {
+          "text": "Relish",
+          "points": 18,
+          "aliases": [
+            "pickle relish",
+            "pickles",
+            "a pickle",
+            "sweet relish"
+          ]
+        },
+        {
+          "text": "Onions",
+          "points": 13,
+          "aliases": [
+            "onion",
+            "chopped onions",
+            "diced onions",
+            "grilled onions",
+            "fried onions"
+          ]
+        },
+        {
+          "text": "Chili",
+          "points": 9,
+          "aliases": [
+            "chilli",
+            "cheese",
+            "chili and cheese",
+            "sauerkraut",
+            "kraut",
+            "jalapenos"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f023",
+      "prompt": "Name a day of the week people dread.",
+      "readAs": "Name a day of the week people dread.",
+      "answers": [
+        {
+          "text": "Monday",
+          "points": 40,
+          "aliases": [
+            "mondays",
+            "mon"
+          ]
+        },
+        {
+          "text": "Sunday",
+          "points": 22,
+          "aliases": [
+            "sundays",
+            "sunday night",
+            "sunday evening",
+            "sun"
+          ]
+        },
+        {
+          "text": "Tuesday",
+          "points": 15,
+          "aliases": [
+            "tuesdays",
+            "tues"
+          ]
+        },
+        {
+          "text": "Wednesday",
+          "points": 11,
+          "aliases": [
+            "wednesdays",
+            "hump day",
+            "wed"
+          ]
+        },
+        {
+          "text": "Thursday",
+          "points": 7,
+          "aliases": [
+            "thursdays",
+            "thurs"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f024",
+      "prompt": "Name something you wear on your head.",
+      "readAs": "Name something you wear on your head.",
+      "answers": [
+        {
+          "text": "A hat",
+          "points": 31,
+          "aliases": [
+            "hat",
+            "hats",
+            "baseball cap",
+            "cap",
+            "a cap",
+            "beanie",
+            "a beanie",
+            "ball cap",
+            "cowboy hat",
+            "a beret"
+          ]
+        },
+        {
+          "text": "A helmet",
+          "points": 26,
+          "aliases": [
+            "helmet",
+            "bike helmet",
+            "hard hat",
+            "a hard hat",
+            "football helmet"
+          ]
+        },
+        {
+          "text": "A headband",
+          "points": 19,
+          "aliases": [
+            "headband",
+            "a bandana",
+            "bandana",
+            "hair band",
+            "a scrunchie",
+            "a bow",
+            "hair bow",
+            "a hair clip"
+          ]
+        },
+        {
+          "text": "A crown",
+          "points": 12,
+          "aliases": [
+            "crown",
+            "tiara",
+            "a tiara"
+          ]
+        },
+        {
+          "text": "A wig",
+          "points": 9,
+          "aliases": [
+            "wig",
+            "a hood",
+            "hood",
+            "a scarf",
+            "headscarf",
+            "a veil",
+            "headphones",
+            "sunglasses",
+            "glasses"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f025",
+      "prompt": "Name something people do at the beach.",
+      "readAs": "Name something people do at the beach.",
+      "answers": [
+        {
+          "text": "Swim",
+          "points": 35,
+          "aliases": [
+            "swimming",
+            "go swimming",
+            "go in the water",
+            "get in the water",
+            "play in the water",
+            "go in the ocean",
+            "splash",
+            "surf",
+            "surfing",
+            "bodysurf",
+            "wade"
+          ]
+        },
+        {
+          "text": "Sunbathe",
+          "points": 23,
+          "aliases": [
+            "tan",
+            "tanning",
+            "get a tan",
+            "lay out",
+            "lie in the sun",
+            "sun bathe",
+            "lay in the sun",
+            "work on their tan",
+            "suntan",
+            "relax",
+            "lay down",
+            "nap"
+          ]
+        },
+        {
+          "text": "Build sandcastles",
+          "points": 18,
+          "aliases": [
+            "sandcastle",
+            "sand castles",
+            "build a sandcastle",
+            "make sandcastles",
+            "play in the sand",
+            "dig",
+            "dig a hole",
+            "dig in the sand",
+            "build sand castles"
+          ]
+        },
+        {
+          "text": "Play volleyball",
+          "points": 14,
+          "aliases": [
+            "volleyball",
+            "beach volleyball",
+            "play frisbee",
+            "frisbee",
+            "play catch",
+            "play games",
+            "throw a ball",
+            "play football"
+          ]
+        },
+        {
+          "text": "Collect shells",
+          "points": 10,
+          "aliases": [
+            "shells",
+            "seashells",
+            "look for shells",
+            "collect seashells",
+            "pick up shells",
+            "find shells",
+            "walk",
+            "go for a walk",
+            "walk on the beach",
+            "take a walk"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f026",
+      "prompt": "Name an animal with stripes.",
+      "readAs": "Name an animal with stripes.",
+      "answers": [
+        {
+          "text": "Zebra",
+          "points": 36,
+          "aliases": [
+            "a zebra",
+            "zebras"
+          ]
+        },
+        {
+          "text": "Tiger",
+          "points": 24,
+          "aliases": [
+            "a tiger",
+            "tigers",
+            "bengal tiger"
+          ]
+        },
+        {
+          "text": "Skunk",
+          "points": 17,
+          "aliases": [
+            "a skunk",
+            "skunks"
+          ]
+        },
+        {
+          "text": "Bee",
+          "points": 12,
+          "aliases": [
+            "a bee",
+            "bees",
+            "bumblebee",
+            "a bumble bee",
+            "wasp",
+            "a wasp",
+            "hornet"
+          ]
+        },
+        {
+          "text": "Raccoon",
+          "points": 8,
+          "aliases": [
+            "a raccoon",
+            "raccoons",
+            "chipmunk",
+            "a chipmunk",
+            "a cat",
+            "tabby cat",
+            "a snake",
+            "a fish",
+            "clownfish"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f027",
+      "prompt": "Name a pizza topping.",
+      "readAs": "Name a pizza topping.",
+      "answers": [
+        {
+          "text": "Pepperoni",
+          "points": 33,
+          "aliases": [
+            "pepperonis",
+            "peperoni",
+            "pepperoni slices"
+          ]
+        },
+        {
+          "text": "Cheese",
+          "points": 25,
+          "aliases": [
+            "extra cheese",
+            "mozzarella",
+            "more cheese"
+          ]
+        },
+        {
+          "text": "Mushrooms",
+          "points": 18,
+          "aliases": [
+            "mushroom",
+            "shrooms"
+          ]
+        },
+        {
+          "text": "Sausage",
+          "points": 13,
+          "aliases": [
+            "italian sausage",
+            "sausages",
+            "meat",
+            "bacon",
+            "ham"
+          ]
+        },
+        {
+          "text": "Pineapple",
+          "points": 9,
+          "aliases": [
+            "pineapples",
+            "ham and pineapple",
+            "hawaiian",
+            "peppers",
+            "onions",
+            "olives",
+            "green peppers",
+            "black olives"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f028",
+      "prompt": "Name something that has keys.",
+      "readAs": "Name something that has keys.",
+      "answers": [
+        {
+          "text": "A piano",
+          "points": 40,
+          "aliases": [
+            "piano",
+            "a keyboard piano",
+            "pianos",
+            "an organ",
+            "organ"
+          ]
+        },
+        {
+          "text": "A keyboard",
+          "points": 22,
+          "aliases": [
+            "keyboard",
+            "computer keyboard",
+            "a computer",
+            "computer",
+            "laptop",
+            "a laptop",
+            "typewriter",
+            "a typewriter"
+          ]
+        },
+        {
+          "text": "A car",
+          "points": 15,
+          "aliases": [
+            "car",
+            "cars",
+            "a truck",
+            "a vehicle"
+          ]
+        },
+        {
+          "text": "A house",
+          "points": 11,
+          "aliases": [
+            "house",
+            "a door",
+            "door",
+            "a lock",
+            "lock",
+            "a home",
+            "an apartment",
+            "front door"
+          ]
+        },
+        {
+          "text": "A key ring",
+          "points": 7,
+          "aliases": [
+            "keyring",
+            "a keychain",
+            "keychain",
+            "key chain",
+            "a janitor",
+            "janitor",
+            "a landlord",
+            "a map",
+            "florida"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f029",
+      "prompt": "Name something you see at a birthday party.",
+      "readAs": "Name something you see at a birthday party.",
+      "answers": [
+        {
+          "text": "A cake",
+          "points": 31,
+          "aliases": [
+            "cake",
+            "birthday cake",
+            "cupcakes",
+            "a birthday cake",
+            "the cake"
+          ]
+        },
+        {
+          "text": "Balloons",
+          "points": 26,
+          "aliases": [
+            "balloon",
+            "a balloon",
+            "a bunch of balloons"
+          ]
+        },
+        {
+          "text": "Presents",
+          "points": 19,
+          "aliases": [
+            "present",
+            "gifts",
+            "a gift",
+            "a present",
+            "gift bags",
+            "wrapped presents"
+          ]
+        },
+        {
+          "text": "Candles",
+          "points": 12,
+          "aliases": [
+            "candle",
+            "birthday candles",
+            "a candle"
+          ]
+        },
+        {
+          "text": "Party hats",
+          "points": 9,
+          "aliases": [
+            "party hat",
+            "hats",
+            "streamers",
+            "decorations",
+            "a banner",
+            "confetti",
+            "a clown",
+            "clown",
+            "a pinata",
+            "pinata"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f030",
+      "prompt": "Name a room in a house.",
+      "readAs": "Name a room in a house.",
+      "answers": [
+        {
+          "text": "The kitchen",
+          "points": 35,
+          "aliases": [
+            "kitchen",
+            "a kitchen",
+            "kitchen area",
+            "the pantry"
+          ]
+        },
+        {
+          "text": "The bedroom",
+          "points": 23,
+          "aliases": [
+            "bedroom",
+            "a bedroom",
+            "master bedroom",
+            "bed room"
+          ]
+        },
+        {
+          "text": "The bathroom",
+          "points": 18,
+          "aliases": [
+            "bathroom",
+            "a bathroom",
+            "bath room",
+            "the toilet",
+            "restroom",
+            "washroom"
+          ]
+        },
+        {
+          "text": "The living room",
+          "points": 14,
+          "aliases": [
+            "living room",
+            "lounge",
+            "the lounge",
+            "family room",
+            "den",
+            "the den",
+            "sitting room"
+          ]
+        },
+        {
+          "text": "The dining room",
+          "points": 10,
+          "aliases": [
+            "dining room",
+            "the basement",
+            "basement",
+            "the attic",
+            "attic",
+            "the garage",
+            "garage",
+            "the office",
+            "laundry room"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f031",
+      "prompt": "Name a sport played with a ball.",
+      "readAs": "Name a sport played with a ball.",
+      "answers": [
+        {
+          "text": "Football",
+          "points": 36,
+          "aliases": [
+            "american football",
+            "nfl",
+            "flag football"
+          ]
+        },
+        {
+          "text": "Basketball",
+          "points": 24,
+          "aliases": [
+            "basket ball",
+            "hoops",
+            "nba"
+          ]
+        },
+        {
+          "text": "Soccer",
+          "points": 17,
+          "aliases": [
+            "futbol",
+            "association football"
+          ]
+        },
+        {
+          "text": "Baseball",
+          "points": 12,
+          "aliases": [
+            "base ball",
+            "softball",
+            "mlb"
+          ]
+        },
+        {
+          "text": "Tennis",
+          "points": 8,
+          "aliases": [
+            "golf",
+            "volleyball",
+            "rugby",
+            "cricket",
+            "bowling",
+            "ping pong",
+            "table tennis",
+            "pickleball",
+            "lacrosse"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f032",
+      "prompt": "Name something you put in coffee.",
+      "readAs": "Name something you put in coffee.",
+      "answers": [
+        {
+          "text": "Cream",
+          "points": 33,
+          "aliases": [
+            "creamer",
+            "coffee creamer",
+            "half and half",
+            "heavy cream",
+            "coffee mate"
+          ]
+        },
+        {
+          "text": "Sugar",
+          "points": 25,
+          "aliases": [
+            "sweetener",
+            "a sugar",
+            "sugar cubes",
+            "splenda",
+            "stevia",
+            "honey"
+          ]
+        },
+        {
+          "text": "Milk",
+          "points": 18,
+          "aliases": [
+            "oat milk",
+            "almond milk",
+            "skim milk",
+            "soy milk",
+            "whole milk"
+          ]
+        },
+        {
+          "text": "Ice",
+          "points": 13,
+          "aliases": [
+            "ice cubes",
+            "an ice cube",
+            "crushed ice"
+          ]
+        },
+        {
+          "text": "Syrup",
+          "points": 9,
+          "aliases": [
+            "vanilla",
+            "caramel",
+            "flavoring",
+            "flavored syrup",
+            "vanilla syrup",
+            "cinnamon",
+            "chocolate",
+            "whipped cream",
+            "whiskey",
+            "baileys",
+            "liquor"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f033",
+      "prompt": "Name a color in the rainbow.",
+      "readAs": "Name a color in the rainbow.",
+      "answers": [
+        {
+          "text": "Red",
+          "points": 40,
+          "aliases": [
+            "the color red",
+            "crimson",
+            "scarlet"
+          ]
+        },
+        {
+          "text": "Blue",
+          "points": 22,
+          "aliases": [
+            "the color blue",
+            "indigo"
+          ]
+        },
+        {
+          "text": "Yellow",
+          "points": 15,
+          "aliases": [
+            "the color yellow",
+            "gold",
+            "golden"
+          ]
+        },
+        {
+          "text": "Green",
+          "points": 11,
+          "aliases": [
+            "the color green",
+            "lime",
+            "lime green"
+          ]
+        },
+        {
+          "text": "Purple",
+          "points": 7,
+          "aliases": [
+            "violet",
+            "orange",
+            "the color purple"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f034",
+      "prompt": "Name something you need to go camping.",
+      "readAs": "Name something you need to go camping.",
+      "answers": [
+        {
+          "text": "A tent",
+          "points": 31,
+          "aliases": [
+            "tent",
+            "tents",
+            "a camper",
+            "an rv",
+            "camper"
+          ]
+        },
+        {
+          "text": "A sleeping bag",
+          "points": 26,
+          "aliases": [
+            "sleeping bag",
+            "sleeping bags",
+            "a blanket",
+            "blankets",
+            "a pillow",
+            "an air mattress"
+          ]
+        },
+        {
+          "text": "Food",
+          "points": 19,
+          "aliases": [
+            "snacks",
+            "marshmallows",
+            "smores",
+            "hot dogs",
+            "a cooler",
+            "cooler",
+            "water",
+            "drinks"
+          ]
+        },
+        {
+          "text": "A flashlight",
+          "points": 12,
+          "aliases": [
+            "flashlight",
+            "a lantern",
+            "lantern",
+            "torch",
+            "a light",
+            "flashlights"
+          ]
+        },
+        {
+          "text": "Firewood",
+          "points": 9,
+          "aliases": [
+            "wood",
+            "a fire",
+            "matches",
+            "a lighter",
+            "lighter",
+            "fire starter",
+            "a campfire",
+            "bug spray",
+            "insect repellent"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f035",
+      "prompt": "Name something you do with your eyes closed.",
+      "readAs": "Name something you do with your eyes closed.",
+      "answers": [
+        {
+          "text": "Sleep",
+          "points": 35,
+          "aliases": [
+            "sleeping",
+            "nap",
+            "dream",
+            "take a nap",
+            "dreaming",
+            "fall asleep"
+          ]
+        },
+        {
+          "text": "Kiss",
+          "points": 23,
+          "aliases": [
+            "kissing",
+            "make out",
+            "a kiss"
+          ]
+        },
+        {
+          "text": "Pray",
+          "points": 18,
+          "aliases": [
+            "praying",
+            "meditate",
+            "meditating",
+            "say a prayer"
+          ]
+        },
+        {
+          "text": "Sneeze",
+          "points": 14,
+          "aliases": [
+            "sneezing",
+            "a sneeze"
+          ]
+        },
+        {
+          "text": "Make a wish",
+          "points": 10,
+          "aliases": [
+            "wish",
+            "blow out candles",
+            "blow out the candles",
+            "wishing",
+            "count for hide and seek",
+            "hide and seek",
+            "count",
+            "wash your hair",
+            "shampoo",
+            "wash your face"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f036",
+      "prompt": "Name something that melts.",
+      "readAs": "Name something that melts.",
+      "answers": [
+        {
+          "text": "Ice cream",
+          "points": 36,
+          "aliases": [
+            "icecream",
+            "an ice cream cone",
+            "a popsicle",
+            "popsicle",
+            "popsicles",
+            "ice lolly"
+          ]
+        },
+        {
+          "text": "Ice",
+          "points": 24,
+          "aliases": [
+            "ice cubes",
+            "an ice cube",
+            "icicles",
+            "an iceberg",
+            "a glacier"
+          ]
+        },
+        {
+          "text": "Chocolate",
+          "points": 17,
+          "aliases": [
+            "a chocolate bar",
+            "chocolate bar",
+            "candy bar"
+          ]
+        },
+        {
+          "text": "Snow",
+          "points": 12,
+          "aliases": [
+            "a snowman",
+            "snowman",
+            "snowflakes",
+            "snowmen"
+          ]
+        },
+        {
+          "text": "Butter",
+          "points": 8,
+          "aliases": [
+            "cheese",
+            "a candle",
+            "candle",
+            "wax",
+            "candles",
+            "candle wax",
+            "crayons"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f037",
+      "prompt": "Name something you find in a wallet.",
+      "readAs": "Name something you find in a wallet.",
+      "answers": [
+        {
+          "text": "Cash",
+          "points": 33,
+          "aliases": [
+            "money",
+            "dollar bills",
+            "bills",
+            "dollars",
+            "a dollar",
+            "coins"
+          ]
+        },
+        {
+          "text": "Credit cards",
+          "points": 25,
+          "aliases": [
+            "credit card",
+            "a credit card",
+            "debit card",
+            "cards",
+            "a debit card",
+            "bank card",
+            "a card"
+          ]
+        },
+        {
+          "text": "A driver's license",
+          "points": 18,
+          "aliases": [
+            "drivers license",
+            "license",
+            "id",
+            "an id",
+            "driving license",
+            "identification",
+            "id card",
+            "a licence"
+          ]
+        },
+        {
+          "text": "Photos",
+          "points": 13,
+          "aliases": [
+            "pictures",
+            "a photo",
+            "family photos",
+            "a picture",
+            "photo",
+            "pictures of family"
+          ]
+        },
+        {
+          "text": "Receipts",
+          "points": 9,
+          "aliases": [
+            "receipt",
+            "a receipt",
+            "old receipts",
+            "gift cards",
+            "a gift card",
+            "business cards",
+            "insurance card"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f038",
+      "prompt": "Name a fast food restaurant.",
+      "readAs": "Name a fast food restaurant.",
+      "answers": [
+        {
+          "text": "McDonald's",
+          "points": 40,
+          "aliases": [
+            "mcdonalds",
+            "mc donalds",
+            "mickey ds",
+            "mcds",
+            "maccas",
+            "the golden arches"
+          ]
+        },
+        {
+          "text": "Burger King",
+          "points": 22,
+          "aliases": [
+            "bk",
+            "burgerking"
+          ]
+        },
+        {
+          "text": "Wendy's",
+          "points": 15,
+          "aliases": [
+            "wendys",
+            "wendy",
+            "wendys restaurant"
+          ]
+        },
+        {
+          "text": "Taco Bell",
+          "points": 11,
+          "aliases": [
+            "tacobell",
+            "taco bell restaurant"
+          ]
+        },
+        {
+          "text": "Chick-fil-A",
+          "points": 7,
+          "aliases": [
+            "chick fil a",
+            "chickfila",
+            "chic fil a",
+            "kfc",
+            "kentucky fried chicken",
+            "subway",
+            "popeyes",
+            "in n out",
+            "arbys",
+            "five guys"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f039",
+      "prompt": "Name something people do at a concert.",
+      "readAs": "Name something people do at a concert.",
+      "answers": [
+        {
+          "text": "Sing along",
+          "points": 31,
+          "aliases": [
+            "sing",
+            "singing",
+            "sing the songs",
+            "sing loudly",
+            "scream the lyrics"
+          ]
+        },
+        {
+          "text": "Dance",
+          "points": 26,
+          "aliases": [
+            "dancing",
+            "jump",
+            "jump around",
+            "jumping",
+            "mosh",
+            "mosh pit",
+            "sway"
+          ]
+        },
+        {
+          "text": "Scream",
+          "points": 19,
+          "aliases": [
+            "cheer",
+            "yell",
+            "cheering",
+            "screaming",
+            "shout",
+            "clap",
+            "applaud",
+            "whistle"
+          ]
+        },
+        {
+          "text": "Take videos",
+          "points": 12,
+          "aliases": [
+            "record",
+            "film",
+            "record it",
+            "film it",
+            "record videos",
+            "take video",
+            "take pictures",
+            "take photos",
+            "record on their phone",
+            "hold up their phone",
+            "use their phone"
+          ]
+        },
+        {
+          "text": "Drink",
+          "points": 9,
+          "aliases": [
+            "drink beer",
+            "buy beer",
+            "drinking",
+            "get drunk",
+            "buy merch",
+            "buy a t shirt",
+            "buy a shirt"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f040",
+      "prompt": "Name an insect people swat at.",
+      "readAs": "Name an insect people swat at.",
+      "answers": [
+        {
+          "text": "A fly",
+          "points": 35,
+          "aliases": [
+            "fly",
+            "flies",
+            "housefly",
+            "a house fly",
+            "fruit flies"
+          ]
+        },
+        {
+          "text": "A mosquito",
+          "points": 23,
+          "aliases": [
+            "mosquito",
+            "mosquitoes",
+            "mosquitos",
+            "skeeter"
+          ]
+        },
+        {
+          "text": "A bee",
+          "points": 18,
+          "aliases": [
+            "bee",
+            "bees",
+            "a wasp",
+            "wasp",
+            "wasps",
+            "hornet",
+            "a hornet",
+            "yellow jacket"
+          ]
+        },
+        {
+          "text": "A gnat",
+          "points": 14,
+          "aliases": [
+            "gnat",
+            "gnats",
+            "midges",
+            "a midge",
+            "no see ums"
+          ]
+        },
+        {
+          "text": "A moth",
+          "points": 10,
+          "aliases": [
+            "moth",
+            "moths",
+            "a spider",
+            "spider",
+            "a horsefly",
+            "horse fly"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f041",
+      "prompt": "Name something you do at a stop sign.",
+      "readAs": "Name something you do at a stop sign.",
+      "answers": [
+        {
+          "text": "Stop",
+          "points": 36,
+          "aliases": [
+            "stop the car",
+            "come to a stop",
+            "brake",
+            "hit the brakes",
+            "come to a complete stop",
+            "slow down",
+            "a rolling stop",
+            "roll through"
+          ]
+        },
+        {
+          "text": "Look both ways",
+          "points": 24,
+          "aliases": [
+            "look",
+            "look left and right",
+            "check both ways",
+            "look around",
+            "look for cars",
+            "check for cars",
+            "check for traffic",
+            "look for traffic",
+            "look left",
+            "look right"
+          ]
+        },
+        {
+          "text": "Wait",
+          "points": 17,
+          "aliases": [
+            "wait your turn",
+            "wait for cars",
+            "wait for traffic",
+            "take turns",
+            "let others go",
+            "yield"
+          ]
+        },
+        {
+          "text": "Use a turn signal",
+          "points": 12,
+          "aliases": [
+            "signal",
+            "turn signal",
+            "blinker",
+            "use your blinker",
+            "indicate",
+            "put on the blinker"
+          ]
+        },
+        {
+          "text": "Go",
+          "points": 8,
+          "aliases": [
+            "drive",
+            "turn",
+            "proceed",
+            "keep going",
+            "drive off",
+            "accelerate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f042",
+      "prompt": "Name a holiday when families get together.",
+      "readAs": "Name a holiday when families get together.",
+      "answers": [
+        {
+          "text": "Christmas",
+          "points": 33,
+          "aliases": [
+            "xmas",
+            "christmas day",
+            "christmas eve",
+            "the holidays"
+          ]
+        },
+        {
+          "text": "Thanksgiving",
+          "points": 25,
+          "aliases": [
+            "thanks giving",
+            "turkey day",
+            "thanksgiving day"
+          ]
+        },
+        {
+          "text": "Easter",
+          "points": 18,
+          "aliases": [
+            "easter sunday",
+            "easter day",
+            "easter weekend"
+          ]
+        },
+        {
+          "text": "Fourth of July",
+          "points": 13,
+          "aliases": [
+            "4th of july",
+            "july 4th",
+            "independence day",
+            "july fourth",
+            "the fourth"
+          ]
+        },
+        {
+          "text": "New Year's",
+          "points": 9,
+          "aliases": [
+            "new years",
+            "new years eve",
+            "new year",
+            "new years day",
+            "hanukkah",
+            "mothers day",
+            "halloween"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f043",
+      "prompt": "Name something you find in a bathroom.",
+      "readAs": "Name something you find in a bathroom.",
+      "answers": [
+        {
+          "text": "A toilet",
+          "points": 40,
+          "aliases": [
+            "toilet",
+            "the toilet",
+            "toilet bowl",
+            "commode"
+          ]
+        },
+        {
+          "text": "A sink",
+          "points": 22,
+          "aliases": [
+            "sink",
+            "the sink",
+            "faucet",
+            "a faucet",
+            "taps"
+          ]
+        },
+        {
+          "text": "A shower",
+          "points": 15,
+          "aliases": [
+            "shower",
+            "a bathtub",
+            "bathtub",
+            "tub",
+            "a tub",
+            "a bath",
+            "bath"
+          ]
+        },
+        {
+          "text": "Toilet paper",
+          "points": 11,
+          "aliases": [
+            "toilet roll",
+            "tp",
+            "loo roll",
+            "tissue"
+          ]
+        },
+        {
+          "text": "A towel",
+          "points": 7,
+          "aliases": [
+            "towel",
+            "towels",
+            "a mirror",
+            "mirror",
+            "soap",
+            "a toothbrush",
+            "toothbrush",
+            "toothpaste",
+            "shampoo"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f044",
+      "prompt": "Name a reason kids get sent to their room.",
+      "readAs": "Name a reason kids get sent to their room.",
+      "answers": [
+        {
+          "text": "Talking back",
+          "points": 31,
+          "aliases": [
+            "back talk",
+            "backtalk",
+            "being rude",
+            "sass",
+            "being sassy",
+            "mouthing off",
+            "being disrespectful",
+            "attitude",
+            "a bad attitude",
+            "bad language",
+            "swearing",
+            "cursing"
+          ]
+        },
+        {
+          "text": "Fighting",
+          "points": 26,
+          "aliases": [
+            "fighting with siblings",
+            "hitting",
+            "hitting a sibling",
+            "hitting their brother",
+            "hitting their sister",
+            "arguing",
+            "fight",
+            "hit someone",
+            "biting"
+          ]
+        },
+        {
+          "text": "Not listening",
+          "points": 19,
+          "aliases": [
+            "not doing what they are told",
+            "disobeying",
+            "bad behavior",
+            "misbehaving",
+            "being bad",
+            "being naughty",
+            "acting up",
+            "breaking the rules",
+            "being grounded"
+          ]
+        },
+        {
+          "text": "Lying",
+          "points": 12,
+          "aliases": [
+            "lie",
+            "telling a lie",
+            "they lied",
+            "telling lies",
+            "fibbing"
+          ]
+        },
+        {
+          "text": "A tantrum",
+          "points": 9,
+          "aliases": [
+            "throwing a tantrum",
+            "tantrum",
+            "tantrums",
+            "a fit",
+            "throwing a fit",
+            "screaming",
+            "yelling",
+            "a meltdown",
+            "whining",
+            "crying"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f045",
+      "prompt": "Name something that's hard to do with one hand.",
+      "readAs": "Name something that's hard to do with one hand.",
+      "answers": [
+        {
+          "text": "Clap",
+          "points": 35,
+          "aliases": [
+            "clapping",
+            "applaud",
+            "clap your hands"
+          ]
+        },
+        {
+          "text": "Tie your shoes",
+          "points": 23,
+          "aliases": [
+            "tie shoes",
+            "tie a shoe",
+            "tie shoelaces",
+            "tie laces",
+            "tie a knot",
+            "tie a tie"
+          ]
+        },
+        {
+          "text": "Open a jar",
+          "points": 18,
+          "aliases": [
+            "open jars",
+            "open a bottle",
+            "unscrew a lid",
+            "open a can",
+            "open a bag"
+          ]
+        },
+        {
+          "text": "Type",
+          "points": 14,
+          "aliases": [
+            "typing",
+            "play piano",
+            "play the piano",
+            "play guitar",
+            "play video games",
+            "text"
+          ]
+        },
+        {
+          "text": "Button a shirt",
+          "points": 10,
+          "aliases": [
+            "button shirt",
+            "do up buttons",
+            "get dressed",
+            "put on a bra",
+            "zip a jacket",
+            "wash dishes",
+            "cut food",
+            "cut a steak",
+            "drive",
+            "juggle",
+            "carry things"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f046",
+      "prompt": "Name something that comes in pairs.",
+      "readAs": "Name something that comes in pairs.",
+      "answers": [
+        {
+          "text": "Shoes",
+          "points": 36,
+          "aliases": [
+            "shoe",
+            "sneakers",
+            "boots",
+            "a pair of shoes",
+            "sandals",
+            "slippers"
+          ]
+        },
+        {
+          "text": "Socks",
+          "points": 24,
+          "aliases": [
+            "sock",
+            "a pair of socks"
+          ]
+        },
+        {
+          "text": "Gloves",
+          "points": 17,
+          "aliases": [
+            "glove",
+            "mittens",
+            "a pair of gloves"
+          ]
+        },
+        {
+          "text": "Earrings",
+          "points": 12,
+          "aliases": [
+            "earring",
+            "a pair of earrings",
+            "ear rings"
+          ]
+        },
+        {
+          "text": "Eyes",
+          "points": 8,
+          "aliases": [
+            "hands",
+            "feet",
+            "ears",
+            "legs",
+            "arms",
+            "twins",
+            "pants",
+            "glasses",
+            "scissors",
+            "dice",
+            "chopsticks"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f047",
+      "prompt": "Name a vegetable kids won't eat.",
+      "readAs": "Name a vegetable kids won't eat.",
+      "answers": [
+        {
+          "text": "Broccoli",
+          "points": 33,
+          "aliases": [
+            "brocolli",
+            "brocoli"
+          ]
+        },
+        {
+          "text": "Brussels sprouts",
+          "points": 25,
+          "aliases": [
+            "brussel sprouts",
+            "sprouts",
+            "brussels",
+            "brussel sprout"
+          ]
+        },
+        {
+          "text": "Spinach",
+          "points": 18,
+          "aliases": [
+            "kale",
+            "greens",
+            "lettuce"
+          ]
+        },
+        {
+          "text": "Peas",
+          "points": 13,
+          "aliases": [
+            "green peas",
+            "a pea"
+          ]
+        },
+        {
+          "text": "Carrots",
+          "points": 9,
+          "aliases": [
+            "carrot",
+            "asparagus",
+            "cabbage",
+            "cauliflower",
+            "beets",
+            "green beans",
+            "onions",
+            "mushrooms",
+            "zucchini"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f048",
+      "prompt": "Name something you turn on every morning.",
+      "readAs": "Name something you turn on every morning.",
+      "answers": [
+        {
+          "text": "The lights",
+          "points": 40,
+          "aliases": [
+            "light",
+            "lights",
+            "a light",
+            "the light",
+            "a lamp",
+            "lamp"
+          ]
+        },
+        {
+          "text": "The coffee maker",
+          "points": 22,
+          "aliases": [
+            "coffee maker",
+            "coffee pot",
+            "coffee machine",
+            "the coffee",
+            "the kettle",
+            "kettle",
+            "coffee"
+          ]
+        },
+        {
+          "text": "The shower",
+          "points": 15,
+          "aliases": [
+            "shower",
+            "the water",
+            "water",
+            "the faucet",
+            "the tap",
+            "hot water"
+          ]
+        },
+        {
+          "text": "Your phone",
+          "points": 11,
+          "aliases": [
+            "phone",
+            "my phone",
+            "the alarm",
+            "cell phone"
+          ]
+        },
+        {
+          "text": "The TV",
+          "points": 7,
+          "aliases": [
+            "tv",
+            "television",
+            "the news",
+            "the radio",
+            "radio",
+            "the car",
+            "car",
+            "the computer",
+            "computer",
+            "the stove",
+            "the heat"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f049",
+      "prompt": "Name something that has wheels.",
+      "readAs": "Name something that has wheels.",
+      "answers": [
+        {
+          "text": "A car",
+          "points": 31,
+          "aliases": [
+            "car",
+            "cars",
+            "a truck",
+            "truck",
+            "automobile",
+            "a van",
+            "a vehicle"
+          ]
+        },
+        {
+          "text": "A bicycle",
+          "points": 26,
+          "aliases": [
+            "bike",
+            "bicycle",
+            "a bike",
+            "bikes",
+            "a tricycle",
+            "tricycle",
+            "a motorcycle",
+            "motorcycle"
+          ]
+        },
+        {
+          "text": "A skateboard",
+          "points": 19,
+          "aliases": [
+            "skateboard",
+            "roller skates",
+            "skates",
+            "rollerblades",
+            "a scooter",
+            "scooter"
+          ]
+        },
+        {
+          "text": "A shopping cart",
+          "points": 12,
+          "aliases": [
+            "shopping cart",
+            "a cart",
+            "cart",
+            "a trolley",
+            "a wagon",
+            "wagon",
+            "a wheelbarrow",
+            "a stroller",
+            "stroller"
+          ]
+        },
+        {
+          "text": "A bus",
+          "points": 9,
+          "aliases": [
+            "bus",
+            "a train",
+            "train",
+            "a suitcase",
+            "suitcase",
+            "luggage",
+            "an office chair",
+            "a wheelchair",
+            "wheelchair",
+            "an airplane"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f050",
+      "prompt": "Name something you do in the dark.",
+      "readAs": "Name something you do in the dark.",
+      "answers": [
+        {
+          "text": "Sleep",
+          "points": 35,
+          "aliases": [
+            "sleeping",
+            "go to sleep",
+            "nap",
+            "go to bed"
+          ]
+        },
+        {
+          "text": "Watch a movie",
+          "points": 23,
+          "aliases": [
+            "watch movies",
+            "watch tv",
+            "movie",
+            "movies",
+            "go to the movies",
+            "see a movie"
+          ]
+        },
+        {
+          "text": "Kiss",
+          "points": 18,
+          "aliases": [
+            "make out",
+            "kissing",
+            "cuddle",
+            "snuggle",
+            "make love",
+            "romance"
+          ]
+        },
+        {
+          "text": "Trip over things",
+          "points": 14,
+          "aliases": [
+            "trip",
+            "stumble",
+            "bump into things",
+            "stub your toe",
+            "walk into things",
+            "fall",
+            "stumble around",
+            "feel around"
+          ]
+        },
+        {
+          "text": "Tell ghost stories",
+          "points": 10,
+          "aliases": [
+            "ghost stories",
+            "tell scary stories",
+            "scary stories",
+            "stargaze",
+            "look at the stars",
+            "watch fireworks",
+            "hide",
+            "hide and seek",
+            "play hide and seek",
+            "use a flashlight"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f051",
+      "prompt": "Name something people do at a fair.",
+      "readAs": "Name something people do at a fair.",
+      "answers": [
+        {
+          "text": "Go on rides",
+          "points": 36,
+          "aliases": [
+            "ride rides",
+            "rides",
+            "ride the rides",
+            "go on a ride",
+            "ride the ferris wheel",
+            "ferris wheel",
+            "ride roller coasters",
+            "ride"
+          ]
+        },
+        {
+          "text": "Eat",
+          "points": 24,
+          "aliases": [
+            "eat food",
+            "eat fair food",
+            "eat junk food",
+            "eat cotton candy",
+            "cotton candy",
+            "eat funnel cake",
+            "funnel cake",
+            "eat corn dogs",
+            "eating"
+          ]
+        },
+        {
+          "text": "Play games",
+          "points": 17,
+          "aliases": [
+            "games",
+            "carnival games",
+            "play carnival games",
+            "win prizes",
+            "win a prize",
+            "try to win a prize",
+            "win a stuffed animal",
+            "ring toss"
+          ]
+        },
+        {
+          "text": "See animals",
+          "points": 12,
+          "aliases": [
+            "look at animals",
+            "animals",
+            "pet animals",
+            "the petting zoo",
+            "petting zoo",
+            "see the animals",
+            "see the pigs",
+            "livestock"
+          ]
+        },
+        {
+          "text": "Spend money",
+          "points": 8,
+          "aliases": [
+            "waste money",
+            "spend too much money",
+            "buy tickets",
+            "people watch",
+            "walk around",
+            "watch a show"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f052",
+      "prompt": "Name a breakfast food.",
+      "readAs": "Name a breakfast food.",
+      "answers": [
+        {
+          "text": "Eggs",
+          "points": 33,
+          "aliases": [
+            "egg",
+            "scrambled eggs",
+            "an omelette",
+            "omelet",
+            "fried eggs",
+            "eggs and bacon"
+          ]
+        },
+        {
+          "text": "Bacon",
+          "points": 25,
+          "aliases": [
+            "bacon strips",
+            "sausage",
+            "sausages",
+            "ham"
+          ]
+        },
+        {
+          "text": "Pancakes",
+          "points": 18,
+          "aliases": [
+            "pancake",
+            "waffles",
+            "a waffle",
+            "french toast",
+            "hotcakes",
+            "flapjacks"
+          ]
+        },
+        {
+          "text": "Cereal",
+          "points": 13,
+          "aliases": [
+            "a bowl of cereal",
+            "oatmeal",
+            "porridge",
+            "cheerios",
+            "granola"
+          ]
+        },
+        {
+          "text": "Toast",
+          "points": 9,
+          "aliases": [
+            "bread",
+            "a bagel",
+            "bagel",
+            "bagels",
+            "a muffin",
+            "muffin",
+            "a donut",
+            "donuts",
+            "a croissant",
+            "yogurt",
+            "fruit",
+            "hash browns"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f053",
+      "prompt": "Name something you might find under a couch cushion.",
+      "readAs": "Name something you might find under a couch cushion.",
+      "answers": [
+        {
+          "text": "Coins",
+          "points": 40,
+          "aliases": [
+            "change",
+            "money",
+            "loose change",
+            "coin",
+            "a coin",
+            "pennies",
+            "quarters",
+            "cash",
+            "spare change"
+          ]
+        },
+        {
+          "text": "The remote",
+          "points": 22,
+          "aliases": [
+            "remote",
+            "tv remote",
+            "remote control",
+            "the tv remote",
+            "a remote"
+          ]
+        },
+        {
+          "text": "Crumbs",
+          "points": 15,
+          "aliases": [
+            "food",
+            "old food",
+            "crumb",
+            "chips",
+            "popcorn",
+            "a cheerio",
+            "cereal",
+            "candy",
+            "snacks",
+            "a french fry"
+          ]
+        },
+        {
+          "text": "Hair ties",
+          "points": 11,
+          "aliases": [
+            "a hair tie",
+            "hair tie",
+            "bobby pins",
+            "pens",
+            "a pen",
+            "pen",
+            "a pencil",
+            "pencils",
+            "toys",
+            "a toy",
+            "lego",
+            "legos"
+          ]
+        },
+        {
+          "text": "Keys",
+          "points": 7,
+          "aliases": [
+            "key",
+            "car keys",
+            "a phone",
+            "phone",
+            "my phone",
+            "a sock",
+            "socks",
+            "an earring",
+            "jewelry",
+            "dust",
+            "lint",
+            "pet hair"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f054",
+      "prompt": "Name something you wear in winter.",
+      "readAs": "Name something you wear in winter.",
+      "answers": [
+        {
+          "text": "A coat",
+          "points": 31,
+          "aliases": [
+            "coat",
+            "jacket",
+            "a jacket",
+            "winter coat",
+            "a parka",
+            "parka",
+            "a puffer jacket"
+          ]
+        },
+        {
+          "text": "Gloves",
+          "points": 26,
+          "aliases": [
+            "glove",
+            "mittens",
+            "a pair of gloves",
+            "mitts"
+          ]
+        },
+        {
+          "text": "A scarf",
+          "points": 19,
+          "aliases": [
+            "scarf",
+            "scarves"
+          ]
+        },
+        {
+          "text": "A hat",
+          "points": 12,
+          "aliases": [
+            "hat",
+            "beanie",
+            "a beanie",
+            "winter hat",
+            "a toque",
+            "earmuffs",
+            "ear muffs"
+          ]
+        },
+        {
+          "text": "Boots",
+          "points": 9,
+          "aliases": [
+            "boot",
+            "snow boots",
+            "winter boots",
+            "a sweater",
+            "sweater",
+            "thermals",
+            "long johns",
+            "thick socks",
+            "wool socks",
+            "snow pants"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f055",
+      "prompt": "Name something a pirate has.",
+      "readAs": "Name something a pirate has.",
+      "answers": [
+        {
+          "text": "An eye patch",
+          "points": 35,
+          "aliases": [
+            "eyepatch",
+            "eye patch",
+            "a patch",
+            "patch"
+          ]
+        },
+        {
+          "text": "A parrot",
+          "points": 23,
+          "aliases": [
+            "parrot",
+            "a bird",
+            "bird"
+          ]
+        },
+        {
+          "text": "A ship",
+          "points": 18,
+          "aliases": [
+            "ship",
+            "a boat",
+            "boat",
+            "a pirate ship"
+          ]
+        },
+        {
+          "text": "A sword",
+          "points": 14,
+          "aliases": [
+            "sword",
+            "a cutlass",
+            "cutlass",
+            "a hook",
+            "hook",
+            "a hook hand",
+            "a peg leg",
+            "peg leg",
+            "wooden leg"
+          ]
+        },
+        {
+          "text": "Treasure",
+          "points": 10,
+          "aliases": [
+            "gold",
+            "a treasure chest",
+            "treasure chest",
+            "a treasure map",
+            "a map",
+            "booty",
+            "a hat",
+            "pirate hat",
+            "rum",
+            "a flag"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f056",
+      "prompt": "Name something people do when they win.",
+      "readAs": "Name something people do when they win.",
+      "answers": [
+        {
+          "text": "Cheer",
+          "points": 36,
+          "aliases": [
+            "scream",
+            "yell",
+            "shout",
+            "cheering",
+            "scream with joy",
+            "whoop"
+          ]
+        },
+        {
+          "text": "Jump up and down",
+          "points": 24,
+          "aliases": [
+            "jump",
+            "jumping",
+            "jump for joy",
+            "leap",
+            "jump around"
+          ]
+        },
+        {
+          "text": "Celebrate",
+          "points": 17,
+          "aliases": [
+            "party",
+            "celebrating",
+            "throw a party",
+            "have a party",
+            "go out",
+            "drink",
+            "pop champagne",
+            "champagne"
+          ]
+        },
+        {
+          "text": "Dance",
+          "points": 12,
+          "aliases": [
+            "dancing",
+            "a victory dance",
+            "victory dance",
+            "do a dance",
+            "happy dance"
+          ]
+        },
+        {
+          "text": "Brag",
+          "points": 8,
+          "aliases": [
+            "gloat",
+            "show off",
+            "rub it in",
+            "bragging",
+            "boast",
+            "cry",
+            "happy tears",
+            "hug",
+            "hug someone",
+            "high five",
+            "smile"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f057",
+      "prompt": "Name something you keep in the fridge door.",
+      "readAs": "Name something you keep in the fridge door.",
+      "answers": [
+        {
+          "text": "Ketchup",
+          "points": 33,
+          "aliases": [
+            "catsup",
+            "tomato ketchup"
+          ]
+        },
+        {
+          "text": "Milk",
+          "points": 25,
+          "aliases": [
+            "a carton of milk",
+            "milk jug",
+            "juice",
+            "orange juice"
+          ]
+        },
+        {
+          "text": "Mustard",
+          "points": 18,
+          "aliases": [
+            "mayo",
+            "mayonnaise",
+            "condiments",
+            "sauces",
+            "hot sauce",
+            "salad dressing",
+            "dressing",
+            "bbq sauce",
+            "soy sauce",
+            "relish"
+          ]
+        },
+        {
+          "text": "Butter",
+          "points": 13,
+          "aliases": [
+            "margarine",
+            "a stick of butter"
+          ]
+        },
+        {
+          "text": "Eggs",
+          "points": 9,
+          "aliases": [
+            "egg",
+            "drinks",
+            "soda",
+            "water",
+            "beer",
+            "pickles",
+            "jam",
+            "jelly"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f058",
+      "prompt": "Name a job that requires a uniform.",
+      "readAs": "Name a job that requires a uniform.",
+      "answers": [
+        {
+          "text": "Police officer",
+          "points": 40,
+          "aliases": [
+            "police",
+            "cop",
+            "a cop",
+            "policeman",
+            "police woman",
+            "officer",
+            "a police officer",
+            "sheriff"
+          ]
+        },
+        {
+          "text": "Nurse",
+          "points": 22,
+          "aliases": [
+            "a nurse",
+            "doctor",
+            "a doctor",
+            "surgeon",
+            "nurses"
+          ]
+        },
+        {
+          "text": "Firefighter",
+          "points": 15,
+          "aliases": [
+            "fireman",
+            "a firefighter",
+            "fire fighter",
+            "firemen"
+          ]
+        },
+        {
+          "text": "Soldier",
+          "points": 11,
+          "aliases": [
+            "military",
+            "army",
+            "the army",
+            "the military",
+            "a soldier",
+            "marine",
+            "navy",
+            "sailor"
+          ]
+        },
+        {
+          "text": "Pilot",
+          "points": 7,
+          "aliases": [
+            "a pilot",
+            "flight attendant",
+            "chef",
+            "a chef",
+            "mail carrier",
+            "mailman",
+            "postal worker",
+            "waiter",
+            "security guard",
+            "fast food worker"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f059",
+      "prompt": "Name something that makes you sneeze.",
+      "readAs": "Name something that makes you sneeze.",
+      "answers": [
+        {
+          "text": "Pollen",
+          "points": 31,
+          "aliases": [
+            "allergies",
+            "hay fever",
+            "flowers",
+            "grass",
+            "an allergy",
+            "ragweed"
+          ]
+        },
+        {
+          "text": "Dust",
+          "points": 26,
+          "aliases": [
+            "dust bunnies",
+            "dusting",
+            "dirt"
+          ]
+        },
+        {
+          "text": "Pepper",
+          "points": 19,
+          "aliases": [
+            "black pepper",
+            "ground pepper",
+            "spices"
+          ]
+        },
+        {
+          "text": "A cold",
+          "points": 12,
+          "aliases": [
+            "the flu",
+            "being sick",
+            "a virus",
+            "sickness",
+            "illness"
+          ]
+        },
+        {
+          "text": "Cats",
+          "points": 9,
+          "aliases": [
+            "cat",
+            "cat hair",
+            "pet hair",
+            "a cat",
+            "dogs",
+            "dog hair",
+            "pet dander",
+            "dander",
+            "the sun",
+            "sunlight",
+            "bright light",
+            "perfume",
+            "feathers"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "f060",
+      "prompt": "Name something you do before a test.",
+      "readAs": "Name something you do before a test.",
+      "answers": [
+        {
+          "text": "Study",
+          "points": 35,
+          "aliases": [
+            "studying",
+            "cram",
+            "cramming",
+            "review",
+            "revise",
+            "review notes",
+            "read your notes",
+            "practice"
+          ]
+        },
+        {
+          "text": "Panic",
+          "points": 23,
+          "aliases": [
+            "worry",
+            "stress",
+            "stress out",
+            "get nervous",
+            "freak out",
+            "be nervous",
+            "cry"
+          ]
+        },
+        {
+          "text": "Sleep",
+          "points": 18,
+          "aliases": [
+            "get a good nights sleep",
+            "get some sleep",
+            "rest",
+            "go to bed early",
+            "get rest"
+          ]
+        },
+        {
+          "text": "Pray",
+          "points": 14,
+          "aliases": [
+            "say a prayer",
+            "praying",
+            "hope",
+            "cross your fingers"
+          ]
+        },
+        {
+          "text": "Eat breakfast",
+          "points": 10,
+          "aliases": [
+            "eat",
+            "have breakfast",
+            "eat a good breakfast",
+            "sharpen a pencil",
+            "sharpen pencils",
+            "go to the bathroom",
+            "use the bathroom",
+            "take a deep breath",
+            "breathe"
           ]
         }
       ]

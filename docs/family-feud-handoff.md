@@ -221,6 +221,53 @@ code and name, a stranger refused mid-match, host leaving closes the room.
 After any future change to `server/feud-server.mjs`: copy it there, then the
 owner runs `sudo systemctl restart feud-relay`.
 
+### Fast Money and lobby pass, 2026-11-17 (tag `?v=20261117-feud7`)
+
+Owner notes from a real online match, all addressed:
+
+- **Fast Money duplicates are caught as they are typed.** `fmSubmit()` in
+  `src/game.js` returns a `fmDupTry` event when the second player gives an
+  answer the first already gave to that question (same survey answer, any
+  alias of it, or the same words when both missed). Nothing is recorded, the
+  question stays up, the clock keeps running, the row flashes and the box
+  says "Already said". The old design (zero the duplicate at the reveal, then
+  ask a spare question) is **gone**: `PHASE.FM_DUPLICATE`, `fm.spare`,
+  `fm.duplicates` and `fmSubmitSpare()` no longer exist. A round is exactly
+  five questions.
+- **Everyone can see who is in the lobby.** The room panel shows four seat
+  cards (name or "Open seat") and a count; a join or leave raises a toast and
+  a ding on the other screens. The roster was always sent; it was just two
+  20px pills under a 110px room code.
+- **The watching screen says what is happening.** While someone else is
+  typing Fast Money answers, the answer box is replaced by a pulsing
+  "<NAME> IS ANSWERING / Question n of 5" banner (`setFmWatch()` in
+  `app.js`), and each answer shows as "LOCKED IN" as it lands. A player who
+  has already had their turn (or is only watching) sees the questions and the
+  typed answers live; a player still waiting sees neither. One rule decides
+  it everywhere: `fmSees(fm, seat, turn)` in `src/net.js`.
+- **Each player presses their own "I AM READY".** `setAdvance(label, fn, who)`
+  takes the seat the button belongs to; that guest's click arrives as
+  `{k:'input', kind:'ready'}`. If it arrives before the host's own button is
+  up (each screen finishes Bella's line in its own time) the host remembers
+  it in `earlyReady` and fires as soon as the button exists. The host can
+  still press for a seat whose player has dropped.
+- **Question bank more than doubled: 80 main + 60 Fast Money** (was 40 + 20).
+  New questions live in `data/question-pack-2026-11-17-*.txt` and were merged
+  with `tools/add-questions.mjs` (points come from a named template, so a pack
+  is never hand-summed; re-running skips prompts already present). Fast Money
+  was the one that repeated: 5 questions a match from a pool of 20.
+  **The 80 new questions and the two `fmTryAgain` lines have no recorded
+  voice** — they show as captions. `tools/render-voice.mjs` renders only what
+  is missing.
+
+Tests: 132 game checks (immediate duplicate, alias duplicate, no extra
+questions), 179 matcher fixtures, 11,919 alias round-trips. Verified in two
+browser tabs against the local relay: lobby seat cards and join toast, the
+watching banner on the waiting player's screen, the guest pressing their own
+ready button, an alias duplicate bounced on the spot, live answers on the
+first player's screen, reveal straight through to the #1 answers. Not tested:
+the live page in two real browsers, sound, a real phone. No relay change.
+
 ### Still to do
 
 1. Owner plays it and gives notes.
@@ -287,11 +334,11 @@ instructions in `family-feud/server/README.md`.
 | Area | State |
 |---|---|
 | Game logic | Face-off (blind sequential entry), 3 rounds at x1/x2/x3, strikes, play/pass, steal, sudden death on a tie, banking |
-| Fast Money | Both-players and winner-solo modes, look-away curtain, per-player clock, duplicate detection, spare question, 200 target |
+| Fast Money | Both-players and winner-solo modes, look-away curtain, per-player clock, duplicates bounced as they are typed, 200 target |
 | Players | 2-4, same screen (one keyboard) **or online, one machine each** |
 | Online | Room codes, host runs the engine and posts events, guests render them; per-seat redaction so a guest is never sent an unrevealed answer |
 | Answer matching | Normalization + 4-stage cascade, curated synonym map, host override keys |
-| Questions | **40 main + 20 Fast Money** (the ship minimum) |
+| Questions | **80 main + 60 Fast Money** |
 | Artwork | **12/12**, 1.8 MB, in `family-feud/img/` |
 | Bella voice | **109/109 clips**, 6.1 MB, in `family-feud/audio/` |
 | Sound effects | Synthesized in-browser with Web Audio; no files needed |
@@ -438,7 +485,7 @@ a fast key press interleaves two event streams and the screen describes neither.
 Claude is mid-turn arrive as viewable pictures but not as readable files. If a
 future session needs assets uploaded, ask for them when it is not working.
 
-**Fast Money needs at least 6 questions** (5 played + 1 spare for a duplicate).
+**Fast Money needs at least 5 questions** (there is no spare any more).
 The validator now errors below that; it used to silently break.
 
 **An AudioContext does not stay running.** Backgrounding the tab or changing the

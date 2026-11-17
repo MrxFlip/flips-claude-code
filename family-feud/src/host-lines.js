@@ -79,9 +79,9 @@ export const HOST_LINES = {
     "Time's up!",
     "That's time.",
   ],
-  fmDuplicate: [
-    'We have a duplicate answer. One more question.',
-    "That one's already been said. Here's a replacement.",
+  fmTryAgain: [
+    "That one's already been said. Try again!",
+    'Already up there. Give me another one!',
   ],
   fmWin: [
     'They did it! Big winners!',
