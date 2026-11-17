@@ -23,7 +23,12 @@ export function createBoard(rootEl, question) {
   rootEl.replaceChildren();
 
   // Two columns, filled top-to-bottom. 5-6 answers => 3 rows, 7-8 => 4.
-  rootEl.style.setProperty('--rows', String(Math.ceil(question.answers.length / 2)));
+  // Up to four answers stack in one column, the way the show's short boards
+  // do; five or more split into two.
+  const count = question.answers.length;
+  const cols = count <= 4 ? 1 : 2;
+  rootEl.dataset.cols = String(cols);
+  rootEl.style.setProperty('--rows', String(Math.ceil(count / cols)));
 
   const tiles = question.answers.map((answer, i) => {
     const rank = i + 1;

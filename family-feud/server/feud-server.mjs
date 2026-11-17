@@ -223,10 +223,45 @@ function makeCode() {
   return null;
 }
 
+// How long a started room waits for its host to come back before it closes.
+const HOST_GRACE_MS = Number(process.env.HOST_GRACE_MS ?? 3 * 60 * 1000);
+
+const newToken = () => randomInt(2 ** 31).toString(36) + randomInt(2 ** 31).toString(36) + Date.now().toString(36);
+
+/**
+ * Everyone who holds a seat: the connected, and — once a match has started —
+ * the "ghosts" whose socket dropped. A ghost keeps its seat, name and token so
+ * the same player can walk back in mid-match instead of being timed out on
+ * every turn for the rest of the game.
+ */
 function roster(room) {
-  return [...room.clients.values()]
-    .sort((a, b) => a.seat - b.seat)
-    .map((c) => ({ seat: c.seat, name: c.name }));
+  const live = [...room.clients.values()].map((c) => ({ seat: c.seat, name: c.name, connected: true }));
+  const gone = [...(room.ghosts?.values() ?? [])].map((g) => ({ seat: g.seat, name: g.name, connected: false }));
+  return [...live, ...gone].sort((a, b) => a.seat - b.seat);
+}
+
+function closeRoom(room, reason) {
+  clearTimeout(room.hostTimer);
+  for (const c of room.clients.values()) {
+    c.send({ t: 'closed', reason });
+    c.room = null;
+    c.close(1000, 'room closed');
+  }
+  rooms.delete(room.code);
+  log(`room ${room.code} closed: ${reason}`);
+}
+
+/** Put a connection into a seat, live. */
+function seatConn(room, conn, seat, name, { rejoined = false } = {}) {
+  conn.seat = seat;
+  conn.name = name;
+  conn.token = newToken();
+  conn.room = room;
+  room.clients.set(conn.id, conn);
+  room.touched = Date.now();
+  if (seat === 0) { clearTimeout(room.hostTimer); room.hostTimer = null; }
+  conn.send({ t: 'joined', code: room.code, seat, token: conn.token, started: !!room.started, rejoined });
+  announce(room);
 }
 
 function announce(room) {
@@ -234,25 +269,42 @@ function announce(room) {
   for (const c of room.clients.values()) c.send({ t: 'roster', players: list, host: 0 });
 }
 
-function leave(conn) {
+/**
+ * A connection is gone. `explicit` means the player chose to leave; anything
+ * else is a dropped socket.
+ */
+function leave(conn, { explicit = false } = {}) {
   const room = conn.room;
   if (!room) return;
   room.clients.delete(conn.id);
   conn.room = null;
+  room.touched = Date.now();
 
-  if (conn.seat === 0 || room.clients.size === 0) {
-    // The host owns the engine. Without it there is no match to continue, and
-    // pretending otherwise would leave guests staring at a frozen board.
-    for (const c of room.clients.values()) {
-      c.send({ t: 'closed', reason: 'The host left the game.' });
-      c.room = null;
-      c.close(1000, 'host left');
-    }
-    rooms.delete(room.code);
-    log(`room ${room.code} closed`);
+  // The host owns the engine. If they CHOOSE to leave there is no match to
+  // continue, and pretending otherwise would leave guests at a frozen board.
+  if (conn.seat === 0 && (explicit || !room.started)) {
+    closeRoom(room, 'The host left the game.');
     return;
   }
-  room.touched = Date.now();
+
+  if (room.started) {
+    // Mid-match, a seat outlives its socket. The player (or the host, whose
+    // browser still holds the whole game) can reconnect and carry on.
+    room.ghosts ??= new Map();
+    room.ghosts.set(conn.seat, { seat: conn.seat, name: conn.name, token: conn.token, since: Date.now() });
+    log(`${conn.name} dropped from ${room.code} (seat ${conn.seat} held)`);
+    if (conn.seat === 0 || room.clients.size === 0) {
+      clearTimeout(room.hostTimer);
+      room.hostTimer = setTimeout(() => {
+        if (rooms.get(room.code) === room) closeRoom(room, 'The host lost their connection.');
+      }, HOST_GRACE_MS);
+      room.hostTimer.unref?.();
+    }
+    announce(room);
+    return;
+  }
+
+  if (room.clients.size === 0) { rooms.delete(room.code); log(`room ${room.code} closed`); return; }
   announce(room);
 }
 
@@ -265,14 +317,9 @@ function handle(conn, msg) {
       }
       const code = makeCode();
       if (!code) return conn.send({ t: 'error', code: 'busy', message: 'Could not allocate a room.' });
-      const room = { code, clients: new Map(), touched: Date.now() };
+      const room = { code, clients: new Map(), ghosts: new Map(), hostTimer: null, touched: Date.now() };
       rooms.set(code, room);
-      conn.name = cleanName(msg.name, 'Host');
-      conn.seat = 0;
-      conn.room = room;
-      room.clients.set(conn.id, conn);
-      conn.send({ t: 'joined', code, seat: 0 });
-      announce(room);
+      seatConn(room, conn, 0, cleanName(msg.name, 'Host'));
       log(`room ${code} created by ${conn.name}`);
       return;
     }
@@ -283,7 +330,20 @@ function handle(conn, msg) {
       const room = rooms.get(code);
       if (!room) return conn.send({ t: 'error', code: 'no_room', message: `No game with code ${code || '????'}.` });
       if (room.started) {
-        return conn.send({ t: 'error', code: 'started', message: 'That game has already started.' });
+        // A started match takes nobody new, but a player who dropped out may
+        // come back through the front door — a new tab, another device — with
+        // nothing but the code and their name. Match on the name; failing
+        // that, if exactly one guest seat is empty, it can only be theirs.
+        const wanted = cleanName(msg.name, '').toLowerCase();
+        const guests = [...room.ghosts.values()].filter((g) => g.seat !== 0);
+        const ghost = guests.find((g) => g.name.toLowerCase() === wanted) ?? (guests.length === 1 ? guests[0] : null);
+        if (!ghost) {
+          return conn.send({ t: 'error', code: 'started', message: 'That game has already started.' });
+        }
+        room.ghosts.delete(ghost.seat);
+        seatConn(room, conn, ghost.seat, ghost.name, { rejoined: true });
+        log(`${ghost.name} came back to ${code} (seat ${ghost.seat})`);
+        return;
       }
       if (room.clients.size >= MAX_PER_ROOM) {
         return conn.send({ t: 'error', code: 'full', message: 'That game is full.' });
@@ -291,14 +351,22 @@ function handle(conn, msg) {
       const taken = new Set([...room.clients.values()].map((c) => c.seat));
       let seat = 1;
       while (taken.has(seat)) seat++;
-      conn.name = cleanName(msg.name, `Player ${seat + 1}`);
-      conn.seat = seat;
-      conn.room = room;
-      room.clients.set(conn.id, conn);
-      room.touched = Date.now();
-      conn.send({ t: 'joined', code, seat });
-      announce(room);
+      seatConn(room, conn, seat, cleanName(msg.name, `Player ${seat + 1}`));
       log(`${conn.name} joined ${code} in seat ${seat}`);
+      return;
+    }
+
+    case 'rejoin': {
+      // The automatic path: the same browser, reconnecting with the token it
+      // was given when it sat down.
+      if (conn.room) return conn.send({ t: 'error', code: 'in_room', message: 'Already in a room.' });
+      const code = String(msg.code ?? '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 4);
+      const room = rooms.get(code);
+      const ghost = room && [...room.ghosts.values()].find((g) => g.token && g.token === msg.token);
+      if (!ghost) return conn.send({ t: 'error', code: 'gone', message: 'That game is no longer running.' });
+      room.ghosts.delete(ghost.seat);
+      seatConn(room, conn, ghost.seat, ghost.name, { rejoined: true });
+      log(`${ghost.name} reconnected to ${code} (seat ${ghost.seat})`);
       return;
     }
 
@@ -327,7 +395,7 @@ function handle(conn, msg) {
     }
 
     case 'leave':
-      leave(conn);
+      leave(conn, { explicit: true });
       conn.close(1000, 'bye');
       return;
 

@@ -11,15 +11,15 @@
 // (the console under the board, or a single primary button), so nobody ever
 // has to ask "what do I press now?".
 
-import { initStage } from './src/stage.js?v=20261116-feud5';
-import { loadSurveys } from './src/data.js?v=20261116-feud5';
-import { createBoard } from './src/board.js?v=20261116-feud5';
-import { createGame, PHASE, FM_TIME } from './src/game.js?v=20261116-feud5';
-import { createAudio } from './src/audio.js?v=20261116-feud5';
-import { initArt } from './src/art.js?v=20261116-feud5';
-import { confetti } from './src/confetti.js?v=20261116-feud5';
-import { hostLine } from './src/host-lines.js?v=20261116-feud5';
-import { createNet, resolveRelayUrl, snapshotFor, eventsFor } from './src/net.js?v=20261116-feud5';
+import { initStage } from './src/stage.js?v=20261116-feud6';
+import { loadSurveys } from './src/data.js?v=20261116-feud6';
+import { createBoard } from './src/board.js?v=20261116-feud6';
+import { createGame, PHASE, FM_TIME } from './src/game.js?v=20261116-feud6';
+import { createAudio } from './src/audio.js?v=20261116-feud6';
+import { initArt } from './src/art.js?v=20261116-feud6';
+import { confetti } from './src/confetti.js?v=20261116-feud6';
+import { hostLine } from './src/host-lines.js?v=20261116-feud6';
+import { createNet, resolveRelayUrl, snapshotFor, eventsFor } from './src/net.js?v=20261116-feud6';
 
 const $ = (id) => document.getElementById(id);
 const el = {
@@ -59,7 +59,7 @@ const el = {
   // result
   resultKicker: $('resultKicker'), resultName: $('resultName'), resultDetail: $('resultDetail'),
   standings: $('standings'), resultPrimary: $('resultPrimary'),
-  resultAgain: $('resultAgain'), resultSetup: $('resultSetup'), resultMenu: $('resultMenu'),
+  resultSetup: $('resultSetup'), resultMenu: $('resultMenu'),
   confetti: $('confetti'),
   // overlays
   guess: $('guess'), guessWho: $('guessWho'), guessText: $('guessText'),
@@ -148,6 +148,8 @@ let shownScores = [];          // scores as displayed (they count up after the e
 let podiumEls = [];
 let missedAnnounced = false;
 let fmShownTotal = 0;
+let fmIntroSpoke = false;       // the Fast Money intro line has just played
+let lastFmResult = null;        // the fmResult event, kept for the result screen
 let fmTimerHandle = null;
 let clockHandle = null;
 let stopConfetti = null;
@@ -167,7 +169,10 @@ let online = false;            // true once this browser is in a room
 let mySeat = 0;
 const isHost = () => !online || mySeat === 0;
 /** True when this screen owns the input the engine is currently waiting for. */
-const myTurn = (who) => !online || who === mySeat;
+const seatConnected = (seat) => net.players.find((pl) => pl.seat === seat)?.connected !== false;
+// The host also answers for any seat whose player has dropped out, so a lost
+// connection never leaves the match waiting on someone who is not there.
+const myTurn = (who) => !online || who === mySeat || (mySeat === 0 && !seatConnected(who));
 const hostName = () => net.players.find((pl) => pl.seat === 0)?.name ?? 'the host';
 const BUZZ_KEYS = ['A', 'L'];
 
@@ -386,20 +391,25 @@ function setConsole(mode, status = '', who = null) {
 
 // ---------------------------------------------------------------- answer clock
 
+let clockLeft = 0;              // seconds left when the clock last stopped
+let clockRefund = false;        // the next prompt follows an "already up" answer
+
 function stopClock() {
   if (clockHandle) { clearInterval(clockHandle); clockHandle = null; }
   el.clock.hidden = true;
   el.clock.classList.remove('urgent');
 }
 
-function startClock(seconds, onExpire) {
+/** `total` is what a full ring represents, when starting part-way through. */
+function startClock(seconds, onExpire, total = seconds) {
   stopClock();
   if (!seconds) return;
   let left = seconds;
+  clockLeft = left;
   let lastWhole = Math.ceil(left);
   const paint = () => {
     el.clockText.textContent = String(Math.max(0, Math.ceil(left)));
-    el.clock.style.setProperty('--t', String(Math.max(0, left / seconds)));
+    el.clock.style.setProperty('--t', String(Math.max(0, left / total)));
     el.clock.classList.toggle('urgent', left <= 5);
   };
   el.clock.hidden = false;
@@ -407,6 +417,7 @@ function startClock(seconds, onExpire) {
   clockHandle = setInterval(() => {
     if (paused) return;
     left -= 0.1;
+    clockLeft = left;
     paint();
     const whole = Math.ceil(left);
     if (whole !== lastWhole) {
@@ -566,13 +577,16 @@ async function handle(e) {
       el.buzzBName.textContent = name(slots[1]);
       // Same screen: two buzzers, one keyboard. Online: everyone has their own
       // screen, so each player sees only their own buzzer and the rest watch.
-      const mine = online ? slots.indexOf(mySeat) : -1;
-      el.buzzA.hidden = online && mine !== 0;
-      el.buzzB.hidden = online && mine !== 1;
-      el.buzzAKey.textContent = online ? 'SPACE' : BUZZ_KEYS[0];
-      el.buzzBKey.textContent = online ? 'SPACE' : BUZZ_KEYS[1];
-      if (online && mine < 0) setConsole('idle', `${name(slots[0])} and ${name(slots[1])} are at the buzzers`);
-      else setConsole('buzz', online ? 'Know one? Buzz in before they do' : 'Know one? First to buzz answers first');
+      // (The host also holds the buzzer of a player who has dropped out.)
+      const mine = slots.map((seat) => myTurn(seat));
+      const both = mine[0] && mine[1];
+      awaitingBuzz.mine = mine;
+      el.buzzA.hidden = !mine[0];
+      el.buzzB.hidden = !mine[1];
+      el.buzzAKey.textContent = both ? BUZZ_KEYS[0] : 'SPACE';
+      el.buzzBKey.textContent = both ? BUZZ_KEYS[1] : 'SPACE';
+      if (!mine[0] && !mine[1]) setConsole('idle', `${name(slots[0])} and ${name(slots[1])} are at the buzzers`);
+      else setConsole('buzz', both ? 'Know one? First to buzz answers first' : 'Know one? Buzz in before they do');
       updatePodiums();
       break;
     }
@@ -622,7 +636,15 @@ async function handle(e) {
       }
       setHost('think');
       updatePodiums();
-      startClock(s.clock ?? setup.clock, answerTimedOut);
+      {
+        // A repeat of something already on the board costs no strike, but it
+        // must not buy a fresh clock either — that was a way to stall forever.
+        // The player gets back what they had, plus five seconds.
+        const full = s.clock ?? setup.clock;
+        const secs = clockRefund && full ? Math.min(full, Math.max(0, clockLeft) + 5) : full;
+        clockRefund = false;
+        if (!e.keepClock) startClock(secs, answerTimedOut, full);
+      }
       // Impatient players type over the host reading the question. Rather than
       // wiping that answer when the box goes live, submit it.
       if (queuedSubmit != null) {
@@ -704,6 +726,7 @@ async function handle(e) {
       // Name it: "already on the board" alone is baffling when the matcher
       // resolved your words to something you would not have guessed.
       toast(`“${e.text}” is already up — no strike`, false, 2200);
+      clockRefund = true;
       await delay(500);
       break;
 
@@ -715,7 +738,8 @@ async function handle(e) {
       renderStrikes();
       setHost('strike', 1500);
       if (e.type === 'strike' && !e.timedOut) sayBg('strike');
-      await delay(1150);
+      if (e.offBoard) toast(`“${e.offBoard.text}” was only #${e.offBoard.rank} — not on this board`, true, 2600);
+      await delay(e.offBoard ? 1900 : 1150);
       break;
     }
 
@@ -773,7 +797,8 @@ async function handle(e) {
       setConsole('idle');
       showStrike(1);
       sayBg('stealFail', 'queue');
-      toast('No steal — the points stay put', true, 2200);
+      toast(e.offBoard ? `“${e.offBoard.text}” was only #${e.offBoard.rank} — no steal`
+        : 'No steal — the points stay put', true, 2400);
       setHost('strike', 1500);
       await delay(1200);
       break;
@@ -868,8 +893,11 @@ async function handle(e) {
         : `Five questions each, against the clock. Reach ${e.target} together to win.`;
       el.fmForm.hidden = true;
       clearAdvance();
+      el.stage.classList.remove('fm-tops');
+      lastFmResult = null;
       audio.sfx('bell');
       await say('fmIntro');
+      fmIntroSpoke = true;
       setAdvance(`${name(e.order[0]).toUpperCase()} IS READY`, () => run(game.fmBeginTurn()));
       break;
     }
@@ -881,7 +909,10 @@ async function handle(e) {
       el.fmTimer.style.setProperty('--t', '1');
       el.fmWho.textContent = `${name(e.player)} — ${e.seconds} seconds`;
       el.fmQuestion.textContent = 'Get ready…';
-      await say('fmGo');
+      // One spoken cue, and only for the first player: the intro line has just
+      // played, and a second "here we go" on top of it sounded like a stutter.
+      if (s.fm.turn === 0 && !fmIntroSpoke) await say('fmGo');
+      fmIntroSpoke = false;
       const mine = myTurn(e.player);
       el.fmForm.hidden = !mine;
       el.fmInput.disabled = !mine;
@@ -911,7 +942,7 @@ async function handle(e) {
     case 'fmAnswer':
       // Visible while it is still this player's turn; masked the moment it ends.
       // Online, another player's answer never reaches this screen at all.
-      if (online && e.player !== mySeat) setFmCell(e.turn, e.index, 'x', { masked: true });
+      if (online && !myTurn(e.player)) setFmCell(e.turn, e.index, 'x', { masked: true });
       else setFmCell(e.turn, e.index, e.text || 'PASS', { masked: false });
       audio.sfx('click');
       break;
@@ -954,8 +985,12 @@ async function handle(e) {
         el.fmWho.textContent = `${name(e.player)}’s answers`;
         if (e.turn > 0) await delay(900);
       }
-      el.fmQuestion.textContent = s.fm.questions[e.index].prompt;
+      // Run it the way the show does at the board: the question again, what
+      // the player said, a beat, then what the survey gave it.
+      const q = s.fm.questions[e.index];
+      el.fmQuestion.textContent = q.prompt;
       markFmCurrent(e.index);
+      if (q.prompt) await live(audio.speak(`q:${q.id}`, q.readAs ?? q.prompt, { priority: 'interrupt' }));
       const cell = fmCell(e.turn, e.index);
       if (cell) {
         cell.textContent = e.text || 'PASS';
@@ -963,9 +998,15 @@ async function handle(e) {
         cell.classList.add('shown');
       }
       audio.sfx('flip');
-      await delay(850);
+      await delay(900);
       await showFmPoints(e.turn, e.index, e.points, e.duplicate);
-      await delay(550);
+      if (e.rank === 1 && !e.duplicate) {
+        cell?.classList.add('top-hit');
+        toast('NUMBER ONE ANSWER!', false, 1500);
+        sayBg('topAnswer');
+        await delay(700);
+      }
+      await delay(600);
       break;
     }
 
@@ -1010,8 +1051,42 @@ async function handle(e) {
       el.fmBar.classList.toggle('won', e.won);
       audio.sfx(e.won ? 'win' : 'lose');
       sayBg(e.won ? 'fmWin' : 'fmLose', 'queue');
-      await delay(2600);
+      lastFmResult = e;
+      await delay(2200);
 
+      // Then the part everyone wants to know: what WAS the number one answer,
+      // and did anybody say it.
+      el.stage.classList.add('fm-tops');
+      el.fmWho.textContent = 'The number one answers';
+      for (const top of e.tops ?? []) {
+        markFmCurrent(top.index);
+        el.fmQuestion.textContent = s.fm.questions[top.index]?.prompt ?? '';
+        const cellTop = el.fmRows.children[top.index]?.querySelector('.fm-top');
+        if (cellTop) {
+          cellTop.querySelector('.fm-top-text').textContent = top.text;
+          cellTop.querySelector('.fm-top-pts').textContent = String(top.points);
+          cellTop.querySelector('.fm-top-who').textContent = top.saidBy.length
+            ? `✓ ${top.saidBy.map(name).join(' & ')}` : 'nobody said it';
+          cellTop.classList.add('shown');
+          cellTop.classList.toggle('said', top.saidBy.length > 0);
+        }
+        audio.sfx('flip');
+        if (top.saidBy.length) setTimeout(() => audio.sfx('ding'), 300);
+        await delay(1500);
+      }
+      markFmCurrent(-1);
+      const got = (e.tops ?? []).filter((top) => top.saidBy.length).length;
+      el.fmQuestion.textContent = `${got} of ${(e.tops ?? []).length} number one answers found · ${e.total} points`;
+      setAdvance('SEE THE FINAL RESULT', () => run([{ type: 'fmFinal' }]));
+      break;
+    }
+
+    // UI-only: move from the Fast Money board to the result screen. The host's
+    // button sends it, so every screen in an online match turns the page together.
+    case 'fmFinal': {
+      const fr = lastFmResult;
+      if (!fr) break;
+      e = fr;
       const main = s.players[s.winner];
       let detail = e.won
         ? `Fast Money: ${e.total} points, over the ${e.target} target.`
@@ -1109,9 +1184,9 @@ async function showGuess(who, text) {
   }
 }
 
-async function restoreAfterUndo() {
+async function restoreAfterUndo(label = 'Undo') {
   const s = game.state;
-  toast('Undo', false, 1100);
+  if (label) toast(label, false, 1100);
   stopClock();
   clearAdvance();
   pendingInput = null;
@@ -1173,7 +1248,6 @@ function renderStandings() {
 }
 
 function setResultButtons(final) {
-  el.resultAgain.hidden = true;            // the primary button already says PLAY AGAIN
   // Online, "change players" would mean leaving the room, which is what the
   // other button already does.
   el.resultSetup.hidden = !final || online;
@@ -1198,7 +1272,9 @@ function buildFmRows() {
     row.innerHTML =
       `<span class="fm-num">${i + 1}</span>` +
       '<span class="fm-a hidden-answer"></span><span class="fm-pts fm-pa"></span>' +
-      '<span class="fm-b hidden-answer"></span><span class="fm-pts fm-pb"></span>';
+      '<span class="fm-b hidden-answer"></span><span class="fm-pts fm-pb"></span>' +
+      '<span class="fm-top"><span class="fm-top-text"></span><span class="fm-top-pts"></span>' +
+      '<span class="fm-top-who"></span></span>';
     el.fmRows.append(row);
   });
 }
@@ -1402,9 +1478,12 @@ el.choiceRow.addEventListener('click', (ev) => {
 
 function doBuzz(slot) {
   if (!awaitingBuzz || paused) return;
-  // Online a screen can only ever buzz for its own seat.
-  const player = online ? mySeat : awaitingBuzz.slots[slot];
-  if (!awaitingBuzz.slots.includes(player)) return;
+  // A screen can only buzz for a seat it controls. With one such seat, any
+  // buzz key means that seat.
+  const mine = awaitingBuzz.mine ?? [true, true];
+  if (!mine[0] && !mine[1]) return;
+  if (!(mine[0] && mine[1])) slot = mine[0] ? 0 : 1;
+  const player = awaitingBuzz.slots[slot];
   awaitingBuzz = null;
   audio.stopVoice();                 // Bella stops reading the instant someone buzzes
   audio.sfx('buzzIn');
@@ -1433,6 +1512,16 @@ net.on('relay', ({ from, body }) => {
   if (!body || typeof body !== 'object') return;
   if (isHost()) {
     if (body.k === 'input') applyGuestInput(from, body);
+    return;
+  }
+  if (body.k === 'sync') {
+    // The host's picture of the match, sent after a reconnect. Throw away
+    // whatever this screen thought it knew and redraw from it.
+    if (body.seat !== mySeat || !body.state) return;
+    if (!game) startMatch();
+    if (!game) return;
+    game.state = body.state;
+    resyncFromState();
     return;
   }
   if (body.k !== 'events') return;
@@ -1493,7 +1582,115 @@ net.on('closed', (reason) => {
   toast(reason, true, 6000);
   lobbyError(reason);
 });
-net.on('roster', () => { renderRoster(); renderNetBadge(); });
+net.on('roster', () => { renderRoster(); renderNetBadge(); rosterChanged(); });
+net.on('reconnecting', () => {
+  toast('Connection lost — reconnecting…', true, 60000);
+  renderNetBadge();
+});
+net.on('rejoined', () => {
+  toast('Reconnected', false, 1800);
+  renderNetBadge();
+  // A host that dropped has been producing events nobody received.
+  if (isHost() && game) for (const pl of net.players) if (pl.seat !== 0 && pl.connected) sendSync(pl.seat);
+});
+
+let knownConnected = new Map();
+
+/** Somebody dropped out or came back while a match is running. */
+function rosterChanged() {
+  const before = knownConnected;
+  knownConnected = new Map(net.players.map((pl) => [pl.seat, pl.connected]));
+  if (!online || !game) return;
+  for (const pl of net.players) {
+    if (pl.seat === mySeat || before.get(pl.seat) === undefined || before.get(pl.seat) === pl.connected) continue;
+    if (!pl.connected) {
+      toast(pl.seat === 0 ? `${pl.name} (host) lost connection — waiting for them`
+        : isHost() ? `${pl.name} lost connection — you can answer for them`
+        : `${pl.name} lost connection`, true, 4200);
+    } else {
+      toast(`${pl.name} is back`, false, 2200);
+      if (isHost()) sendSync(pl.seat);
+    }
+    podiumEls[pl.seat]?.classList.toggle('away', !pl.connected);
+    if (isHost()) reassertPrompt();
+  }
+}
+
+function sendSync(seat) {
+  if (!game || game.guest) return;
+  net.relay({ k: 'sync', seat, state: snapshotFor(game.state, seat) });
+}
+
+/**
+ * Re-show whatever the game is waiting for, without restarting its clock.
+ * Used when who-controls-which-seat changes under a prompt that is already up.
+ */
+function reassertPrompt() {
+  const s = game?.state;
+  if (!s) return;
+  if (awaitingBuzz) { handle({ type: 'awaitBuzz', pair: awaitingBuzz.slots }).catch(swallow); return; }
+  if (engineAwait) { handle({ type: 'awaitInput', ...engineAwait, keepClock: true }).catch(swallow); return; }
+  if (choiceWho != null) { handle({ type: 'awaitChoice', who: choiceWho }).catch(swallow); return; }
+  if ((s.phase === PHASE.FM_PLAY || s.phase === PHASE.FM_DUPLICATE) && s.fm) {
+    const active = s.phase === PHASE.FM_DUPLICATE ? s.fm.order[s.fm.duplicates[0]?.turn] : s.fm.order[s.fm.turn];
+    const mine = myTurn(active);
+    el.fmForm.hidden = !mine;
+    el.fmInput.disabled = !mine;
+    if (mine) el.fmInput.focus();
+  }
+}
+
+/**
+ * Redraw this screen from game.state alone. A guest that reconnected has
+ * missed an unknown number of events, so nothing on screen can be trusted.
+ */
+function resyncFromState() {
+  const s = game.state;
+  epoch += 1;                      // cancel any animation still running
+  batchQueue.length = 0;
+  stopClock();
+  stopFmTimer();
+  audio.stopVoice();
+  for (const node of [el.guess, el.curtain, el.strikeOverlay, el.toast]) node.classList.remove('show');
+  shownScores = s.players.map((pl) => pl.score);
+  buildPodiums();
+  net.players.forEach((pl) => podiumEls[pl.seat]?.classList.toggle('away', !pl.connected));
+  clearAdvance();
+  toast('Back in the game', false, 2000);
+
+  const fmPhases = [PHASE.FM_INTRO, PHASE.FM_LOOKAWAY, PHASE.FM_PLAY, PHASE.FM_REVEAL, PHASE.FM_DUPLICATE, PHASE.FM_RESULT];
+  if (fmPhases.includes(s.phase) && s.fm) {
+    showScreen('fm');
+    buildFmRows();
+    const revealing = [PHASE.FM_REVEAL, PHASE.FM_DUPLICATE, PHASE.FM_RESULT].includes(s.phase);
+    fmShownTotal = 0;
+    s.fm.entries.forEach((list, turn) => list.forEach((entry, i) => {
+      if (entry.hidden) { setFmCell(turn, i, 'x', { masked: true }); return; }
+      setFmCell(turn, i, entry.text || 'PASS', { masked: false });
+      if (revealing && entry.duplicate !== undefined) {
+        const pts = fmPtsCell(turn, i);
+        if (pts) { pts.textContent = entry.duplicate ? 'DUP' : String(entry.points); pts.classList.add('shown'); }
+        fmCell(turn, i)?.classList.add('shown');
+        fmShownTotal += entry.points;
+      }
+    }));
+    el.fmTarget.textContent = `/ ${s.fm.target}`;
+    paintFmTotal();
+    el.fmTimer.style.visibility = 'hidden';
+    el.fmForm.hidden = true;
+    el.fmWho.textContent = 'Fast Money';
+    el.fmQuestion.textContent = `Reconnected. Waiting for ${hostName()} to carry on…`;
+    reassertPrompt();
+    return;
+  }
+  if (s.phase === PHASE.MAIN_RESULT) {
+    handle({ type: 'mainResult', winner: s.winner }).catch(swallow);
+    return;
+  }
+  showScreen('play');
+  renderRoundChip();
+  restoreAfterUndo('').catch(swallow);
+}
 net.on('error', (message) => lobbyError(message));
 // A guest's match begins (and begins again, on a rematch) when the host says so.
 net.on('start', () => { if (online && !isHost()) startMatch(); });
@@ -1502,8 +1699,10 @@ function renderNetBadge() {
   if (!online) { el.netBadge.hidden = true; return; }
   const me = net.players.find((pl) => pl.seat === mySeat);
   el.netBadge.hidden = false;
-  el.netBadge.textContent =
-    `Online · room ${net.code} · you are ${me?.name ?? `seat ${mySeat + 1}`}${isHost() ? ' (host)' : ''}`;
+  el.netBadge.classList.toggle('bad', net.reconnecting);
+  el.netBadge.textContent = net.reconnecting
+    ? `Reconnecting to room ${net.code}…`
+    : `Online · room ${net.code} · you are ${me?.name ?? `seat ${mySeat + 1}`}${isHost() ? ' (host)' : ''}`;
 }
 
 // ------------------------------------------------------------------ lobby
@@ -1575,7 +1774,7 @@ async function withRelay(fn) {
   return true;
 }
 
-function enterRoom(code, seat) {
+function enterRoom(code, seat, started = false) {
   online = true;
   mySeat = seat;
   el.lobbyCode.textContent = code;
@@ -1583,6 +1782,12 @@ function enterRoom(code, seat) {
   syncSetupForMode();
   renderRoster();
   renderNetBadge();
+  // Walking back into a match that is already running: get a blank mirror up
+  // now; the host sends the real picture as soon as it sees us on the roster.
+  if (started && seat !== 0) {
+    startMatch();
+    showScreen('play');
+  }
 }
 
 function leaveRoom({ silent = false } = {}) {
@@ -1602,7 +1807,7 @@ el.joinRoomBtn.addEventListener('click', () => withRelay(async () => {
   const code = el.joinCode.value.trim().toUpperCase();
   if (code.length !== 4) throw new Error('A room code is four characters.');
   const res = await net.join(code, myName());
-  enterRoom(res.code, res.seat);
+  enterRoom(res.code, res.seat, res.started);
 }));
 el.joinCode.addEventListener('input', () => {
   el.joinCode.value = el.joinCode.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 4);
@@ -1717,7 +1922,8 @@ window.addEventListener('keydown', (ev) => {
   }
 
   // Online buzz: one buzzer per screen, so any of the obvious keys works.
-  if (awaitingBuzz && online && !typing && (key === ' ' || key === 'Enter' || key === 'a' || key === 'l')) {
+  if (awaitingBuzz && !typing && !(awaitingBuzz.mine?.[0] && awaitingBuzz.mine?.[1])
+      && (key === ' ' || key === 'Enter' || key === 'a' || key === 'l')) {
     ev.preventDefault();
     doBuzz(0);
     return;
@@ -1787,9 +1993,9 @@ el.muteBtn.addEventListener('click', toggleMute);
 
 const COUNT_NOTES = {
   1: 'Solo run: no face-off and no steal. Three strikes closes the board. Chase your best score.',
-  2: 'Head to head. You face off every round.',
-  3: 'Two players face off each round, rotating so everyone gets a turn at the buzzers.',
-  4: 'Two players face off each round, rotating so everyone gets a turn at the buzzers.',
+  2: 'Head to head. You face off every round. Boards show the top 3 answers.',
+  3: 'Two players face off each round, rotating so everyone gets a turn at the buzzers. Boards show the top 4 answers.',
+  4: 'Two players face off each round, rotating so everyone gets a turn at the buzzers. Boards show the top 5 answers.',
 };
 
 function renderNameInputs() {
@@ -1826,7 +2032,8 @@ function renderNameInputs() {
   const best = store.get('best', 0);
   if (setup.count === 1 && best > 0) note += ` Best so far: ${best}.`;
   if (onlineMode) {
-    note = online ? '' : 'Everyone plays on their own screen. One player creates a game and shares the code; 2-4 can play.';
+    note = online ? 'If someone drops out they can rejoin with the same code and name.'
+      : 'Everyone plays on their own screen. One player creates a game and shares the code; 2-4 can play.';
   }
   el.countNote.textContent = note;
   el.optFaceoffRow.hidden = !onlineMode && setup.count === 1;
@@ -1863,7 +2070,6 @@ el.playBtn.addEventListener('click', gotoSetup);
 el.howBtn.addEventListener('click', () => { audio.unlock(); openModal(el.howto); });
 el.setupHowBtn.addEventListener('click', () => openModal(el.howto));
 el.setupBackBtn.addEventListener('click', () => { if (online) leaveRoom(); showScreen('attract'); });
-el.resultAgain.addEventListener('click', rematch);
 el.resultSetup.addEventListener('click', () => { resetMatch(); syncSetupForMode(); showScreen('setup'); });
 el.resultMenu.addEventListener('click', toMenu);
 
@@ -1984,6 +2190,8 @@ function startMatch() {
       fastMoneyMode: names.length === 1 ? 'solo' : setup.fmMode,
       rounds: setup.rounds,
       buzzIn: setup.faceoff === 'buzz' && names.length > 1,
+      // Three answers for one or two players, one more for each extra player.
+      boardSize: Math.max(3, names.length + 1),
       preshuffled: true,
     },
   });

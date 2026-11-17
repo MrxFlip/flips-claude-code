@@ -125,34 +125,20 @@ bare noun, the plural and the obvious slang. If the matcher still rejects
 something fair, add a fixture to `fixtures/match-cases.json` and a synonym to
 `src/synonyms.js`, then re-run the tests.
 
-> **The browser suites in `tools/browser/` are stale.** They were written
-> against the 1.0 page (`#plates`, `.advance-btn`, `#answerPrompt`, a masked
-> face-off box) and the 2.0 rebuild replaced those elements. They need porting to
-> the 2.0 DOM and `window.__feud.actions` before they mean anything again. The
-> headless suites below are current and are the gate.
-
 ## Tests
 
 ```bash
 node tools/test-all.mjs            # rules, matcher, aliases, survey data — no browser
-node tools/browser/run-all.mjs     # the screen, in a real Chromium
 ```
 
-The first needs nothing but Node. The second needs Playwright somewhere it can
-find (`PLAYWRIGHT_MODULE` points at a copy if it is not a local dependency), and
-starts `tools/dev-server.mjs` itself — so the online suite runs against the same
-one-origin arrangement the deployed site has, rather than a test-only one. Pass a name to run one suite: `node tools/browser/run-all.mjs online`.
+Needs nothing but Node. It covers the rules (`test-game.mjs`), the matcher
+against its fixtures, every accepted phrasing resolving to its own answer, and
+the survey data.
 
-| Suite | What it holds the line on |
-|---|---|
-| `main-game` | A full round: face-off, play/pass, strikes, steal, bank, host keys |
-| `fast-money` | Both turns, the look-away curtain, masking, duplicates, the spare |
-| `regressions` | Every fault found in play, so none of them comes back |
-| `audio` | Suspend/resume, and that queued lines do not cut each other off |
-| `online` | Two browsers, one relay, one match — including what a guest is not told |
-| `resolutions` | 1366×768, 1920×1080, 2560×1440 |
-
-Screenshots land in `.feud-shots/` (git-ignored); `FEUD_SHOTS` moves them.
+There are no automated browser tests. The Playwright suites written for the 1.0
+page were deleted once the 2.0 rebuild made them stale. To check the page by
+hand or by script, `node tools/dev-server.mjs` serves the game and a relay on
+one port, and `window.__feud.actions` / `window.__feud.ui` drive and observe it.
 
 ## Artwork
 

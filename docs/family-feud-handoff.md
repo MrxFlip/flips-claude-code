@@ -101,7 +101,7 @@ matcher cases, all passing.
   **stale**; Playwright is not installed on the Claude Code PC. They need
   porting.
 - 3-4 players online, real network latency, and sound with audio on.
-- No reconnect: a dropped guest cannot rejoin a started match (their design).
+- (Fixed 2026-11-16: dropped players can now rejoin; see the final-pass note.)
 
 ### What is live (2026-11-15, night)
 
@@ -174,12 +174,55 @@ There is still no way for a player to dispute a strike except the host keys
   `audio/sfx/ding.mp3` would override it.
 - **Fast Money clock.** `FM_TIME` is `[60, 60]` (was `[20, 25]`).
 
+### Final pass, 2026-11-16 (tag `?v=20261116-feud6`)
+
+Owner notes from a real online session, all addressed:
+
+- **A dropped player no longer wrecks the match.** The relay now holds the seat
+  of anyone whose socket drops mid-match ("ghost"), with a token. The browser
+  retries for three minutes and walks back in; a reloaded page or another device
+  can rejoin with the room code and the same name. While a seat is empty the
+  **host's screen takes it over** (answer box, buzzer, Fast Money form), so
+  nothing waits on someone who is not there. On return the host sends that seat
+  a fresh `sync` snapshot and the guest redraws from state
+  (`resyncFromState()` in `app.js`). A host that drops gets the same three
+  minutes; only the host choosing to leave closes the room.
+- **Board size follows the table:** top 3 answers for one or two players, 4 for
+  three, 5 for four (`settings.boardSize`). Answers cut from the board live in
+  `question.offBoard`; naming one is still a strike, but the screen says
+  "X was only #4 — not on this board". Boards of four or fewer stack in one
+  column.
+- **Clock exploit closed.** Repeating an answer that is already up used to
+  restart the full clock. It now returns what was left plus 5 seconds.
+- **Fast Money:** the question is re-read before each answer is revealed, a #1
+  answer is called out as it lands, and after the total there is a
+  "number one answers" column showing each top answer, its points and who (if
+  anyone) said it, then a SEE THE FINAL RESULT button. The second "here we go"
+  line right after the intro is gone.
+- **Phones:** `src/stage.js` slides the stage to the answer box while the
+  on-screen keyboard is up; the "rotate to landscape" banner that used to sit
+  over the screen even IN landscape is replaced by a portrait-only notice.
+  **Not tested on a real iPhone** — only at an emulated 844x390.
+
+Cleanup: `tools/browser/` (Playwright suites for the 1.0 page, stale since 2.0)
+is deleted; the unused PLAY AGAIN ghost button is gone.
+
+Tests: 129 game checks (board size, off-board strikes, Fast Money top answers),
+179 matcher fixtures. Verified in two browser tabs against the local relay:
+3-answer board, off-board strike message, clock refund, guest drop -> host takes
+over -> automatic rejoin -> resync, rejoin after a full page reload, Fast Money
+through to the top-answers reveal and the shared final screen.
+
+**Relay:** `server/feud-server.mjs` changed, so the copy at
+`/data/Projects/feud-relay/` was replaced and `feud-relay` restarted (see the
+Program log for whether the restart was done by the PM or needs the owner).
+
 ### Still to do
 
 1. Owner plays it and gives notes.
 2. Optional art and 17 new Bella lines: `docs/bellafox-feud-2-art-and-voice.md`
    has every prompt and the line list. The game is complete without them.
-3. Port the stale browser suites to the 2.0 DOM.
+3. Browser tests: the old Playwright suites were deleted as stale. If wanted, write new ones against `window.__feud.actions` / `window.__feud.ui`.
 4. Deploy: unchanged from section 4.
 
 ---

@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>BellaFox Feud</title>
 <meta name="description" content="The survey game show for 1-4 players. Bella hosts.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo+Black&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261116-feud5">
+<link rel="stylesheet" href="styles.css?v=20261116-feud6">
 </head>
 <body>
+<div class="rotate-note" aria-hidden="true"><div><b>Turn your phone sideways</b>The show is widescreen.</div></div>
 <div id="stage-wrap">
   <div id="stage" data-screen="attract">
 
@@ -247,7 +250,8 @@
 
       <div class="fm-cols" id="fmCols">
         <span></span><span class="fm-col-name" id="fmColA">&nbsp;</span><span></span>
-        <span class="fm-col-name" id="fmColB">&nbsp;</span><span></span>
+        <span class="fm-col-name" id="fmColB">&nbsp;</span><span class="fm-col-bpts"></span>
+        <span class="fm-col-name fm-col-top">#1 answer</span>
       </div>
       <div class="fm-rows" id="fmRows"></div>
 
@@ -280,7 +284,6 @@
         <div class="standings" id="standings"></div>
         <div class="result-actions">
           <button type="button" class="big-button primary-action" id="resultPrimary">CONTINUE <kbd>SPACE</kbd></button>
-          <button type="button" class="ghost-button" id="resultAgain" hidden>PLAY AGAIN</button>
           <button type="button" class="ghost-button" id="resultSetup" hidden>CHANGE PLAYERS</button>
           <button type="button" class="ghost-button" id="resultMenu" hidden>MAIN MENU</button>
         </div>
@@ -341,7 +344,7 @@
         <ol class="how-steps">
           <li><b>The survey.</b> We asked 100 people a question. The most popular answers are hidden on the board. Popular answers are worth more.</li>
           <li><b>Face-off.</b> Two players race for control: buzz in (keys <kbd>A</kbd> and <kbd>L</kbd>) and type an answer. The higher answer wins and chooses to <b>play</b> or <b>pass</b>.</li>
-          <li><b>Play the board.</b> Whoever plays keeps typing answers. Each one found adds to the round pot. A wrong answer is a strike.</li>
+          <li><b>Play the board.</b> Whoever plays keeps typing answers. Each one found adds to the round pot. A wrong answer is a strike. The board holds the top three answers, plus one for each player beyond two.</li>
           <li><b>Three strikes &rarr; steal.</b> The other player gets one guess. Get it right and they take the whole pot. Miss and the pot stays put.</li>
           <li><b>Later rounds are worth more</b> &mdash; double, then triple. Highest score wins and goes to <b>Fast Money</b>: five quick questions against the clock.</li>
         </ol>
@@ -374,6 +377,6 @@
 </div>
 
 <noscript><p style="color:#fff;font:600 18px system-ui;padding:24px">This game needs JavaScript enabled.</p></noscript>
-<script type="module" src="app.js?v=20261116-feud5"></script>
+<script type="module" src="app.js?v=20261116-feud6"></script>
 </body>
 </html>

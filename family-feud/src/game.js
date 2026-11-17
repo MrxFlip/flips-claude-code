@@ -4,7 +4,7 @@
 // app.js turns those events into animation and sound. Keeping the two apart
 // is what makes the whole match testable in Node without a browser.
 
-import { matchAnswer } from './match.js?v=20261116-feud5';
+import { matchAnswer } from './match.js?v=20261116-feud6';
 
 export const PHASE = {
   SETUP: 'SETUP',
@@ -88,6 +88,7 @@ export function createGame({
     rounds: settings.rounds ?? ROUNDS.length,        // scoring rounds before the finale
     buzzIn: settings.buzzIn ?? false,                // face-off: race to buzz vs. fixed order
     preshuffled: settings.preshuffled ?? false,      // caller already ordered the question pool
+    boardSize: settings.boardSize ?? null,           // show only the top N answers (null = all)
     ...settings,
   };
   const roundList = cfg.rounds === ROUNDS.length ? ROUNDS : roundsFor(cfg.rounds);
@@ -142,9 +143,31 @@ export function createGame({
   const allRevealed = () => state.revealed.length === state.question.answers.length
     && state.revealed.every(Boolean);
 
+  /**
+   * Put a question on the board.
+   *
+   * With `boardSize` set, only the top N answers are in play. A full six-answer
+   * board is a long slog for two people; the app sizes it to the table (three
+   * answers for two players, one more per extra player). The answers that did
+   * not make the cut are kept as `offBoard` so a player who names one can be
+   * told it was a real answer that simply ranked too low — it still costs the
+   * strike, the same as on the show.
+   */
   function loadQuestion(q) {
-    state.question = q;
-    state.revealed = new Array(q.answers.length).fill(false);
+    const n = cfg.boardSize ? Math.max(1, Math.min(cfg.boardSize, q.answers.length)) : q.answers.length;
+    state.question = n < q.answers.length
+      ? { ...q, answers: q.answers.slice(0, n), offBoard: q.answers.slice(n) }
+      : q;
+    state.revealed = new Array(n).fill(false);
+  }
+
+  /** If `text` names a survey answer that is not on this board, say which. */
+  function offBoardHit(text) {
+    const rest = state.question?.offBoard;
+    if (!rest?.length) return null;
+    const r = matchAnswer(text, { answers: rest }, []);
+    if (r.status !== 'HIT') return null;
+    return { text: r.answer.text, rank: state.question.answers.length + r.rank };
   }
 
   function revealRank(rank, events, { award = true } = {}) {
@@ -281,7 +304,7 @@ export function createGame({
     events.push({ type: 'faceoffEntry', player: who, text, hit, rank: hit ? r.rank : null });
 
     if (hit) revealRank(r.rank, events, { award: true });
-    else events.push({ type: 'faceoffMiss', player: who });
+    else events.push({ type: 'faceoffMiss', player: who, offBoard: offBoardHit(text) });
 
     // Top answer on the first try ends the face-off immediately.
     if (hit && r.rank === 1 && fo.turn === 0) return [...events, ...resolveFaceoff()];
@@ -375,7 +398,7 @@ export function createGame({
     }
 
     state.strikes += 1;
-    events.push({ type: 'strike', count: state.strikes, text });
+    events.push({ type: 'strike', count: state.strikes, text, offBoard: offBoardHit(text) });
     if (state.strikes >= cfg.strikesAllowed) {
       // Solo: nobody to steal, so three strikes simply ends the board and the
       // player keeps what they found.
@@ -401,7 +424,7 @@ export function createGame({
       events.push({ type: 'stealSuccess', player: state.stealer });
       return [...events, ...bankTo(state.stealer, 'steal')];
     }
-    events.push({ type: 'stealFailed', player: state.stealer, text });
+    events.push({ type: 'stealFailed', player: state.stealer, text, offBoard: offBoardHit(text) });
     return [...events, ...bankTo(state.controller, 'stealFailed')];
   }
 
@@ -599,6 +622,7 @@ export function createGame({
           player: fm.order[turn],
           text: entry.text,
           matched: entry.answerText,
+          rank: entry.rank,
           points: entry.points,
           duplicate: dup,
         });
@@ -649,9 +673,20 @@ export function createGame({
     const fm = state.fm;
     state.phase = PHASE.FM_RESULT;
     const won = fm.total >= fm.target;
+    // The number one answer to each question, and who (if anyone) said it.
+    // A slot that was swapped for the spare question is not counted: that
+    // entry answers a different question.
+    const tops = fm.questions.map((q, index) => ({
+      index,
+      text: q.answers[0].text,
+      points: q.answers[0].points,
+      saidBy: fm.entries
+        .map((list, turn) => (list[index] && !list[index].replaced && list[index].rank === 1 ? fm.order[turn] : null))
+        .filter((seat) => seat != null),
+    }));
     return [
       { type: 'phase', to: state.phase },
-      { type: 'fmResult', total: fm.total, target: fm.target, won },
+      { type: 'fmResult', total: fm.total, target: fm.target, won, tops },
     ];
   }
 

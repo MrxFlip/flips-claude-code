@@ -442,6 +442,64 @@ const has = (evts, type) => evts.some((e) => e.type === type);
   check('S: the match ends after round 4', has(g.advanceRound(), 'mainResult'));
 }
 
+// ---------------------------------------------------------------- T: board size
+{
+  const g = newGame({ boardSize: 3 });
+  g.startRound(); g.beginFaceoff();
+  const q = g.state.question;
+  check('T: the board holds only the top three', q.answers.length === 3 && g.state.revealed.length === 3);
+  check('T: the rest are kept off the board', q.offBoard.length === 3);
+  check('T: the board keeps the highest answers', q.answers[0].points >= q.answers[2].points
+    && q.answers[2].points >= q.offBoard[0].points);
+  g.submitFaceoff(q.answers[0].text);
+  g.choose('play');
+  const miss = g.submitBoard(q.offBoard[0].text);
+  const strike = last(miss, 'strike');
+  check('T: a real answer that ranked too low is still a strike', g.state.strikes === 1);
+  check('T: ...and the strike says which answer it was', strike?.offBoard?.text === q.offBoard[0].text
+    && strike?.offBoard?.rank === 4, JSON.stringify(strike?.offBoard));
+  check('T: plain garbage carries no such note', last(g.submitBoard(GARBAGE[0]), 'strike')?.offBoard === null);
+  g.submitBoard(q.answers[1].text);
+  const done = g.submitBoard(q.answers[2].text);
+  check('T: three answers clears a three-answer board', last(done, 'bank')?.reason === 'cleared');
+  check('T: the pot is only what was on the board',
+    last(done, 'bank')?.pot === q.answers.reduce((n, a) => n + a.points, 0));
+
+  const full = newGame();
+  full.startRound(); full.beginFaceoff();
+  check('T: with no board size the whole survey is in play', full.state.question.answers.length === 6
+    && full.state.question.offBoard === undefined);
+}
+
+// ---------------------------------------------------------------- U: Fast Money top answers
+{
+  const g = newGame({ rounds: 1 });
+  g.startRound(); g.beginFaceoff();
+  const a = g.state.question.answers;
+  g.submitFaceoff(a[0].text); g.choose('play');
+  for (let i = 1; i < a.length; i++) g.submitBoard(a[i].text);
+  g.advanceRound();
+  g.startFastMoney();
+  g.fmBeginTurn();
+  const qs = g.state.fm.questions;
+  g.fmSubmit(qs[0].answers[0].text);               // player 1 finds the #1 answer to Q1
+  for (let i = 1; i < 5; i++) g.fmSubmit(GARBAGE[0]);
+  g.fmBeginTurn();
+  g.fmSubmit(GARBAGE[1]);
+  g.fmSubmit(qs[1].answers[0].text);               // player 2 finds the #1 answer to Q2
+  for (let i = 2; i < 5; i++) g.fmSubmit(null);
+  const rev = g.fmReveal();
+  const result = last(rev, 'fmResult');
+  const first = rev.find((e) => e.type === 'fmRevealEntry' && e.turn === 0 && e.index === 0);
+  check('U: a reveal carries the rank it matched', first?.rank === 1);
+  check('U: the result lists a top answer per question', result?.tops?.length === 5);
+  check('U: it names the #1 answer', result?.tops?.[0]?.text === qs[0].answers[0].text
+    && result?.tops?.[0]?.points === qs[0].answers[0].points);
+  check('U: it knows who said it', JSON.stringify(result?.tops?.[0]?.saidBy) === JSON.stringify([g.state.fm.order[0]])
+    && JSON.stringify(result?.tops?.[1]?.saidBy) === JSON.stringify([g.state.fm.order[1]]));
+  check('U: and when nobody did', result?.tops?.[2]?.saidBy.length === 0);
+}
+
 for (const f of failures) console.error(`FAIL ${f}`);
 console.log(`\n${failures.length ? 'FAIL' : 'PASS'} — ${passed}/${passed + failures.length} game checks`);
 process.exit(failures.length ? 1 : 0);

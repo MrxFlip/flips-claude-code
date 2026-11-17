@@ -17,6 +17,7 @@ export const NET_STATE = {
   CONNECTING: 'connecting',
   LOBBY: 'lobby',
   PLAYING: 'playing',
+  RECONNECTING: 'reconnecting',
   LOST: 'lost',
 };
 
@@ -58,10 +59,19 @@ function normalizeUrl(raw) {
 export function createNet() {
   let sock = null;
   let state = NET_STATE.OFFLINE;
+  let url = null;
   let code = null;
   let seat = null;
+  let token = null;               // proves this browser owns its seat when it reconnects
   let players = [];
   let closedReason = null;
+  let leaving = false;            // true once WE chose to go, so a close is not a drop
+  let retryTimer = 0;
+  let retryUntil = 0;
+
+  // How long a dropped browser keeps trying to get its seat back.
+  const RETRY_FOR_MS = 3 * 60 * 1000;
+  const RETRY_EVERY_MS = 2000;
 
   const listeners = new Map();
   const on = (type, fn) => {
@@ -104,18 +114,14 @@ export function createNet() {
     return true;
   }
 
-  function connect(url) {
-    if (!url) return Promise.reject(new Error('Online play is not configured for this copy of the game.'));
-    if (sock) disconnect();
-    state = NET_STATE.CONNECTING;
-
+  /** Open a socket. Resolves once it is open; wires the lifetime handlers. */
+  function open(target) {
     return new Promise((resolve, reject) => {
       let settled = false;
       let ws;
       try {
-        ws = new WebSocket(url);
+        ws = new WebSocket(target);
       } catch {
-        state = NET_STATE.OFFLINE;
         reject(new Error('That relay address is not valid.'));
         return;
       }
@@ -124,7 +130,6 @@ export function createNet() {
       const fail = (message) => {
         if (settled) return;
         settled = true;
-        state = NET_STATE.OFFLINE;
         reject(new Error(message));
       };
       // A WebSocket that cannot reach its server fires `error` then `close`
@@ -142,11 +147,9 @@ export function createNet() {
       ws.addEventListener('close', () => {
         clearTimeout(timer);
         fail('Could not reach the game server.');
-        const wasPlaying = state === NET_STATE.PLAYING || state === NET_STATE.LOBBY;
-        state = wasPlaying ? NET_STATE.LOST : NET_STATE.OFFLINE;
-        rejectAll(new Error('The connection closed.'));
-        if (wasPlaying) emit('closed', closedReason ?? 'The connection to the game server dropped.');
+        if (sock !== ws) return;            // an older socket; a newer one has replaced it
         sock = null;
+        dropped();
       });
       ws.addEventListener('message', (ev) => {
         let msg;
@@ -154,6 +157,72 @@ export function createNet() {
         receive(msg);
       });
     });
+  }
+
+  function connect(target) {
+    if (!target) return Promise.reject(new Error('Online play is not configured for this copy of the game.'));
+    if (sock) disconnect();
+    url = target;
+    leaving = false;
+    closedReason = null;
+    state = NET_STATE.CONNECTING;
+    return open(target).catch((err) => { state = NET_STATE.OFFLINE; throw err; });
+  }
+
+  /**
+   * The socket closed and we did not ask it to.
+   *
+   * Mid-match that is not the end of anything: the relay holds the seat, so
+   * keep knocking until it lets us back in. In the lobby there is nothing to
+   * return to — the seat is simply gone — so that is reported as closed.
+   */
+  function dropped() {
+    rejectAll(new Error('The connection closed.'));
+    if (leaving || state === NET_STATE.OFFLINE || state === NET_STATE.LOST) return;
+    if (closedReason) { state = NET_STATE.LOST; return; }      // the server already said why
+
+    if (state === NET_STATE.PLAYING || state === NET_STATE.RECONNECTING) {
+      if (state !== NET_STATE.RECONNECTING) {
+        state = NET_STATE.RECONNECTING;
+        retryUntil = Date.now() + RETRY_FOR_MS;
+        emit('reconnecting');
+      }
+      scheduleRetry();
+      return;
+    }
+    const was = state;
+    state = was === NET_STATE.LOBBY ? NET_STATE.LOST : NET_STATE.OFFLINE;
+    if (was === NET_STATE.LOBBY) emit('closed', 'The connection to the game server dropped.');
+  }
+
+  function scheduleRetry() {
+    clearTimeout(retryTimer);
+    if (Date.now() > retryUntil) {
+      state = NET_STATE.LOST;
+      emit('closed', 'Could not get back to the game.');
+      return;
+    }
+    retryTimer = setTimeout(async () => {
+      if (state !== NET_STATE.RECONNECTING) return;
+      try {
+        await open(url);
+        const reply = expect('joined', 8000);
+        send({ t: 'rejoin', code, token });
+        await reply;
+        state = NET_STATE.PLAYING;
+        emit('rejoined');
+      } catch (err) {
+        if (err && err.gone) {
+          state = NET_STATE.LOST;
+          emit('closed', 'That game is no longer running.');
+          return;
+        }
+        // open() failing leaves `sock` pointing at a dead socket whose own
+        // close handler will call dropped() -> scheduleRetry(). If it already
+        // has, this is a harmless second timer reset.
+        if (state === NET_STATE.RECONNECTING) scheduleRetry();
+      }
+    }, RETRY_EVERY_MS);
   }
 
   function receive(msg) {
@@ -164,12 +233,14 @@ export function createNet() {
       case 'joined':
         code = msg.code;
         seat = msg.seat;
-        state = NET_STATE.LOBBY;
-        settle('joined', { code, seat });
+        token = msg.token ?? token;
+        // Walking into a match that is already running (a rejoin by code).
+        state = msg.started ? NET_STATE.PLAYING : NET_STATE.LOBBY;
+        settle('joined', { code, seat, started: !!msg.started, rejoined: !!msg.rejoined });
         return;
 
       case 'roster':
-        players = msg.players ?? [];
+        players = (msg.players ?? []).map((pl) => ({ ...pl, connected: pl.connected !== false }));
         emit('roster', players);
         return;
 
@@ -184,14 +255,17 @@ export function createNet() {
 
       case 'closed':
         closedReason = msg.reason ?? 'The game ended.';
+        state = NET_STATE.LOST;
+        clearTimeout(retryTimer);
         emit('closed', closedReason);
         return;
 
-      case 'error':
-        if (!settle('joined', new Error(msg.message ?? 'The server refused that.'), true)) {
-          emit('error', msg.message ?? 'Something went wrong.');
-        }
+      case 'error': {
+        const err = new Error(msg.message ?? 'The server refused that.');
+        if (msg.code === 'gone') err.gone = true;
+        if (!settle('joined', err, true)) emit('error', msg.message ?? 'Something went wrong.');
         return;
+      }
 
       default:
         return;
@@ -200,10 +274,13 @@ export function createNet() {
 
   function disconnect() {
     const s = sock;
+    leaving = true;
+    clearTimeout(retryTimer);
     sock = null;
     state = NET_STATE.OFFLINE;
     code = null;
     seat = null;
+    token = null;
     players = [];
     if (s) {
       try { s.send(JSON.stringify({ t: 'leave' })); } catch {}
@@ -238,12 +315,18 @@ export function createNet() {
       return send({ t: 'relay', body });
     },
 
+    /** Test hook: drop the socket the way a network failure would. */
+    __dropForTest() { try { sock?.close(); } catch {} },
+
     get state() { return state; },
     get code() { return code; },
     get seat() { return seat; },
     get players() { return players; },
     get isHost() { return seat === 0; },
-    get online() { return state === NET_STATE.LOBBY || state === NET_STATE.PLAYING; },
+    get online() {
+      return state === NET_STATE.LOBBY || state === NET_STATE.PLAYING || state === NET_STATE.RECONNECTING;
+    },
+    get reconnecting() { return state === NET_STATE.RECONNECTING; },
   };
 }
 
@@ -259,6 +342,10 @@ export function createNet() {
  */
 export function snapshotFor(state, seat) {
   const copy = JSON.parse(JSON.stringify(state));
+
+  // Answers that exist in the survey but are not on this board (see boardSize
+  // in src/game.js) are only for the engine's "good answer, not up there" hint.
+  if (copy.question) delete copy.question.offBoard;
 
   if (copy.question?.answers) {
     copy.question.answers = copy.question.answers.map((a, i) => (

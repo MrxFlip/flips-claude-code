@@ -48,7 +48,8 @@
 
 html, body {
   margin: 0; padding: 0; height: 100%;
-  overflow: hidden;
+  overflow: hidden; overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%; touch-action: manipulation;
   background: var(--stage-deep);
   font-family: var(--font-ui);
   color: var(--ink);
@@ -1408,6 +1409,72 @@ kbd {
 }
 .big-button:disabled { animation: none !important; filter: grayscale(.6); }
 
+/* ---------- short boards ---------- */
+/* Three or four answers stack in a single column of wide tiles. */
+.board[data-cols="1"] { grid-template-columns: 1fr; padding-left: 150px; padding-right: 150px; }
+.art-boardframe .board[data-cols="1"] { padding-left: 140px; padding-right: 140px; }
+.board[data-cols="1"] .answer-text { font-size: 42px; }
+.board[data-cols="1"] .answer-text.is-long  { font-size: 36px; }
+.board[data-cols="1"] .answer-text.is-xlong { font-size: 30px; }
+.board[data-cols="1"] .rank-badge { width: 66px; height: 66px; font-size: 38px; }
+.board[data-cols="1"] .points-box { min-width: 110px; height: 78px; font-size: 48px; }
+.board[data-cols="1"] .face-front { padding: 0 18px; }
+
+/* ---------- fast money: the number one answers ---------- */
+.fm-cols, .fm-row { grid-template-columns: 60px 1fr 110px 1fr 110px 340px; }
+.fm-solo .fm-cols, .fm-solo .fm-row { width: 1440px; grid-template-columns: 60px 1fr 140px 340px; }
+.fm-solo .fm-col-bpts { display: none; }
+.fm-solo .fm-cols span:last-child { display: block; }
+.fm-col-top { color: var(--gold); padding-left: 14px; visibility: hidden; }
+.fm-tops .fm-col-top { visibility: visible; }
+.fm-top {
+  height: 62px; padding: 0 12px 0 16px; border-radius: 10px;
+  display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; align-items: center;
+  column-gap: 10px;
+  background: rgba(5, 10, 36, .7);
+  border: 3px dashed rgba(255, 200, 61, .22);
+  visibility: hidden;
+}
+.fm-tops .fm-top { visibility: visible; }
+.fm-top > * { opacity: 0; }
+.fm-top.shown { border-style: solid; border-color: rgba(255, 255, 255, .35); animation: bump .45s var(--ease-pop); }
+.fm-top.shown > * { opacity: 1; }
+.fm-top.said { border-color: var(--gold); background: rgba(255, 200, 61, .16); box-shadow: 0 0 26px rgba(255, 200, 61, .35); }
+.fm-top-text {
+  font: 800 21px/1.1 var(--font-ui); text-transform: uppercase;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fm-top-pts { grid-row: 1 / span 2; grid-column: 2; font-family: var(--font-display); font-size: 34px; color: var(--gold); }
+.fm-top-who { font: 700 13px/1.1 var(--font-ui); letter-spacing: .1em; text-transform: uppercase; color: rgba(255, 255, 255, .55); }
+.fm-top.said .fm-top-who { color: #8dffb4; }
+.fm-a.top-hit, .fm-b.top-hit { box-shadow: inset 0 0 0 4px var(--gold), 0 0 26px rgba(255, 200, 61, .6); }
+.fm-row { height: 78px; }
+
+/* ---------- online: someone has dropped out ---------- */
+.podium.away { opacity: .5; filter: grayscale(.7); }
+.podium.away::before {
+  content: 'RECONNECTING'; position: absolute; left: 50%; top: 10px; transform: translateX(-50%);
+  padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+  background: var(--strike-red); color: #fff;
+  font: 800 12px/1 var(--font-ui); letter-spacing: .14em;
+}
+.net-badge.bad { border-color: var(--strike-red); color: #ffb3b3; }
+
+/* ---------- phones ---------- */
+/* While the keyboard is up the stage is slid to the box being typed in (see
+   src/stage.js); Bella and the rails would only crowd what little is left. */
+#stage[data-typing] .host, #stage[data-typing] .subtitle { display: none; }
+.rotate-note { display: none; }
+@media (orientation: portrait) and (pointer: coarse) and (max-width: 700px) {
+  .rotate-note {
+    position: fixed; inset: 0; z-index: 200;
+    display: grid; place-items: center; text-align: center; padding: 32px;
+    background: #050a24; color: rgba(255, 255, 255, .8);
+    font: 600 17px/1.5 system-ui, sans-serif;
+  }
+  .rotate-note b { display: block; margin-bottom: 8px; font-size: 24px; color: #ffc83d; }
+}
+
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
@@ -1419,15 +1486,4 @@ kbd {
   .strike-overlay.show { animation: fadeFlash .8s ease !important; animation-duration: .8s !important; }
   @keyframes fadeFlash { 0% { opacity: 0; } 25%, 65% { opacity: 1; } 100% { opacity: 0; } }
   .confetti { display: none; }
-}
-
-/* ---------- mobile fallback ---------- */
-@media (max-width: 900px) and (pointer: coarse) {
-  #stage-wrap::after {
-    content: 'Best on a big screen with a keyboard. Rotate to landscape for the full stage.';
-    position: fixed; inset: auto 0 0 0; padding: 10px 16px;
-    font: 600 13px/1.4 var(--font-ui); text-align: center;
-    color: rgba(255, 255, 255, .8); background: rgba(5, 10, 36, .9);
-    z-index: 99;
-  }
 }

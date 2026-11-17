@@ -112,6 +112,7 @@ Client to server:
 | `{t:"join", code, name}` | Take the next free seat in that room |
 | `{t:"start"}` | Host only; tells the room the match is beginning |
 | `{t:"relay", body}` | Pass `body` on. Host to everyone else, guest to the host |
+| `{t:"rejoin", code, token}` | Take back the seat this browser held before its socket dropped |
 | `{t:"leave"}` | Leave; the room closes if the host leaves |
 
 Server to client:
@@ -119,8 +120,8 @@ Server to client:
 | Message | Meaning |
 | --- | --- |
 | `{t:"hello"}` | Connected |
-| `{t:"joined", code, seat}` | You are in, in this seat |
-| `{t:"roster", players, host}` | Who is in the room now |
+| `{t:"joined", code, seat, token, started, rejoined}` | You are in, in this seat. Keep the token |
+| `{t:"roster", players, host}` | Who holds a seat now; each player has `connected` |
 | `{t:"start"}` | The host started the match |
 | `{t:"relay", from, body}` | Someone's `body`, with the seat it came from |
 | `{t:"closed", reason}` | The room ended |
@@ -148,8 +149,12 @@ The host redacts each batch per seat before sending it (`snapshotFor` and
 
 ## Known limits
 
-- **No reconnect.** If the host's browser closes, the match ends and everyone is
-  told why. A dropped guest can rejoin only before the match starts.
+- **Reconnect is by seat, not by session.** Once a match has started, a dropped
+  socket leaves a "ghost" holding the seat. The same browser gets it back with
+  `{t:"rejoin", code, token}` (the token arrives in `joined`); anyone else gets
+  it by joining with the code and the same name. A dropped host has
+  `HOST_GRACE_MS` (default three minutes) to return before the room closes. A
+  host who closes the tab loses the match: the engine lived there.
 - **The host is the authority.** A host who edits their own game state in the
   console changes the match. This is a game for friends, not a tournament.
 - **No TLS of its own.** Terminate it in nginx. A page served over `https:`
