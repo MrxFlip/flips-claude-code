@@ -169,7 +169,12 @@ let online = false;            // true once this browser is in a room
 let mySeat = 0;
 const isHost = () => !online || mySeat === 0;
 /** True when this screen owns the input the engine is currently waiting for. */
-const seatConnected = (seat) => net.players.find((pl) => pl.seat === seat)?.connected !== false;
+// A seat that is missing from the roster altogether counts as gone too: that is
+// how a relay without seat-holding reports a drop.
+const seatConnected = (seat) => {
+  const pl = net.players.find((x) => x.seat === seat);
+  return !!pl && pl.connected !== false;
+};
 // The host also answers for any seat whose player has dropped out, so a lost
 // connection never leaves the match waiting on someone who is not there.
 const myTurn = (who) => !online || who === mySeat || (mySeat === 0 && !seatConnected(who));
@@ -1601,6 +1606,12 @@ function rosterChanged() {
   const before = knownConnected;
   knownConnected = new Map(net.players.map((pl) => [pl.seat, pl.connected]));
   if (!online || !game) return;
+  // A seat that vanished from the roster entirely (older relay) is a drop too.
+  const vanished = [...before.keys()].some((seat) => seat !== mySeat && !knownConnected.has(seat));
+  if (vanished && isHost()) {
+    toast('A player lost connection — you can answer for them', true, 4200);
+    reassertPrompt();
+  }
   for (const pl of net.players) {
     if (pl.seat === mySeat || before.get(pl.seat) === undefined || before.get(pl.seat) === pl.connected) continue;
     if (!pl.connected) {
